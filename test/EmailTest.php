@@ -2,8 +2,11 @@
 
 declare(strict_types=1);
 
+namespace GuiBranco\Pancake\Tests;
+
 use GuiBranco\Pancake\Email;
 use PHPUnit\Framework\TestCase;
+use InvalidArgumentException;
 
 final class EmailTest extends TestCase
 {
