@@ -1,12 +1,11 @@
 version = 1
 
 test_patterns = [
-  "**/tests/**"
+  "tests/**"
 ]
 
 exclude_patterns = [
-  "vendor/**",
-  "**/examples/**"
+  "vendor/**"
 ]
 
 [[analyzers]]
@@ -22,7 +21,7 @@ name = "secrets"
 name = "php"
 
 [analyzers.meta]
-  bootstrap_files = ["config/bootstrap.php"]
+  bootstrap_files = ["vendor/autoload.php"]
   skip_doc_coverage = ["class", "magic", "nonpublic"]
 
 [[analyzers]]

@@ -35,7 +35,7 @@ jobs:
           php_version: 8.3
           php_extensions: xdebug
           coverage_text: true
-          coverage_cobertura: coverage.cobertura.xml
+          coverage_cobertura: coverage.xml
           bootstrap: vendor/autoload.php
           args: --coverage-filter src tests
         env:
@@ -44,4 +44,4 @@ jobs:
       - name: Build and analyze
         env:
           DEEPSOURCE_DSN: ${{ secrets.DEEPSOURCE_DSN }}
-        run: ./bin/deepsource report --analyzer test-coverage --key php --value-file coverage.cobertura.xml
+        run: ./bin/deepsource report --analyzer test-coverage --key php --value-file ./coverage.xml
