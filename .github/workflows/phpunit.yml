@@ -17,5 +17,5 @@ jobs:
             version: 11
             php_version: 8.3
             bootstrap: vendor/autoload.php
-            configuration: test/phpunit.xml
-            args: test
+            configuration: tests/phpunit.xml
+            args: tests

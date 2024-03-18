@@ -10,7 +10,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "GuiBranco\\Pancake\\Tests\\": "test/"
+            "GuiBranco\\Pancake\\Tests\\": "tests/"
         }
     },
     "authors": [
