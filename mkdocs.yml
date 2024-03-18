@@ -1,0 +1,8 @@
+site_name: Pancake
+repo_url: https://github.com/guibranco/pancake
+theme:
+  name: dracula
+  logo: logo.png
+  favicon: images/favicon.png
+  icon:
+    repo: fontawesome/brands/github
