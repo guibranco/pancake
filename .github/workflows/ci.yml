@@ -42,7 +42,6 @@ jobs:
         uses: php-actions/composer@v6
         with:
           php_extensions: sockets
-          dev: no
           progress: yes
           
       - name: Run PHPUnit
