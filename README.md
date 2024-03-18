@@ -1,6 +1,6 @@
 # Pancake
 
-🧰 🛠️ Pancake project - toolkit for PHP projects
+🧰 🛠️ Pancake project - a toolkit for PHP projects.
 
 
 [![GitHub license](https://img.shields.io/github/license/guibranco/Pancake)](https://github.com/guibranco/Pancake)
