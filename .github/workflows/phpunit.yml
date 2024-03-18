@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-        - uses: actions/checkout@v3
+        - uses: actions/checkout@v4
   
         - uses: php-actions/composer@v6
   
@@ -16,5 +16,10 @@ jobs:
           with:
             version: 11
             php_version: 8.3
+            php_extensions: xdebug
+            coverage_text: true
             bootstrap: vendor/autoload.php
-            vendored_phpunit_path: vendor/bin/phpunit
+            args: --coverage-filter src tests
+          env:
+            XDEBUG_MODE: coverage
+            
