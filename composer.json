@@ -1,0 +1,24 @@
+{
+    "name": "guibranco/pancake",
+    "description": "The Pancake project, a toolkit for PHP projects",
+    "type": "library",
+    "require": {
+        "php-amqplib/php-amqplib": "^3.6"
+    },
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "GuiBranco\\Pancake\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Guilherme Branco Stracini",
+            "email": "guilherme@guilhermebranco.com.br"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require-dev": {
+        "phpunit/phpunit": "11"
+    }
+}
