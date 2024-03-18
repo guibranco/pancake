@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:noNamespaceSchemaLocation="../vendor/phpunit/phpunit/phpunit.xsd"
+  colors= "true"
+  executionOrder="random"
+  failOnWarning="true"
+  failOnRisky="true"
+  failOnEmptyTestSuite="true"
+  beStrictAboutOutputDuringTests="true">
+  <php>
+    <ini name="display_errors" value="On"/>
+    <ini name="error_reporting" value="-1"/>
+  </php>
+
+  <testsuites>
+    <testsuite name="Tests">
+      <directory>test/</directory>
+    </testsuite>
+  </testsuites>
+
+  <coverage>
+    <report>
+        <cobertura outputFile="coverage.xml" />
+        <text outputFile="coverage.txt" />
+        <html outputDirectory="coverage.html" />
+    </report>
+  </coverage>
+</phpunit>
