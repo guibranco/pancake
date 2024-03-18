@@ -1,5 +1,9 @@
 site_name: Pancake
-repo_url: https://github.com/guibranco/pancake
+repo_name: guibranco/Pancake
+repo_url: https://github.com/guibranco/Pancake
+site_url: http://guilhermebranco.com.br
+copyright: Guilherme Branco Stracini
+
 theme:
   name: dracula
   logo: logo.png
