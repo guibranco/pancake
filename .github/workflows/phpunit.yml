@@ -8,9 +8,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
-    
+
     - uses: php-actions/composer@v6
-      with:
-        php_extensions: sockets
 
     - uses: php-actions/phpunit@v3

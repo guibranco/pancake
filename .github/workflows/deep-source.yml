@@ -27,9 +27,6 @@ jobs:
   
       - name: Install dependencies
         uses: php-actions/composer@v6
-        with:
-          php_extensions: sockets
-          progress: yes
 
       - name: Run PHPUnit
         uses: php-actions/phpunit@v3

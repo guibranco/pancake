@@ -2,9 +2,6 @@
     "name": "guibranco/pancake",
     "description": "The Pancake project, a toolkit for PHP projects",
     "type": "library",
-    "require": {
-        "php-amqplib/php-amqplib": "^3.6"
-    },
     "license": "MIT",
     "autoload": {
         "psr-4": {
