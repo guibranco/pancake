@@ -4,6 +4,9 @@ repo_url: https://github.com/guibranco/Pancake
 site_url: http://guilhermebranco.com.br
 copyright: Guilherme Branco Stracini
 
+extra_css:
+  - extra.css
+
 theme:
   name: dracula
   logo: logo.png
