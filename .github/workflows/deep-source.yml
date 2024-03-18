@@ -28,11 +28,17 @@ jobs:
       - name: Install dependencies
         uses: php-actions/composer@v6
 
-      - name: Run PHPUnit
+      - name: PHPUnit Tests
         uses: php-actions/phpunit@v3
         with:
-            php_extensions: "xdebug"
-            coverage_cobertura: "coverage.cobertura.xml"
+          version: 11
+          php_version: 8.3
+          php_extensions: xdebug
+          coverage_text: true
+          bootstrap: vendor/autoload.php
+          args: --coverage-filter src tests
+        env:
+          XDEBUG_MODE: coverage
 
       - name: Build and analyze
         env:
