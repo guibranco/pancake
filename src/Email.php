@@ -30,7 +30,7 @@ final class Email
     {
         return new self($email);
     }
-    
+
     /**
      * @return string
      */
