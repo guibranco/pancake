@@ -1,5 +1,7 @@
 site_name: Pancake
 repo_url: https://github.com/guibranco/pancake
+extra_css:
+  - extra.css
 theme:
   name: dracula
   logo: logo.png
