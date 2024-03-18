@@ -6,6 +6,10 @@ namespace GuiBranco\Pancake;
 
 use InvalidArgumentException;
 
+/**
+ * Class Email
+ * @package GuiBranco\Pancake
+ */
 final class Email
 {
     private string $email;
@@ -17,11 +21,19 @@ final class Email
         $this->email = $email;
     }
 
+    /**
+     * @param string $email
+     * @return Email
+     * @throws InvalidArgumentException
+     */
     public static function fromString(string $email): self
     {
         return new self($email);
     }
-
+    
+    /**
+     * @return string
+     */
     public function asString(): string
     {
         return $this->email;
