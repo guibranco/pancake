@@ -1,12 +1,16 @@
-name: CI
+name: phpunit-poc
 
 on: [push]
 
 jobs:
-  build-test:
+  POC:
     runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v4
+    
     - uses: php-actions/composer@v6
+      with:
+        php_extensions: sockets
+
     - uses: php-actions/phpunit@v3
