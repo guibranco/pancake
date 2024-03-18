@@ -1,0 +1,19 @@
+version = 1
+
+[[analyzers]]
+name = "test-coverage"
+
+[[analyzers]]
+name = "sql"
+
+[[analyzers]]
+name = "secrets"
+
+[[analyzers]]
+name = "php"
+
+[[analyzers]]
+name = "docker"
+
+[[transformers]]
+name = "php-cs-fixer"
