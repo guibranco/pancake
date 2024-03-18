@@ -6,7 +6,6 @@ on:
 
 jobs:
   build:
-    permissions: write-all
     runs-on: ubuntu-latest
 
     steps:
@@ -27,7 +26,6 @@ jobs:
           php_extensions: sockets
           dev: no
           progress: yes
-          working_dir: "./src/"
 
       - name: Run PHPUnit
         uses: php-actions/phpunit@v3
