@@ -8,6 +8,11 @@
             "GuiBranco\\Pancake\\": "src/"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "GuiBranco\\Pancake\\Tests\\": "test/"
+        }
+    },
     "authors": [
         {
             "name": "Guilherme Branco Stracini",
