@@ -34,7 +34,7 @@ jobs:
           version: 11
           php_version: 8.3
           php_extensions: xdebug
-          coverage_cobertura: cobertura.xml
+          coverage_cobertura: ./cobertura.xml
           bootstrap: vendor/autoload.php
           args: --coverage-filter src tests
         env:
@@ -43,10 +43,10 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           name: my-artifact
-          path: app/coverage.xml
+          path: coverage.xml
 
       - name: Build and analyze
         env:
           DEEPSOURCE_DSN: ${{ secrets.DEEPSOURCE_DSN }}
-        run: ./bin/deepsource report --analyzer test-coverage --key php --value-file app/coverage.xml
+        run: ./bin/deepsource report --analyzer test-coverage --key php --value-file coverage.xml
 
