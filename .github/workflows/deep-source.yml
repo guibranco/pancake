@@ -34,16 +34,11 @@ jobs:
           version: 11
           php_version: 8.3
           php_extensions: xdebug
-          coverage_cobertura: ./cobertura.xml
+          coverage_cobertura: coverage.xml
           bootstrap: vendor/autoload.php
           args: --coverage-filter src tests
         env:
           XDEBUG_MODE: coverage
-
-      - uses: actions/upload-artifact@v4
-        with:
-          name: my-artifact
-          path: coverage.xml
 
       - name: Build and analyze
         env:

@@ -1,18 +1,21 @@
-name: Build
+name: Codecov
 
 on:
+  push:
+    branches:
+      - main
   pull_request:
-  workflow_dispatch:
-
+    types: [opened, synchronize, reopened]
+    
 jobs:
-  build:
+  sonarcloud:
+    name: Codecov
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+    
+      - uses: actions/checkout@v4
         with:
-          fetch-depth: 0
+          ref: ${{ github.event.pull_request.head.sha }}
 
       - name: Cache Composer dependencies
         uses: actions/cache@v4
@@ -22,7 +25,7 @@ jobs:
   
       - name: Install dependencies
         uses: php-actions/composer@v6
-      
+
       - name: PHPUnit Tests
         uses: php-actions/phpunit@v3
         with:
@@ -34,3 +37,9 @@ jobs:
           args: --coverage-filter src tests
         env:
           XDEBUG_MODE: coverage
+          
+      - name: Upload to Codecov
+        uses: codecov/codecov-action@v4
+        with:
+          files: ./coverage.xml
+          verbose: true
