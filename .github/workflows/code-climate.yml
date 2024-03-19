@@ -1,4 +1,4 @@
-name: Codecov
+name: Code Climate
 
 on:
   push:
@@ -8,8 +8,8 @@ on:
     types: [opened, synchronize, reopened]
     
 jobs:
-  sonarcloud:
-    name: Codecov
+  codeclimate:
+    name: CodeClimate
     runs-on: ubuntu-latest
     steps:
     
