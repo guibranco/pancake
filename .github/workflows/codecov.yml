@@ -8,7 +8,7 @@ on:
     types: [opened, synchronize, reopened]
     
 jobs:
-  sonarcloud:
+  codecov:
     name: Codecov
     runs-on: ubuntu-latest
     steps:
