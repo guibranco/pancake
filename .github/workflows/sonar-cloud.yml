@@ -32,7 +32,6 @@ jobs:
           version: 11
           php_version: 8.3
           php_extensions: xdebug
-          coverage_text: true
           coverage_cobertura: true
           bootstrap: vendor/autoload.php
           args: --coverage-filter src tests
