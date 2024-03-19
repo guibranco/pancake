@@ -37,7 +37,12 @@ jobs:
           args: --coverage-filter src tests
         env:
           XDEBUG_MODE: coverage
-          
+
+      - name: Fix code coverage paths
+        working-directory: ./coverage
+        run: |
+            sed -i 's@'$GITHUB_WORKSPACE'@/github/workspace/@g' coverage.xml
+
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
         env:
