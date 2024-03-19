@@ -1,4 +1,4 @@
-name: Sonar Cloud
+name: Deep Source
 
 on:
   push:
@@ -6,16 +6,18 @@ on:
       - main
   pull_request:
     types: [opened, synchronize, reopened]
-    
+
 jobs:
-  sonarcloud:
-    name: SonarCloud
+  DeepSource:
+    name: Deep Source Coverage report
     runs-on: ubuntu-latest
     steps:
-    
       - uses: actions/checkout@v4
         with:
           ref: ${{ github.event.pull_request.head.sha }}
+
+      - name: Install DeepSource scanner
+        run: curl https://deepsource.io/cli | sh
 
       - name: Cache Composer dependencies
         uses: actions/cache@v4
@@ -37,9 +39,9 @@ jobs:
           args: --coverage-filter src tests
         env:
           XDEBUG_MODE: coverage
-          
-      - name: SonarCloud Scan
-        uses: SonarSource/sonarcloud-github-action@master
+
+      - name: Build and analyze
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          DEEPSOURCE_DSN: ${{ secrets.DEEPSOURCE_DSN }}
+        run: ./bin/deepsource report --analyzer test-coverage --key php --value-file coverage.xml
+

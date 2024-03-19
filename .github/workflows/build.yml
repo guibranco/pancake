@@ -1,21 +1,18 @@
-name: Sonar Cloud
+name: Build
 
 on:
-  push:
-    branches:
-      - main
   pull_request:
-    types: [opened, synchronize, reopened]
-    
+  workflow_dispatch:
+
 jobs:
-  sonarcloud:
-    name: SonarCloud
+  build:
     runs-on: ubuntu-latest
+
     steps:
-    
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
         with:
-          ref: ${{ github.event.pull_request.head.sha }}
+          fetch-depth: 0
 
       - name: Cache Composer dependencies
         uses: actions/cache@v4
@@ -25,7 +22,7 @@ jobs:
   
       - name: Install dependencies
         uses: php-actions/composer@v6
-
+      
       - name: PHPUnit Tests
         uses: php-actions/phpunit@v3
         with:
@@ -37,9 +34,3 @@ jobs:
           args: --coverage-filter src tests
         env:
           XDEBUG_MODE: coverage
-          
-      - name: SonarCloud Scan
-        uses: SonarSource/sonarcloud-github-action@master
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}

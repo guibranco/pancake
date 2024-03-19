@@ -1,4 +1,4 @@
-name: Sonar Cloud
+name: Codecov
 
 on:
   push:
@@ -9,7 +9,7 @@ on:
     
 jobs:
   sonarcloud:
-    name: SonarCloud
+    name: Codecov
     runs-on: ubuntu-latest
     steps:
     
@@ -38,8 +38,8 @@ jobs:
         env:
           XDEBUG_MODE: coverage
           
-      - name: SonarCloud Scan
-        uses: SonarSource/sonarcloud-github-action@master
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      - name: Upload to Codecov
+        uses: codecov/codecov-action@v4
+        with:
+          files: ./coverage.xml
+          verbose: true
