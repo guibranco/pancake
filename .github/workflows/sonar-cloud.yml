@@ -39,7 +39,7 @@ jobs:
           XDEBUG_MODE: coverage
 
       - name: Fix code coverage paths
-        working-directory: ./coverage
+        working-directory: ./
         run: |
             sed -i 's@'$GITHUB_WORKSPACE'@/github/workspace/@g' coverage.xml
 
