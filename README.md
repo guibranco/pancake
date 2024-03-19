@@ -34,14 +34,14 @@ Documentation: [Read the Docs](https://guibranco.github.io/Pancake/)
 
 ## Code Quality
 
-[![Codacy Badge](https://app.codacy.com/project/badge/Grade/cdac433295dc4d39b4a5377d147f50fc)](https://www.codacy.com/gh/guibranco/Pancake/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=guibranco/Pancake&amp;utm_campaign=Badge_Grade)
-[![Codacy Badge](https://app.codacy.com/project/badge/Coverage/cdac433295dc4d39b4a5377d147f50fc)](https://www.codacy.com/gh/guibranco/Pancake/dashboard?utm_source=github.com&utm_medium=referral&utm_content=guibranco/Pancake&utm_campaign=Badge_Coverage)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/9a369e8dc1e74ba1b18c309935c7af4b)](https://app.codacy.com/gh/guibranco/Pancake/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
+[![Codacy Badge](https://app.codacy.com/project/badge/Coverage/9a369e8dc1e74ba1b18c309935c7af4b)](https://app.codacy.com/gh/guibranco/Pancake/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_coverage)
 
 [![codecov](https://codecov.io/gh/guibranco/Pancake/branch/main/graph/badge.svg)](https://codecov.io/gh/guibranco/Pancake)
 [![CodeFactor](https://www.codefactor.io/repository/github/guibranco/Pancake/badge)](https://www.codefactor.io/repository/github/guibranco/Pancake)
 
-[![Maintainability](https://api.codeclimate.com/v1/badges/fdaf045297f48946696a/maintainability)](https://codeclimate.com/github/guibranco/Pancake/maintainability)
-[![Test Coverage](https://api.codeclimate.com/v1/badges/fdaf045297f48946696a/test_coverage)](https://codeclimate.com/github/guibranco/Pancake/test_coverage)
+[![Maintainability](https://api.codeclimate.com/v1/badges/ae6591111f27479fba12/maintainability)](https://codeclimate.com/github/guibranco/Pancake/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/ae6591111f27479fba12/test_coverage)](https://codeclimate.com/github/guibranco/Pancake/test_coverage)
 
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=guibranco_Pancake&metric=alert_status)](https://sonarcloud.io/dashboard?id=guibranco_Pancake)
 [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=guibranco_Pancake&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=guibranco_Pancake)
