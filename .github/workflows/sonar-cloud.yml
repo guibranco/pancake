@@ -33,6 +33,7 @@ jobs:
           php_version: 8.3
           php_extensions: xdebug
           coverage_cobertura: coverage.xml
+          log_junit: execution.xml
           bootstrap: vendor/autoload.php
           args: --coverage-filter src tests
         env:
@@ -41,6 +42,7 @@ jobs:
       - name: Fix code coverage paths
         run: |
             sed -i 's@'$GITHUB_WORKSPACE'@/github/workspace/@g' coverage.xml
+            sed -i 's@'$GITHUB_WORKSPACE'@/github/workspace/@g' execution.xml
 
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
