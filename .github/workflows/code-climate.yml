@@ -1,4 +1,4 @@
-name: Codecov
+name: Code Climate
 
 on:
   push:
@@ -8,8 +8,8 @@ on:
     types: [opened, synchronize, reopened]
     
 jobs:
-  codecov:
-    name: Codecov
+  codeclimate:
+    name: CodeClimate
     runs-on: ubuntu-latest
     steps:
     
@@ -42,8 +42,7 @@ jobs:
         run: |
             sed -i 's@'$GITHUB_WORKSPACE'@/github/workspace/@g' coverage.xml
           
-      - name: Upload coverage reports to Codecov
-        uses: codecov/codecov-action@v4.0.1
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
-          slug: guibranco/Pancake
+      - name: Test & publish code coverage
+        uses: paambaati/codeclimate-action@v5.0.0
+        env:
+          CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
