@@ -43,4 +43,9 @@ jobs:
       - name: Build and analyze
         env:
           DEEPSOURCE_DSN: ${{ secrets.DEEPSOURCE_DSN }}
-        run: ./bin/deepsource report --analyzer test-coverage --key php --value-file ./coverage.xml
+        run: ./bin/deepsource report --analyzer test-coverage --key php --value-file coverage.xml
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: my-artifact
+          path: coverage.xml
