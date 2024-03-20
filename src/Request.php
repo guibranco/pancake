@@ -135,6 +135,7 @@ class Request
     {
         $fields = $this->getFields($url, $headers);
         $fields[CURLOPT_CUSTOMREQUEST] = "HEAD";
+        $fields[CURLOPT_NOBODY] = true;
         return $this->execute($fields);
     }
 }
