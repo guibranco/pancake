@@ -7,19 +7,34 @@ class Request
     private function extractHeaders($header)
     {
         $headers = array();
+        
         foreach (explode("\r\n", $header) as $i => $line) {
-            if ($i === 0) {
-                $headers['http_code'] = $line;
-            } else {
-                $explode = explode(": ", $line);
-                if (count($explode) == 2) {
-                    list($key, $value) = $explode;
-                    $headers[$key] = $value;
-                }
+            $result = $this->extractHeader($i, $line);
+            
+            if ($result === null) {
+                continue;
             }
+
+            $headers[$result["key"]] = $result["value"];
         }
 
         return $headers;
+    }
+
+    private function extractHeader($i, $line)
+    {
+        if ($i === 0) {
+            return array("key" => "http_code", "value" => $line);
+        }
+
+        $explode = explode(": ", $line);
+
+        if ($count($explode) != 2) {
+            return null;
+        }
+
+        list($key, $value) = $explode;
+        return array("key" => $key, "value" => $value);        
     }
 
     private function execute($fields)
