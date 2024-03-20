@@ -49,7 +49,7 @@ class Request
             $error = curl_error($curl);
             curl_close($curl);
 
-            $result->status = -1;
+            $result->statusCode = -1;
             $result->error = $error;
             return $result;
         }
@@ -58,10 +58,10 @@ class Request
         $header = substr($response, 0, $headerSize);
         $headers = $this->extractHeaders($header);
         $body = substr($response, $headerSize);
-        $http_code = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+        $httpCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
         curl_close($curl);
 
-        $result->status = $http_code;
+        $result->statusCode = $httpCode;
         $result->headers = $headers;
         $result->body = $body;
         return $result;
