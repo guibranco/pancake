@@ -54,21 +54,21 @@ final class RequestTest extends TestCase
     public function testCanHead(): void
     {
         $request = new Request();
-        $response = $request->head('https://httpbin.org/get', ['Host' => 'httpbin.org']);
+        $response = $request->head('https://httpbin.org/get', ['Host: httpbin.org']);
         $this->assertEquals(200, $response->statusCode);
     }
 
     public function testCanGetWithHeaders(): void
     {
         $request = new Request();
-        $response = $request->get('https://httpbin.org/headers', ['X-Test' => 'test']);
+        $response = $request->get('https://httpbin.org/headers', ['X-Test: test']);
         $this->assertEquals(200, $response->statusCode);
     }
 
     public function testCanPostWithHeaders(): void
     {
         $request = new Request();
-        $response = $request->post('https://httpbin.org/post', ['name' => 'GuiBranco'], ['X-Test' => 'test']);
+        $response = $request->post('https://httpbin.org/post', json_encode(['name' => 'GuiBranco']), ['X-Test: test']);
         $this->assertEquals(200, $response->statusCode);
     }
 
