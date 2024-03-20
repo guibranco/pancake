@@ -6,7 +6,6 @@ namespace GuiBranco\Pancake\Tests;
 
 use GuiBranco\Pancake\Request;
 use PHPUnit\Framework\TestCase;
-use InvalidArgumentException;
 
 final class RequestTest extends TestCase
 {

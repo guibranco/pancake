@@ -29,7 +29,7 @@ class Request
 
         $explode = explode(": ", $line);
 
-        if ($count($explode) != 2) {
+        if (count($explode) != 2) {
             return null;
         }
 
