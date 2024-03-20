@@ -7,10 +7,10 @@ class Request
     private function extractHeaders($header)
     {
         $headers = array();
-        
+
         foreach (explode("\r\n", $header) as $i => $line) {
             $result = $this->extractHeader($i, $line);
-            
+
             if ($result === null) {
                 continue;
             }
@@ -34,7 +34,7 @@ class Request
         }
 
         list($key, $value) = $explode;
-        return array("key" => $key, "value" => $value);        
+        return array("key" => $key, "value" => $value);
     }
 
     private function execute($fields)
