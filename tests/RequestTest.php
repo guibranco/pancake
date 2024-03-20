@@ -9,38 +9,52 @@ use PHPUnit\Framework\TestCase;
 
 final class RequestTest extends TestCase
 {
-    public function testCanGetExampleUrl(): void
+    public function testCanGet(): void
     {
         $request = new Request();
         $response = $request->get('https://httpbin.org/get');
         $this->assertEquals(200, $response->statusCode);
     }
 
-    public function testCanPostExampleUrl(): void
+    public function testCanPost(): void
     {
         $request = new Request();
         $response = $request->post('https://httpbin.org/post', ['name' => 'GuiBranco']);
         $this->assertEquals(200, $response->statusCode);
     }
 
-    public function testCanPutExampleUrl(): void
+    public function testCanPut(): void
     {
         $request = new Request();
         $response = $request->put('https://httpbin.org/put', ['name' => 'GuiBranco']);
         $this->assertEquals(200, $response->statusCode);
     }
 
-    public function testCanPatchExampleUrl(): void
+    public function testCanPatch(): void
     {
         $request = new Request();
         $response = $request->patch('https://httpbin.org/patch', ['name' => 'GuiBranco']);
         $this->assertEquals(200, $response->statusCode);
     }
 
-    public function testCanDeleteExampleUrl(): void
+    public function testCanDelete(): void
     {
         $request = new Request();
         $response = $request->delete('https://httpbin.org/delete');
+        $this->assertEquals(200, $response->statusCode);
+    }
+
+    public function testCanOptions(): void
+    {
+        $request = new Request();
+        $response = $request->options('https://httpbin.org/get');
+        $this->assertEquals(200, $response->statusCode);
+    }
+
+    public function testCanHead(): void
+    {
+        $request = new Request();
+        $response = $request->head('https://httpbin.org/get');
         $this->assertEquals(200, $response->statusCode);
     }
 
@@ -56,5 +70,12 @@ final class RequestTest extends TestCase
         $request = new Request();
         $response = $request->post('https://httpbin.org/post', ['name' => 'GuiBranco'], ['X-Test' => 'test']);
         $this->assertEquals(200, $response->statusCode);
+    }
+
+    public function testCannotGet(): void
+    {
+        $request = new Request();
+        $response = $request->get('https://non-existing-url');
+        $this->assertEquals(-1, $response->statusCode);
     }
 }

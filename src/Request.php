@@ -2,6 +2,8 @@
 
 namespace GuiBranco\Pancake;
 
+use stdClass;
+
 class Request
 {
     private function extractHeaders($header)
@@ -15,16 +17,17 @@ class Request
                 continue;
             }
 
-            $headers[$result["key"]] = $result["value"];
+            list($key, $value) = $result;
+            $headers[$key] = $value;
         }
 
         return $headers;
     }
 
-    private function extractHeader($i, $line)
+    private function extractHeader($index, $line)
     {
-        if ($i === 0) {
-            return array("key" => "http_code", "value" => $line);
+        if ($index === 0) {
+            return array("http_code", $line);
         }
 
         $explode = explode(": ", $line);
@@ -34,7 +37,7 @@ class Request
         }
 
         list($key, $value) = $explode;
-        return array("key" => $key, "value" => $value);
+        return array($key, $value);
     }
 
     private function execute($fields)
@@ -42,7 +45,7 @@ class Request
         $curl = curl_init();
         curl_setopt_array($curl, $fields);
         $response = curl_exec($curl);
-        $result = new \stdCLass();
+        $result = new stdCLass();
         $result->url = $fields[CURLOPT_URL];
 
         if ($response === false) {
