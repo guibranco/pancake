@@ -33,9 +33,9 @@ class Request
         if ($response === false) {
             $error = curl_error($curl);
             curl_close($curl);
-            
+
             $result->status = -1;
-            $result->error = $error;            
+            $result->error = $error;
             return $result;
         }
 
