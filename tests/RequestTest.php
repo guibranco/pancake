@@ -54,7 +54,7 @@ final class RequestTest extends TestCase
     public function testCanHead(): void
     {
         $request = new Request();
-        $response = $request->head('https://httpbin.org/get');
+        $response = $request->head('https://httpbin.org/get', ['Host' => 'httpbin.org']);
         $this->assertEquals(200, $response->statusCode);
     }
 
