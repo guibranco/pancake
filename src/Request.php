@@ -109,10 +109,13 @@ class Request
         return $this->execute($fields);
     }
 
-    public function delete($url, $headers = array())
+    public function delete($url, $headers = array(), $data = null)
     {
         $fields = $this->getFields($url, $headers);
         $fields[CURLOPT_CUSTOMREQUEST] = "DELETE";
+        if ($data != null) {
+            $fields[CURLOPT_POSTFIELDS] = $data;
+        }
         return $this->execute($fields);
     }
 
