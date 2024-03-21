@@ -12,7 +12,7 @@ Documentation: [Read the Docs](https://guibranco.github.io/Pancake/)
 
 ---
 
-## Table of Contents
+## Table of content
 
 - [CI/CD](#cicd): Current project status in the build pipeline (AppVeyor).
 - [Code Quality](#code-quality): Metrics from some tools about code quality.
