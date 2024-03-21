@@ -47,7 +47,7 @@ final class RequestTest extends TestCase
     public function testCanDeleteWithPayload(): void
     {
         $request = new Request();
-        $response = $request->delete('https://httpbin.org/delete', ['name' => 'GuiBranco']);
+        $response = $request->delete('https://httpbin.org/delete', array(), ['name' => 'GuiBranco']);
         $this->assertEquals(200, $response->statusCode);
     }
 
