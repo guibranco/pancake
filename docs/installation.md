@@ -14,7 +14,7 @@ Download the latest zip file from the [Release](https://github.com/GuiBranco/Pan
 
 | Package | Version | Downloads |
 |---------|:-------:|:---------:|
-| **Pancake** | [![Pancake Packagist Version](https://img.shields.io/packagist/v/guibranco/pancake.svg?style=flat)](https://packagist.org/packages/guibranco/pancake) | [![Pancake Packagist Downloads](https://img.shields.io/packagist/dt/guibranco/pancake.svg?style=flat)](https://packagist.org/packages/guibranco/pancake) |
+| **[pancake](https://packagist.org/packages/guibranco/pancake)** | [![Pancake Packagist Version](https://img.shields.io/packagist/v/guibranco/pancake.svg?style=flat)](https://packagist.org/packages/guibranco/pancake) | [![Pancake Packagist Downloads](https://img.shields.io/packagist/dt/guibranco/pancake.svg?style=flat)](https://packagist.org/packages/guibranco/pancake) |
 
 ## Composer (manual):
 
