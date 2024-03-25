@@ -24,7 +24,7 @@ jobs:
         uses: php-actions/composer@v6
       
       - name: PHPUnit Tests
-        uses: php-actions/phpunit@v3
+        uses: php-actions/phpunit@v7
         with:
           version: 11
           php_version: 8.3
