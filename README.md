@@ -1,14 +1,14 @@
-# Pancake
+# pancake
 
 🧰 🛠️ Pancake project - a toolkit for PHP projects.
 
 
-[![GitHub license](https://img.shields.io/github/license/guibranco/Pancake)](https://github.com/guibranco/Pancake)
-[![Time tracker](https://wakatime.com/badge/github/guibranco/Pancake.svg)](https://wakatime.com/badge/github/guibranco/Pancake)
+[![GitHub license](https://img.shields.io/github/license/guibranco/pancake)](https://github.com/guibranco/pancake)
+[![Time tracker](https://wakatime.com/badge/github/guibranco/pancake.svg)](https://wakatime.com/badge/github/guibranco/pancake)
 
-![Crispy Waffle logo](https://raw.githubusercontent.com/guibranco/Pancake/main/logo.png)
+![Crispy Waffle logo](https://raw.githubusercontent.com/guibranco/pancake/main/logo.png)
 
-Documentation: [Read the Docs](https://guibranco.github.io/Pancake/)
+Documentation: [Read the Docs](https://guibranco.github.io/pancake/)
 
 ---
 
@@ -28,34 +28,34 @@ Documentation: [Read the Docs](https://guibranco.github.io/Pancake/)
 
 | Build status | Last commit | Coverage | Code Smells | LoC | 
 |--------------|-------------|----------|-------------|-----|
-| [![CI](https://github.com/guibranco/Pancake/actions/workflows/ci.yml/badge.svg)](https://github.com/guibranco/Pancake/actions/workflows/ci.yml) | [![GitHub last commit](https://img.shields.io/github/last-commit/guibranco/Pancake/main)](https://github.com/guibranco/Pancake) | [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=guibranco_Pancake&metric=coverage)](https://sonarcloud.io/dashboard?id=guibranco_Pancake) | [![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=guibranco_Pancake&metric=code_smells)](https://sonarcloud.io/dashboard?id=guibranco_Pancake) | [![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=guibranco_Pancake&metric=ncloc)](https://sonarcloud.io/dashboard?id=guibranco_Pancake) | 
+| [![CI](https://github.com/guibranco/pancake/actions/workflows/ci.yml/badge.svg)](https://github.com/guibranco/pancake/actions/workflows/ci.yml) | [![GitHub last commit](https://img.shields.io/github/last-commit/guibranco/pancake/main)](https://github.com/guibranco/pancake) | [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=guibranco_pancake&metric=coverage)](https://sonarcloud.io/dashboard?id=guibranco_pancake) | [![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=guibranco_pancake&metric=code_smells)](https://sonarcloud.io/dashboard?id=guibranco_pancake) | [![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=guibranco_pancake&metric=ncloc)](https://sonarcloud.io/dashboard?id=guibranco_pancake) | 
 
 ---
 
 ## Code Quality
 
-[![Codacy Badge](https://app.codacy.com/project/badge/Grade/9a369e8dc1e74ba1b18c309935c7af4b)](https://app.codacy.com/gh/guibranco/Pancake/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
-[![Codacy Badge](https://app.codacy.com/project/badge/Coverage/9a369e8dc1e74ba1b18c309935c7af4b)](https://app.codacy.com/gh/guibranco/Pancake/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_coverage)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/9a369e8dc1e74ba1b18c309935c7af4b)](https://app.codacy.com/gh/guibranco/pancake/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
+[![Codacy Badge](https://app.codacy.com/project/badge/Coverage/9a369e8dc1e74ba1b18c309935c7af4b)](https://app.codacy.com/gh/guibranco/pancake/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_coverage)
 
-[![codecov](https://codecov.io/gh/guibranco/Pancake/branch/main/graph/badge.svg)](https://codecov.io/gh/guibranco/Pancake)
-[![CodeFactor](https://www.codefactor.io/repository/github/guibranco/Pancake/badge)](https://www.codefactor.io/repository/github/guibranco/Pancake)
+[![codecov](https://codecov.io/gh/guibranco/pancake/branch/main/graph/badge.svg)](https://codecov.io/gh/guibranco/pancake)
+[![CodeFactor](https://www.codefactor.io/repository/github/guibranco/pancake/badge)](https://www.codefactor.io/repository/github/guibranco/pancake)
 
-[![Maintainability](https://api.codeclimate.com/v1/badges/ae6591111f27479fba12/maintainability)](https://codeclimate.com/github/guibranco/Pancake/maintainability)
-[![Test Coverage](https://api.codeclimate.com/v1/badges/ae6591111f27479fba12/test_coverage)](https://codeclimate.com/github/guibranco/Pancake/test_coverage)
+[![Maintainability](https://api.codeclimate.com/v1/badges/ae6591111f27479fba12/maintainability)](https://codeclimate.com/github/guibranco/pancake/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/ae6591111f27479fba12/test_coverage)](https://codeclimate.com/github/guibranco/pancake/test_coverage)
 
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=guibranco_Pancake&metric=alert_status)](https://sonarcloud.io/dashboard?id=guibranco_Pancake)
-[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=guibranco_Pancake&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=guibranco_Pancake)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=guibranco_pancake&metric=alert_status)](https://sonarcloud.io/dashboard?id=guibranco_pancake)
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=guibranco_pancake&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=guibranco_pancake)
 
-[![Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=guibranco_Pancake&metric=sqale_index)](https://sonarcloud.io/dashboard?id=guibranco_Pancake)
-[![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=guibranco_Pancake&metric=duplicated_lines_density)](https://sonarcloud.io/dashboard?id=guibranco_Pancake)
+[![Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=guibranco_pancake&metric=sqale_index)](https://sonarcloud.io/dashboard?id=guibranco_pancake)
+[![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=guibranco_pancake&metric=duplicated_lines_density)](https://sonarcloud.io/dashboard?id=guibranco_pancake)
 
-[![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=guibranco_Pancake&metric=reliability_rating)](https://sonarcloud.io/dashboard?id=guibranco_Pancake)
-[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=guibranco_Pancake&metric=security_rating)](https://sonarcloud.io/dashboard?id=guibranco_Pancake)
+[![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=guibranco_pancake&metric=reliability_rating)](https://sonarcloud.io/dashboard?id=guibranco_pancake)
+[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=guibranco_pancake&metric=security_rating)](https://sonarcloud.io/dashboard?id=guibranco_pancake)
 
-[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=guibranco_Pancake&metric=bugs)](https://sonarcloud.io/dashboard?id=guibranco_Pancake)
-[![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=guibranco_Pancake&metric=vulnerabilities)](https://sonarcloud.io/dashboard?id=guibranco_Pancake)
+[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=guibranco_pancake&metric=bugs)](https://sonarcloud.io/dashboard?id=guibranco_pancake)
+[![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=guibranco_pancake&metric=vulnerabilities)](https://sonarcloud.io/dashboard?id=guibranco_pancake)
 
-[![DeepSource](https://app.deepsource.com/gh/guibranco/Pancake.svg/?label=active+issues&show_trend=true&token=r3XGa8MQHGZERdIhKB5EZXfL)](https://app.deepsource.com/gh/guibranco/Pancake/?ref=repository-badge)
+[![DeepSource](https://app.deepsource.com/gh/guibranco/pancake.svg/?label=active+issues&show_trend=true&token=r3XGa8MQHGZERdIhKB5EZXfL)](https://app.deepsource.com/gh/guibranco/pancake/?ref=repository-badge)
 
 ---
 
@@ -63,29 +63,29 @@ Documentation: [Read the Docs](https://guibranco.github.io/Pancake/)
 
 ### Github Releases
 
-[![GitHub last release](https://img.shields.io/github/release-date/guibranco/Pancake.svg?style=flat)](https://github.com/guibranco/Pancake) [![Github All Releases](https://img.shields.io/github/downloads/guibranco/Pancake/total.svg?style=flat)](https://github.com/guibranco/Pancake)
+[![GitHub last release](https://img.shields.io/github/release-date/guibranco/pancake.svg?style=flat)](https://github.com/guibranco/pancake) [![Github All Releases](https://img.shields.io/github/downloads/guibranco/pancake/total.svg?style=flat)](https://github.com/guibranco/pancake)
 
-Download the latest zip file from the [Release](https://github.com/GuiBranco/Pancake/releases) page.
+Download the latest zip file from the [Release](https://github.com/GuiBranco/pancake/releases) page.
 
 ### Packagist package manager
 
 | Package | Version | Downloads |
 |------------------|:-------:|:-------:|
-| **[pancake](https://packagist.org/packages/guibranco/pancake)** | [![Pancake Packagist Version](https://img.shields.io/packagist/v/guibranco/pancake.svg?style=flat)](https://packagist.org/packages/guibranco/pancake) | [![Pancake Packagist Downloads](https://img.shields.io/packagist/dt/guibranco/pancake?style=flat)](https://packagist.org/packages/guibranco/pancake/) |
+| **[pancake](https://packagist.org/packages/guibranco/pancake)** | [![pancake Packagist Version](https://img.shields.io/packagist/v/guibranco/pancake.svg?style=flat)](https://packagist.org/packages/guibranco/pancake) | [![pancake Packagist Downloads](https://img.shields.io/packagist/dt/guibranco/pancake?style=flat)](https://packagist.org/packages/guibranco/pancake/) |
 
-More information is available [here](https://guibranco.github.io/Pancake/installation/).
+More information is available [here](https://guibranco.github.io/pancake/installation/).
 
 ---
 
 ## User guide
 
-The user guide is available [here](https://guibranco.github.io/Pancake/user-guide/basic-usage/).
+The user guide is available [here](https://guibranco.github.io/pancake/user-guide/basic-usage/).
 
 ---
 
 ## Changelog
 
-The changelog is available [here](https://guibranco.github.io/Pancake/changelog/).
+The changelog is available [here](https://guibranco.github.io/pancake/changelog/).
 
 ---
 
