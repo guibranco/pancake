@@ -1,0 +1,15 @@
+# Path-based git attributes
+# https://www.kernel.org/pub/software/scm/git/docs/gitattributes.html
+
+# Ignore all test and documentation with "export-ignore".
+/.* export-ignore
+/docs export-ignore
+/tests export-ignore
+/CODE_OF_CONDUCT.md export-ignore
+/CONTRIBUTING.md export-ignore
+/GitVersion.yml export-ignore
+/SECURITY.md export-ignore
+/logo.png export-ignore
+/mkdocs.yml export-ignore
+/requirements.txt export-ignore
+/sonar-project.properties export-ignore
