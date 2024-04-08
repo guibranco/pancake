@@ -1,21 +1,21 @@
 name: Publish MKDocs via GitHub Pages
 
 on:
-  push:
-    branches: [ main ]
-  workflow_dispatch:
+    push:
+        branches: [main]
+    workflow_dispatch:
 
 jobs:
-  build:
-    name: Deploy docs
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout main
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
+    build:
+        name: Deploy docs
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout main
+              uses: actions/checkout@v4
+              with:
+                  fetch-depth: 0
 
-      - name: Deploy docs
-        uses: mhausenblas/mkdocs-deploy-gh-pages@1.26
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+            - name: Deploy docs
+              uses: mhausenblas/mkdocs-deploy-gh-pages@1.26
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
