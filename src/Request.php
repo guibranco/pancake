@@ -6,7 +6,7 @@ use stdClass;
 
 class Request
 {
-    private function extractHeaders($header)
+    private function extractHeaders($header): array
     {
         $headers = array();
 
@@ -24,7 +24,7 @@ class Request
         return $headers;
     }
 
-    private function extractHeader($index, $line)
+    private function extractHeader($index, $line): ?array
     {
         if ($index === 0) {
             return array("http_code", $line);
@@ -40,7 +40,7 @@ class Request
         return array($key, $value);
     }
 
-    private function execute($fields)
+    private function execute($fields): stdClass
     {
         $curl = curl_init();
         curl_setopt_array($curl, $fields);
@@ -70,7 +70,7 @@ class Request
         return $result;
     }
 
-    private function getFields($url, $headers)
+    private function getFields($url, $headers): array
     {
         return array(
             CURLOPT_URL => $url,
@@ -87,13 +87,13 @@ class Request
         );
     }
 
-    public function get($url, $headers = array())
+    public function get($url, $headers = array()): stdClass
     {
         $fields = $this->getFields($url, $headers);
         return $this->execute($fields);
     }
 
-    public function post($url, $data, $headers = array())
+    public function post($url, $data, $headers = array()): stdClass
     {
         $fields = $this->getFields($url, $headers);
         $fields[CURLOPT_CUSTOMREQUEST] = "POST";
@@ -101,7 +101,7 @@ class Request
         return $this->execute($fields);
     }
 
-    public function put($url, $data, $headers = array())
+    public function put($url, $data, $headers = array()): stdClass
     {
         $fields = $this->getFields($url, $headers);
         $fields[CURLOPT_CUSTOMREQUEST] = "PUT";
@@ -109,7 +109,7 @@ class Request
         return $this->execute($fields);
     }
 
-    public function delete($url, $headers = array(), $data = null)
+    public function delete($url, $headers = array(), $data = null): stdClass
     {
         $fields = $this->getFields($url, $headers);
         $fields[CURLOPT_CUSTOMREQUEST] = "DELETE";
@@ -119,7 +119,7 @@ class Request
         return $this->execute($fields);
     }
 
-    public function patch($url, $data, $headers = array())
+    public function patch($url, $data, $headers = array()): stdClass
     {
         $fields = $this->getFields($url, $headers);
         $fields[CURLOPT_CUSTOMREQUEST] = "PATCH";
@@ -127,14 +127,14 @@ class Request
         return $this->execute($fields);
     }
 
-    public function options($url, $headers = array())
+    public function options($url, $headers = array()): stdClass
     {
         $fields = $this->getFields($url, $headers);
         $fields[CURLOPT_CUSTOMREQUEST] = "OPTIONS";
         return $this->execute($fields);
     }
 
-    public function head($url, $headers = array())
+    public function head($url, $headers = array()): stdClass
     {
         $fields = $this->getFields($url, $headers);
         $fields[CURLOPT_CUSTOMREQUEST] = "HEAD";
