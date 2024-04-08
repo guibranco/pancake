@@ -29,6 +29,13 @@ final class HealthChecksTest extends TestCase
         $this->assertObjectHasProperty('headersSet', $healthCheck);
     }
 
+    public function testCanHeartbeat(): void
+    {
+        $healthCheck = new HealthChecks('token');
+        $response = $healthCheck->heartbeat();
+        $this->assertInstanceOf(\stdClass::class, $response);
+    }
+
     public function testCanStart(): void
     {
         $healthCheck = new HealthChecks('token');
