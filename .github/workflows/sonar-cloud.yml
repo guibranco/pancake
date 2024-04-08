@@ -34,7 +34,8 @@ jobs:
                   coverage_cobertura: coverage.xml
                   bootstrap: vendor/autoload.php
                   configuration: tests/phpunit.xml
-                  args: --test-suffix Test.php --coverage-filter src tests
+                  test_suffix: Test.php
+                  args: --coverage-filter src tests
               env:
                   XDEBUG_MODE: coverage
 
