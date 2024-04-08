@@ -31,6 +31,7 @@ jobs:
           php_extensions: xdebug
           coverage_cobertura: coverage.xml
           bootstrap: vendor/autoload.php
+          configuration: tests/phpunit.xml
           args: --coverage-filter src tests
         env:
           XDEBUG_MODE: coverage
