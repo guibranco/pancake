@@ -33,7 +33,6 @@ jobs:
                   php_extensions: xdebug
                   coverage_cobertura: coverage.xml
                   bootstrap: vendor/autoload.php
-                  configuration: tests/phpunit.xml
                   test_suffix: Test.php
                   args: --coverage-filter src tests
               env:
