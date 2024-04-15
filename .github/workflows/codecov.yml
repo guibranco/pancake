@@ -44,7 +44,7 @@ jobs:
                   sed -i 's@'$GITHUB_WORKSPACE'@/github/workspace/@g' coverage.xml
 
             - name: Upload coverage reports to Codecov
-              uses: codecov/codecov-action@v4.2.0
+              uses: codecov/codecov-action@v4.3.0
               with:
                   token: ${{ secrets.CODECOV_TOKEN }}
                   slug: guibranco/Pancake
