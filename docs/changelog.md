@@ -1,5 +1,9 @@
 # Changelog
 
+## Version 0.6 [2024-04-21]
+
+- [#118](https://github.com/guibranco/pancake/issues/118) - Add Logger class by [@guibranco](https://github.com/guibranco).
+
 ## Version 0.5 [2024-04-21]
 
 - [#119](https://github.com/guibranco/pancake/issues/119) - Add OneSignal class by [@guibranco](https://github.com/guibranco).
