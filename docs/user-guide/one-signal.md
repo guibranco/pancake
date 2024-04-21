@@ -33,7 +33,7 @@ $content = "Hi!\n\nSome content of the notification";
 $fields = array(
     'app_id' => $oneSignalAppId,
     'included_segments' => array('All'),
-    'headings' => array('en' => $heading,
+    'headings' => array('en' => $heading),
     'contents' => array('en' => $content),
     'web_push_topic' => 'unique-topic-identification',
     'chrome_web_icon' => 'https://example.com/images/logo.png'
