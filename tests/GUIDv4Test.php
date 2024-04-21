@@ -11,7 +11,7 @@ final class GUIDv4Test extends TestCase
 {
     public function testCanBeEmptyGUID(): void
     {
-        $this->assertSame('00000000-0000-0000-8000-000000000000', GUIDv4::empty());
+        $this->assertSame('00000000-0000-0000-0000-000000000000', GUIDv4::empty());
     }
 
     public function testCanBeRandomGUID(): void
