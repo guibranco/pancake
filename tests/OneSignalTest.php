@@ -14,4 +14,22 @@ final class OneSignalTest extends TestCase
         $oneSignal = new OneSignal('token', null, null, "https://custom-endpoint");
         $this->assertInstanceOf(OneSignal::class, $oneSignal);
     }
+
+    public function testCanCreateOneSignalWithCustomUserAgent(): void
+    {
+        $oneSignal = new OneSignal('token', null, "Custom User Agent");
+        $this->assertInstanceOf(OneSignal::class, $oneSignal);
+    }
+
+    public function testCanCreateOneSignalWithCustomEndpoint(): void
+    {
+        $oneSignal = new OneSignal('token', null, null, "https://custom-endpoint");
+        $this->assertInstanceOf(OneSignal::class, $oneSignal);
+    }
+
+    public function testCanSendNotification(): void
+    {
+        $oneSignal = new OneSignal('token', null, null, "https://custom-endpoint");
+        $this->assertTrue($oneSignal->sendNotification([]));
+    }
 }
