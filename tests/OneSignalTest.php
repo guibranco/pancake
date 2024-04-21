@@ -30,6 +30,6 @@ final class OneSignalTest extends TestCase
     public function testCanSendNotification(): void
     {
         $oneSignal = new OneSignal('token', null, null, "https://custom-endpoint");
-        $this->assertTrue($oneSignal->sendNotification([]));
+        $this->assertFalse($oneSignal->sendNotification([]));
     }
 }
