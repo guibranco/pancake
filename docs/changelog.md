@@ -1,5 +1,9 @@
 # Changelog
 
+## Version 0.4 [2024-04-21]
+
+- [#115](https://github.com/guibranco/pancake/issues/1510) - Add GUID (v4) class by [@guibranco](https://github.com/guibranco).
+
 ## Version 0.3 [2024-04-08]
 
 - [#81](https://github.com/guibranco/pancake/issues/81) - Add Health Checks class by [@guibranco](https://github.com/guibranco).
