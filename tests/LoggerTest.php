@@ -25,5 +25,6 @@ final class LoggerTest extends TestCase
     {
         $logger = new Logger('http://localhost:8080/', 'api-key', 'api-token');
         $logger->log('test', 'test');
+        $this->assertTrue(true);
     }
 }

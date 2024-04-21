@@ -23,7 +23,7 @@ class Logger implements ILogger
         $this->request = new Request();
     }
 
-    public function log($message, $details): void
+    public function log($message, $details): bool
     {
         $trace = debug_backtrace();
         $caller = $trace[1];
@@ -35,6 +35,8 @@ class Logger implements ILogger
 
         $body = json_encode($caller);
 
-        $this->request->post($this->baseUrl . "log-message", $body, $this->headers);
+        $result = $this->request->post($this->baseUrl . "log-message", $body, $this->headers);
+
+        return $result->statusCode == 200;
     }
 }
