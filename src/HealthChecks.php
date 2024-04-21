@@ -24,17 +24,20 @@ class HealthChecks
 
     private $rid;
 
+    private $endpoint;
+
     private $startUrl;
 
     private $failUrl;
 
     private $endUrl;
 
-    public function __construct($token, $rid = null)
+    public function __construct($token, $rid = null, $customEndpoint = null)
     {
         $this->token = $token;
         $this->request = new Request();
         $this->rid = $rid;
+        $this->endpoint = $customEndpoint ?? self::BASE_URL;
         $this->buildUrls();
     }
 
@@ -47,7 +50,7 @@ class HealthChecks
 
     private function buildUrl($endpoint): string
     {
-        $url = self::BASE_URL . $this->token . $endpoint;
+        $url = $this->endpoint. $this->token . $endpoint;
         if ($this->rid) {
             $url .= "?rid=" . $this->rid;
         }
@@ -59,7 +62,7 @@ class HealthChecks
         if ($this->headersSet) {
             return;
         }
-        $this->headers = ["User-Agent: Pancake/1.0.0", "Content-Type: application/json"];
+        $this->headers = ["User-Agent: Pancake/1.0.0", "Content-Type: application/json; charset=utf-8"];
     }
 
     public function setHeaders($headers): void
