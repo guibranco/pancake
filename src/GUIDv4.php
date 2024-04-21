@@ -4,7 +4,7 @@ namespace GuiBranco\Pancake;
 
 class GUIDv4
 {
-    private const EMPTY = '00000000-0000-0000-8000-000000000000';
+    private const EMPTY = '00000000-0000-0000-0000-000000000000';
 
     public static function empty(): string
     {
