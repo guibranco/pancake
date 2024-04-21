@@ -22,7 +22,7 @@ None.
 
 ### Empty
 
-Generates an empty GUID/UUID full of zeros. Example: 00000000-0000-0000-8000-000000000000
+Generates an empty GUID/UUID full of zeros. Example: 00000000-0000-0000-0000-000000000000
 
 ```php
 $emptyUUID = GUIDv4::empty();
