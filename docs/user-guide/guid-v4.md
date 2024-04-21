@@ -22,8 +22,7 @@ None.
 
 ### Empty
 
-Generates an empty GUID/UUID full of zeros.
-Example: 00000000-0000-4000-8000-000000000000
+Generates an empty GUID/UUID full of zeros. Example: 00000000-0000-4000-8000-000000000000
 
 ```php
 $emptyUUID = GUIDv4::empty();
@@ -31,8 +30,7 @@ $emptyUUID = GUIDv4::empty();
 
 ### Random
 
-Generate a random GUID/UUID.
-Example: d7263b5c-66b7-428e-8e6d-3df2ec9a92b9
+Generates a random GUID/UUID. Example: d7263b5c-66b7-428e-8e6d-3df2ec9a92b9
 
 ```php
 $uuid = GUIDv4::random();
