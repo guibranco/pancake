@@ -13,7 +13,7 @@ class Logger implements ILogger
     public function __construct($loggerUrl, $loggerApiKey, $loggerApiToken, $customUserAgent = null)
     {
         $this->headers = array(
-            "User-Agent: " . ($customUserAgent ?? "Pancake/1.0.0"),
+            "User-Agent: " . ($customUserAgent ?? "Pancake/1.0 (+https://github.com/guibranco/pancake)"),
             "Content-Type: application/json; charset=UTF-8",
             "X-API-KEY: " . $loggerApiKey,
             "X-API-TOKEN: " . $loggerApiToken,
