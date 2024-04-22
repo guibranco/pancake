@@ -20,7 +20,7 @@ class OneSignal
     {
         $this->request = new Request();
         $this->logger = $logger;
-        $userAgentHeader = "User-Agent: Pancake/1.0.0";
+        $userAgentHeader = "User-Agent: Pancake/1.0 (+https://github.com/guibranco/pancake)";
         if ($customUserAgent != null) {
             $userAgentHeader = "User-Agent: $customUserAgent";
         }
