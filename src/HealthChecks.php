@@ -62,7 +62,7 @@ class HealthChecks
         if ($this->headersSet) {
             return;
         }
-        $this->headers = ["User-Agent: Pancake/1.0.0", "Content-Type: application/json; charset=utf-8"];
+        $this->headers = ["User-Agent: Pancake/1.0 (+https://github.com/guibranco/pancake)", "Content-Type: application/json; charset=utf-8"];
     }
 
     public function setHeaders($headers): void
