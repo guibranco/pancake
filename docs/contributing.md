@@ -15,6 +15,13 @@ Refer to [CONTRIBUTING.md](https://github.com/guibranco/Pancake/blob/main/CONTRI
                     <sub><b>Guilherme Branco Stracini</b></sub>
                 </a>
             </td>
+            <td align="center">
+                <a href="https://github.com/gvieiragoulart">
+                    <img src="https://avatars.githubusercontent.com/u/116896794?v=4" width="100;" alt="gvieiragoulart"/>
+                    <br />
+                    <sub><b>Gabriel Goulart</b></sub>
+                </a>
+            </td>
 		</tr>
 	<tbody>
 </table>
