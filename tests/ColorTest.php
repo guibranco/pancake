@@ -11,9 +11,9 @@ use PHPUnit\Framework\Attributes\DataProvider;
 use ReflectionMethod;
 use Throwable;
 
-final class ColorTest extends TestCase {
-
-    public static function colorRGBProvider(): array 
+final class ColorTest extends TestCase
+{
+    public static function colorRGBProvider(): array
     {
         return [
             [["red" => 255, "green" => 87, "blue" => 51], 0.4710494117647058],
@@ -59,7 +59,7 @@ final class ColorTest extends TestCase {
     }
 
     #[DataProvider('colorRGBProvider')]
-    public function testLuminance($rgbColor, $expectedLuminance): void 
+    public function testLuminance($rgbColor, $expectedLuminance): void
     {
         $color = new Color();
         $color->setRed((string) $rgbColor["red"]);
@@ -71,7 +71,7 @@ final class ColorTest extends TestCase {
 
 
     #[DataProvider('hexProvider')]
-    public function testHexProvider($hexColor, $expectedRGB): void 
+    public function testHexProvider($hexColor, $expectedRGB): void
     {
         $color = new Color();
         $color->setHexColor($hexColor);
@@ -80,7 +80,7 @@ final class ColorTest extends TestCase {
     }
 
     #[DataProvider('validColorTextProvider')]
-    public function testGenerateColorFromTextWithValidProvider($textColor, $expectedHexColor): void 
+    public function testGenerateColorFromTextWithValidProvider($textColor, $expectedHexColor): void
     {
         $color = new Color();
 
@@ -92,7 +92,7 @@ final class ColorTest extends TestCase {
     }
 
     #[DataProvider("invalidColorTextProvider")]
-    public function testGenerateColorFromTextWithInvalidProvider($textColor): void 
+    public function testGenerateColorFromTextWithInvalidProvider($textColor): void
     {
         $this->expectException(InvalidArgumentException::class);
 
@@ -152,4 +152,4 @@ final class ColorTest extends TestCase {
         $reflectionMethod->invoke($color, '#ZZZZZZ');
     }
 
-}    
+}
