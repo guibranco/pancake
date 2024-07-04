@@ -1,5 +1,8 @@
 # Changelog
 
+## Version 0.7 [2024-07-04]
+- [#145](https://github.com/guibranco/pancake/issues/145) - Add Color class by [@gvieiragoulart](https://github.com/gvieiragoulart)
+  
 ## Version 0.6 [2024-04-21]
 
 - [#118](https://github.com/guibranco/pancake/issues/118) - Add Logger class by [@guibranco](https://github.com/guibranco).
