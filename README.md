@@ -112,6 +112,13 @@ Refer to [CONTRIBUTING.md](CONTRIBUTING.md) to learn how to contribute to this p
                     <sub><b>Guilherme Branco Stracini</b></sub>
                 </a>
             </td>
+            <td align="center">
+                <a href="https://github.com/gvieiragoulart">
+                    <img src="https://avatars.githubusercontent.com/u/116896794?v=4" width="100;" alt="gvieiragoulart"/>
+                    <br />
+                    <sub><b>Gabriel Goulart</b></sub>
+                </a>
+            </td>
 		</tr>
 	<tbody>
 </table>
@@ -135,6 +142,13 @@ Refer to [CONTRIBUTING.md](CONTRIBUTING.md) to learn how to contribute to this p
                     <img src="https://avatars.githubusercontent.com/in/29110?v=4" width="100;" alt="dependabot[bot]"/>
                     <br />
                     <sub><b>dependabot[bot]</b></sub>
+                </a>
+            </td>
+            <td align="center">
+                <a href="https://github.com/deepsource-autofix[bot]">
+                    <img src="https://avatars.githubusercontent.com/in/57168?v=4" width="100;" alt="deepsource-autofix[bot]"/>
+                    <br />
+                    <sub><b>deepsource-autofix[bot]</b></sub>
                 </a>
             </td>
             <td align="center">
