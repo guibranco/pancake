@@ -22,10 +22,18 @@ class Color
      */
     public function __construct(string $red = "", string $green = "", string $blue = "", string $hexColor = "")
     {
-        $this->red = $red;
-        $this->green = $green;
-        $this->blue = $blue;
-        $this->hexColor = $hexColor;
+        if (!empty($red)) {
+            $this->setRed($red);
+        }
+        if (!empty($green)) {
+            $this->setGreen($green);
+        }
+        if (!empty($blue)) {
+            $this->setBlue($blue);
+        }
+        if (!empty($hexColor)) {
+            $this->setHexColor($hexColor);
+        }
     }
 
     /**
