@@ -48,6 +48,13 @@ Refer to [CONTRIBUTING.md](https://github.com/guibranco/Pancake/blob/main/CONTRI
                 </a>
             </td>
             <td align="center">
+                <a href="https://github.com/deepsource-autofix[bot]">
+                    <img src="https://avatars.githubusercontent.com/in/57168?v=4" width="100;" alt="deepsource-autofix[bot]"/>
+                    <br />
+                    <sub><b>deepsource-autofix[bot]</b></sub>
+                </a>
+            </td>
+            <td align="center">
                 <a href="https://github.com/snyk-bot">
                     <img src="https://avatars.githubusercontent.com/u/19733683?v=4" width="100;" alt="snyk-bot"/>
                     <br />
