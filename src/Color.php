@@ -6,7 +6,6 @@ use InvalidArgumentException;
 
 class Color
 {
-
     private string $red;
     private string $green;
     private string $blue;
@@ -38,7 +37,7 @@ class Color
 
     /**
      * Set the red value.
-     * 
+     *
      * @param string $hexColor The hex color.
      */
     public function setRed(string $red): void
@@ -54,7 +53,7 @@ class Color
 
     /**
      * Set the green value.
-     * 
+     *
      * @param string $green The green value.
      */
     public function setGreen(string $green): void
@@ -70,7 +69,7 @@ class Color
 
     /**
      * Set the blue value.
-     * 
+     *
      * @param string $blue The blue value.
      */
     public function setBlue(string $blue): void
@@ -86,7 +85,7 @@ class Color
 
     /**
      * Set the hex color.
-     * 
+     *
      * @param string $hexColor The hex color.
      */
     public function setHexColor(string $hexColor): void
@@ -102,7 +101,7 @@ class Color
 
     /**
      * Validate a color.
-     * 
+     *
      * @param  string $color The color to validate.
      * @return void
      * @throws InvalidArgumentException
@@ -116,7 +115,7 @@ class Color
 
     /**
      * Validate a hex color.
-     * 
+     *
      * @param  string $hexColor The hex color to validate.
      * @return void
      * @throws InvalidArgumentException
@@ -130,7 +129,7 @@ class Color
 
     /**
      * Calculate the luminance of a color.
-     * 
+     *
      * @return float      0-1
      */
     public function luminanceRGB(): float
@@ -141,7 +140,7 @@ class Color
 
     /**
      * Convert a hex color to RGB.
-     * 
+     *
      * @return array{int,int,int} [186, 218, 85]
      */
     public function hexToRGB(): array
@@ -151,7 +150,7 @@ class Color
 
     /**
      * Generate a color from a text.
-     * 
+     *
      * @param  string $text          The text to generate the color from.
      * @param  int    $minBrightness The minimum brightness of the color.
      * @param  int    $spec          The spec of the color.
@@ -166,14 +165,14 @@ class Color
         if ($minBrightness < 0 || $minBrightness > 255) {
             throw new InvalidArgumentException("$minBrightness is out of range");
         }
-    
+
         $hash = md5($text);
         $colors = array();
         for ($i = 0; $i < 3; $i++) {
             $current = round(((hexdec(substr($hash, $spec * $i, $spec))) / hexdec(str_pad("", $spec, "F"))) * 255);
             $colors[$i] = max(array($current, $minBrightness));
         }
-     
+
         if ($minBrightness > 0) {
             while (array_sum($colors) / 3 < $minBrightness) {
                 for ($i = 0; $i < 3; $i++) {
@@ -181,13 +180,13 @@ class Color
                 }
             }
         }
-    
+
         $output = "";
-    
+
         for ($i = 0; $i < 3; $i++) {
             $output .= str_pad(dechex($colors[$i]), 2, 0, STR_PAD_LEFT);
         }
-        
+
         return new Color(
             hexColor: "#" . $output
         );
