@@ -86,7 +86,7 @@ $healthChecks = new HealthChecks("your-monitor-token");
 $healthChecks->fail();
 ```
 
-### LOg
+### Log
 
 Send a POST message to the `/log` endpoint.
 
