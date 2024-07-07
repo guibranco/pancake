@@ -12,6 +12,7 @@
     - [Start](#start)
     - [End](#end)
     - [Fail](#fail)
+    - [Log](#log)
     - [Error](#error)
     - [Reset state](#reset-state)
   - [Examples](#examples)
@@ -22,7 +23,7 @@
 
 ## About
 
-This class is responsible for doing requests to [HealthChecks.io](https://healthchecks.io) service. It uses [Request](request.md) class to perform the HTTP requests.
+This class is responsible for making requests to the [HealthChecks.io](https://healthchecks.io) service. It uses the [Request](request.md) class to perform the HTTP requests.
 
 ## Requirements
 
@@ -44,7 +45,7 @@ $healthChecks->setHeaders($headers);
 
 ### Heartbeat
 
-Performs an HTTP GET request to the service, logging a successfully ping.
+Performs an HTTP GET request to the service, logging a successful ping.
 
 ```php
 $healthChecks = new HealthChecks("your-monitor-token");
@@ -53,9 +54,9 @@ $healthChecks->heartbeat();
 
 ### Start
 
-Start a request, and wait until a successfully/failure call to measure process duration.
+Start a request and wait until a successful/failed call to measure process duration.
 
-This will do a HTTP GET request to the `/start` endpoint.
+This will do an HTTP GET request to the `/start` endpoint.
 
 ```php
 $healthChecks = new HealthChecks("your-monitor-token");
@@ -66,10 +67,10 @@ $healthChecks->start();
 
 End a request, measuring the process duration.
 To this work properly, you should call [Start](#start) before.
-If you call this direct, without "starting" it prior, it will act the same way as [Heartbeat](#heartbeat).
+If you call this directly without "starting" it prior, it will act the same way as [Heartbeat](#heartbeat).
 
 This will perform an HTTP GET request to the `/` endpoint.
-If the [Fail](#fail) or [Error](#error) has been called, then the request will be to `/fail` endpoint.
+If the [Fail](#fail) or [Error](#error) has been called, the request will be made to the `/fail` endpoint.
 
 ```php
 $healthChecks = new HealthChecks("your-monitor-token");
@@ -85,9 +86,19 @@ $healthChecks = new HealthChecks("your-monitor-token");
 $healthChecks->fail();
 ```
 
+### LOg
+
+Send a POST message to the `/log` endpoint.
+
+```php
+$healthChecks = new HealthChecks("your-monitor-token");
+$healthChecks->log('Some message that does not change currents health check state.');
+```
+
+
 ### Error
 
-Like the [Fail](#fail) method, this one will also acknowledge a failure to the `/fail` endpoint. The difference is this method will do a HTTP POST request, with an error message (parameter).
+Like the [Fail](#fail) method, this one will also acknowledge a failure to the `/fail` endpoint. The difference is that this method will make an HTTP POST request with an error message (parameter).
 
 ```php
 $healthChecks = new HealthChecks("your-monitor-token");
@@ -96,7 +107,7 @@ $healthChecks->error("error reason for the failure");
 
 ### Reset state
 
-Reset the state of this instance, so an `end` call will do a successfully end request.
+Reset the state of this instance so an `end` call will do a successful end request.
 
 ```php
 $healthChecks = new HealthChecks("your-monitor-token");
@@ -148,8 +159,8 @@ try {
 
 ### Run identifier (RID)
 
-HealthChecks.io allows you to have parallel checks for the same monitor, to handle this, they allow you to send a custom UUID/GUID as the `run id`
-To set the `run id` just set a UUID as the second constructor parameter:
+HealthChecks.io allows you to have parallel checks for the same monitor. To handle this, they allow you to send a custom UUID/GUID as the `run id`
+To set the `run id`, just set a UUID as the second constructor parameter:
 
 ```php
 $healthChecksA = new HealthChecks("your-monitor-token", "00000000-0000-0000-0000-000000000000");
