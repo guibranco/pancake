@@ -12,6 +12,8 @@ class HealthChecks
 
     private const FAIL_ENDPOINT = "/fail";
 
+    private const LOG_ENDPOINT = "/log";
+
     private $token;
 
     private $request;
@@ -30,6 +32,8 @@ class HealthChecks
 
     private $failUrl;
 
+    private $logUrl;
+
     private $endUrl;
 
     public function __construct($token, $rid = null, $customEndpoint = null)
@@ -45,6 +49,7 @@ class HealthChecks
     {
         $this->startUrl = $this->buildUrl(self::START_ENDPOINT);
         $this->failUrl = $this->buildUrl(self::FAIL_ENDPOINT);
+        $this->logUrl = $this->buildUrl(self::LOG_ENDPOINT);
         $this->endUrl = $this->buildUrl("");
     }
 
@@ -62,7 +67,7 @@ class HealthChecks
         if ($this->headersSet) {
             return;
         }
-        $this->headers = ["User-Agent: Pancake/1.0 (+https://github.com/guibranco/pancake)", "Content-Type: application/json; charset=utf-8"];
+        $this->headers = ["User-Agent: Pancake/0.7 (+https://github.com/guibranco/pancake)", "Content-Type: application/json; charset=utf-8"];
     }
 
     public function setHeaders($headers): void
@@ -88,6 +93,12 @@ class HealthChecks
         $this->checkHeaders();
         $this->failed = true;
         return $this->request->get($this->failUrl, $this->headers);
+    }
+
+    public function log($message): stdClass
+    {
+        $this->checkHeaders();
+        return $this->request->post($this->logUrl, $message, $this->headers);
     }
 
     public function error($errorMessage): stdClass
