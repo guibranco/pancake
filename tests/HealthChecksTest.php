@@ -50,6 +50,13 @@ final class HealthChecksTest extends TestCase
         $this->assertInstanceOf(\stdClass::class, $response);
     }
 
+    public function testCanLog(): void
+    {
+        $healthCheck = new HealthChecks('token');
+        $response = $healthCheck->log('test');
+        $this->assertInstanceOf(\stdClass::class, $response);
+    }
+
     public function testCanEnd(): void
     {
         $healthCheck = new HealthChecks('token');
