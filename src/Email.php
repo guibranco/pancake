@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 namespace GuiBranco\Pancake;
+require_once 'Queue.php';
 
 use InvalidArgumentException;
 
