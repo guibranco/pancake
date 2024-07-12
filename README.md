@@ -2,7 +2,6 @@
 
 🧰 🛠️ Pancake project - a toolkit for PHP projects.
 
-
 [![GitHub license](https://img.shields.io/github/license/guibranco/pancake)](https://github.com/guibranco/pancake)
 [![Time tracker](https://wakatime.com/badge/github/guibranco/pancake.svg)](https://wakatime.com/badge/github/guibranco/pancake)
 
