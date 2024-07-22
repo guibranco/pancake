@@ -31,7 +31,7 @@ class ShieldsIo
         if (isset($content) && !empty($content)) {
             $content = $this->encodeShieldsIoParameters($content);
             $badge .= $content;
-            
+
             if (isset($color)) {
                 $badge .= "-";
             }
