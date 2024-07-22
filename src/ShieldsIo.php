@@ -21,12 +21,20 @@ class ShieldsIo
 
         if (isset($label) && !empty($label)) {
             $label = $this->encodeShieldsIoParameters($label);
-            $badge .= $label . "-";
+            $badge .= $label;
+
+            if (isset($content) || isset($color)) {
+                $badge .= "-";
+            }
         }
 
         if (isset($content) && !empty($content)) {
             $content = $this->encodeShieldsIoParameters($content);
-            $badge .= $content . "-";
+            $badge .= $content;
+            
+            if (isset($color)) {
+                $badge .= "-";
+            }
         }
 
         if (isset($color) && !empty($color)) {
