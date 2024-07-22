@@ -14,7 +14,7 @@ class ShieldsIo
 
         return $input;
     }
-    
+
     public function generateBadgeUrl($label, $content, $color, $style, $labelColor, $logo)
     {
         $badge = "";
