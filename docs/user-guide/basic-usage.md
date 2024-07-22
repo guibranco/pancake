@@ -10,3 +10,4 @@ The main namespace is `GuiBranco\Pancake`
 - [HTTP Requests](request.md)
 - [Logger](logger.md)
 - [One Signal](one-signal.md)
+- [ShieldsIo](shieldsio.md)
