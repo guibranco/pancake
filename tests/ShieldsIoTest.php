@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace GuiBranco\Pancake\Tests;
 
-use GuiBranco\Pancake\Request;
+use GuiBranco\Pancake\ShieldsIo;
 use PHPUnit\Framework\TestCase;
 
 final class ShieldsIoTest extends TestCase
