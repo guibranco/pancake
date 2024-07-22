@@ -17,43 +17,35 @@ class ShieldsIo
 
     public function generateBadgeUrl($label, $content, $color, $style, $labelColor, $logo)
     {
-        $badge = "";
+        $badge = array();
 
         if (isset($label) && !empty($label)) {
             $label = $this->encodeShieldsIoParameters($label);
-            $badge .= $label;
-
-            if (isset($content) || isset($color)) {
-                $badge .= "-";
-            }
+            $badge[] = $label;
         }
 
         if (isset($content) && !empty($content)) {
             $content = $this->encodeShieldsIoParameters($content);
-            $badge .= $content;
-
-            if (isset($color)) {
-                $badge .= "-";
-            }
+            $badge[] = $content;
         }
 
         if (isset($color) && !empty($color)) {
-            $badge .= $color;
+            $badge[] = $color;
         }
 
-        $queryString = "";
+        $queryString = array();
         if (isset($style) && !empty($style)) {
-            $queryString .= "style=" . $style . "&";
+            $queryString["style"] = $style;
         }
 
         if (isset($labelColor) && !empty($labelColor)) {
-            $queryString .= "labelColor=" . $labelColor . "&";
+            $queryString["labelColor"] = $labelColor;
         }
 
         if (isset($logo) && !empty($logo)) {
-            $queryString .= "logo=" . $logo;
+            $queryString["logo"] = $logo;
         }
 
-        return "https://img.shields.io/badge/" . $badge . "?" . $queryString;
+        return "https://img.shields.io/badge/" . implode("-", $badge) . "?" . http_build_query($queryString);
     }
 }
