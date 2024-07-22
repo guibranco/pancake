@@ -1,5 +1,14 @@
 # ShieldsIo
 
+## Table of content
+
+- [ShieldsIo](#shieldsio)
+  - [Table of content](#table-of-content)
+  - [About](#about)
+  - [Requirements](#requirements)
+  - [Available methods](#available-methods)
+    - [Generate badge URL](#generate-badge-url)
+
 ## About
 
 This class is a helper to generate [ShieldsIo](https://shields.io) badges.
