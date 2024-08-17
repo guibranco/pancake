@@ -191,6 +191,4 @@ class Color
             hexColor: "#" . $output
         );
     }
-
-
 }
