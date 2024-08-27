@@ -17,7 +17,7 @@ Documentation: [Read the Docs](https://guibranco.github.io/pancake/)
 - [Code Quality](#code-quality): Metrics from some tools about code quality.
 - [Installation](#installation): How to install/download this tool.
 - [User guide](#user-guide): How to set up, configure and use this tool.
-- [Change log](#changelog): Changelog containing the changes that were done in this project.
+- [Change log](#changelog): Changelog containing the changes done in this project.
 - [Support](#support): How to get support.
 - [Contributing](#contributing): How to contribute.
 
@@ -148,6 +148,13 @@ Refer to [CONTRIBUTING.md](CONTRIBUTING.md) to learn how to contribute to this p
                     <img src="https://avatars.githubusercontent.com/in/57168?v=4" width="100;" alt="deepsource-autofix[bot]"/>
                     <br />
                     <sub><b>deepsource-autofix[bot]</b></sub>
+                </a>
+            </td>
+            <td align="center">
+                <a href="https://github.com/penify-dev[bot]">
+                    <img src="https://avatars.githubusercontent.com/in/399279?v=4" width="100;" alt="penify-dev[bot]"/>
+                    <br />
+                    <sub><b>penify-dev[bot]</b></sub>
                 </a>
             </td>
             <td align="center">
