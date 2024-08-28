@@ -15,36 +15,32 @@ class ShieldsIo
         return $input;
     }
 
+    private function addComponent($component, &$badge)
+    {
+        if (isset($component) && (empty($component) === false || $component === 0)) {
+            $value = $this->encodeShieldsIoParameters($component);
+            $badge[] = $value;
+        }
+    }
+
+    private function addQueryString($component, $key, &$queryString)
+    {
+        if (isset($component) && empty($component) === false) {
+            $queryString[$key] = $component;
+        }
+    }
+
     public function generateBadgeUrl($label, $content, $color, $style, $labelColor, $logo)
     {
-        $badge = array();
+        $badge = [];
+        $this->addComponent($label, $badge);
+        $this->addComponent($content, $badge);
+        $this->addComponent($color, $badge);
 
-        if (isset($label) && !empty($label)) {
-            $label = $this->encodeShieldsIoParameters($label);
-            $badge[] = $label;
-        }
-
-        if (isset($content) && !empty($content)) {
-            $content = $this->encodeShieldsIoParameters($content);
-            $badge[] = $content;
-        }
-
-        if (isset($color) && !empty($color)) {
-            $badge[] = $color;
-        }
-
-        $queryString = array();
-        if (isset($style) && !empty($style)) {
-            $queryString["style"] = $style;
-        }
-
-        if (isset($labelColor) && !empty($labelColor)) {
-            $queryString["labelColor"] = $labelColor;
-        }
-
-        if (isset($logo) && !empty($logo)) {
-            $queryString["logo"] = $logo;
-        }
+        $queryString = [];
+        $this->addQueryString($style, "style", $queryString);
+        $this->addQueryString($labelColor, "labelColor", $queryString);
+        $this->addQueryString($logo, "logo", $queryString);
 
         return "https://img.shields.io/badge/" . implode("-", $badge) . "?" . http_build_query($queryString);
     }
