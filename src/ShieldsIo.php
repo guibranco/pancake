@@ -32,12 +32,12 @@ class ShieldsIo
 
     public function generateBadgeUrl($label, $content, $color, $style, $labelColor, $logo)
     {
-        $badge = array();
+        $badge = [];
         $this->addComponent($label, $badge);
         $this->addComponent($content, $badge);
         $this->addComponent($color, $badge);
 
-        $queryString = array();
+        $queryString = [];
         $this->addQueryString($style, "style", $queryString);
         $this->addQueryString($labelColor, "labelColor", $queryString);
         $this->addQueryString($logo, "logo", $queryString);
