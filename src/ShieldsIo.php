@@ -6,6 +6,10 @@ class ShieldsIo
 {
     private function encodeShieldsIoParameters($input)
     {
+        if (empty($input)) {
+            return $input;
+        }
+        
         $input = str_replace("_", "__", $input);
         $input = str_replace(" ", "_", $input);
         $input = str_replace("-", "--", $input);
@@ -19,30 +23,30 @@ class ShieldsIo
     {
         $badge = array();
 
-        if (isset($label) && !empty($label)) {
+        if (isset($label) && $label !== null) {
             $label = $this->encodeShieldsIoParameters($label);
             $badge[] = $label;
         }
 
-        if (isset($content) && !empty($content)) {
+        if (isset($content) && $content !== null) {
             $content = $this->encodeShieldsIoParameters($content);
             $badge[] = $content;
         }
 
-        if (isset($color) && !empty($color)) {
+        if (isset($color) && $color !== null) {
             $badge[] = $color;
         }
 
         $queryString = array();
-        if (isset($style) && !empty($style)) {
+        if (isset($style) && $style !== null) {
             $queryString["style"] = $style;
         }
 
-        if (isset($labelColor) && !empty($labelColor)) {
+        if (isset($labelColor) && $labelColor !== null) {
             $queryString["labelColor"] = $labelColor;
         }
 
-        if (isset($logo) && !empty($logo)) {
+        if (isset($logo) && $logo !== null) {
             $queryString["logo"] = $logo;
         }
 
