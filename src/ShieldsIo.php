@@ -9,7 +9,7 @@ class ShieldsIo
         if (empty($input)) {
             return $input;
         }
-        
+
         $input = str_replace("_", "__", $input);
         $input = str_replace(" ", "_", $input);
         $input = str_replace("-", "--", $input);
