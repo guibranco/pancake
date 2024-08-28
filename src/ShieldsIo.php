@@ -17,7 +17,7 @@ class ShieldsIo
 
     private function addComponent($component, &$badge)
     {
-        if (isset($component) && (!empty($component) || $component === 0)) {
+        if (isset($component) && (empty($component) === false || $component === 0)) {
             $value = $this->encodeShieldsIoParameters($component);
             $badge[] = $value;
         }
@@ -25,7 +25,7 @@ class ShieldsIo
 
     private function addQueryString($component, $key, &$queryString)
     {
-        if (isset($component) && !empty($component)) {
+        if (isset($component) && empty($component) === false) {
             $queryString[$key] = $component;
         }
     }
