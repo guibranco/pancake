@@ -9,6 +9,7 @@ class ShieldsIo
         $input = str_replace("_", "__", $input);
         $input = str_replace(" ", "_", $input);
         $input = str_replace("-", "--", $input);
+        $input = str_replace("%", "%25", $input);
         $input = str_replace("/", "%2F", $input);
         $input = str_replace("#", "♯", $input);
 
