@@ -84,5 +84,5 @@ final class ShieldsIoTest extends TestCase
         $shieldsIo = new ShieldsIo();
         $badgeUrl = $shieldsIo->generateBadgeUrl('label', 'content', 'color', 'style', '', '');
         $this->assertEquals('https://img.shields.io/badge/label-content-color?style=style&cacheSeconds=3600', $badgeUrl);
-    }   
+    }
 }
