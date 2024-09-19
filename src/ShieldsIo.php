@@ -4,6 +4,13 @@ namespace GuiBranco\Pancake;
 
 class ShieldsIo
 {
+    private $cacheSeconds;
+
+    public function __construct($cacheSeconds = 3600)
+    {
+        $this->cacheSeconds = $cacheSeconds;
+    }
+
     private function encodeShieldsIoParameters($input)
     {
         $input = str_replace("_", "__", $input);
@@ -42,6 +49,7 @@ class ShieldsIo
         $this->addQueryString($style, "style", $queryString);
         $this->addQueryString($labelColor, "labelColor", $queryString);
         $this->addQueryString($logo, "logo", $queryString);
+        $this->addQueryString($this->cacheSeconds, "cacheSeconds", $queryString);
 
         return "https://img.shields.io/badge/" . implode("-", $badge) . "?" . http_build_query($queryString);
     }
