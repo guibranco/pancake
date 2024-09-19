@@ -10,7 +10,7 @@ class ShieldsIo
     {
         $this->cacheSeconds = $cacheSeconds;
     }
-    
+
     private function encodeShieldsIoParameters($input)
     {
         $input = str_replace("_", "__", $input);
