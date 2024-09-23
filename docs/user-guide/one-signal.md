@@ -11,7 +11,7 @@
 
 ## About
 
-This class enable the ability to send [One Signal](https://onesignal.com/) notifications. It uses [Request](request.md) class to perform HTTP requests.
+This class allows you to send [One Signal](https://onesignal.com/) notifications. It uses the [Request](request.md) class to perform HTTP requests.
 
 ## Requirements
 

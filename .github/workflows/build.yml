@@ -28,7 +28,7 @@ jobs:
               with:
                   version: 11
                   php_version: 8.3
-                  php_extensions: xdebug
+                  php_extensions: xdebug shmop
                   coverage_cobertura: coverage.xml
                   bootstrap: vendor/autoload.php
                   configuration: tests/phpunit.xml

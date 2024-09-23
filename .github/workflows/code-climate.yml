@@ -30,7 +30,7 @@ jobs:
               with:
                   version: 11
                   php_version: 8.3
-                  php_extensions: xdebug
+                  php_extensions: xdebug shmop
                   coverage_clover: coverage.xml
                   bootstrap: vendor/autoload.php
                   test_suffix: Test.php
