@@ -2,11 +2,17 @@
 
 ## Table of content
 
-- [Memoray Cachel](#memory-cachel)
+- [Memory Cache](#memory-cache)
   - [Table of content](#table-of-content)
   - [About](#about)
   - [Requirements](#requirements)
   - [Available methods](#available-methods)
+    - [openMemory](#openmemory)
+    - [writeJsonInMemory](#writejsoninmemory)
+    - [readJsonInMemory](#readjsoninmemory)
+    - [strToNts](#strtonts)
+    - [strFromMem](#strfrommem)
+  - [Usage](#usage)
   - [Testing](#testing)
 
 ## About
@@ -19,19 +25,19 @@ This requires `shmop` to be active with your PHP settings.
 
 ## Available methods
 
-### openMemory()
+### openMemory
 Opens a shared memory block and returns the memory identifier.
 
-### writeJsonInMemory($data)
+### writeJsonInMemory
 Writes JSON-encoded data to the shared memory.
 
-### readJsonInMemory()
+### readJsonInMemory
 Reads data from the shared memory and decodes it from JSON.
 
-### strToNts($value)
+### strToNts
 Converts a string to a null-terminated string for storage in memory.
 
-### strFromMem(&$value)
+### strFromMem
 Retrieves a string from memory, stopping at the null terminator.
 
 ## Usage
