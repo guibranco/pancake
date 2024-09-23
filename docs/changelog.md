@@ -1,10 +1,10 @@
 # Changelog
 
 ## Version 0.10 [2024-09-23]
-- [#84](https://github.com/guibranco/pancake/issues/84) - Add MemoryCache class by [@GitAuto](https://github.com/apps/gitauto-ai)
+- [#84](https://github.com/guibranco/pancake/issues/84) - Add MemoryCache class by [@GitAuto](https://github.com/apps/gitauto-ai).
 
 ## Version 0.9 [2024-09-19]
-- Enhance ShieldsIo class with cache duration feature +semVer: minor by @guibranco in #221
+- Enhance ShieldsIo class with cache duration feature by [@guibranco](https://github.com/guibranco).
 
 ## Version 0.8 [2024-07-22]
 - [#167](https://github.com/guibranco/pancake/issues/167) - Add ShieldsIo class by [@guibranco](https://github.com/guibranco).
