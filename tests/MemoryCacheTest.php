@@ -1,5 +1,6 @@
 <?php
 
+use GuiBranco\Pancake\MemoryCache;
 use PHPUnit\Framework\TestCase;
 
 class MemoryCacheTest extends TestCase
