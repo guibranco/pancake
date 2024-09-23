@@ -35,7 +35,7 @@ class MemoryCache
     private function strFromMem(&$value)
     {
         $index = strpos($value, "\0");
-        if ($iindex === false) {
+        if ($index === false) {
             return $value;
         }
         $result = substr($value, 0, $index);
