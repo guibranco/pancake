@@ -1,0 +1,10 @@
+#!/bin/sh
+COMMIT_MSG_FILE=$1
+GIT_DIFF=$(git diff --staged)
+CURRENT=$(cat "$COMMIT_MSG_FILE")
+MESSAGE=$(dotnet-aicommitmessage --diff "$GIT_DIFF" --output "$CURRENT")
+echo "$MESSAGE" > "$COMMIT_MSG_FILE"
+COMMIT_MSG=$(cat "$COMMIT_MSG_FILE")
+if [[ -z "$COMMIT_MSG" || "$COMMIT_MSG" =~ ^[[:space:]]*$ ]]; then
+    exit 1
+fi
