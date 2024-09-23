@@ -1,9 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
+namespace GuiBranco\Pancake\Tests;
+
 use GuiBranco\Pancake\MemoryCache;
 use PHPUnit\Framework\TestCase;
 
-class MemoryCacheTest extends TestCase
+final class MemoryCacheTest extends TestCase
 {
     private $memoryCache;
 
