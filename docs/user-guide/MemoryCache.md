@@ -1,4 +1,4 @@
-# MemoryCache Class
+# MemoryCache
 
 The `MemoryCache` class provides a mechanism for caching data in shared memory using PHP's `shmop` functions. This is useful for performance optimization by reducing the need to repeatedly fetch data from slower storage mediums.
 
