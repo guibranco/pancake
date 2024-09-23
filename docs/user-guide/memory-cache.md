@@ -1,8 +1,23 @@
 # Memory Cache
 
+## Table of content
+
+- [Memoray Cachel](#memory-cachel)
+  - [Table of content](#table-of-content)
+  - [About](#about)
+  - [Requirements](#requirements)
+  - [Available methods](#available-methods)
+  - [Testing](#testing)
+
+## About
+
 The `MemoryCache` class provides a mechanism for caching data in shared memory using PHP's `shmop` functions. This is useful for performance optimization by reducing the need to repeatedly fetch data from slower storage mediums.
 
-## Methods
+## Requirements
+
+This requires `shmop` to be active with your PHP settings.
+
+## Available methods
 
 ### openMemory()
 Opens a shared memory block and returns the memory identifier.
