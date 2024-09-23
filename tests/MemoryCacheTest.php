@@ -50,5 +50,3 @@ class MemoryCacheTest extends TestCase
     }
 
 }
-
-?>

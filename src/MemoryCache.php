@@ -45,5 +45,3 @@ class MemoryCache
         return "$value\0";
     }
 }
-
-?>
