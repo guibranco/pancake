@@ -10,8 +10,6 @@
     - [openMemory](#openmemory)
     - [writeJsonInMemory](#writejsoninmemory)
     - [readJsonInMemory](#readjsoninmemory)
-    - [strToNts](#strtonts)
-    - [strFromMem](#strfrommem)
   - [Usage](#usage)
   - [Testing](#testing)
 
@@ -26,19 +24,16 @@ This requires `shmop` to be active with your PHP settings.
 ## Available methods
 
 ### openMemory
+
 Opens a shared memory block and returns the memory identifier.
 
 ### writeJsonInMemory
+
 Writes JSON-encoded data to the shared memory.
 
 ### readJsonInMemory
+
 Reads data from the shared memory and decodes it from JSON.
-
-### strToNts
-Converts a string to a null-terminated string for storage in memory.
-
-### strFromMem
-Retrieves a string from memory, stopping at the null terminator.
 
 ## Usage
 
@@ -50,4 +45,5 @@ $retrievedData = $cache->readJsonInMemory();
 ```
 
 ## Testing
+
 Unit tests for the `MemoryCache` class are available in the `tests/MemoryCacheTest.php` file.
