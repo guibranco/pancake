@@ -48,5 +48,4 @@ class MemoryCacheTest extends TestCase
         $readData = $this->memoryCache->readJsonInMemory();
         $this->assertEquals($data2, $readData, "Data read from memory should match the last data written");
     }
-
 }
