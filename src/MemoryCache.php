@@ -1,5 +1,7 @@
 <?php
 
+namespace GuiBranco\Pancake;
+
 class MemoryCache
 {
     private $memorySize = 16 * 1024;
