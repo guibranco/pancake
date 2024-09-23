@@ -55,6 +55,13 @@ Refer to [CONTRIBUTING.md](https://github.com/guibranco/Pancake/blob/main/CONTRI
                 </a>
             </td>
             <td align="center">
+                <a href="https://github.com/gitauto-ai[bot]">
+                    <img src="https://avatars.githubusercontent.com/in/844909?v=4" width="100;" alt="gitauto-ai[bot]"/>
+                    <br />
+                    <sub><b>gitauto-ai[bot]</b></sub>
+                </a>
+            </td>
+            <td align="center">
                 <a href="https://github.com/penify-dev[bot]">
                     <img src="https://avatars.githubusercontent.com/in/399279?v=4" width="100;" alt="penify-dev[bot]"/>
                     <br />
