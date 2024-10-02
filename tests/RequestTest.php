@@ -19,21 +19,42 @@ final class RequestTest extends TestCase
     public function testCanPost(): void
     {
         $request = new Request();
-        $response = $request->post('https://httpbin.org/post', ['name' => 'GuiBranco']);
+        $response = $request->post('https://httpbin.org/post');
+        $this->assertEquals(200, $response->statusCode);
+    }
+
+    public function testCanPostWithPayload(): void
+    {
+        $request = new Request();
+        $response = $request->post('https://httpbin.org/post', array(), ['name' => 'GuiBranco']);
         $this->assertEquals(200, $response->statusCode);
     }
 
     public function testCanPut(): void
     {
         $request = new Request();
-        $response = $request->put('https://httpbin.org/put', ['name' => 'GuiBranco']);
+        $response = $request->put('https://httpbin.org/put');
+        $this->assertEquals(200, $response->statusCode);
+    }
+
+    public function testCanPutWithPayload(): void
+    {
+        $request = new Request();
+        $response = $request->put('https://httpbin.org/put', array(), ['name' => 'GuiBranco']);
         $this->assertEquals(200, $response->statusCode);
     }
 
     public function testCanPatch(): void
     {
         $request = new Request();
-        $response = $request->patch('https://httpbin.org/patch', ['name' => 'GuiBranco']);
+        $response = $request->patch('https://httpbin.org/patch');
+        $this->assertEquals(200, $response->statusCode);
+    }
+
+    public function testCanPatchWithPayload(): void
+    {
+        $request = new Request();
+        $response = $request->patch('https://httpbin.org/patch', array(), ['name' => 'GuiBranco']);
         $this->assertEquals(200, $response->statusCode);
     }
 
@@ -75,7 +96,28 @@ final class RequestTest extends TestCase
     public function testCanPostWithHeaders(): void
     {
         $request = new Request();
-        $response = $request->post('https://httpbin.org/post', json_encode(['name' => 'GuiBranco']), ['X-Test: test']);
+        $response = $request->post('https://httpbin.org/post', ['X-Test: test'], json_encode(['name' => 'GuiBranco']));
+        $this->assertEquals(200, $response->statusCode);
+    }
+
+    public function testCanPutWithHeaders(): void
+    {
+        $request = new Request();
+        $response = $request->put('https://httpbin.org/put', ['X-Test: test'], json_encode(['name' => 'GuiBranco']));
+        $this->assertEquals(200, $response->statusCode);
+    }
+
+    public function testCanPatchWithHeaders(): void
+    {
+        $request = new Request();
+        $response = $request->patch('https://httpbin.org/patch', ['X-Test: test'], json_encode(['name' => 'GuiBranco']));
+        $this->assertEquals(200, $response->statusCode);
+    }
+
+    public function testCanDeleteWithHeaders(): void
+    {
+        $request = new Request();
+        $response = $request->delete('https://httpbin.org/delete', ['X-Test: test'], json_encode(['name' => 'GuiBranco']));
         $this->assertEquals(200, $response->statusCode);
     }
 
