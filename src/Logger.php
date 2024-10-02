@@ -13,7 +13,7 @@ class Logger implements ILogger
     public function __construct($loggerUrl, $loggerApiKey, $loggerApiToken, $customUserAgent = null)
     {
         $this->headers = array(
-            "User-Agent: " . ($customUserAgent ?? "Pancake/0.9 (+https://github.com/guibranco/pancake)"),
+            "User-Agent: " . ($customUserAgent ?? "Pancake/0.11 (+https://github.com/guibranco/pancake)"),
             "Content-Type: application/json; charset=UTF-8",
             "X-API-KEY: " . $loggerApiKey,
             "X-API-TOKEN: " . $loggerApiToken,
@@ -35,7 +35,7 @@ class Logger implements ILogger
 
         $body = json_encode($caller);
 
-        $result = $this->request->post($this->baseUrl . "log-message", $body, $this->headers);
+        $result = $this->request->post($this->baseUrl . "log-message", $this->headers, $body);
 
         return $result->statusCode == 200;
     }
