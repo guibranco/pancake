@@ -67,7 +67,7 @@ class HealthChecks
         if ($this->headersSet) {
             return;
         }
-        $this->headers = ["User-Agent: Pancake/0.8 (+https://github.com/guibranco/pancake)", "Content-Type: application/json; charset=utf-8"];
+        $this->headers = [Constants::USER_AGENT_HEADER, Constants::CONTENT_TYPE_JSON_HEADER];
     }
 
     public function setHeaders($headers): void
@@ -98,14 +98,14 @@ class HealthChecks
     public function log($message): stdClass
     {
         $this->checkHeaders();
-        return $this->request->post($this->logUrl, $message, $this->headers);
+        return $this->request->post($this->logUrl, $this->headers, $message);
     }
 
     public function error($errorMessage): stdClass
     {
         $this->checkHeaders();
         $this->failed = true;
-        return $this->request->post($this->failUrl, $errorMessage, $this->headers);
+        return $this->request->post($this->failUrl, $this->headers, $errorMessage);
     }
 
     public function end(): stdClass

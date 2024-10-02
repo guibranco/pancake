@@ -93,7 +93,7 @@ class Request
         return $this->execute($fields);
     }
 
-    public function post($url, $data, $headers = array()): stdClass
+    public function post($url, $headers = array(), $data = null): stdClass
     {
         $fields = $this->getFields($url, $headers);
         $fields[CURLOPT_CUSTOMREQUEST] = "POST";
@@ -103,7 +103,7 @@ class Request
         return $this->execute($fields);
     }
 
-    public function put($url, $data, $headers = array()): stdClass
+    public function put($url, $headers = array(), $data = null): stdClass
     {
         $fields = $this->getFields($url, $headers);
         $fields[CURLOPT_CUSTOMREQUEST] = "PUT";
@@ -123,7 +123,7 @@ class Request
         return $this->execute($fields);
     }
 
-    public function patch($url, $data, $headers = array()): stdClass
+    public function patch($url, $headers = array(), $data = null): stdClass
     {
         $fields = $this->getFields($url, $headers);
         $fields[CURLOPT_CUSTOMREQUEST] = "PATCH";
