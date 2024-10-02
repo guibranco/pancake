@@ -21,9 +21,9 @@ class OneSignal
         $this->request = new Request();
         $this->logger = $logger;
         $this->headers = array(
-            "User-Agent: " . ($customUserAgent ?? "Pancake/0.11 (+https://github.com/guibranco/pancake)"),
-            "Content-Type: application/json; charset=utf-8",
-            "Authorization: Basic " . $token
+            "User-Agent: ".($customUserAgent ?? Constants::USER_AGENT_VENDOR),
+            Constants::CONTENT_TYPE_JSON_HEADER,
+            "Authorization: Basic ".$token
         );
         $this->endpoint = $customEndpoint ?? self::BASE_URL;
     }
