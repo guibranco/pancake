@@ -62,7 +62,7 @@ Performs HTTP POST requests with custom headers.
 $headers = array("User-Agent: test/1.0", "Accept: application/json");
 
 $request = new Request();
-$response = $request->post("https://example.com/", null, $headers);
+$response = $request->post("https://example.com/", $headers);
 
 if ($response->statusCode >= 200 && $response->statusCode < 300) {
     echo $response->body;
@@ -80,7 +80,7 @@ $headers = array("User-Agent: test/1.0", "Accept: application/json");
 $payload = array("some" => "thing");
 
 $request = new Request();
-$response = $request->post("https://example.com/", json_encode($payload), $headers);
+$response = $request->post("https://example.com/", $headers, json_encode($payload));
 
 if ($response->statusCode >= 200 && $response->statusCode < 300) {
     echo $response->body;
@@ -99,7 +99,7 @@ Performs HTTP PUT requests with custom headers.
 $headers = array("User-Agent: test/1.0", "Accept: application/json");
 
 $request = new Request();
-$response = $request->put("https://example.com/", null, $headers);
+$response = $request->put("https://example.com/", $headers);
 
 if ($response->statusCode >= 200 && $response->statusCode < 300) {
     echo $response->body;
@@ -117,7 +117,7 @@ $headers = array("User-Agent: test/1.0", "Accept: application/json");
 $payload = array("some" => "thing");
 
 $request = new Request();
-$response = $request->put("https://example.com/", json_encode($payload), $headers);
+$response = $request->put("https://example.com/", $headers, json_encode($payload));
 
 if ($response->statusCode >= 200 && $response->statusCode < 300) {
     echo $response->body;
@@ -136,7 +136,7 @@ Performs HTTP PATCH requests with custom headers.
 $headers = array("User-Agent: test/1.0", "Accept: application/json");
 
 $request = new Request();
-$response = $request->patch("https://example.com/", null, $headers);
+$response = $request->patch("https://example.com/", $headers);
 
 if ($response->statusCode >= 200 && $response->statusCode < 300) {
     echo $response->body;
@@ -154,7 +154,7 @@ $headers = array("User-Agent: test/1.0", "Accept: application/json");
 $payload = array("some" => "thing");
 
 $request = new Request();
-$response = $request->patch("https://example.com/", json_encode($payload), $headers);
+$response = $request->patch("https://example.com/", $headers, json_encode($payload));
 
 if ($response->statusCode >= 200 && $response->statusCode < 300) {
     echo $response->body;
