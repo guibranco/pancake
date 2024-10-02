@@ -47,7 +47,6 @@ class Request
         $response = curl_exec($curl);
         $result = new stdCLass();
         $result->url = $fields[CURLOPT_URL];
-        $result->requestHeaders = $fields[CURLOPT_HTTPHEADER];
 
         if ($response === false) {
             $error = curl_error($curl);
