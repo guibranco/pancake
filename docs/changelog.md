@@ -1,5 +1,9 @@
 # Changelog
 
+## Version 0.11 [2024-10-02]
+
+- Enhance the Request class with optional data parameter by [@guibranco](https://github.com/guibranco).
+
 ## Version 0.10 [2024-09-23]
 
 - [#84](https://github.com/guibranco/pancake/issues/84) - Add MemoryCache class by [@GitAuto](https://github.com/apps/gitauto-ai).

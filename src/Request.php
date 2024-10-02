@@ -97,7 +97,9 @@ class Request
     {
         $fields = $this->getFields($url, $headers);
         $fields[CURLOPT_CUSTOMREQUEST] = "POST";
-        $fields[CURLOPT_POSTFIELDS] = $data;
+        if ($data !== null) {
+            $fields[CURLOPT_POSTFIELDS] = $data;
+        }
         return $this->execute($fields);
     }
 
@@ -105,7 +107,9 @@ class Request
     {
         $fields = $this->getFields($url, $headers);
         $fields[CURLOPT_CUSTOMREQUEST] = "PUT";
-        $fields[CURLOPT_POSTFIELDS] = $data;
+        if ($data !== null) {
+            $fields[CURLOPT_POSTFIELDS] = $data;
+        }
         return $this->execute($fields);
     }
 
@@ -113,7 +117,7 @@ class Request
     {
         $fields = $this->getFields($url, $headers);
         $fields[CURLOPT_CUSTOMREQUEST] = "DELETE";
-        if ($data != null) {
+        if ($data !== null) {
             $fields[CURLOPT_POSTFIELDS] = $data;
         }
         return $this->execute($fields);
@@ -123,7 +127,9 @@ class Request
     {
         $fields = $this->getFields($url, $headers);
         $fields[CURLOPT_CUSTOMREQUEST] = "PATCH";
-        $fields[CURLOPT_POSTFIELDS] = $data;
+        if ($data !== null) {
+            $fields[CURLOPT_POSTFIELDS] = $data;
+        }
         return $this->execute($fields);
     }
 
