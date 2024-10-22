@@ -15,6 +15,7 @@ class SessionManager
                 }
             } catch (\Exception $e) {
                 error_log($e->getMessage());
+                throw $e;
             }
         }
     }
