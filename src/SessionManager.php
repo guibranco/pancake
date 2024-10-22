@@ -51,7 +51,7 @@ class SessionManager
         if (session_status() == PHP_SESSION_NONE) {
             return;
         }
-        
+
         session_unset();
         session_destroy();
         if (ini_get("session.use_cookies")) {
@@ -60,10 +60,12 @@ class SessionManager
                 session_name(),
                 '',
                 time() - 42000,
-                $params["path"], $params["domain"],
-                $params["secure"], $params["httponly"]
-             );
-       }
+                $params["path"],
+                $params["domain"],
+                $params["secure"],
+                $params["httponly"]
+            );
+        }
     }
 
     public static function regenerate()
@@ -84,8 +86,8 @@ class SessionManager
     {
         self::start();
         $value = $_SESSION['flash'][$key] ?? $default;
-        unset($_SESSION['flash'][$key]);  
-        session_write_close(); 
+        unset($_SESSION['flash'][$key]);
+        session_write_close();
         return $value;
     }
 
@@ -96,7 +98,7 @@ class SessionManager
             self::destroy();
             self::start();
         }
-        $_SESSION['last_activity'] = time(); 
-        session_write_close(); 
+        $_SESSION['last_activity'] = time();
+        session_write_close();
     }
 }
