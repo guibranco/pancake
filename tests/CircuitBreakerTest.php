@@ -28,7 +28,7 @@ class CircuitBreakerTest extends TestCase
         $circuitBreaker = new CircuitBreaker($this->cacheMock, 1);
 
         try {
-            $circuitBreaker->execute(function() {
+            $circuitBreaker->execute(function () {
                 throw new Exception('Failure');
             });
         } catch (Exception $e) {
@@ -48,7 +48,7 @@ class CircuitBreakerTest extends TestCase
 
         $this->expectException(CircuitBreakerOpenException::class);
 
-        $this->circuitBreaker->execute(function() {
+        $this->circuitBreaker->execute(function () {
             return 'success';
         });
     }
@@ -61,7 +61,7 @@ class CircuitBreakerTest extends TestCase
             'lastFailureTime' => time() - 100
         ]);
 
-        $this->circuitBreaker->execute(function() {
+        $this->circuitBreaker->execute(function () {
             return 'success';
         });
 
@@ -80,5 +80,3 @@ class CircuitBreakerTest extends TestCase
         $this->assertEquals('open', $circuitBreaker->getState());
     }
 }
-
-?>

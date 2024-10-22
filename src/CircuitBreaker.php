@@ -81,5 +81,3 @@ class CircuitBreaker
         $this->lastFailureTime = null;
     }
 }
-
-?>
