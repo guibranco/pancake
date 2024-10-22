@@ -89,6 +89,7 @@ class SessionManager
         self::start();
         if (isset($_SESSION['last_activity']) && (time() - $_SESSION['last_activity'] > $lifetime)) {
             self::destroy();
+            self::start();
         }
         $_SESSION['last_activity'] = time(); 
         session_write_close(); 
