@@ -1,5 +1,9 @@
 # Changelog
 
+## Version 0.12 [2024-10-22]
+
+- [#234](https://github.com/guibranco/pancake/issues/234) - Add Session Manager class by [@Humayun-23](https://github.com/Humayun-23).
+
 ## Version 0.11 [2024-10-02]
 
 - Enhance the Request class with optional data parameter by [@guibranco](https://github.com/guibranco).
