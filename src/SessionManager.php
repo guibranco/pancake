@@ -2,53 +2,56 @@
 
 namespace GuiBranco\Pancake;
 
+use Exception;
+
 class SessionManager
 {
-    public static function start()
+    public static function start(): void
     {
-        if (session_status() == PHP_SESSION_NONE) {
-            try {
-                if (headers_sent()) {
-                    throw new \Exception("Headers already sent. Cannot start the session.");
-                }
-
-                session_start();
-            } catch (\Exception $e) {
-                error_log($e->getMessage());
-                throw $e;
-            }
+        if (session_status() !== PHP_SESSION_NONE) {
+            return;
         }
+
+        if (headers_sent()) {
+            throw new SessionException("Headers already sent. Cannot start the session.");
+        }
+
+        session_start();
     }
 
-    public static function set($key, $value)
+    public static function set($key, $value): void
     {
         self::start();
         $_SESSION[$key] = $value;
-        session_write_close();  // Release session lock
+        session_write_close();
     }
 
-    public static function get($key, $default = null)
+    public static function get($key, $default = null): mixed
     {
         self::start();
-        return $_SESSION[$key] ?? $default;
+        $value = $_SESSION[$key] ?? $default;
+        session_write_close();
+        return $value;
     }
 
-    public static function has($key)
+    public static function has($key): bool
     {
         self::start();
-        return isset($_SESSION[$key]);
+        $isset = isset($_SESSION[$key]);
+        session_write_close();
+        return $isset;
     }
 
-    public static function remove($key)
+    public static function remove($key): void
     {
         self::start();
         unset($_SESSION[$key]);
-        session_write_close(); //Release Session Lock so that other scripts can work
+        session_write_close();
     }
 
-    public static function destroy()
+    public static function destroy(): void
     {
-        if (session_status() == PHP_SESSION_NONE) {
+        if (session_status() === PHP_SESSION_NONE) {
             return;
         }
 
@@ -68,21 +71,21 @@ class SessionManager
         }
     }
 
-    public static function regenerate()
+    public static function regenerate(): void
     {
-        if (session_status() != PHP_SESSION_NONE) {
+        if (session_status() !== PHP_SESSION_NONE) {
             session_regenerate_id(true);
         }
     }
 
-    public static function flash($key, $value)
+    public static function flash($key, $value): void
     {
         self::start();
         $_SESSION['flash'][$key] = $value;
         session_write_close();
     }
 
-    public static function getFlash($key, $default = null)
+    public static function getFlash($key, $default = null): mixed
     {
         self::start();
         $value = $_SESSION['flash'][$key] ?? $default;
@@ -91,7 +94,7 @@ class SessionManager
         return $value;
     }
 
-    public static function setExpiration($lifetime = 1800) //Default expiration time is 30 minutes (1800 sec)
+    public static function setExpiration($lifetime = 1800): void
     {
         self::start();
         if (isset($_SESSION['last_activity']) && (time() - $_SESSION['last_activity'] > $lifetime)) {
@@ -101,4 +104,8 @@ class SessionManager
         $_SESSION['last_activity'] = time();
         session_write_close();
     }
+}
+
+class SessionException extends Exception
+{
 }

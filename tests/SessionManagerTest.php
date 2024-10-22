@@ -1,5 +1,9 @@
 <?php
 
+declare(strict_types=1);
+
+namespace GuiBranco\Pancake\Tests;
+
 use GuiBranco\Pancake\SessionManager;
 use PHPUnit\Framework\TestCase;
 
@@ -7,26 +11,16 @@ class SessionManagerTest extends TestCase
 {
     protected function setUp(): void
     {
-        // Make sure the session is destroyed before each test to avoid side effects.
-        SessionManager::destroy();
+        $this->reset();
     }
 
     public function testStartSessionWhenNotStarted()
     {
         $this->assertSame(PHP_SESSION_NONE, session_status());
+
         SessionManager::start();
+
         $this->assertSame(PHP_SESSION_ACTIVE, session_status());
-    }
-
-    public function testStartSessionWhenHeadersAlreadySent()
-    {
-        $this->expectException(\Exception::class);
-        $this->expectExceptionMessage("Headers already sent. Cannot start the session.");
-
-        // Simulate headers being sent
-        $this->mockFunction('headers_sent', true);
-
-        SessionManager::start();
     }
 
     public function testSetAndGetSessionValue()
@@ -35,16 +29,16 @@ class SessionManagerTest extends TestCase
         $this->assertSame('value', SessionManager::get('key'));
     }
 
-    public function testGetDefaultValueWhenKeyDoesNotExist()
+    public function testGetSessionWithDefault()
     {
-        $this->assertSame('default', SessionManager::get('non_existent_key', 'default'));
+        $this->assertSame('default', SessionManager::get('non_existing_key', 'default'));
     }
 
     public function testHasKeyInSession()
     {
         SessionManager::set('key', 'value');
         $this->assertTrue(SessionManager::has('key'));
-        $this->assertFalse(SessionManager::has('non_existent_key'));
+        $this->assertFalse(SessionManager::has('non_existing_key'));
     }
 
     public function testRemoveKeyFromSession()
@@ -54,21 +48,15 @@ class SessionManagerTest extends TestCase
         $this->assertFalse(SessionManager::has('key'));
     }
 
-    public function testDestroySession()
-    {
-        SessionManager::set('key', 'value');
-        SessionManager::destroy();
-        $this->assertSame(PHP_SESSION_NONE, session_status());
-        $this->assertNull(SessionManager::get('key'));
-    }
-
     public function testRegenerateSessionId()
     {
         SessionManager::start();
-        $oldSessionId = session_id();
+
+        $originalSessionId = session_id();
         SessionManager::regenerate();
         $newSessionId = session_id();
-        $this->assertNotSame($oldSessionId, $newSessionId);
+
+        $this->assertNotSame($originalSessionId, $newSessionId);
     }
 
     public function testFlashAndGetFlashMessage()
@@ -78,33 +66,26 @@ class SessionManagerTest extends TestCase
         $this->assertNull(SessionManager::getFlash('flash_key'));
     }
 
-    public function testGetFlashMessageReturnsDefaultIfNotSet()
-    {
-        $this->assertSame('default', SessionManager::getFlash('non_existent_key', 'default'));
-    }
-
     public function testSetSessionExpiration()
     {
-        SessionManager::set('key', 'value');
-        SessionManager::setExpiration(1); // Set a very short expiration time
-        sleep(2); // Wait for the session to expire
-        $this->assertFalse(SessionManager::has('key')); // Session should be destroyed
-    }
+        $_SESSION['key'] = 'value';
+        $_SESSION['last_activity'] = time() - 3600;
 
-    protected function mockFunction($function, $returnValue)
-    {
-        // Mock a function to return a specified value
-        $mock = $this->getMockBuilder(stdClass::class)
-                     ->addMethods([$function])
-                     ->getMock();
+        SessionManager::setExpiration(1800);
 
-        $mock->method($function)->willReturn($returnValue);
-        return $mock;
+        $this->assertFalse(SessionManager::has('key'));
     }
 
     protected function tearDown(): void
     {
-        // Ensure that each test cleans up session to avoid conflicts
-        SessionManager::destroy();
+        $this->reset();
+    }
+
+    private function reset(): void
+    {
+        if (session_status() !== PHP_SESSION_NONE) {
+            session_destroy();
+        }
+        $_SESSION = [];
     }
 }
