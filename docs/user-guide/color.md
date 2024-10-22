@@ -14,18 +14,18 @@
     - [Hex to RGB Conversion](#hex-to-rgb-conversion)
     - [Color Generation from Text](#color-generation-from-text)
 
-
 ## About
 
 Utility for managing and manipulating color values in various formats, including RGB and hexadecimal. It provides functionalities for setting and getting individual color components (red, green, blue), validating color values, calculating luminance, converting between hex and RGB, and generating colors from text strings.
 
 ## Requirements
 
-None.
+No requirements.
 
-## Avaiable methods
+## Available methods
 
-## Constructor: 
+### Constructor
+
 Allows initialization of a Color object with RGB values and a hexadecimal color code.
 
 ```php
@@ -35,7 +35,7 @@ use GuiBranco\Pancake\Color;
 $color = new Color('255', '0', '0', '#FF0000'); // Red color
 ```
 
-## Setters and Getters: 
+### Setters and Getters
 Methods for setting and retrieving the red, green, blue, and hex color values, with validation to ensure they are within the appropriate range.
 
 ```php
@@ -48,7 +48,8 @@ echo $color->getGreen(); // Outputs: 128
 echo $color->getBlue();  // Outputs: 0
 ```
 
-## Color Validation
+### Color Validation
+
 Ensures that RGB values are between 0 and 255 and that hexadecimal color codes are valid.
 
 ```php
@@ -65,7 +66,8 @@ try {
 }
 ```
 
-## Luminance Calculation: 
+### Luminance Calculation
+
 Computes the luminance of the color using the standard luminance formula for RGB values.
 
 ```php
@@ -73,7 +75,8 @@ $luminance = $color->luminanceRGB();
 echo $luminance; // Outputs a value between 0 and 1
 ```
 
-## Hex to RGB Conversion: 
+### Hex to RGB Conversion
+
 Converts a hexadecimal color code to its RGB components.
 
 ```php
@@ -82,8 +85,8 @@ list($red, $green, $blue) = $color->hexToRGB();
 echo "Red: $red, Green: $green, Blue: $blue"; // Outputs: Red: 186, Green: 163, Blue: 85
 ```
 
+### Color Generation from Text
 
-## Color Generation from Text: 
 Generates a color based on a given text string, with options to specify minimum brightness and color specification.
 
 ```php

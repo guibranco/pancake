@@ -1,5 +1,9 @@
 # Changelog
 
+## Version 0.12 [2024-10-12]
+
+- [#83](https://github.com/guibranco/pancake/issues/83) - Add Database class by [@guibranco](https://github.com/guibranco).
+
 ## Version 0.11 [2024-10-02]
 
 - Enhance the Request class with optional data parameter by [@guibranco](https://github.com/guibranco).
