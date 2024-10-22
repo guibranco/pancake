@@ -1,6 +1,6 @@
 # SessionManager Class Documentation
 
-This document provides an overview of the `SessionManager` class which is designed to manage PHP session operations easily and effectively.
+This document provides an overview of the `SessionManager` class, which is designed to manage PHP session operations easily and effectively.
 
 ## Table of Contents
 - [start()](#start)
@@ -19,12 +19,12 @@ This document provides an overview of the `SessionManager` class which is design
 ### `start()`
 Initializes the session if it hasn't been started already.
 
-#### Usage:
+#### Usage
 ```php
 SessionManager::start();
 ```
 
-#### Behavior:
+#### Behavior
 - Checks if a session already exists using `session_status()`.
 - Starts a new session if no session is active.
 - Throws an exception if headers have already been sent before starting the session.
@@ -35,16 +35,16 @@ SessionManager::start();
 ### `set($key, $value)`
 Stores a value in the session associated with a given key.
 
-#### Parameters:
+#### Parameters
 - `$key` (string): The key to store the value under.
 - `$value` (mixed): The value to store in the session.
 
-#### Usage:
+#### Usage
 ```php
 SessionManager::set('username', 'JohnDoe');
 ```
 
-#### Behavior:
+#### Behavior
 - Calls `start()` to ensure the session is active.
 - Stores the value in the session and then closes the session to release the session lock.
   
@@ -53,16 +53,16 @@ SessionManager::set('username', 'JohnDoe');
 ### `get($key, $default = null)`
 Retrieves a value from the session for the specified key.
 
-#### Parameters:
+#### Parameters
 - `$key` (string): The key of the session variable to retrieve.
 - `$default` (mixed): Optional default value if the key doesn't exist.
 
-#### Usage:
+#### Usage
 ```php
 $username = SessionManager::get('username', 'Guest');
 ```
 
-#### Behavior:
+#### Behavior
 - Calls `start()` to ensure the session is active.
 - Returns the value associated with the key, or `$default` if the key doesn't exist.
 
@@ -71,17 +71,17 @@ $username = SessionManager::get('username', 'Guest');
 ### `has($key)`
 Checks if a specific key exists in the session.
 
-#### Parameters:
+#### Parameters
 - `$key` (string): The key to check in the session.
 
-#### Usage:
+#### Usage
 ```php
 if (SessionManager::has('username')) {
     // Key exists
 }
 ```
 
-#### Behavior:
+#### Behavior
 - Calls `start()` to ensure the session is active.
 - Returns `true` if the key exists in the session, otherwise `false`.
 
@@ -90,29 +90,29 @@ if (SessionManager::has('username')) {
 ### `remove($key)`
 Removes a session variable for the specified key.
 
-#### Parameters:
+#### Parameters
 - `$key` (string): The key to remove from the session.
 
-#### Usage:
+#### Usage
 ```php
 SessionManager::remove('username');
 ```
 
-#### Behavior:
+#### Behavior
 - Calls `start()` to ensure the session is active.
 - Unsets the session variable and releases the session lock.
 
 ---
 
 ### `destroy()`
-Completely destroys the current session, removing all stored data.
+Destroys the current session, removing all stored data.
 
-#### Usage:
+#### Usage
 ```php
 SessionManager::destroy();
 ```
 
-#### Behavior:
+#### Behavior
 - Unsets all session variables and destroys the session data.
 - If session cookies are used, it invalidates the session cookie by setting its expiration time in the past.
 
@@ -121,12 +121,12 @@ SessionManager::destroy();
 ### `regenerate()`
 Regenerates the session ID to enhance security by replacing the old ID with a new one.
 
-#### Usage:
+#### Usage
 ```php
 SessionManager::regenerate();
 ```
 
-#### Behavior:
+#### Behavior
 - Regenerates the session ID if a session is active.
 - Passes `true` to `session_regenerate_id()` to delete the old session data associated with the previous ID.
 
@@ -135,16 +135,16 @@ SessionManager::regenerate();
 ### `flash($key, $value)`
 Stores a flash message, which is a temporary session value that persists only for the next request.
 
-#### Parameters:
+#### Parameters
 - `$key` (string): The key to store the flash message under.
 - `$value` (mixed): The value of the flash message.
 
-#### Usage:
+#### Usage
 ```php
 SessionManager::flash('success', 'Your changes were saved.');
 ```
 
-#### Behavior:
+#### Behavior
 - Calls `start()` to ensure the session is active.
 - Stores the flash message in the session and then closes the session to release the lock.
 
@@ -153,16 +153,16 @@ SessionManager::flash('success', 'Your changes were saved.');
 ### `getFlash($key, $default = null)`
 Retrieves a flash message for the specified key and removes it from the session.
 
-#### Parameters:
+#### Parameters
 - `$key` (string): The key of the flash message to retrieve.
 - `$default` (mixed): Optional default value if the key doesn't exist.
 
-#### Usage:
+#### Usage
 ```php
 $message = SessionManager::getFlash('success', 'No messages');
 ```
 
-#### Behavior:
+#### Behavior
 - Calls `start()` to ensure the session is active.
 - Retrieves and then removes the flash message for the given key.
 - Returns the flash message or `$default` if the key doesn't exist.
@@ -172,15 +172,15 @@ $message = SessionManager::getFlash('success', 'No messages');
 ### `setExpiration($lifetime = 1800)`
 Sets the session expiration time (default 30 minutes). If the session is inactive for longer than the lifetime, the session will be destroyed.
 
-#### Parameters:
+#### Parameters
 - `$lifetime` (int): The session lifetime in seconds. Defaults to 1800 seconds (30 minutes).
 
-#### Usage:
+#### Usage
 ```php
 SessionManager::setExpiration(3600); // Set expiration time to 1 hour
 ```
 
-#### Behavior:
+#### Behavior
 - Calls `start()` to ensure the session is active.
 - Destroys the session if the time since the last activity exceeds the session lifetime.
 - Updates the last activity timestamp.
