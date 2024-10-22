@@ -118,6 +118,13 @@ Refer to [CONTRIBUTING.md](CONTRIBUTING.md) to learn how to contribute to this p
                     <sub><b>Gabriel Goulart</b></sub>
                 </a>
             </td>
+            <td align="center">
+                <a href="https://github.com/Humayun-23">
+                    <img src="https://avatars.githubusercontent.com/u/70696397?v=4" width="100;" alt="Humayun-23"/>
+                    <br />
+                    <sub><b>Sheikh Humayun Roshid</b></sub>
+                </a>
+            </td>
 		</tr>
 	<tbody>
 </table>
