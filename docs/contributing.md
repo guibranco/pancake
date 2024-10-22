@@ -26,7 +26,7 @@ Refer to [CONTRIBUTING.md](https://github.com/guibranco/Pancake/blob/main/CONTRI
                 <a href="https://github.com/Humayun-23">
                     <img src="https://avatars.githubusercontent.com/u/70696397?v=4" width="100;" alt="Humayun-23"/>
                     <br />
-                    <sub><b>Sheikh Humayun Roshid</b></sub>
+                    <sub><b>Humayun</b></sub>
                 </a>
             </td>
 		</tr>
