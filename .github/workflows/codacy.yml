@@ -11,6 +11,17 @@ jobs:
     codacy:
         name: Codacy
         runs-on: ubuntu-latest
+
+        services:
+            mysql:
+                image: mysql:5.7
+                env:
+                    MYSQL_ROOT_PASSWORD: root
+                    MYSQL_DATABASE: pancake
+                ports:
+                    - 3306
+                options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+
         steps:
             - uses: actions/checkout@v4
               with:
@@ -30,7 +41,7 @@ jobs:
               with:
                   version: 11
                   php_version: 8.3
-                  php_extensions: xdebug shmop
+                  php_extensions: xdebug shmop curl pdo pdo_mysql
                   coverage_cobertura: coverage.xml
                   bootstrap: vendor/autoload.php
                   configuration: tests/phpunit.xml
