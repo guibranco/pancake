@@ -8,11 +8,11 @@ class SessionManager
     {
         if (session_status() == PHP_SESSION_NONE) {
             try {
-                if (!headers_sent()) {
-                    session_start();
-                } else {
+                if (headers_sent()) {
                     throw new \Exception("Headers already sent. Cannot start the session.");
                 }
+
+                session_start();
             } catch (\Exception $e) {
                 error_log($e->getMessage());
                 throw $e;
@@ -48,17 +48,22 @@ class SessionManager
 
     public static function destroy()
     {
-        if (session_status() != PHP_SESSION_NONE) {
-            session_unset();
-            session_destroy();
-            if (ini_get("session.use_cookies")) {
-                $params = session_get_cookie_params();
-                setcookie(session_name(), '', time() - 42000,
-                    $params["path"], $params["domain"],
-                    $params["secure"], $params["httponly"]
-                );
-            }
+        if (session_status() == PHP_SESSION_NONE) {
+            return;
         }
+        
+        session_unset();
+        session_destroy();
+        if (ini_get("session.use_cookies")) {
+            $params = session_get_cookie_params();
+            setcookie(
+                session_name(),
+                '',
+                time() - 42000,
+                $params["path"], $params["domain"],
+                $params["secure"], $params["httponly"]
+            );
+       }
     }
 
     public static function regenerate()
@@ -84,7 +89,7 @@ class SessionManager
         return $value;
     }
 
-    public static function setExpiration($lifetime = 1800) //Default expiration time is 30 minutes(1800 sec)
+    public static function setExpiration($lifetime = 1800) //Default expiration time is 30 minutes (1800 sec)
     {
         self::start();
         if (isset($_SESSION['last_activity']) && (time() - $_SESSION['last_activity'] > $lifetime)) {
