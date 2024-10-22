@@ -1,21 +1,26 @@
 <?php
 
-class Queue {
+class Queue
+{
     private $connectionStrings;
 
-    public function __construct(array $servers) {
+    public function __construct(array $servers)
+    {
         $this->connectionStrings = $servers;
     }
 
-    private function declareQueueWithDLX($channel, $queueName) {
+    private function declareQueueWithDLX($channel, $queueName)
+    {
         // Existing implementation for declaring a queue with DLX
     }
 
-    private function declareQueueWithoutDLX($channel, $queueName) {
+    private function declareQueueWithoutDLX($channel, $queueName)
+    {
         // Implement declaration without DLX
     }
 
-    public function publish($queueName, $message, $useDLX = true) {
+    public function publish($queueName, $message, $useDLX = true)
+    {
         $connection = $this->getRandomConnection();
         $channel = $connection->channel();
 
@@ -28,7 +33,8 @@ class Queue {
         // Code to publish the message
     }
 
-    public function consume($timeout, $queueName, $callback, $resetTimeoutOnReceive = false, $prefetchCount = 10, $useDLX = true) {
+    public function consume($timeout, $queueName, $callback, $resetTimeoutOnReceive = false, $prefetchCount = 10, $useDLX = true)
+    {
         foreach ($this->connectionStrings as $server) {
             $connection = $this->getConnection($server);
             $channel = $connection->channel();
@@ -45,12 +51,14 @@ class Queue {
         }
     }
 
-    private function getRandomConnection() {
+    private function getRandomConnection()
+    {
         $randomServer = $this->connectionStrings[array_rand($this->connectionStrings)];
         return $this->getConnection($randomServer);
     }
 
-    private function getConnection($server) {
+    private function getConnection($server)
+    {
         $options = ['connection_timeout' => 10.0, 'read_write_timeout' => 10.0];
         return AMQPStreamConnection::create_connection([$server], $options);
     }
@@ -58,5 +66,3 @@ class Queue {
     // Additional methods and logic for the Queue class
 
 }
-
-?>
