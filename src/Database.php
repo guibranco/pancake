@@ -18,6 +18,10 @@ class Database implements IDatabase
         int $port = 3306,
         string $charset = 'utf8mb4'
     ) {
+        if ($port < 1 || $port > 65535) {
+            throw new DatabaseException('Invalid port number');
+        }
+
         $dsn = "mysql:host=$host;port=$port;dbname=$dbname;charset=$charset";
         $options = [
             PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
@@ -29,7 +33,7 @@ class Database implements IDatabase
         try {
             $this->pdo = new PDO($dsn, $username, $password, $options);
         } catch (PDOException $e) {
-            throw new DatabaseException('Database connection error: ' . $e->getMessage(), 0, $e);
+            throw new DatabaseException('Failed to connect to database. Please check your configuration.', 0, $e);
         }
     }
 
