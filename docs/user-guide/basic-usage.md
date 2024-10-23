@@ -55,27 +55,45 @@ echo "API Response: " . $response->getBody();
 
 // Database Example
 try {
-    $db = new Database('localhost', 'your_db_name', 'your_username', 'your_password');
-
+    // Load configuration from environment or config file
+    $db = new Database(
+        getenv('DB_HOST'),
+        getenv('DB_NAME'),
+        getenv('DB_USER'),
+        getenv('DB_PASS')
+    );
+    
+    // Transaction example
+    $db->beginTransaction();
+    
     // Insert example
     $db->prepare("INSERT INTO users (name, email) VALUES (:name, :email)");
     $db->bind(':name', 'John Doe');
     $db->bind(':email', 'johndoe@example.com');
     $db->execute();
-    echo "Last inserted ID: " . $db->lastInsertId();
-
+    $userId = $db->lastInsertId();
+    echo "Last inserted ID: " . $userId;
+    
     // Fetch single record
     $db->prepare("SELECT * FROM users WHERE id = :id");
     $db->bind(':id', 1);
     $user = $db->fetch();
-    echo "User: " . print_r($user, true);
-
+    echo "User: " . json_encode($user, JSON_PRETTY_PRINT);
+    
     // Fetch all records
     $db->prepare("SELECT * FROM users");
     $users = $db->fetchAll();
-    echo "All users: " . print_r($users, true);
+    echo "All users: " . json_encode($users, JSON_PRETTY_PRINT);
+    
+    $db->commit();
 
 } catch (DatabaseException $e) {
+    if ($db->inTransaction()) {
+        $db->rollBack();
+    }
     echo "Database error: " . $e->getMessage();
+} finally {
+    // Ensure connection is closed
+    $db = null;
 }
 ```
