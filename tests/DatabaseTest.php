@@ -11,7 +11,7 @@ final class DatabaseTest extends TestCase
 {
     public function testCanConnect(): void
     {
-        $database = new Database('localhost', 'pancake', 'root', 'root');
+        $database = new Database('127.0.0.1', 'pancake', 'root', 'root');
         $this->assertInstanceOf(Database::class, $database);
         $this->assertNull($database->getError());
         $database->close();
@@ -19,7 +19,7 @@ final class DatabaseTest extends TestCase
 
     public function testCanNotConnect(): void
     {
-        $database = new Database('localhost', 'pancake', 'root', 'root123');
+        $database = new Database('127.0.0.1', 'pancake', 'root', 'root123');
         $this->assertInstanceOf(Database::class, $database);
         $this->assertNotNull($database->getError());
         $database->close();
@@ -27,7 +27,7 @@ final class DatabaseTest extends TestCase
 
     public function testCanQuery(): void
     {
-        $database = new Database('localhost', 'pancake', 'root', 'root');
+        $database = new Database('127.0.0.1', 'pancake', 'root', 'root');
         $this->assertInstanceOf(Database::class, $database);
         $this->assertNull($database->getError());
         $result = $database->query('SELECT * FROM users');
