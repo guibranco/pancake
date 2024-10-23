@@ -4,4 +4,6 @@ namespace GuiBranco\Pancake;
 
 use Exception;
 
-class DatabaseException extends Exception {}
+class DatabaseException extends Exception
+{
+}
