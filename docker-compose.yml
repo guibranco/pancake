@@ -1,18 +1,12 @@
-version: '3.8'
-
 services:
-    mysql:
+    database:
+        container_name: database
         image: mysql:8.0
-        container_name: mysql-pancake
-        user: mysql
-        read_only: true
-        security_opt:
-            - no-new-privileges:true
         restart: always
         ports:
-            - "3306:3306"
+        - "3306:3306"
         environment:
-            MYSQL_ROOT_PASSWORD: P@$$w0rd
+            MYSQL_ROOT_PASSWORD: root
             MYSQL_DATABASE: pancake
             MYSQL_USER: test
             MYSQL_PASSWORD: test
@@ -22,10 +16,10 @@ services:
             timeout: 10s
             retries: 5
             start_period: 60s
-        command: ['--default-authentication-plugin=mysql_native_password']
         volumes:
-            - mysql_data:/var/lib/mysql
-            - ./init:/docker-entrypoint-initdb.d
+            - my-db:/var/lib/mysql
+        networks:
+            - default
 
 volumes:
-    mysql_data:
+    my-db:
