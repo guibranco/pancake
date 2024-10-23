@@ -6,13 +6,13 @@
   - [Table of content](#table-of-content)
   - [About](#about)
   - [Requirements](#requirements)
-  - [Available methods](#available-methods)
-    - [Constructor](#constructor)
-    - [Setters and Getters](#setters-and-getters)
-    - [Color Validation](#color-validation)
-    - [Luminance Calculation](#luminance-calculation)
-    - [Hex to RGB Conversion](#hex-to-rgb-conversion)
-    - [Color Generation from Text](#color-generation-from-text)
+  - [Avaiable methods](#avaiable-methods)
+  - [Constructor](#constructor)
+  - [Setters and Getters](#setters-and-getters)
+  - [Color Validation](#color-validation)
+  - [Luminance Calculation](#luminance-calculation)
+  - [Hex to RGB Conversion](#hex-to-rgb-conversion)
+  - [Color Generation from Text](#color-generation-from-text)
 
 ## About
 
@@ -34,8 +34,8 @@ use GuiBranco\Pancake\Color;
 // Create a new Color object
 $color = new Color('255', '0', '0', '#FF0000'); // Red color
 ```
-
 ### Setters and Getters
+
 Methods for setting and retrieving the red, green, blue, and hex color values, with validation to ensure they are within the appropriate range.
 
 ```php
