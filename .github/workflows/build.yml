@@ -8,16 +8,6 @@ jobs:
     build:
         runs-on: ubuntu-latest
 
-        services:
-            mysql:
-                image: mysql:8.0
-                env:
-                    MYSQL_ROOT_PASSWORD: root
-                    MYSQL_DATABASE: pancake
-                ports:
-                    - 3306
-                options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=10s --health-retries=5 -e MYSQL_ROOT_PASSWORD=root -e MYSQL_USER=pancake -e MYSQL_PASSWORD=p@$$w0rD -e MYSQL_DATABASE=pancake --entrypoint sh mysql:8 -c "exec docker-entrypoint.sh mysqld --default-authentication-plugin=mysql_native_password"
-
         steps:
             - name: Checkout
               uses: actions/checkout@v4
@@ -32,6 +22,9 @@ jobs:
 
             - name: Install dependencies
               uses: php-actions/composer@v6
+
+            - name: Docker compose up
+              run: docker compose up -d && sleep 10
 
             - name: PHPUnit Tests
               uses: php-actions/phpunit@v3
