@@ -8,6 +8,7 @@
             "GuiBranco\\Pancake\\": "src/"
         }
     },
+        "phpunit/phpunit": "^9.5"
     "autoload-dev": {
         "psr-4": {
             "GuiBranco\\Pancake\\Tests\\": "tests/"
