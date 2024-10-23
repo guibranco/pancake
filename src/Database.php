@@ -92,18 +92,38 @@ class Database implements IDatabase
         return $this->pdo->lastInsertId();
     }
 
+    /**
+     * Check if the database connection is active
+     */
+    public function isConnected(): bool
+    {
+        return $this->pdo !== null;
+    }
+
     public function beginTransaction(): bool
     {
+        if (!$this->isConnected()) {
+            throw new DatabaseException('No active database connection');
+        }
+        if ($this->pdo->inTransaction()) {
+            throw new DatabaseException('Transaction already in progress');
+        }
         return $this->pdo->beginTransaction();
     }
 
     public function commit(): bool
     {
+        if (!$this->isConnected() || !$this->pdo->inTransaction()) {
+            throw new DatabaseException('No active transaction to commit');
+        }
         return $this->pdo->commit();
     }
 
     public function rollBack(): bool
     {
+        if (!$this->isConnected() || !$this->pdo->inTransaction()) {
+            throw new DatabaseException('No active transaction to roll back');
+        }
         return $this->pdo->rollBack();
     }
 
