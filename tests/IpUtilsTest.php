@@ -41,5 +41,3 @@ class IpUtilsTest extends TestCase
         $this->assertFalse(IpUtils::ipToLong('invalid_ip'));
     }
 }
-
-?>

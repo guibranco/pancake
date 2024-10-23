@@ -90,5 +90,3 @@ class IpUtils
         return false;
     }
 }
-
-?>
