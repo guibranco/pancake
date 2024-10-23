@@ -9,7 +9,6 @@ class Database implements IDatabase
 {
     private $pdo;
     private $stmt;
-    private $error;
 
     public function __construct(
         string $host,
@@ -21,17 +20,16 @@ class Database implements IDatabase
     ) {
         $dsn = "mysql:host=$host;port=$port;dbname=$dbname;charset=$charset";
         $options = [
-            PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
+            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
             PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-            PDO::ATTR_PERSISTENT         => false,
-            PDO::ATTR_EMULATE_PREPARES   => false,
+            PDO::ATTR_PERSISTENT => false,
+            PDO::ATTR_EMULATE_PREPARES => false,
         ];
 
         try {
             $this->pdo = new PDO($dsn, $username, $password, $options);
         } catch (PDOException $e) {
-            $this->error = $e->getMessage();
-            throw new DatabaseException('Database connection error: ' . $this->error);
+            throw new DatabaseException('Database connection error: ' . $e->getMessage(), 0, $e);
         }
     }
 
@@ -106,10 +104,5 @@ class Database implements IDatabase
     {
         $this->stmt = null;
         $this->pdo = null;
-    }
-
-    public function getError(): ?string
-    {
-        return $this->error;
     }
 }

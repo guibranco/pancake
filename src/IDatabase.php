@@ -25,6 +25,4 @@ interface IDatabase
     public function rollBack(): bool;
 
     public function close(): void;
-
-    public function getError(): ?string;
 }

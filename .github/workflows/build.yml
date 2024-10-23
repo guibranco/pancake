@@ -16,11 +16,7 @@ jobs:
                     MYSQL_DATABASE: pancake
                 ports:
                     - 3306:3306
-                options: >-
-                    --health-cmd="mysqladmin ping"
-                    --health-interval=10s
-                    --health-timeout=5s
-                    --health-retries=3
+                    options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=5 -e MYSQL_ROOT_PASSWORD=xxx -e MYSQL_USER=xxx -e MYSQL_PASSWORD=xxx -e MYSQL_DATABASE=xxx --entrypoint sh mysql:8 -c "exec docker-entrypoint.sh mysqld --default-authentication-plugin=mysql_native_password"
 
         steps:
             - name: Checkout
