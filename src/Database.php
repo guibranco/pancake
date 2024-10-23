@@ -81,6 +81,9 @@ class Database implements IDatabase
 
     public function rowCount(): int
     {
+        if ($this->stmt === null) {
+            throw new DatabaseException('No statement available to get row count.');
+        }
         return $this->stmt->rowCount();
     }
 
