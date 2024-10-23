@@ -10,9 +10,21 @@ interface IDatabase
 
     public function execute(): bool;
 
-    public function fetch();
+    /**
+     * Fetches the next row from a result set
+     *
+     * @param int $fetchMode Optional fetch mode (PDO::FETCH_*)
+     * @return mixed The fetched row or false on failure
+     */
+    public function fetch(int $fetchMode = null): mixed;
 
-    public function fetchAll();
+    /**
+     * Fetches all rows from a result set
+     *
+     * @param int $fetchMode Optional fetch mode (PDO::FETCH_*)
+     * @return array The result set rows
+     */
+    public function fetchAll(int $fetchMode = null): array;
 
     public function rowCount(): int;
 
