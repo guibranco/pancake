@@ -10,20 +10,19 @@ use PHPUnit\Framework\TestCase;
 
 class DatabaseTest extends TestCase
 {
+    private static string $host = '127.0.0.1';
+
     private static Database $db;
 
     public static function setUpBeforeClass(): void
     {
-        // Set up the Database object
         self::$db = new Database(
-            '127.0.0.1',
+            self::$host,
             'pancake',
-            'root',
-            'root',
-            3306
+            'test',
+            'test'
         );
 
-        // Create a test table
         self::$db->prepare("CREATE TABLE IF NOT EXISTS users (
             id INT AUTO_INCREMENT PRIMARY KEY,
             name VARCHAR(100),
@@ -34,7 +33,6 @@ class DatabaseTest extends TestCase
 
     public static function tearDownAfterClass(): void
     {
-        // Drop the test table after all tests
         self::$db->prepare("DROP TABLE IF EXISTS users");
         self::$db->execute();
         self::$db->close();
@@ -129,13 +127,13 @@ class DatabaseTest extends TestCase
     {
         $this->expectException(DatabaseException::class);
 
-        new Database('127.0.0.1', 'invalid_db', 'wrong_user', 'wrong_password');
+        new Database(self::$host, 'invalid_db', 'wrong_user', 'wrong_password');
     }
 
     public function testGetError(): void
     {
         try {
-            $db = new Database('127.0.0.1', 'invalid_db', 'wrong_user', 'wrong_password');
+            $db = new Database(self::$host, 'invalid_db', 'wrong_user', 'wrong_password');
         } catch (DatabaseException $e) {
             $this->assertNotNull($e->getMessage());
         }
