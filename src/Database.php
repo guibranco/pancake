@@ -67,16 +67,16 @@ class Database implements IDatabase
         return $this->stmt->execute();
     }
 
-    public function fetch()
+    public function fetch(int $fetchMode = null): mixed
     {
         $this->execute();
-        return $this->stmt->fetch();
+        return $this->stmt->fetch($fetchMode);
     }
 
-    public function fetchAll()
+    public function fetchAll(int $fetchMode = null): array
     {
         $this->execute();
-        return $this->stmt->fetchAll();
+        return $this->stmt->fetchAll($fetchMode);
     }
 
     public function rowCount(): int
