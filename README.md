@@ -5,7 +5,7 @@
 [![GitHub license](https://img.shields.io/github/license/guibranco/pancake)](https://github.com/guibranco/pancake)
 [![Time tracker](https://wakatime.com/badge/github/guibranco/pancake.svg)](https://wakatime.com/badge/github/guibranco/pancake)
 
-![Crispy Waffle logo](https://raw.githubusercontent.com/guibranco/pancake/main/logo.png)
+![Pancake logo](https://raw.githubusercontent.com/guibranco/pancake/main/logo.png)
 
 Documentation: [Read the Docs](https://guibranco.github.io/pancake/)
 
@@ -19,13 +19,14 @@ Documentation: [Read the Docs](https://guibranco.github.io/pancake/)
 - [User guide](#user-guide): How to set up, configure and use this tool.
 - [Change log](#changelog): Changelog containing the changes done in this project.
 - [Support](#support): How to get support.
+- [Testing](#testing): How to test this library.
 - [Contributing](#contributing): How to contribute.
 
 ---
 
 ## CI/CD
 
-| Build status | Last commit | Coverage | Code Smells | LoC | 
+| Build status | Last commit | Coverage | Code Smells | LoC |
 |--------------|-------------|----------|-------------|-----|
 | [![CI](https://github.com/guibranco/pancake/actions/workflows/ci.yml/badge.svg)](https://github.com/guibranco/pancake/actions/workflows/ci.yml) | [![GitHub last commit](https://img.shields.io/github/last-commit/guibranco/pancake/main)](https://github.com/guibranco/pancake) | [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=guibranco_pancake&metric=coverage)](https://sonarcloud.io/dashboard?id=guibranco_pancake) | [![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=guibranco_pancake&metric=code_smells)](https://sonarcloud.io/dashboard?id=guibranco_pancake) | [![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=guibranco_pancake&metric=ncloc)](https://sonarcloud.io/dashboard?id=guibranco_pancake) | 
 
@@ -36,7 +37,7 @@ Documentation: [Read the Docs](https://guibranco.github.io/pancake/)
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/9a369e8dc1e74ba1b18c309935c7af4b)](https://app.codacy.com/gh/guibranco/pancake/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
 [![Codacy Badge](https://app.codacy.com/project/badge/Coverage/9a369e8dc1e74ba1b18c309935c7af4b)](https://app.codacy.com/gh/guibranco/pancake/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_coverage)
 
-[![codecov](https://codecov.io/gh/guibranco/pancake/branch/main/graph/badge.svg)](https://codecov.io/gh/guibranco/pancake)
+[![Codecov](https://codecov.io/gh/guibranco/pancake/branch/main/graph/badge.svg)](https://codecov.io/gh/guibranco/pancake)
 [![CodeFactor](https://www.codefactor.io/repository/github/guibranco/pancake/badge)](https://www.codefactor.io/repository/github/guibranco/pancake)
 
 [![Maintainability](https://api.codeclimate.com/v1/badges/ae6591111f27479fba12/maintainability)](https://codeclimate.com/github/guibranco/pancake/maintainability)
@@ -91,6 +92,27 @@ The changelog is available [here](https://guibranco.github.io/pancake/changelog/
 ## Support
 
 Please [open an issue](https://github.com/guibranco/pancake/issues/new) for support.
+
+---
+
+## Testing
+
+Tests can be run through PHPUnit.
+
+```bash
+composer update
+./vendor/bin/phpunit tests
+```
+
+### Test dependencies
+
+Make sure you have the MySQL/MariaDB server running and listen with the following configuration:
+
+- Host: localhost
+- Port: 3306
+- Username: root
+- Password: root
+- Database: pancake
 
 ---
 

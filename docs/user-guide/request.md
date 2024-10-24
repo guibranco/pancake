@@ -30,7 +30,7 @@ This class is responsible for doing [cURL](https://www.php.net/manual/en/book.cu
 
 ## Requirements
 
-This requires lib curl to be active with your PHP settings.
+This requires `lib curl` to be active with your PHP settings.
 
 ## Available HTTP verbs
 

@@ -41,12 +41,15 @@ jobs:
             - name: Install dependencies
               uses: php-actions/composer@v6
 
+            - name: Docker compose up
+              run: docker compose up -d && sleep 10
+
             - name: PHPUnit Tests
               uses: php-actions/phpunit@v3
               with:
                   version: 11
                   php_version: 8.3
-                  php_extensions: xdebug shmop
+                  php_extensions: xdebug shmop curl pdo pdo_mysql
                   coverage_cobertura: coverage.xml
                   bootstrap: vendor/autoload.php
                   configuration: tests/phpunit.xml

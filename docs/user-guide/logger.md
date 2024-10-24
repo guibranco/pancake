@@ -16,7 +16,7 @@ This class send detailed information about the caller method to a endpoint that 
 
 ## Requirements
 
-This requires lib curl to be active with your PHP settings.
+This requires `lib curl` to be active with your PHP settings.
 This also requires a key/token pair from the logger services.
 
 ## Available methods

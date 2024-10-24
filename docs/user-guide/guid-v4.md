@@ -16,7 +16,7 @@ This class is responsible for generating a [GUID/UUID](https://en.wikipedia.org/
 
 ## Requirements
 
-None.
+No requirements.
 
 ## Available methods
 

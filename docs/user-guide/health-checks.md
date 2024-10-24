@@ -27,7 +27,7 @@ This class is responsible for making requests to the [HealthChecks.io](https://h
 
 ## Requirements
 
-This requires lib curl to be active with your PHP settings.
+This requires `lib curl` to be active with your PHP settings.
 This also requires a token from the Health Checks services.
 
 ## Available methods

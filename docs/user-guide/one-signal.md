@@ -15,7 +15,7 @@ This class allows you to send [One Signal](https://onesignal.com/) notifications
 
 ## Requirements
 
-This requires lib curl to be active with your PHP settings.
+This requires `lib curl` to be active with your PHP settings.
 This also requires a token from One Signal services.
 
 ## Available methods
