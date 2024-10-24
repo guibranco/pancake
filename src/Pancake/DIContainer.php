@@ -29,7 +29,7 @@ class DIContainer implements ContainerInterface
     public function get(string $name)
     {
         if (!isset($this->services[$name])) {
-            throw new class extends \Exception implements NotFoundExceptionInterface {};
+            throw new class () extends \Exception implements NotFoundExceptionInterface {};
         }
 
         if ($this->services[$name]['shared']) {
@@ -47,7 +47,7 @@ class DIContainer implements ContainerInterface
         try {
             return call_user_func($this->services[$name]['resolver'], $this);
         } catch (\Exception $e) {
-            throw new class extends \Exception implements ContainerExceptionInterface {};
+            throw new class () extends \Exception implements ContainerExceptionInterface {};
         }
     }
 
@@ -56,5 +56,3 @@ class DIContainer implements ContainerInterface
         return isset($this->services[$name]);
     }
 }
-
-?>

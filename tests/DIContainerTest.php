@@ -8,7 +8,7 @@ class DIContainerTest extends TestCase
     public function testRegisterAndResolveSingleton()
     {
         $container = new DIContainer();
-        $container->registerSingleton('service', function() {
+        $container->registerSingleton('service', function () {
             return new stdClass();
         });
 
@@ -21,7 +21,7 @@ class DIContainerTest extends TestCase
     public function testRegisterAndResolveTransient()
     {
         $container = new DIContainer();
-        $container->registerTransient('service', function() {
+        $container->registerTransient('service', function () {
             return new stdClass();
         });
 
@@ -42,7 +42,7 @@ class DIContainerTest extends TestCase
     public function testHasMethod()
     {
         $container = new DIContainer();
-        $container->registerSingleton('service', function() {
+        $container->registerSingleton('service', function () {
             return new stdClass();
         });
 
@@ -55,12 +55,10 @@ class DIContainerTest extends TestCase
         $this->expectException(Psr\Container\ContainerExceptionInterface::class);
 
         $container = new DIContainer();
-        $container->register('service', function() {
+        $container->register('service', function () {
             throw new Exception('Resolution failed');
         });
 
         $container->get('service');
     }
 }
-
-?>
