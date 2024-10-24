@@ -1,3 +1,9 @@
+# Pancake Framework
+
+## Dependency Inversion Container
+
+The Pancake framework now includes a Dependency Inversion Container (`DIContainer`) that implements the PSR-11 `ContainerInterface`. For detailed usage instructions, refer to the [DIContainer Usage Guide](docs/DIContainerUsage.md).
+
 # pancake
 
 🧰 🛠️ Pancake project - a toolkit for PHP projects.
