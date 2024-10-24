@@ -6,7 +6,7 @@ interface IDatabase
 {
     /**
      * Prepares an SQL statement for execution
-     * 
+     *
      * @param string $query The SQL query to prepare
      * @return self For method chaining
      * @throws DatabaseException If the query is invalid
