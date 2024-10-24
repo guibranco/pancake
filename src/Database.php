@@ -37,9 +37,10 @@ class Database implements IDatabase
         }
     }
 
-    public function prepare(string $query): void
+    public function prepare(string $query): self
     {
         $this->stmt = $this->pdo->prepare($query);
+        return $this;
     }
 
     public function bind(string $param, $value, $type = null): void
