@@ -26,7 +26,13 @@ class Database implements IDatabase
             throw new DatabaseException('Invalid port number');
         }
 
-        $dsn = "mysql:host=$host;port=$port;dbname=$dbname;charset=$charset";
+        $dsn = sprintf(
+            'mysql:host=%s;port=%d;dbname=%s;charset=%s',
+            str_replace(';', '', $host),
+            $port,
+            str_replace(';', '', $dbname),
+            str_replace(';', '', $charset)
+        );
         $options = [
             PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
             PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
