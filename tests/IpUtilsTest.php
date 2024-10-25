@@ -1,7 +1,7 @@
 <?php
 
 use PHPUnit\Framework\TestCase;
-use App\Utils\IpUtils;
+use Guibranco\Pancake;
 
 class IpUtilsTest extends TestCase
 {
