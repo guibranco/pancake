@@ -8,7 +8,6 @@ on:
         types: [opened, synchronize, reopened]
 
 jobs:
-                  include: tests/MVC/**
     DeepSource:
         name: Deep Source Coverage report
         runs-on: ubuntu-latest
