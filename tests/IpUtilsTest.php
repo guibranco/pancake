@@ -63,7 +63,7 @@ class IpUtilsTest extends TestCase
     {
         $this->expectException(\InvalidArgumentException::class);
         IpUtils::isIPv6InRange("2001:0db8:85a3:0000:0000:0000:0000:0001", "2001:0db8:85a3::/129");
-        
+
         $this->expectException(\InvalidArgumentException::class);
         IpUtils::isIPv6InRange("2001:0db8:85a3:0000:0000:0000:0000:0001", "invalidCIDR");
 
