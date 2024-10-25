@@ -60,7 +60,23 @@ class IpUtils
 
         $ipBin = inet_pton($ip);
         $subnetBin = inet_pton($subnet);
-        $maskBin = str_repeat("f", $mask / 4) . str_repeat("0", (128 - $mask) / 4);
+        
+        // thanks to MW on http://stackoverflow.com/questions/7951061/matching-ipv6-address-to-a-cidr-subnet
+        $maskBin = str_repeat("f", $mask / 4);
+        
+        switch ($mask % 4) {
+            case 0:
+                break;
+            case 1:
+                $maskBin .= "8";
+                break;
+            case 2:
+                $maskBin .= "c";
+                break;
+            case 3:
+                $maskBin .= "e";
+                break;
+        }
 
         return ($ipBin & $maskBin) == ($subnetBin & $maskBin);
     }
