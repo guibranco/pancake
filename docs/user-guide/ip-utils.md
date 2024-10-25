@@ -3,14 +3,15 @@
 ## Table of Contents
 
 - [Ip Utils](#ip-utils)
+  - [Table of Contents](#table-of-contents)
   - [About](#about)
   - [Requirements](#requirements)
   - [Available Methods](#available-methods)
-    - [isValidIPv4](#isvalidipv4)
-    - [isValidIPv6](#isvalidipv6)
-    - [isIPv4InRange](#isipv4inrange)
-    - [isIPv6InRange](#isipv6inrange)
-    - [ipToLong](#iptolong)
+    - [`isValidIPv4`](#isvalidipv4)
+    - [`isValidIPv6`](#isvalidipv6)
+    - [`isIPv4InRange`](#isipv4inrange)
+    - [`isIPv6InRange`](#isipv6inrange)
+    - [`ipToLong`](#iptolong)
 
 ## About
 
@@ -32,6 +33,7 @@ Validate if a given IP address is a valid IPv4 address.
 - **Returns:** `bool` - `true` if the IP is a valid IPv4 address, `false` otherwise.
 
 **Example:**
+
 ```php
 use GuiBranco\Pancake\IpUtils;
 
@@ -53,6 +55,7 @@ Validate if a given IP address is a valid IPv6 address.
 - **Returns:** `bool` - `true` if the IP is a valid IPv6 address, `false` otherwise.
 
 **Example:**
+
 ```php
 use GuiBranco\Pancake\IpUtils;
 
@@ -75,6 +78,7 @@ Check if a given IPv4 address is within a specified CIDR range.
 - **Returns:** `bool` - `true` if the IP address is within the range, `false` otherwise.
 
 **Example:**
+
 ```php
 use GuiBranco\Pancake\IpUtils;
 
@@ -98,6 +102,7 @@ Check if a given IPv6 address is within a specified CIDR range.
 - **Returns:** `bool` - `true` if the IP address is within the range, `false` otherwise.
 
 **Example:**
+
 ```php
 use GuiBranco\Pancake\IpUtils;
 
@@ -120,6 +125,7 @@ Convert an IP address to its long integer representation.
 - **Returns:** `string|false` - The long integer representation of the IP address, or `false` if the IP address is invalid.
 
 **Example:**
+
 ```php
 use GuiBranco\Pancake\IpUtils;
 
