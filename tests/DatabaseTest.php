@@ -165,8 +165,14 @@ class DatabaseTest extends TestCase
     {
         $this->expectException(DatabaseException::class);
 
-        self::$db->close();
-        self::$db->rollBack();
+        $db = new Database(
+            self::$host,
+            'pancake',
+            'test',
+            'test'
+        );
+        $db->close();
+        $db->rollBack();
     }
 
     public function testIsConnected(): void
