@@ -135,9 +135,15 @@ class DatabaseTest extends TestCase
 
     public function testBeginTransactionInsideATransaction(): void
     {
+        $db = new Database(
+            self::$host,
+            'pancake',
+            'test',
+            'test'
+        );
         try {
-            self::$db->beginTransaction();
-            self::$db->beginTransaction();
+            $db->beginTransaction();
+            $db->beginTransaction();
         } catch (DatabaseException $e) {
             $this->assertNotNull($e->getMessage());
             $this->assertEquals('Transaction already in progress', $e->getMessage());
