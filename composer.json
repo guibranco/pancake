@@ -3,7 +3,6 @@
     "description": "The Pancake project, a toolkit for PHP projects",
     "type": "library",
     "license": "MIT",
-        "Pancake\\MVC\\": "src/Pancake/MVC/"
     "autoload": {
         "psr-4": {
             "GuiBranco\\Pancake\\": "src/"
