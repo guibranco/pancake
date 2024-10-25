@@ -32,15 +32,43 @@ class IpUtilsTest extends TestCase
         $this->assertFalse(IpUtils::isIPv4InRange('999.999.999.999', '192.168.1.0/24'));
     }
 
-    public function testIsIPv6InRange()
+    public function testValidIPv6WithinRange()
     {
         $this->assertTrue(IpUtils::isIPv6InRange('2001:0db8:85a3:0000:0000:8a2e:0370:7334', '2001:0db8:85a3::/64'));
-        $this->assertFalse(IpUtils::isIPv6InRange('2001:0db8:85a3:0000:0000:8a2e:0370:7334', '2001:0db8:85a4::/64'));
+        $this->assertTrue(IpUtils::isIPv6InRange("2001:0db8:85a3:0000:0000:0000:0000:0001", "2001:0db8:85a3::/64"));
+        $this->assertTrue(IpUtils::isIPv6InRange("2001:0db8:85a3:0000:abcd:1234:5678:9abc", "2001:0db8:85a3::/64"));
+        $this->assertTrue(IpUtils::isIPv6InRange("2001:0db8:85a3:0000:ffff:abcd:efff:9876", "2001:0db8:85a3::/64"));
+
         $this->assertTrue(IpUtils::isIPv6InRange('2001:db8::1', '2001:db8::/65'));
         $this->assertTrue(IpUtils::isIPv6InRange('2001:db8::1', '2001:db8::/66'));
         $this->assertTrue(IpUtils::isIPv6InRange('2001:db8::1', '2001:db8::/67'));
+    }
+
+    public function testIPv6OutsideRange()
+    {
+        $this->assertFalse(IpUtils::isIPv6InRange('2001:0db8:85a3:0000:0000:8a2e:0370:7334', '2001:0db8:85a4::/64'));
+        $this->assertFalse(IpUtils::isIPv6InRange("2001:0db8:85a4:0000:0000:0000:0000:0001", "2001:0db8:85a3::/64"));
+        $this->assertFalse(IpUtils::isIPv6InRange("2001:0db8:85a2:0000:abcd:1234:5678:9abc", "2001:0db8:85a3::/64"));
+    }
+
+    public function testInvalidIPv6Address()
+    {
+        $this->assertFalse(IpUtils::isIPv6InRange("invalid:ipv6:address", "2001:0db8:85a3::/64"));
+        $this->assertFalse(IpUtils::isIPv6InRange("12345::", "2001:0db8:85a3::/64"));
         $this->assertFalse(IpUtils::isIPv6InRange('::1', '2001:0db8:85a3::/64'));
         $this->assertFalse(IpUtils::isIPv6InRange('invalid_ip', '2001:0db8:85a3::/64'));
+    }
+
+    public function testInvalidCIDRFormat()
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        IpUtils::isIPv6InRange("2001:0db8:85a3:0000:0000:0000:0000:0001", "2001:0db8:85a3::/129");
+        
+        $this->expectException(\InvalidArgumentException::class);
+        IpUtils::isIPv6InRange("2001:0db8:85a3:0000:0000:0000:0000:0001", "invalidCIDR");
+
+        $this->expectException(\InvalidArgumentException::class);
+        IpUtils::isIPv6InRange("2001:0db8:85a3:0000:0000:0000:0000:0001", "2001:0db8:85a3:/64");
     }
 
     public function testIpToLong()
