@@ -9,8 +9,6 @@
 
 Documentation: [Read the Docs](https://guibranco.github.io/pancake/)
 
-For more information on using the MVC components, please see the [MVC Usage Guide](docs/user-guide/mvc-usage.md).
-
 ---
 
 ## Table of content
