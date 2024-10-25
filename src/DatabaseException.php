@@ -4,12 +4,6 @@ namespace GuiBranco\Pancake;
 
 use Exception;
 
-<?php
-
-namespace GuiBranco\Pancake;
-
-use Exception;
-
 /**
  * DatabaseException is thrown when database operations fail.
  *
