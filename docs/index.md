@@ -1,5 +1,7 @@
 # Pancake Project
 
+For more detailed guides on specific features, refer to the [MVC Usage Guide](user-guide/mvc-usage.md).
+
 A versatile and easy-to-use toolkit for PHP projects, designed to simplify common tasks such as session management, HTTP requests, and configuration parsing. Pancake provides developers with a clean, well-organized API to improve productivity and code quality.
 
 ![Pancake logo](https://raw.githubusercontent.com/guibranco/pancake/main/logo.png)
