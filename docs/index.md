@@ -20,6 +20,14 @@ Source code is available on GitHub: [Pancake Repository ![GitHub stars](https://
   - [Getting Started](#getting-started)
     - [Installation](#installation)
     - [Basic Usage Example](#basic-usage-example)
+  - [Testing](#testing)
+    - [Setup for Testing](#setup-for-testing)
+      - [Enabling Xdebug](#enabling-xdebug)
+    - [Running Tests](#running-tests)
+      - [Running Tests Without Coverage](#running-tests-without-coverage)
+      - [Running Tests With Coverage](#running-tests-with-coverage)
+    - [Viewing Code Coverage in VSCode](#viewing-code-coverage-in-vscode)
+    - [Debugging with Xdebug](#debugging-with-xdebug)
   - [Contributing](#contributing)
   - [License](#license)
 
@@ -41,6 +49,7 @@ Pancake offers a variety of features to enhance your PHP projects:
 - **[GUID v4](guid-v4.md)**: Generate unique GUIDs for your data entities.
 - **[Health Checks](health-checks.md)**: Monitor the health status of your applications and services.
 - **[HTTP Requests](request.md)**: Easily send and manage HTTP requests, supporting multiple methods such as GET, POST, PUT, and DELETE.
+- **[IP Utils](ip-utils.md)**: Utility functions for validating, checking ranges, and converting IP addresses in both IPv4 and IPv6 formats.
 - **[Logger](logger.md)**: Robust logging capabilities to track application events and errors.
 - **[Memory Cache](memory-cache.md)**: Implement caching strategies to improve application performance.
 - **[One Signal](one-signal.md)**: Integrate One Signal for push notifications in your applications.
@@ -93,6 +102,71 @@ echo $response->getBody();
 ```
 
 For more detailed guides on specific features, refer to the [Basic Usage Documentation](basic-usage.md).
+
+---
+
+## Testing
+
+### Setup for Testing
+
+To prepare for testing, ensure that you have **PHP**, **Composer**, **PHPUnit**, and **Xdebug** installed on your system. Also, install **VSCode** and the **Gutter Coverage** extension to view code coverage directly in your editor.
+
+#### Enabling Xdebug
+
+1. **Install Xdebug** if it's not already installed:
+   ```bash
+   pecl install xdebug
+   ```
+
+2. **Enable Xdebug**: Open your PHP configuration file (`php.ini`) and add or modify the following lines:
+   ```ini
+   [xdebug]
+   zend_extension=xdebug.so
+   xdebug.mode=coverage
+   xdebug.start_with_request=yes
+   ```
+
+3. **Verify Xdebug Installation**: Restart your PHP environment and run:
+   ```bash
+   php -v
+   ```
+   Confirm that Xdebug is listed in the output.
+
+---
+
+### Running Tests
+
+#### Running Tests Without Coverage
+
+To execute tests without coverage reports, run:
+```bash
+./vendor/bin/phpunit --configuration tests/phpunit.xml
+```
+
+#### Running Tests With Coverage
+
+To generate a coverage report with Xdebug enabled, use:
+```bash
+XDEBUG_MODE=coverage ./vendor/bin/phpunit --configuration tests/phpunit.xml --coverage-clover test-reports/cov.xml
+```
+
+The coverage report will be saved in `test-reports/cov.xml`. You can use this file with VSCode for coverage visualization.
+
+---
+
+### Viewing Code Coverage in VSCode
+
+1. Install the **Gutter Coverage** extension in VSCode.
+2. In the Gutter Coverage settings, configure it to point to `test-reports/cov.xml`.
+3. After running tests with coverage, open your source files to see coverage indicators for each line.
+
+---
+
+### Debugging with Xdebug
+
+1. Set breakpoints in VSCode.
+2. Open the **Run and Debug** panel in VSCode, select **Listen for Xdebug**, or set up a new configuration if needed.
+3. Run your tests from the command line or start a debugging session in VSCode.
 
 ---
 
