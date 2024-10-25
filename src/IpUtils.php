@@ -57,16 +57,12 @@ class IpUtils
         }
 
         list($subnet, $mask) = explode('/', $cidr);
+
         $ipBin = inet_pton($ip);
         $subnetBin = inet_pton($subnet);
+        $maskBin = str_repeat("f", $mask / 4) . str_repeat("0", (128 - $mask) / 4);
 
-        $ipBits = unpack('H*', $ipBin)[1];
-        $subnetBits = unpack('H*', $subnetBin)[1];
-
-        $ipBits = base_convert($ipBits, 16, 2);
-        $subnetBits = base_convert($subnetBits, 16, 2);
-
-        return substr($ipBits, 0, $mask) === substr($subnetBits, 0, $mask);
+        return ($ipBin & $maskBin) == ($subnetBin & $maskBin);
     }
 
     /**
