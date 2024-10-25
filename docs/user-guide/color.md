@@ -6,13 +6,13 @@
   - [Table of content](#table-of-content)
   - [About](#about)
   - [Requirements](#requirements)
-  - [Avaiable methods](#avaiable-methods)
-  - [Constructor](#constructor)
-  - [Setters and Getters](#setters-and-getters)
-  - [Color Validation](#color-validation)
-  - [Luminance Calculation](#luminance-calculation)
-  - [Hex to RGB Conversion](#hex-to-rgb-conversion)
-  - [Color Generation from Text](#color-generation-from-text)
+  - [Available methods](#available-methods)
+    - [Constructor](#constructor)
+    - [Setters and Getters](#setters-and-getters)
+    - [Color Validation](#color-validation)
+    - [Luminance Calculation](#luminance-calculation)
+    - [Hex to RGB Conversion](#hex-to-rgb-conversion)
+    - [Color Generation from Text](#color-generation-from-text)
 
 ## About
 
