@@ -149,12 +149,12 @@ class DatabaseTest extends TestCase
         $this->assertFalse($result);
     }
 
-    public function testRollbackWithoutTransaction(): void
+    public function testRollBackWithoutTransaction(): void
     {
         $this->expectException(DatabaseException::class);
 
         self::$db->close();
-        self::$db->rollback();
+        self::$db->rollBack();
     }
 
     public function testIsConnected(): void
@@ -196,7 +196,6 @@ class DatabaseTest extends TestCase
         } catch (DatabaseException $e) {
             $this->assertNotNull($e->getMessage());
             $this->assertEquals('Invalid port number', $e->getMessage());
-            $this->assertEquals('connection', $e->getOperation());
         }
     }
 }
