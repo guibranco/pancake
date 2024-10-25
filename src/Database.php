@@ -43,7 +43,7 @@ class Database implements IDatabase
         return $this;
     }
 
-    public function bind(string $param, $value, $type = null): void
+    public function bind(string $param, mixed $value, ?int $type = null): void
     {
         if (is_null($type)) {
             switch (true) {
