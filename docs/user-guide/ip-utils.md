@@ -13,9 +13,11 @@
     - [ipToLong](#iptolong)
 
 ## About
+
 The `IpUtils` class provides a set of utilities for validating, checking, and converting IP addresses in both IPv4 and IPv6 formats. This class is particularly useful for handling IP-related tasks such as validating addresses, verifying if an IP is within a specific CIDR range, and converting IP addresses to their long integer representation for storage or comparison.
 
 ## Requirements
+
 - PHP 7.4 or higher
 - Network-related extensions enabled in PHP (e.g., `inet_pton`)
 
