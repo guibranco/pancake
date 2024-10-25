@@ -18,6 +18,10 @@ class Database implements IDatabase
         int $port = 3306,
         string $charset = 'utf8mb4'
     ) {
+        if (trim($host) === '' || trim($dbname) === '' || trim($username) === '') {
+            throw new DatabaseException('Host, database name, and username cannot be empty');
+        }
+
         if ($port < 1 || $port > 65535) {
             throw new DatabaseException('Invalid port number');
         }
