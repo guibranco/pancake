@@ -60,10 +60,10 @@ class IpUtils
 
         $ipBin = inet_pton($ip);
         $subnetBin = inet_pton($subnet);
-        
+
         // thanks to MW on http://stackoverflow.com/questions/7951061/matching-ipv6-address-to-a-cidr-subnet
         $maskBin = str_repeat("f", $mask / 4);
-        
+
         switch ($mask % 4) {
             case 0:
                 break;
