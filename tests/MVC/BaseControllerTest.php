@@ -5,8 +5,10 @@ namespace GuiBranco\Pancake\Tests\MVC;
 use PHPUnit\Framework\TestCase;
 use Pancake\MVC\BaseController;
 
-class BaseControllerTest extends TestCase {
-    public function testRender() {
+class BaseControllerTest extends TestCase
+{
+    public function testRender()
+    {
         $templateEngine = $this->createMock(TemplateEngine::class);
         $templateEngine->expects($this->once())
                        ->method('render')
@@ -18,7 +20,8 @@ class BaseControllerTest extends TestCase {
         $controller->render('view', ['key' => 'value']);
     }
 
-    public function testRedirect() {
+    public function testRedirect()
+    {
         $controller = new BaseController(null);
 
         $this->expectException(\PHPUnit\Framework\Error\Warning::class);
@@ -27,5 +30,3 @@ class BaseControllerTest extends TestCase {
         $controller->redirect('http://example.com');
     }
 }
-
-?>

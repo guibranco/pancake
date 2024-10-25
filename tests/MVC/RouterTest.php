@@ -5,8 +5,10 @@ namespace GuiBranco\Pancake\Tests\MVC;
 use PHPUnit\Framework\TestCase;
 use Pancake\MVC\Router;
 
-class RouterTest extends TestCase {
-    public function testAddAndDispatch() {
+class RouterTest extends TestCase
+{
+    public function testAddAndDispatch()
+    {
         $router = new Router();
 
         $mockController = $this->createMock(\stdClass::class);
@@ -20,12 +22,11 @@ class RouterTest extends TestCase {
         $router->dispatch('GET', '/test');
     }
 
-    public function testDispatchNotFound() {
+    public function testDispatchNotFound()
+    {
         $router = new Router();
 
         $this->expectOutputString('404 Not Found');
         $router->dispatch('GET', '/non-existent');
     }
 }
-
-?>
