@@ -88,7 +88,13 @@ class DatabaseTest extends TestCase
     {
         $this->expectException(DatabaseException::class);
 
-        $rowCount = self::$db->rowCount();
+        $db = new Database(
+            self::$host,
+            'pancake',
+            'test',
+            'test'
+        );
+        $db->rowCount();
     }
 
     public function testLastInsertId(): void
@@ -117,8 +123,14 @@ class DatabaseTest extends TestCase
     {
         $this->expectException(DatabaseException::class);
 
-        self::$db->close();
-        self::$db->commit();
+        $db = new Database(
+            self::$host,
+            'pancake',
+            'test',
+            'test'
+        );
+        $db->close();
+        $db->commit();
     }
 
     public function testBeginTransactionInsideATransaction(): void
@@ -166,9 +178,15 @@ class DatabaseTest extends TestCase
 
     public function testIsDisconnected(): void
     {
-        self::$db->close();
-        $isConnected = self::$db->isConnected();
+        $db = new Database(
+            self::$host,
+            'pancake',
+            'test',
+            'test'
+        );
+        $db->close();
 
+        $isConnected = $db->isConnected();
         $this->assertFalse($isConnected);
     }
 
