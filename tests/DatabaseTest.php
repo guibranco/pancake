@@ -84,6 +84,13 @@ class DatabaseTest extends TestCase
         $this->assertEquals(1, $rowCount);
     }
 
+    public function testRowCount(): void
+    {
+        $this->expectException(DatabaseException::class);
+        
+        $rowCount = self::$db->rowCount();
+    }
+
     public function testLastInsertId(): void
     {
         self::$db->prepare("INSERT INTO users (name, email) VALUES (:name, :email)");
@@ -106,6 +113,25 @@ class DatabaseTest extends TestCase
         $this->assertTrue(self::$db->commit());
     }
 
+    public function testCommitWithoutTransaction(): void
+    {
+        $this->expectException(DatabaseException::class);
+
+        self::$db->close();
+        self::$db->commit();
+    }
+
+    public function testBeginTransactionInsideATransaction(): void
+    {
+        try {
+            self::$db->beginTransaction();
+            self::$db->beginTransaction();
+        } catch (DatabaseException $e) {
+            $this->assertNotNull($e->getMessage());
+            $this->assertEquals('Transaction already in progress', $e->getMessage());
+        }        
+    }
+
     public function testRollBack(): void
     {
         self::$db->beginTransaction();
@@ -123,19 +149,53 @@ class DatabaseTest extends TestCase
         $this->assertFalse($result);
     }
 
+    public function testRollbackWithoutTransaction(): void
+    {
+        $this->expectException(DatabaseException::class);
+
+        self::$db->close();
+        self::$db->rollback();
+    }
+
+    public function testIsConnected(): void 
+    {
+        $isConnected = self::$db->isConnected();
+
+        $this->assertTrue($isConnected);
+    }
+
+    public function testIsDisconnected(): void 
+    {
+        self::$db->close();
+        $isConnected = self::$db->isConnected();
+
+        $this->assertFalse($isConnected);
+    }
+    
     public function testConnectionFailure(): void
     {
         $this->expectException(DatabaseException::class);
 
         new Database(self::$host, 'invalid_db', 'wrong_user', 'wrong_password');
     }
-
+   
     public function testGetError(): void
     {
         try {
             $db = new Database(self::$host, 'invalid_db', 'wrong_user', 'wrong_password');
         } catch (DatabaseException $e) {
             $this->assertNotNull($e->getMessage());
+            $this->assertEquals('connection', $e->getOperation());
+        }
+    }
+
+    public function testInvalidPortGetError(): void
+    {
+        try {
+            $db = new Database(self::$host, 'invalid_db', 'wrong_user', 'wrong_password', -1);
+        } catch (DatabaseException $e) {
+            $this->assertNotNull($e->getMessage());
+            $this->assertEquals('Invalid port number', $e->getMessage());
             $this->assertEquals('connection', $e->getOperation());
         }
     }
