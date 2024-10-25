@@ -76,6 +76,8 @@ class IpUtils
             case 3:
                 $maskBin .= "e";
                 break;
+            default:
+                break;
         }
         $maskBin = str_pad($maskBin, 32, '0');
         $maskBin = pack("H*", $maskBin);
