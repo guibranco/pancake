@@ -23,6 +23,12 @@ interface IDatabase
      * @throws DatabaseException If the parameter is invalid
      */
     public function bind(string $param, mixed $value, ?int $type = null): self;
+
+    /**
+    * Execute the query
+    * @return bool if the query execution was succeeded or false if not
+    * @throws DatabaseException If the parameter is invalid
+    */
     public function execute(): bool;
 
     /**
