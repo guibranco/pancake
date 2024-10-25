@@ -33,7 +33,7 @@ class Database implements IDatabase
         try {
             $this->pdo = new PDO($dsn, $username, $password, $options);
         } catch (PDOException $e) {
-            throw new DatabaseException('Failed to connect to database. Please check your configuration.', 0, $e);
+            throw new DatabaseException('Failed to connect to database. Please check your configuration.', 'connection', 0, $e);
         }
     }
 
