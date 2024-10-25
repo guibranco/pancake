@@ -90,10 +90,12 @@ class IpUtils
     /**
      * Convert an IP address to its long integer representation.
      *
-     * @param string $ip
-     * @return string|false
+     * @param string $ip The IP address to convert
+     * @return string|null Returns null for invalid IP addresses
+     * @note IPv6 addresses will return large numbers that may exceed PHP_INT_MAX
+     * @example ipToLong('192.168.1.1') // returns "3232235777"
      */
-    public static function ipToLong(string $ip)
+    public static function ipToLong(string $ip): ?string
     {
         if (self::isValidIPv4($ip)) {
             return sprintf('%u', ip2long($ip));
@@ -105,6 +107,6 @@ class IpUtils
             return base_convert($unpack[1], 16, 10);
         }
 
-        return false;
+        return null;
     }
 }
