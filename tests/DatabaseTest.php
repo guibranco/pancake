@@ -136,6 +136,7 @@ class DatabaseTest extends TestCase
             $db = new Database(self::$host, 'invalid_db', 'wrong_user', 'wrong_password');
         } catch (DatabaseException $e) {
             $this->assertNotNull($e->getMessage());
+            $this->assertEquals('connection', $e->getOperation());
         }
     }
 }
