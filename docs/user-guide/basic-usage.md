@@ -11,6 +11,7 @@ The main namespace is `GuiBranco\Pancake`.
 - **[GUID v4](guid-v4.md)**: Generate unique GUIDs for your data entities.
 - **[Health Checks](health-checks.md)**: Monitor the health status of your applications and services.
 - **[HTTP Requests](request.md)**: Easily send and manage HTTP requests, supporting multiple methods such as GET, POST, PUT, and DELETE.
+- **[IP Utils](ip-utils.md)**: Utility functions for validating, checking ranges, and converting IP addresses in both IPv4 and IPv6 formats.
 - **[Logger](logger.md)**: Robust logging capabilities to track application events and errors.
 - **[Memory Cache](memory-cache.md)**: Implement caching strategies to improve application performance.
 - **[One Signal](one-signal.md)**: Integrate One Signal for push notifications in your applications.
@@ -36,6 +37,7 @@ require 'vendor/autoload.php'; // Autoloading using Composer
 
 use GuiBranco\Pancake\SessionManager;
 use GuiBranco\Pancake\Request;
+use GuiBranco\Pancake\IpUtils;
 
 // Session Management Example
 SessionManager::start();
@@ -50,4 +52,23 @@ echo "Flash message: " . SessionManager::getFlash('success');
 $request = new Request();
 $response = $request->get('https://api.example.com/data');
 echo "API Response: " . $response->getBody();
+
+// IP Utils Example
+$ip = '192.168.1.10';
+$cidr = '192.168.1.0/24';
+
+if (IpUtils::isValidIPv4($ip)) {
+    echo "$ip is a valid IPv4 address.";
+}
+
+if (IpUtils::isIPv4InRange($ip, $cidr)) {
+    echo "$ip is within the range $cidr.";
+}
+
+$ipLong = IpUtils::ipToLong($ip);
+echo "The long integer representation of $ip is $ipLong.";
+// Output:
+// 192.168.1.10 is a valid IPv4 address.
+// 192.168.1.10 is within the range 192.168.1.0/24.
+// The long integer representation of 192.168.1.10 is 3232235786.
 ```
