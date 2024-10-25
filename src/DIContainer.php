@@ -1,14 +1,17 @@
 <?php
 
-class DIContainer {
+class DIContainer
+{
     private $services = [];
     private $autoRegisterEnabled = true;
 
-    public function __construct($autoRegisterEnabled = true) {
+    public function __construct($autoRegisterEnabled = true)
+    {
         $this->autoRegisterEnabled = $autoRegisterEnabled;
     }
 
-    public function resolve($name) {
+    public function resolve($name)
+    {
         if (isset($this->services[$name])) {
             return $this->services[$name];
         }
@@ -20,7 +23,8 @@ class DIContainer {
         throw new Exception("Service not found: $name");
     }
 
-    private function autoRegister($name) {
+    private function autoRegister($name)
+    {
         if (!class_exists($name)) {
             throw new Exception("Class not found: $name");
         }
@@ -46,17 +50,18 @@ class DIContainer {
         return $reflectionClass->newInstanceArgs($dependencies);
     }
 
-    public function setAutoRegisterEnabled(bool $enabled) {
+    public function setAutoRegisterEnabled(bool $enabled)
+    {
         $this->autoRegisterEnabled = $enabled;
     }
 
-    public function registerSingleton($name, $instance) {
+    public function registerSingleton($name, $instance)
+    {
         $this->services[$name] = $instance;
     }
 
-    public function registerTransient($name, $closure) {
+    public function registerTransient($name, $closure)
+    {
         $this->services[$name] = $closure();
     }
 }
-
-?>

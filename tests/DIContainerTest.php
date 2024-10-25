@@ -2,21 +2,25 @@
 
 use PHPUnit\Framework\TestCase;
 
-class DIContainerTest extends TestCase {
-    public function testAutoRegistration() {
+class DIContainerTest extends TestCase
+{
+    public function testAutoRegistration()
+    {
         $container = new DIContainer();
         $service = $container->resolve(TestService::class);
         $this->assertInstanceOf(TestService::class, $service);
     }
 
-    public function testDependencyResolution() {
+    public function testDependencyResolution()
+    {
         $container = new DIContainer();
         $service = $container->resolve(ServiceWithDependencies::class);
         $this->assertInstanceOf(ServiceWithDependencies::class, $service);
         $this->assertInstanceOf(Dependency::class, $service->getDependency());
     }
 
-    public function testAutoRegistrationDisabled() {
+    public function testAutoRegistrationDisabled()
+    {
         $this->expectException(Exception::class);
         $this->expectExceptionMessage('Service not found: UnregisteredService');
 
@@ -24,7 +28,8 @@ class DIContainerTest extends TestCase {
         $container->resolve(UnregisteredService::class);
     }
 
-    public function testExceptionHandlingForUnresolvableDependency() {
+    public function testExceptionHandlingForUnresolvableDependency()
+    {
         $this->expectException(Exception::class);
         $this->expectExceptionMessage('Cannot resolve dependency: unresolvable');
 
@@ -33,26 +38,36 @@ class DIContainerTest extends TestCase {
     }
 }
 
-class TestService {}
+class TestService
+{
+}
 
-class Dependency {}
+class Dependency
+{
+}
 
-class ServiceWithDependencies {
+class ServiceWithDependencies
+{
     private $dependency;
 
-    public function __construct(Dependency $dependency) {
+    public function __construct(Dependency $dependency)
+    {
         $this->dependency = $dependency;
     }
 
-    public function getDependency() {
+    public function getDependency()
+    {
         return $this->dependency;
     }
 }
 
-class UnregisteredService {}
-
-class ServiceWithUnresolvableDependency {
-    public function __construct($unresolvable) {}
+class UnregisteredService
+{
 }
 
-?>
+class ServiceWithUnresolvableDependency
+{
+    public function __construct($unresolvable)
+    {
+    }
+}
