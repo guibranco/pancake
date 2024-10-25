@@ -87,7 +87,7 @@ class DatabaseTest extends TestCase
     public function testRowCount(): void
     {
         $this->expectException(DatabaseException::class);
-        
+
         $rowCount = self::$db->rowCount();
     }
 
@@ -129,7 +129,7 @@ class DatabaseTest extends TestCase
         } catch (DatabaseException $e) {
             $this->assertNotNull($e->getMessage());
             $this->assertEquals('Transaction already in progress', $e->getMessage());
-        }        
+        }
     }
 
     public function testRollBack(): void
@@ -157,28 +157,28 @@ class DatabaseTest extends TestCase
         self::$db->rollback();
     }
 
-    public function testIsConnected(): void 
+    public function testIsConnected(): void
     {
         $isConnected = self::$db->isConnected();
 
         $this->assertTrue($isConnected);
     }
 
-    public function testIsDisconnected(): void 
+    public function testIsDisconnected(): void
     {
         self::$db->close();
         $isConnected = self::$db->isConnected();
 
         $this->assertFalse($isConnected);
     }
-    
+
     public function testConnectionFailure(): void
     {
         $this->expectException(DatabaseException::class);
 
         new Database(self::$host, 'invalid_db', 'wrong_user', 'wrong_password');
     }
-   
+
     public function testGetError(): void
     {
         try {
