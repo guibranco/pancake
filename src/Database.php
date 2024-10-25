@@ -5,7 +5,7 @@ namespace GuiBranco\Pancake;
 use PDO;
 use PDOException;
 
-class Database implements IDatabase
+class Database implements IDatabase, \AutoCloseable
 {
     private $pdo;
     private $stmt;
