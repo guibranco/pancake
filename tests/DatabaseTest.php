@@ -84,7 +84,7 @@ class DatabaseTest extends TestCase
         $this->assertEquals(1, $rowCount);
     }
 
-    public function testRowCount(): void
+    public function testRowCountWithoutStatement(): void
     {
         $this->expectException(DatabaseException::class);
 
