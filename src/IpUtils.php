@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Utils;
+namespace GuiBranco\Pancake;
 
 class IpUtils
 {
