@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace GuiBranco\Pancake\Tests;
 
 use PHPUnit\Framework\TestCase;
-use GuiBranco\Pancake;
+use GuiBranco\Pancake\IpUtils;
 
 class IpUtilsTest extends TestCase
 {
