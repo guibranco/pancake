@@ -98,7 +98,15 @@ class Database implements IDatabase
      */
     public function isConnected(): bool
     {
-        return $this->pdo !== null;
+        if ($this->pdo === null) {
+            return false;
+        }
+        try {
+            $this->pdo->query('SELECT 1');
+            return true;
+        } catch (PDOException $e) {
+            return false;
+        }
     }
 
     public function beginTransaction(): bool
