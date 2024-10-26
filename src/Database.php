@@ -16,7 +16,8 @@ class Database implements IDatabase
         string $username,
         string $password,
         int $port = 3306,
-        string $charset = 'utf8mb4'
+        string $charset = 'utf8mb4',
+        int $timeout = 5
     ) {
         if (trim($host) === '' || trim($dbname) === '' || trim($username) === '') {
             throw new DatabaseException('Host, database name, and username cannot be empty');
@@ -38,12 +39,23 @@ class Database implements IDatabase
             PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
             PDO::ATTR_PERSISTENT => false,
             PDO::ATTR_EMULATE_PREPARES => false,
+            PDO::ATTR_TIMEOUT => $timeout,
         ];
 
         try {
             $this->pdo = new PDO($dsn, $username, $password, $options);
         } catch (PDOException $e) {
-            throw new DatabaseException('Failed to connect to database. Please check your configuration.', 'connection', 0, $e);
+            throw new DatabaseException(
+                sprintf(
+                    'Failed to connect to MySQL server at %s:%d. Error: %s',
+                    $host,
+                    $port,
+                    $e->getMessage()
+                ),
+                'connection',
+                0,
+                $e
+            );
         }
     }
 
