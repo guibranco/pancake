@@ -7,58 +7,71 @@ namespace GuiBranco\Pancake\Tests;
 use GuiBranco\Pancake\Database;
 use GuiBranco\Pancake\DatabaseException;
 use PHPUnit\Framework\TestCase;
-
+/**
+ * @covers \GuiBranco\Pancake\Database
+ */
 class DatabaseTest extends TestCase
 {
-    private static string $host = '127.0.0.1';
+    private static string $host;
+    private static string $databaseName;
+    private static string $username;
+    private static string $password;
+    private static Database $database;
 
-    private static Database $db;
+    private static function loadConfig(): void
+    {
+        self::$host = getenv('DB_HOST') ?: '127.0.0.1';
+        self::$databaseName = getenv('DB_NAME') ?: 'pancake';
+        self::$username = getenv('DB_USER') ?: 'test';
+        self::$password = getenv('DB_PASS') ?: 'test';
+    }
 
     public static function setUpBeforeClass(): void
     {
-        self::$db = new Database(
+        self::loadConfig();
+        self::$database = new Database(
             self::$host,
-            'pancake',
-            'test',
-            'test'
+            self::$databaseName,
+            self::$username,
+            self::$password
         );
 
-        self::$db->prepare("CREATE TABLE IF NOT EXISTS users (
+        self::$database->prepare("CREATE TABLE IF NOT EXISTS users (
             id INT AUTO_INCREMENT PRIMARY KEY,
             name VARCHAR(100),
             email VARCHAR(100)
         )");
-        self::$db->execute();
+        self::$database->execute();
     }
 
     public static function tearDownAfterClass(): void
     {
-        self::$db->prepare("DROP TABLE IF EXISTS users");
-        self::$db->execute();
-        self::$db->close();
+        self::$database->prepare("DROP TABLE IF EXISTS users");
+        self::$database->execute();
+        self::$database->close();
     }
 
     public function testPrepare(): void
     {
         $this->expectNotToPerformAssertions();
-        self::$db->prepare("SELECT * FROM users");
+        self::$database->prepare("SELECT * FROM users");
     }
 
     public function testExecute(): void
     {
-        self::$db->prepare("INSERT INTO users (name, email) VALUES (:name, :email)");
-        self::$db->bind(':name', 'John Doe');
-        self::$db->bind(':email', 'john@example.com');
-        $result = self::$db->execute();
+        self::$database->prepare("INSERT INTO users (name, email) VALUES (:name, :email)");
+        self::$database->bind(':name', 'John Doe');
+        self::$database->bind(':email', 'john@example.com');
+        $result = self::$database->execute();
 
         $this->assertTrue($result);
     }
 
     public function testFetch(): void
     {
-        self::$db->prepare("SELECT * FROM users WHERE name = :name");
-        self::$db->bind(':name', 'John Doe');
-        $result = self::$db->fetch();
+        self::$database->prepare("SELECT * FROM users WHERE name = :name");
+        self::$database->bind(':name', 'John Doe');
+        $result = self::$database->fetch();
 
         $this->assertIsArray($result);
         $this->assertEquals('John Doe', $result['name']);
@@ -67,8 +80,8 @@ class DatabaseTest extends TestCase
 
     public function testFetchAll(): void
     {
-        self::$db->prepare("SELECT * FROM users");
-        $results = self::$db->fetchAll();
+        self::$database->prepare("SELECT * FROM users");
+        $results = self::$database->fetchAll();
 
         $this->assertIsArray($results);
         $this->assertCount(1, $results);
@@ -77,9 +90,9 @@ class DatabaseTest extends TestCase
 
     public function testRowCount(): void
     {
-        self::$db->prepare("SELECT * FROM users");
-        self::$db->fetchAll();
-        $rowCount = self::$db->rowCount();
+        self::$database->prepare("SELECT * FROM users");
+        self::$database->fetchAll();
+        $rowCount = self::$database->rowCount();
 
         $this->assertEquals(1, $rowCount);
     }
@@ -88,62 +101,63 @@ class DatabaseTest extends TestCase
     {
         $this->expectException(DatabaseException::class);
 
-        $db = new Database(
+        $database = new Database(
             self::$host,
-            'pancake',
-            'test',
-            'test'
+            self::$databaseName,
+            self::$username,
+            self::$password
         );
-        $db->rowCount();
+        $database->rowCount();
     }
 
     public function testLastInsertId(): void
     {
-        self::$db->prepare("INSERT INTO users (name, email) VALUES (:name, :email)");
-        self::$db->bind(':name', 'Jane Doe');
-        self::$db->bind(':email', 'jane@example.com');
-        self::$db->execute();
+        self::$database->prepare("INSERT INTO users (name, email) VALUES (:name, :email)");
+        self::$database->bind(':name', 'Jane Doe');
+        self::$database->bind(':email', 'jane@example.com');
+        self::$database->execute();
 
-        $lastInsertId = self::$db->lastInsertId();
+        $lastInsertId = self::$database->lastInsertId();
         $this->assertIsString($lastInsertId);
     }
 
     public function testTransaction(): void
     {
-        self::$db->beginTransaction();
-        self::$db->prepare("INSERT INTO users (name, email) VALUES (:name, :email)");
-        self::$db->bind(':name', 'Jack Doe');
-        self::$db->bind(':email', 'jack@example.com');
-        self::$db->execute();
+        self::$database->beginTransaction();
+        self::$database->prepare("INSERT INTO users (name, email) VALUES (:name, :email)");
+        self::$database->bind(':name', 'Jack Doe');
+        self::$database->bind(':email', 'jack@example.com');
+        self::$database->execute();
 
-        $this->assertTrue(self::$db->commit());
+        $this->assertTrue(self::$database->commit());
     }
 
     public function testCommitWithoutTransaction(): void
     {
         $this->expectException(DatabaseException::class);
 
-        $db = new Database(
+        $database = new Database(
             self::$host,
-            'pancake',
-            'test',
-            'test'
+            self::$databaseName,
+            self::$username,
+            self::$password
         );
-        $db->close();
-        $db->commit();
+        $database->close();
+        $database->commit();
     }
 
     public function testBeginTransactionInsideATransaction(): void
     {
-        $db = new Database(
+        $database = new Database(
             self::$host,
-            'pancake',
-            'test',
-            'test'
+            self::$databaseName,
+            self::$username,
+            self::$password
         );
+
         try {
-            $db->beginTransaction();
-            $db->beginTransaction();
+            $database->beginTransaction();
+            $database->beginTransaction();
         } catch (DatabaseException $e) {
             $this->assertNotNull($e->getMessage());
             $this->assertEquals('Transaction already in progress', $e->getMessage());
@@ -152,18 +166,18 @@ class DatabaseTest extends TestCase
 
     public function testRollBack(): void
     {
-        self::$db->beginTransaction();
-        self::$db->prepare("INSERT INTO users (name, email) VALUES (:name, :email)");
-        self::$db->bind(':name', 'Failed User');
-        self::$db->bind(':email', 'fail@example.com');
-        self::$db->execute();
+        self::$database->beginTransaction();
+        self::$database->prepare("INSERT INTO users (name, email) VALUES (:name, :email)");
+        self::$database->bind(':name', 'Failed User');
+        self::$database->bind(':email', 'fail@example.com');
+        self::$database->execute();
 
-        $this->assertTrue(self::$db->rollBack());
+        $this->assertTrue(self::$database->rollBack());
 
         // Verify rollback by checking the row does not exist
-        self::$db->prepare("SELECT * FROM users WHERE email = :email");
-        self::$db->bind(':email', 'fail@example.com');
-        $result = self::$db->fetch();
+        self::$database->prepare("SELECT * FROM users WHERE email = :email");
+        self::$database->bind(':email', 'fail@example.com');
+        $result = self::$database->fetch();
         $this->assertFalse($result);
     }
 
@@ -171,34 +185,34 @@ class DatabaseTest extends TestCase
     {
         $this->expectException(DatabaseException::class);
 
-        $db = new Database(
+        $database = new Database(
             self::$host,
-            'pancake',
-            'test',
-            'test'
+            self::$databaseName,
+            self::$username,
+            self::$password
         );
-        $db->close();
-        $db->rollBack();
+        $database->close();
+        $database->rollBack();
     }
 
     public function testIsConnected(): void
     {
-        $isConnected = self::$db->isConnected();
+        $isConnected = self::$database->isConnected();
 
         $this->assertTrue($isConnected);
     }
 
     public function testIsDisconnected(): void
     {
-        $db = new Database(
+        $database = new Database(
             self::$host,
-            'pancake',
-            'test',
-            'test'
+            self::$databaseName,
+            self::$username,
+            self::$password
         );
-        $db->close();
+        $database->close();
 
-        $isConnected = $db->isConnected();
+        $isConnected = $database->isConnected();
         $this->assertFalse($isConnected);
     }
 
@@ -209,23 +223,66 @@ class DatabaseTest extends TestCase
         new Database(self::$host, 'invalid_db', 'wrong_user', 'wrong_password');
     }
 
-    public function testGetError(): void
-    {
-        try {
-            $db = new Database(self::$host, 'invalid_db', 'wrong_user', 'wrong_password');
-        } catch (DatabaseException $e) {
-            $this->assertNotNull($e->getMessage());
-            $this->assertEquals('connection', $e->getOperation());
-        }
+    /**
+     * @dataProvider connectionFailureProvider
+     */
+    public function testConnectionFailures(
+        string $dbName,
+        string $user,
+        string $pass,
+        ?int $port,
+        string $expectedMessage,
+        string $expectedOperation
+    ): void {
+        $this->expectException(DatabaseException::class);
+        $this->expectExceptionMessage($expectedMessage);
+
+        new Database(self::$host, $dbName, $user, $pass, $port);
     }
 
-    public function testInvalidPortGetError(): void
+    public function connectionFailureProvider(): array
     {
-        try {
-            $db = new Database(self::$host, 'invalid_db', 'wrong_user', 'wrong_password', -1);
-        } catch (DatabaseException $e) {
-            $this->assertNotNull($e->getMessage());
-            $this->assertEquals('Invalid port number', $e->getMessage());
-        }
+        return [
+            'invalid_database' => [
+                'invalid_db',
+                'test',
+                'test',
+                null,
+                'Unknown database',
+                'connection'
+            ],
+            'invalid_credentials' => [
+                'pancake',
+                'wrong_user',
+                'wrong_pass',
+                null,
+                'Access denied',
+                'connection'
+            ],
+            'invalid_port_negative' => [
+                'pancake',
+                'test',
+                'test',
+                -1,
+                'Invalid port number',
+                'connection'
+            ],
+            'invalid_port_zero' => [
+                'pancake',
+                'test',
+                'test',
+                0,
+                'Invalid port number',
+                'connection'
+            ],
+            'invalid_port_too_high' => [
+                'pancake',
+                'test',
+                'test',
+                65536,
+                'Invalid port number',
+                'connection'
+            ]
+        ];
     }
 }
