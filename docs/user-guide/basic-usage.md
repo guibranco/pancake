@@ -95,7 +95,7 @@ try {
     }
     echo "Database error: " . $e->getMessage();
 } finally {
-    // Ensure connection is closed
+    // Ensure the connection is closed
     $db = null;
 }
 
