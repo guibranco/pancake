@@ -23,35 +23,35 @@ class DatabaseOptionsTest extends TestCase
     public function testCustomPortIsSetCorrectly()
     {
         $options = new DatabaseOptions(port: 5432);
-        
+
         $this->assertSame(5432, $options->port, 'Custom port should be set correctly');
     }
 
     public function testCustomCharsetIsSetCorrectly()
     {
         $options = new DatabaseOptions(charset: 'latin1');
-        
+
         $this->assertSame('latin1', $options->charset, 'Custom charset should be set correctly');
     }
 
     public function testCustomCollationIsSetCorrectly()
     {
         $options = new DatabaseOptions(collation: 'latin1_swedish_ci');
-        
+
         $this->assertSame('latin1_swedish_ci', $options->collation, 'Custom collation should be set correctly');
     }
 
     public function testCustomTimeoutIsSetCorrectly()
     {
         $options = new DatabaseOptions(timeout: 10);
-        
+
         $this->assertSame(10, $options->timeout, 'Custom timeout should be set correctly');
     }
 
     public function testCustomAutoCommitIsSetCorrectly()
     {
         $options = new DatabaseOptions(autoCommit: true);
-        
+
         $this->assertTrue($options->autoCommit, 'Custom autoCommit should be set correctly');
     }
 }
