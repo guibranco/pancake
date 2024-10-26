@@ -8,6 +8,7 @@ The main namespace is `GuiBranco\Pancake`.
 ## Features
 
 - **[Color](color.md)**: Utility for managing colors based on text.
+- **[Database](database.md)**: Interface for managing database connections and queries.
 - **[GUID v4](guid-v4.md)**: Generate unique GUIDs for your data entities.
 - **[Health Checks](health-checks.md)**: Monitor the health status of your applications and services.
 - **[HTTP Requests](request.md)**: Easily send and manage HTTP requests, supporting multiple methods such as GET, POST, PUT, and DELETE.
@@ -37,6 +38,7 @@ require 'vendor/autoload.php'; // Autoloading using Composer
 
 use GuiBranco\Pancake\SessionManager;
 use GuiBranco\Pancake\Request;
+use GuiBranco\Pancake\Database;
 use GuiBranco\Pancake\IpUtils;
 
 // Session Management Example
@@ -52,6 +54,50 @@ echo "Flash message: " . SessionManager::getFlash('success');
 $request = new Request();
 $response = $request->get('https://api.example.com/data');
 echo "API Response: " . $response->getBody();
+
+// Database Example
+try {
+    // Load configuration from environment or config file
+    $db = new Database(
+        getenv('DB_HOST'),
+        getenv('DB_NAME'),
+        getenv('DB_USER'),
+        getenv('DB_PASS')
+    );
+    
+    // Transaction example
+    $db->beginTransaction();
+    
+    // Insert example
+    $db->prepare("INSERT INTO users (name, email) VALUES (:name, :email)");
+    $db->bind(':name', 'John Doe');
+    $db->bind(':email', 'johndoe@example.com');
+    $db->execute();
+    $userId = $db->lastInsertId();
+    echo "Last inserted ID: " . $userId;
+    
+    // Fetch single record
+    $db->prepare("SELECT * FROM users WHERE id = :id");
+    $db->bind(':id', 1);
+    $user = $db->fetch();
+    echo "User: " . json_encode($user, JSON_PRETTY_PRINT);
+    
+    // Fetch all records
+    $db->prepare("SELECT * FROM users");
+    $users = $db->fetchAll();
+    echo "All users: " . json_encode($users, JSON_PRETTY_PRINT);
+    
+    $db->commit();
+
+} catch (DatabaseException $e) {
+    if ($db->inTransaction()) {
+        $db->rollBack();
+    }
+    echo "Database error: " . $e->getMessage();
+} finally {
+    // Ensure connection is closed
+    $db = null;
+}
 
 // IP Utils Example
 $ip = '192.168.1.10';
@@ -71,4 +117,5 @@ echo "The long integer representation of $ip is $ipLong.";
 // 192.168.1.10 is a valid IPv4 address.
 // 192.168.1.10 is within the range 192.168.1.0/24.
 // The long integer representation of 192.168.1.10 is 3232235786.
+
 ```
