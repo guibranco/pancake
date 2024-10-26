@@ -65,7 +65,7 @@ class Database implements IDatabase
         return $this;
     }
 
-    public function bind(string $param, mixed $value, ?int $type = null): self
+    public function bind(int|string $param, mixed $value, ?int $type = null): self
     {
         if (is_null($type)) {
             switch (true) {
@@ -82,6 +82,11 @@ class Database implements IDatabase
                     $type = PDO::PARAM_STR;
             }
         }
+
+        if ($this->stmt === null) {
+            throw new DatabaseException('No prepared statement available for execution');
+        }
+
         $this->stmt->bindValue($param, $value, $type);
         return $this;
     }

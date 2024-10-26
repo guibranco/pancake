@@ -16,13 +16,13 @@ interface IDatabase
     /**
      * Binds a value to a parameter
      *
-     * @param string $param Parameter identifier
+     * @param int|string $param Parameter identifier
      * @param mixed $value The value to bind
      * @param int|null $type PDO parameter type (PDO::PARAM_*)
      * @return self For method chaining
      * @throws DatabaseException If the parameter is invalid
      */
-    public function bind(string $param, mixed $value, ?int $type = null): self;
+    public function bind(int|string $param, mixed $value, ?int $type = null): self;
 
     /**
     * Execute the query
