@@ -99,7 +99,7 @@ class Database implements IDatabase
     public function fetch(int $fetchMode = null): mixed
     {
         $this->execute();
-        return $this->stmt->fetch($fetchMode);
+        return $this->stmt->fetch(mode: $fetchMode);
     }
 
     public function fetchAll(int $fetchMode = null): array
