@@ -30,7 +30,22 @@ This class is responsible for doing [cURL](https://www.php.net/manual/en/book.cu
 
 ## Requirements
 
-This requires `lib curl` to be active with your PHP settings.
+This requires `lib curl` to be active with your PHP settings. You can install it via:  
+  
+```bash  
+# For Debian/Ubuntu  
+sudo apt-get install php-curl  
+  
+# For CentOS/RHEL  
+sudo yum install php-curl  
+```  
+  
+Minimum requirements:  
+
+- PHP >= 7.4  
+- lib curl >= 7.29.0  
+  
+For more information, see the [PHP cURL documentation](https://www.php.net/manual/en/book.curl.php).  
 
 ## Available HTTP verbs
 
