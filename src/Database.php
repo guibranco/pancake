@@ -5,11 +5,28 @@ namespace GuiBranco\Pancake;
 use PDO;
 use PDOException;
 
+/**
+ * Class Database
+ * Provides a database abstraction layer using PDO for MySQL connections.
+ */
 class Database implements IDatabase
 {
     private $pdo;
     private $stmt;
 
+    /**
+     * Database constructor.
+     * Initializes a connection to the MySQL database with provided credentials.
+     *
+     * @param string $host     The database host.
+     * @param string $dbname   The database name.
+     * @param string $username The database username.
+     * @param string $password The database password.
+     * @param int $port        The database port (default: 3306).
+     * @param string $charset  The character set for the connection (default: 'utf8mb4').
+     * @param int $timeout     The connection timeout in seconds (default: 5).
+     * @throws DatabaseException If connection fails or parameters are invalid.
+     */
     public function __construct(
         string $host,
         string $dbname,
@@ -59,12 +76,29 @@ class Database implements IDatabase
         }
     }
 
+    /**
+     * Prepares an SQL statement for execution.
+     *
+     * @param string $query The SQL query to prepare.
+     * @return self Returns the current instance for method chaining.
+     */
     public function prepare(string $query): self
     {
         $this->stmt = $this->pdo->prepare($query);
         return $this;
     }
 
+    /**
+     * Binds a parameter to the specified variable in the prepared statement.
+     *
+     * @param int|string $param The parameter identifier.
+     * @param mixed $value The value to bind to the parameter.
+     * @param int|null $type The data type for the parameter (optional).
+     * 
+     * @return self Returns the current instance for method chaining.
+     * 
+     * @throws DatabaseException If no statement is available.
+     */
     public function bind(int|string $param, mixed $value, ?int $type = null): self
     {
         if (is_null($type)) {
@@ -91,23 +125,47 @@ class Database implements IDatabase
         return $this;
     }
 
+    /**
+     * Executes the prepared statement.
+     *
+     * @return bool True on success, false on failure.
+     */
     public function execute(): bool
     {
         return $this->stmt->execute();
     }
 
+    /**
+     * Fetches a single row from the result set.
+     *
+     * @param int|null $fetchMode The fetch mode (optional).
+     * @return mixed The fetched row as an associative array or false if no rows.
+     */
     public function fetch(int $fetchMode = null): mixed
     {
         $this->execute();
         return $this->stmt->fetch(mode: $fetchMode);
     }
 
+    /**
+     * Fetches all rows from the result set.
+     *
+     * @param int|null $fetchMode The fetch mode (optional).
+     * @return array The fetched rows as an array of associative arrays.
+     */
     public function fetchAll(int $fetchMode = null): array
     {
         $this->execute();
         return $this->stmt->fetchAll($fetchMode);
     }
 
+    /**
+     * Gets the number of rows affected by the last SQL statement.
+     *
+     * @return int The row count.
+     * 
+     * @throws DatabaseException If no statement is available.
+     */
     public function rowCount(): int
     {
         if ($this->stmt === null) {
@@ -116,13 +174,20 @@ class Database implements IDatabase
         return $this->stmt->rowCount();
     }
 
+    /**
+     * Retrieves the ID of the last inserted row.
+     *
+     * @return string The last inserted ID.
+     */
     public function lastInsertId(): string
     {
         return $this->pdo->lastInsertId();
     }
 
     /**
-     * Check if the database connection is active
+     * Checks if the database connection is active.
+     *
+     * @return bool True if connected, false otherwise.
      */
     public function isConnected(): bool
     {
@@ -137,6 +202,13 @@ class Database implements IDatabase
         }
     }
 
+    /**
+     * Starts a new transaction.
+     *
+     * @return bool True on success, false on failure.
+     * 
+     * @throws DatabaseException If there is no active connection or a transaction is already in progress.
+     */
     public function beginTransaction(): bool
     {
         if (!$this->isConnected()) {
@@ -148,6 +220,13 @@ class Database implements IDatabase
         return $this->pdo->beginTransaction();
     }
 
+    /**
+     * Commits the current transaction.
+     *
+     * @return bool True on success, false on failure.
+     * 
+     * @throws DatabaseException If there is no active transaction.
+     */
     public function commit(): bool
     {
         if (!$this->isConnected() || !$this->pdo->inTransaction()) {
@@ -156,6 +235,13 @@ class Database implements IDatabase
         return $this->pdo->commit();
     }
 
+    /**
+     * Rolls back the current transaction.
+     *
+     * @return bool True on success, false on failure.
+     * 
+     * @throws DatabaseException If there is no active transaction.
+     */
     public function rollBack(): bool
     {
         if (!$this->isConnected() || !$this->pdo->inTransaction()) {
@@ -164,6 +250,9 @@ class Database implements IDatabase
         return $this->pdo->rollBack();
     }
 
+    /**
+     * Closes the current database connection and statement.
+     */
     public function close(): void
     {
         $this->stmt = null;
