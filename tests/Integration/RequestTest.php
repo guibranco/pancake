@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace GuiBranco\Pancake\Tests;
+namespace GuiBranco\Pancake\Tests\Integration;
 
 use GuiBranco\Pancake\Request;
 use PHPUnit\Framework\TestCase;

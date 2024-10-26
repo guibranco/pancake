@@ -7,11 +7,11 @@
 		</report>
 	</coverage>
 	<testsuites>
-		<testsuite name="main">
-			<directory suffix="Test.php">.</directory>
+		<testsuite name="unit">
+			<directory suffix="Test.php">./Unit</directory>
 		</testsuite>
-		<testsuite name="database">
-			<directory suffix="Test.php">./Database</directory>
+		<testsuite name="integration">
+			<directory suffix="Test.php">./Integration</directory>
 		</testsuite>
 	</testsuites>
 	<logging/>

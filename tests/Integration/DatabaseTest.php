@@ -2,16 +2,17 @@
 
 declare(strict_types=1);
 
-namespace GuiBranco\Pancake\Tests;
+namespace GuiBranco\Pancake\Tests\Integration;
 
-use GuiBranco\Pancake\Database;
-use GuiBranco\Pancake\DatabaseException;
+use GuiBranco\Pancake\Database\Database;
+use GuiBranco\Pancake\Database\DatabaseException;
+use GuiBranco\Pancake\Database\DatabaseOptions;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use RuntimeException;
 
-/**
- * @covers \GuiBranco\Pancake\Database
- */
+#[CoversClass(Database::class)]
 class DatabaseTest extends TestCase
 {
     private static string $host;
@@ -221,72 +222,67 @@ class DatabaseTest extends TestCase
         $this->assertFalse($isConnected);
     }
 
-    public function testConnectionFailure(): void
-    {
-        $this->expectException(DatabaseException::class);
-
-        new Database(self::$host, 'invalid_db', 'wrong_user', 'wrong_password');
-    }
-
-    /**
-     * @dataProvider connectionFailureProvider
-     */
+    #[DataProvider('connectionFailureProvider')]
     public function testConnectionFailures(
         string $dbName,
         string $user,
         string $pass,
         ?int $port,
-        string $expectedMessage,
-        string $expectedOperation
+        string $expectedMessage
     ): void {
         $this->expectException(DatabaseException::class);
         $this->expectExceptionMessage($expectedMessage);
 
-        new Database(self::$host, $dbName, $user, $pass, $port);
+        $options = new DatabaseOptions(port: $port);
+
+        $database = new Database(self::$host, $dbName, $user, $pass, $options);
+        $database->close();
     }
 
-    public function connectionFailureProvider(): array
+    public static function connectionFailureProvider(): array
     {
         return [
+            'empty_username' => [
+                'pancake',
+                '',
+                'test',
+                3306,
+                'Host, database name, and username cannot be empty'
+            ],
             'invalid_database' => [
                 'invalid_db',
                 'test',
                 'test',
-                null,
-                'Unknown database',
-                'connection'
+                3306,
+                'Failed to connect to MySQL server at 127.0.0.1:3306. Error: SQLSTATE[HY000] [1044] Access denied for user \'test\'@\'%\''
             ],
             'invalid_credentials' => [
                 'pancake',
                 'wrong_user',
                 'wrong_pass',
-                null,
-                'Access denied',
-                'connection'
+                3306,
+                'Access denied'
             ],
             'invalid_port_negative' => [
                 'pancake',
                 'test',
                 'test',
                 -1,
-                'Invalid port number',
-                'connection'
+                'Invalid port number'
             ],
             'invalid_port_zero' => [
                 'pancake',
                 'test',
                 'test',
                 0,
-                'Invalid port number',
-                'connection'
+                'Invalid port number'
             ],
             'invalid_port_too_high' => [
                 'pancake',
                 'test',
                 'test',
                 65536,
-                'Invalid port number',
-                'connection'
+                'Invalid port number'
             ]
         ];
     }

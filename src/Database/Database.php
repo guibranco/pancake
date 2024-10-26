@@ -1,8 +1,9 @@
 <?php
 
-namespace GuiBranco\Pancake;
+namespace GuiBranco\Pancake\Database;
 
 use PDO;
+use PDOStatement;
 use PDOException;
 
 /**
@@ -11,9 +12,9 @@ use PDOException;
  */
 class Database implements IDatabase
 {
-    private $pdo;
-    private $stmt;
-    private $autoCommit = false;
+    private ?PDO $pdo;
+    private ?PDOStatement $stmt = null;
+    private bool $autoCommit;
 
     private const PDO_OPTIONS = [
         PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
@@ -22,18 +23,18 @@ class Database implements IDatabase
         PDO::ATTR_EMULATE_PREPARES => false,
     ];
 
+    private const NO_ACTIVE_CONNECTION = 'No active connection to the database';
+
     /**
      * Database constructor.
      * Initializes a connection to the MySQL database with provided credentials.
      *
-     * @param string $host     The database host.
-     * @param string $dbname   The database name.
-     * @param string $username The database username.
-     * @param string $password The database password.
-     * @param int $port        The database port (default: 3306).
-     * @param string $charset  The character set for the connection (default: 'utf8mb4').
-     * @param int $timeout     The connection timeout in seconds (default: 5).
-     * @param bool $autoCommit Whether to enable auto-commit mode (default: false).
+     * @param string $host           The database host.
+     * @param string $dbname         The database name.
+     * @param string $username       The database username.
+     * @param string $password       The database password.
+     * @param DatabaseOptions $options Optional database options.
+     *
      * @throws DatabaseException If connection fails or parameters are invalid.
      */
     public function __construct(
@@ -41,42 +42,39 @@ class Database implements IDatabase
         string $dbname,
         string $username,
         string $password,
-        int $port = 3306,
-        string $charset = 'utf8mb4',
-        int $timeout = 5,
-        bool $autoCommit = false
+        DatabaseOptions $options = new DatabaseOptions()
     ) {
         if (trim($host) === '' || trim($dbname) === '' || trim($username) === '') {
             throw new DatabaseException('Host, database name, and username cannot be empty');
         }
 
-        if ($port < 1 || $port > 65535) {
+        if ($options->port < 1 || $options->port > 65535) {
             throw new DatabaseException('Invalid port number');
         }
 
         $dsn = sprintf(
             'mysql:host=%s;port=%d;dbname=%s;charset=%s',
             str_replace(';', '', $host),
-            $port,
+            $options->port,
             str_replace(';', '', $dbname),
-            str_replace(';', '', $charset)
+            str_replace(';', '', $options->charset)
         );
-        $options = self::PDO_OPTIONS + [
-            PDO::ATTR_TIMEOUT => $timeout,
-            PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8mb4 COLLATE utf8mb4_unicode_ci",
+        $pdoOptions = self::PDO_OPTIONS + [
+            PDO::ATTR_TIMEOUT => $options->timeout,
+            PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES {$options->charset} COLLATE {$options->collation}",
             PDO::MYSQL_ATTR_USE_BUFFERED_QUERY => true,
         ];
 
-        $this->autoCommit = $autoCommit;
+        $this->autoCommit = $options->autoCommit;
 
         try {
-            $this->pdo = new PDO($dsn, $username, $password, $options);
+            $this->pdo = new PDO($dsn, $username, $password, $pdoOptions);
         } catch (PDOException $e) {
             throw new DatabaseException(
                 sprintf(
                     'Failed to connect to MySQL server at %s:%d. Error: %s',
                     $host,
-                    $port,
+                    $options->port,
                     $e->getMessage()
                 ),
                 'connection',
@@ -87,15 +85,16 @@ class Database implements IDatabase
     }
 
     /**
-     * Prepares an SQL statement for execution.
+     * Prepares an SQL statement for execution
      *
-     * @param string $query The SQL query to prepare.
-     * @return self Returns the current instance for method chaining.
+     * @param string $query The SQL query to prepare
+     * @return self For method chaining
+     * @throws DatabaseException If the query is invalid
      */
     public function prepare(string $query): self
     {
         if (!$this->isConnected()) {
-            throw new DatabaseException('No active database connection');
+            throw new DatabaseException(self::NO_ACTIVE_CONNECTION);
         }
         $this->stmt = $this->pdo->prepare($query);
         return $this;
@@ -130,10 +129,10 @@ class Database implements IDatabase
     }
 
     /**
-     * Executes the prepared statement.
-     *
-     * @return bool True on success, false on failure.
-     */
+    * Execute the query
+    * @return bool if the query execution was succeeded or false if not
+    * @throws DatabaseException If the parameter is invalid
+    */
     public function execute(): bool
     {
         if ($this->stmt === null) {
@@ -143,12 +142,12 @@ class Database implements IDatabase
     }
 
     /**
-     * Fetches a single row from the result set.
+     * Fetches the next row from a result set
      *
-     * @param int|null $fetchMode The fetch mode (optional).
-     * @return mixed The fetched row as an associative array or false if no rows.
+     * @param int $fetchMode Optional fetch mode (PDO::FETCH_*)
+     * @return mixed The fetched row or false on failure
      */
-    public function fetch(int $fetchMode = null): mixed
+    public function fetch(int $fetchMode = PDO::FETCH_BOTH): mixed
     {
         $this->execute();
         return $this->stmt->fetch(mode: $fetchMode);
@@ -160,7 +159,7 @@ class Database implements IDatabase
      * @param int|null $fetchMode The fetch mode (optional).
      * @return array The fetched rows as an array of associative arrays.
      */
-    public function fetchAll(int $fetchMode = null): array
+    public function fetchAll(int $fetchMode = PDO::FETCH_BOTH): array
     {
         $this->execute();
         return $this->stmt->fetchAll($fetchMode);
@@ -189,7 +188,7 @@ class Database implements IDatabase
     public function lastInsertId(): string
     {
         if (!$this->isConnected()) {
-            throw new DatabaseException('No active database connection');
+            throw new DatabaseException(self::NO_ACTIVE_CONNECTION);
         }
         return $this->pdo->lastInsertId();
     }
@@ -221,7 +220,7 @@ class Database implements IDatabase
     public function beginTransaction(): bool
     {
         if (!$this->isConnected()) {
-            throw new DatabaseException('No active database connection');
+            throw new DatabaseException(self::NO_ACTIVE_CONNECTION);
         }
         if ($this->pdo->inTransaction()) {
             throw new DatabaseException('Transaction already in progress');
@@ -266,6 +265,10 @@ class Database implements IDatabase
     {
         if ($this->isConnected() && $this->pdo->inTransaction() && !$this->autoCommit) {
             $this->rollBack();
+        }
+
+        if ($this->pdo->inTransaction() && $this->autoCommit) {
+            $this->commit();
         }
 
         $this->stmt = null;

@@ -1,6 +1,6 @@
 <?php
 
-namespace GuiBranco\Pancake;
+namespace GuiBranco\Pancake\Database;
 
 use Exception;
 
