@@ -1,6 +1,6 @@
 # Pancake Project
 
-A versatile and easy-to-use toolkit for PHP projects, designed to simplify common tasks such as session management, HTTP requests, and configuration parsing. Pancake provides developers with a clean, well-organized API to improve productivity and code quality.
+Pancake is a versatile and easy-to-use toolkit for PHP projects designed to simplify common tasks such as session management, HTTP requests, and configuration parsing. It provides developers with a clean, well-organized API to improve productivity and code quality.
 
 ![Pancake logo](https://raw.githubusercontent.com/guibranco/pancake/main/logo.png)
 
@@ -35,9 +35,9 @@ Source code is available on GitHub: [Pancake Repository ![GitHub stars](https://
 
 ## About Pancake
 
-Pancake is a lightweight PHP toolkit focused on streamlining everyday project requirements. It includes several modules that handle common operations such as session management, HTTP request handling, and parsing TOML configuration files. The goal of Pancake is to make these operations easier and more intuitive, allowing developers to concentrate on building features rather than boilerplate code.
+Pancake is a lightweight PHP toolkit focused on streamlining everyday project requirements. It includes several modules that handle common operations such as session management, HTTP request handling, and parsing TOML configuration files. Pancake's goal is to make these operations more accessible and intuitive, allowing developers to concentrate on building features rather than boilerplate code.
 
-Whether you're working on small projects or large-scale applications, Pancake can help you maintain clean, readable, and maintainable code.
+Whether working on small projects or large-scale applications, Pancake can help you maintain clean, readable, and maintainable code.
 
 ---
 
@@ -46,6 +46,7 @@ Whether you're working on small projects or large-scale applications, Pancake ca
 Pancake offers a variety of features to enhance your PHP projects:
 
 - **[Color](color.md)**: Utility for managing colors based on text.
+- **[Database](database.md)**: Interface for managing database connections and queries.
 - **[GUID v4](guid-v4.md)**: Generate unique GUIDs for your data entities.
 - **[Health Checks](health-checks.md)**: Monitor the health status of your applications and services.
 - **[HTTP Requests](request.md)**: Easily send and manage HTTP requests, supporting multiple methods such as GET, POST, PUT, and DELETE.
@@ -101,7 +102,7 @@ $response = (new Request())->get('https://api.example.com/data');
 echo $response->getBody();
 ```
 
-For more detailed guides on specific features, refer to the [Basic Usage Documentation](basic-usage.md).
+For more detailed guides on specific features, please see the [Basic Usage Documentation](user-guide/basic-usage.md).
 
 ---
 
@@ -109,7 +110,7 @@ For more detailed guides on specific features, refer to the [Basic Usage Documen
 
 ### Setup for Testing
 
-To prepare for testing, ensure that you have **PHP**, **Composer**, **PHPUnit**, and **Xdebug** installed on your system. Also, install **VSCode** and the **Gutter Coverage** extension to view code coverage directly in your editor.
+To prepare for testing, please ensure you have **PHP**, **Composer**, **PHPUnit**, and **Xdebug** installed on your system. Also, install **VSCode** and the **Gutter Coverage** extension to view code coverage directly in your editor.
 
 #### Enabling Xdebug
 
@@ -150,7 +151,7 @@ To generate a coverage report with Xdebug enabled, use:
 XDEBUG_MODE=coverage ./vendor/bin/phpunit --configuration tests/phpunit.xml --coverage-clover test-reports/cov.xml
 ```
 
-The coverage report will be saved in `test-reports/cov.xml`. You can use this file with VSCode for coverage visualization.
+The coverage report will be saved in `test-reports/cov.xml`. You can use this file with VSCode to visualize coverage.
 
 ---
 
