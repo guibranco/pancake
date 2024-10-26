@@ -114,21 +114,12 @@ class Database implements IDatabase
      */
     public function bind(int|string $param, mixed $value, ?int $type = null): self
     {
-        if (is_null($type)) {
-            switch (true) {
-                case is_int($value):
-                    $type = PDO::PARAM_INT;
-                    break;
-                case is_bool($value):
-                    $type = PDO::PARAM_BOOL;
-                    break;
-                case is_null($value):
-                    $type = PDO::PARAM_NULL;
-                    break;
-                default:
-                    $type = PDO::PARAM_STR;
-            }
-        }
+        $type ??= match (true) {
+            is_int($value) => PDO::PARAM_INT,
+            is_bool($value) => PDO::PARAM_BOOL,
+            $value === null => PDO::PARAM_NULL,
+            default => PDO::PARAM_STR
+        };
 
         if ($this->stmt === null) {
             throw new DatabaseException('No prepared statement available for execution');
