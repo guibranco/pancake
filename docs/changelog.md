@@ -1,8 +1,12 @@
 # Changelog
 
-## Version 0.13 [2024-10-24]
+## Version 0.14 [2024-10-26]
 
 - [#83](https://github.com/guibranco/pancake/issues/83) - Add Database class by [@guibranco](https://github.com/guibranco).
+
+## Version 0.13 [2024-10-26]
+
+- [#166](https://github.com/guibranco/pancake/issues/166) - Add IpUtils class by [@GitAuto](https://github.com/apps/gitauto-ai) / [@guibranco](https://github.com/guibranco).
 
 ## Version 0.12 [2024-10-22]
 
