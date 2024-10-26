@@ -7,6 +7,7 @@ namespace GuiBranco\Pancake\Tests;
 use GuiBranco\Pancake\Database;
 use GuiBranco\Pancake\DatabaseException;
 use PHPUnit\Framework\TestCase;
+use RuntimeException;
 
 /**
  * @covers \GuiBranco\Pancake\Database
@@ -42,7 +43,10 @@ class DatabaseTest extends TestCase
             name VARCHAR(100),
             email VARCHAR(100)
         )");
-        self::$database->execute();
+        if (!self::$database->execute()) {
+            throw new RuntimeException('Failed to create test table: ' . self::$database->getError());
+        }
+
     }
 
     public static function tearDownAfterClass(): void
