@@ -7,6 +7,7 @@ namespace GuiBranco\Pancake\Tests;
 use GuiBranco\Pancake\Database;
 use GuiBranco\Pancake\DatabaseException;
 use PHPUnit\Framework\TestCase;
+
 /**
  * @covers \GuiBranco\Pancake\Database
  */
