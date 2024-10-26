@@ -94,9 +94,9 @@ class Database implements IDatabase
      * @param int|string $param The parameter identifier.
      * @param mixed $value The value to bind to the parameter.
      * @param int|null $type The data type for the parameter (optional).
-     * 
+     *
      * @return self Returns the current instance for method chaining.
-     * 
+     *
      * @throws DatabaseException If no statement is available.
      */
     public function bind(int|string $param, mixed $value, ?int $type = null): self
@@ -163,7 +163,7 @@ class Database implements IDatabase
      * Gets the number of rows affected by the last SQL statement.
      *
      * @return int The row count.
-     * 
+     *
      * @throws DatabaseException If no statement is available.
      */
     public function rowCount(): int
@@ -206,7 +206,7 @@ class Database implements IDatabase
      * Starts a new transaction.
      *
      * @return bool True on success, false on failure.
-     * 
+     *
      * @throws DatabaseException If there is no active connection or a transaction is already in progress.
      */
     public function beginTransaction(): bool
@@ -224,7 +224,7 @@ class Database implements IDatabase
      * Commits the current transaction.
      *
      * @return bool True on success, false on failure.
-     * 
+     *
      * @throws DatabaseException If there is no active transaction.
      */
     public function commit(): bool
@@ -239,7 +239,7 @@ class Database implements IDatabase
      * Rolls back the current transaction.
      *
      * @return bool True on success, false on failure.
-     * 
+     *
      * @throws DatabaseException If there is no active transaction.
      */
     public function rollBack(): bool
