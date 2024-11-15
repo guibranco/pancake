@@ -17,8 +17,7 @@ class MemoryCache
         $memory = $this->openMemory();
         $serialized = json_encode($data);
         $raw = $this->strToNts($serialized);
-        $bytes = shmop_write($memory, $raw, 0);
-        return $bytes;
+        return shmop_write($memory, $raw, 0);
     }
 
     public function readJsonInMemory()
@@ -35,11 +34,12 @@ class MemoryCache
     private function strFromMem(&$value)
     {
         $index = strpos($value, "\0");
+        
         if ($index === false) {
             return $value;
         }
-        $result = substr($value, 0, $index);
-        return $result;
+        
+        return substr($value, 0, $index);
     }
 
     private function strToNts($value)
