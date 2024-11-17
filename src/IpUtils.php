@@ -67,8 +67,7 @@ class IpUtils
         }
         $ipBin = inet_pton($ip);
         $subnetBin = inet_pton($subnet);
-        // Convert mask to binary format
-        $maskBin = str_repeat("f", $mask / 4);
+        $maskBin = str_repeat("f", intval($mask / 4));
         switch ($mask % 4) {
             case 0:
                 break;
