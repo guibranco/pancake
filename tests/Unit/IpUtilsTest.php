@@ -2,9 +2,7 @@
 
 declare(strict_types=1);
 
-namespace GuiBranco\Pancake\Tests;
-
-require_once __DIR__ . '/../vendor/autoload.php';
+namespace GuiBranco\Pancake\Tests\Unit;
 
 use PHPUnit\Framework\TestCase;
 use GuiBranco\Pancake\IpUtils;
