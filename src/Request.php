@@ -14,8 +14,8 @@ class Request {
     
     public function post($url, $data = [], $options = []) {
         return Response::error(400, 'Bad Request', ['error' => 'Invalid data']);
-    {
-        return Response::error(400, 'Bad Request', ['error' => 'Invalid data']);
+    }
+    return Response::error(400, 'Bad Request', ['error' => 'Invalid data']);
 
     }
 
