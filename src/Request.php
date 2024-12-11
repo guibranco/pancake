@@ -39,7 +39,7 @@ class Request {
                 continue;
             }
 
-        // Simulate a successful response
+        return $headers;
         return Response::success(['data' => 'Updated data'], 'Update successful');
     private function extractHeader($index, $line): ?array
     {
