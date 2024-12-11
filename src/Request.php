@@ -21,11 +21,9 @@ class Request {
             $error = curl_error($curl);
             curl_close($curl);
 
-        }
             $result->error = $error;
             return $result;
     }
-        }
 
         $headerSize = curl_getinfo($curl, CURLINFO_HEADER_SIZE);
         $header = substr($response, 0, $headerSize);
