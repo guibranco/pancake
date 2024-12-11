@@ -11,15 +11,11 @@ class Request {
         // Simulate a successful response
         return Response::success(['data' => 'Sample data'], 'Request successful');
 
-    
     public function post($url, $data = [], $options = []) {
         return Response::error(400, 'Bad Request', ['error' => 'Invalid data']);
     }
-    return Response::error(400, 'Bad Request', ['error' => 'Invalid data']);
 
-    }
 
-    }
     public function delete($url, $options = []) {
         
         return Response::success(null, 'Resource deleted');
@@ -48,7 +44,6 @@ class Request {
     }
 
     private function getFields($url, $headers): array
-    {
         return array(
             CURLOPT_URL => $url,
             CURLOPT_RETURNTRANSFER => true,
