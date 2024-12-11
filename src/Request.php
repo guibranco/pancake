@@ -10,6 +10,7 @@ class Request {
 
         // Simulate a successful response
     }
+    
         return Response::success(['data' => 'Sample data'], 'Request successful');
 
     public function post($url, $data = [], $options = [])
@@ -19,8 +20,11 @@ class Request {
         // Simulate an error response
 
 
+
     public function delete($url, $options = []) {
+
         // Simulate an error response
+
 
         return Response::error(404, 'Not Found', ['error' => 'Resource not found']);
 
