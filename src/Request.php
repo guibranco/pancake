@@ -9,7 +9,6 @@ class Request {
     public function delete($url, $options = []) {
 
         // Implementation here
-        // Simulate a successful response
         return Response::success(['data' => 'Sample data'], 'Request successful');
 
     }
