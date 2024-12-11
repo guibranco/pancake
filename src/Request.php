@@ -24,7 +24,6 @@ class Request {
         // Simulate an error response
         return Response::error(404, 'Not Found', ['error' => 'Resource not found']);
     }
-    }
 
     public function put($url, $data = [], $options = []) {
             $headers[$key] = $value;
@@ -44,7 +43,6 @@ class Request {
 
         list($key, $value) = $explode;
         return array($key, $value);
-    }
 
     private function execute($fields): stdClass
     {
