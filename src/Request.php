@@ -8,12 +8,14 @@ use GuiBranco\Pancake\Response;
 class Request {
     public function delete($url, $options = []) {
 
+    {
         // Implementation here
         return Response::success(['data' => 'Sample data'], 'Request successful');
     }
     }
     public function post($url, $data = [], $options = []) {
 {
+    }
 
         return Response::error(400, 'Bad Request', ['error' => 'Invalid data']);
     }
