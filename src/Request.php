@@ -22,7 +22,6 @@ class Request {
     public function delete($url, $options = []) {
         // Simulate an error response
         return Response::error(404, 'Not Found', ['error' => 'Resource not found']);
-    }
             $result = $this->extractHeader($i, $line);
 
             if ($result === null) {
