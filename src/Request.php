@@ -17,15 +17,25 @@ class Request {
         return Response::error(400, 'Bad Request', ['error' => 'Invalid data']);
     }
 }
+    private function getFields($url, $headers): array
 }
 
     public function get($url, $headers = array()): stdClass
     {
         $fields = $this->getFields($url, $headers);
         return $this->execute($fields);
+        return array(
+            CURLOPT_URL => $url,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_HEADER => true,
+            CURLOPT_ENCODING => "",
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+        );
 
+    }
 
-    public function post($url, $headers = array(), $data = null): stdClass
     {
         $fields = $this->getFields($url, $headers);
         $fields[CURLOPT_CUSTOMREQUEST] = "POST";
