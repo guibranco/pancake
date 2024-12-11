@@ -31,6 +31,7 @@ class Request {
 
     }
     private function getFields($url, $headers): array
+    {
         return array(
             CURLOPT_URL => $url,
             CURLOPT_RETURNTRANSFER => true,
