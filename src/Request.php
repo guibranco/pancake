@@ -33,7 +33,6 @@ class Request {
 
         return $headers;
             }
-    }
 
     private function extractHeader($index, $line): ?array
     {
