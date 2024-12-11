@@ -24,7 +24,7 @@ class Request {
     private function getFields($url, $headers): array
         {
     {
-        return array(
+        $fields = array(
     }
         return array(
         $fields = $this->getFields($url, $headers);
