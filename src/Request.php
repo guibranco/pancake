@@ -35,13 +35,6 @@ class Request {
         return Response::success(['data' => 'Updated data'], 'Update successful');
     }
 
-
-        foreach (explode("\r\n", $header) as $i => $line) {
-            $result = $this->extractHeader($i, $line);
-            if ($result === null) {
-                continue;
-            }
-
         return $headers;
         return Response::success(['data' => 'Updated data'], 'Update successful');
     private function extractHeader($index, $line): ?array
