@@ -17,6 +17,14 @@ class Request {
         return Response::error(400, 'Bad Request', ['error' => 'Invalid data']);
 
     }
+    public function put($url, $data = [], $options = []) {
+        return Response::success(['data' => 'Updated data'], 'Request successful');
+    }
+
+    public function delete($url, $options = []) {
+        return Response::success(null, 'Resource deleted');
+    }
+
         curl_setopt_array($curl, $fields);
         $response = curl_exec($curl);
         $result = new stdClass();
