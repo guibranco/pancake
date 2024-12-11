@@ -46,6 +46,7 @@ class Request {
         }
 
         return $this->execute($fields);
+    }
 
     public function put($url, $headers = array(), $data = null): stdClass
     {
