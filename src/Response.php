@@ -2,8 +2,10 @@
 
 namespace GuiBranco\Pancake;
 
-class Response {
-    public static function success($data, $message = 'Success') {
+class Response
+{
+    public static function success($data, $message = 'Success')
+    {
         return [
             'status' => 'success',
             'message' => $message,
@@ -11,7 +13,8 @@ class Response {
         ];
     }
 
-    public static function error($code, $message, $details = []) {
+    public static function error($code, $message, $details = [])
+    {
         return [
             'status' => 'error',
             'code' => $code,
