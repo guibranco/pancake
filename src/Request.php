@@ -18,7 +18,6 @@ class Request {
         return Response::error(400, 'Bad Request', ['error' => 'Invalid data']);
     }
 
-        foreach (explode("\r\n", $header) as $i => $line) {
     public function delete($url, $options = []) {
         // Simulate an error response
         return Response::error(404, 'Not Found', ['error' => 'Resource not found']);
