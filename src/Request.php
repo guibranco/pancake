@@ -16,7 +16,6 @@ class Request {
 
         return Response::error(400, 'Bad Request', ['error' => 'Invalid data']);
 
-    public function delete($url, $options = []) {
 
         // Implementation here
 
@@ -43,8 +42,6 @@ class Request {
     {
         $fields = $this->getFields($url, $headers);
         return $this->execute($fields);
-    }
-
     public function post($url, $headers = array(), $data = null): stdClass
     {
         $fields = $this->getFields($url, $headers);
