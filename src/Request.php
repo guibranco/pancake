@@ -20,6 +20,7 @@ class Request {
         return Response::success(null, 'Resource deleted');
 
     public function delete($url, $options = []) {
+    public function delete($url, $options = []) {
     }
 
     $header = substr($response, 0, $headerSize);
