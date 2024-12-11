@@ -16,6 +16,7 @@ class Request {
     {
         // Simulate an error response
     }
+    }
         return Response::error(400, 'Bad Request', ['error' => 'Invalid data']);
     }
 
