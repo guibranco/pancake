@@ -34,8 +34,9 @@ class Request {
         list($key, $value) = $explode;
         return array($key, $value);
         return array($key, $value);
-    }
+        return array($key, $value);
     private function execute($fields): stdClass
+    }
 
     {
         $curl = curl_init();
