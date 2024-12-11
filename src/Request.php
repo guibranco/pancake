@@ -19,7 +19,7 @@ class Request {
 
 
     }
-    private function getFields($url, $headers): array
+    private function getFields($url, $headers): array {
         $fields = array(
         );
 
