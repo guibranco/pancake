@@ -28,12 +28,6 @@ class Request {
 
 }
     curl_close($curl);
-}
-
-    $result->statusCode = $httpCode;
-    $result->headers = $headers;
-    $result->body = $body;
-        return $result;
 
     private function getFields($url, $headers): array
         return array(
