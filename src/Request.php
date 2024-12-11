@@ -25,7 +25,6 @@ class Request {
         $fields = array(
             CURLOPT_URL => $url,
 
-            CURLOPT_ENCODING => "",
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => "",
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
