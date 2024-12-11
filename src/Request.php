@@ -55,7 +55,6 @@ class Request {
         }
         return $this->execute($fields);
     }
-
     public function delete($url, $headers = array(), $data = null): stdClass
     {
         $fields = $this->getFields($url, $headers);
