@@ -20,7 +20,7 @@ class Request {
 
 
 
-    }
+}
     private function getFields($url, $headers): array {
         $fields = array(
             CURLOPT_URL => $url,
