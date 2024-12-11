@@ -25,7 +25,7 @@ class Request {
     {
         $fields = array(
     }
-        return array(
+        return [
         return $this->getFields($url, $headers);
 
         }
