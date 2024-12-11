@@ -11,10 +11,12 @@ class Request {
         // Simulate a successful response
         return Response::success(['data' => 'Sample data'], 'Request successful');
 
+    }
     
     public function post($url, $data = [], $options = []) {
         return Response::error(400, 'Bad Request', ['error' => 'Invalid data']);
 
+    }
     }
 
     public function delete($url, $options = []) {
@@ -23,7 +25,8 @@ class Request {
             $error = curl_error($curl);
             curl_close($curl);
 
-            $result->statusCode = -1;
+        }
+    }
             $result->error = $error;
             return $result;
         }
