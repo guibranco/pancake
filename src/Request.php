@@ -34,8 +34,6 @@ class Request {
             CURLOPT_HTTPHEADER => $headers
         );
 }
-}
-        );
 
     public function get($url, $headers = array()): stdClass
     {
