@@ -17,7 +17,6 @@ class Request {
 
         return Response::error(400, 'Bad Request', ['error' => 'Invalid data']);
     }
-    private function getFields($url, $headers): array
     {
         return array(
             CURLOPT_URL => $url,
@@ -46,7 +45,6 @@ class Request {
             $fields[CURLOPT_POSTFIELDS] = $data;
         }
         return $this->execute($fields);
-    }
 
     public function put($url, $headers = array(), $data = null): stdClass
     {
