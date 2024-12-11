@@ -6,8 +6,8 @@ use stdClass;
 use GuiBranco\Pancake\Response;
 
 class Request {
-    public function get($url, $options = [])
-    {
+    public function get($url, $options = []) {
+
         // Simulate a successful response
         return Response::success(['data' => 'Sample data'], 'Request successful');
     }
