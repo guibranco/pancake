@@ -6,7 +6,6 @@ use stdClass;
 use GuiBranco\Pancake\Response;
 
 class Request {
-{
     public function get($url, $options = [])
     {
         // Simulate a successful response
@@ -18,11 +17,11 @@ class Request {
         // Simulate an error response
         return Response::error(400, 'Bad Request', ['error' => 'Invalid data']);
     }
-    }
-        $headers = array();
+    public function put($url, $data = [], $options = []) {
     public function put($url, $data = [], $options = []) {
         // Simulate a successful response
         return Response::success(['data' => 'Updated data'], 'Update successful');
+    }
     }
 
         foreach (explode("\r\n", $header) as $i => $line) {
