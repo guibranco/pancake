@@ -17,7 +17,6 @@ class Request {
 
     }
     }
-    }
     {
         if ($index === 0) {
             return array("http_code", $line);
