@@ -21,6 +21,7 @@ class Request {
     }
 
     public function delete($url, $options = []) {
+        }
         return Response::success(null, 'Resource deleted');
         if ($response === false) {
             $error = curl_error($curl);
