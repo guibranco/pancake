@@ -18,6 +18,7 @@ class Request
         // Simulate an error response
         return Response::error(400, 'Bad Request', ['error' => 'Invalid data']);
     }
+    }
         $headers = array();
     public function put($url, $data = [], $options = []) {
         // Simulate a successful response
