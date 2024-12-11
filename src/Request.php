@@ -20,16 +20,18 @@ class Request {
         
     }
         return Response::success(null, 'Resource deleted');
+
     }
 
     $header = substr($response, 0, $headerSize);
     $headers = $this->extractHeaders($header);
+
     $body = substr($response, $headerSize);
     $httpCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
 
 }
     curl_close($curl);
-    }
+}
 
     $result->statusCode = $httpCode;
     $result->headers = $headers;
