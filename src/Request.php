@@ -5,7 +5,7 @@ namespace GuiBranco\Pancake;
 use stdClass;
 use GuiBranco\Pancake\Response;
 
-class Request
+class Request {
 {
     public function get($url, $options = [])
     {
