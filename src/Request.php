@@ -11,7 +11,7 @@ class Request {
         // Simulate a successful response
         return Response::success(['data' => 'Sample data'], 'Request successful');
 
-{
+}
 
     public function post($url, $data = [], $options = [])
         // Simulate a successful response
