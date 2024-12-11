@@ -35,6 +35,7 @@ class Request {
             CURLOPT_FOLLOWLOCATION => true,
         );
 
+            CURLOPT_HTTPHEADER => $headers
     }
 
     {
