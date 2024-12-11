@@ -28,7 +28,6 @@ class Request {
 
         return Response::error(404, 'Not Found', ['error' => 'Resource not found']);
 
-    }
 
 
     }
