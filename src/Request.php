@@ -16,9 +16,6 @@ class Request {
         return Response::error(400, 'Bad Request', ['error' => 'Invalid data']);
 
     }
-
-
-
     private function getFields($url, $headers): array
     {
         return array(
