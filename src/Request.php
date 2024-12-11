@@ -19,12 +19,6 @@ class Request {
         return Response::error(400, 'Bad Request', ['error' => 'Invalid data']);
     }
 
-        // Simulate a successful response
-        if (true) {
-            return Response::success(['data' => 'Updated data'], 'Update successful');
-        }
-    }
-
     private function extractHeader($index, $line): ?array
     {
         if ($index === 0) {
