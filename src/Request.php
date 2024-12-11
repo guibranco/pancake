@@ -35,7 +35,7 @@ class Request {
         foreach (explode("\r\n", $header) as $i => $line) {
             $result = $this->extractHeader($i, $line);
             if ($result === null) {
-        return $headers;
+                continue;
                 continue;
             }
 
