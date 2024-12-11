@@ -29,6 +29,7 @@ class Request {
 
     curl_close($curl);
 
+    }
     private function getFields($url, $headers): array
         return array(
             CURLOPT_URL => $url,
