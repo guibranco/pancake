@@ -15,8 +15,6 @@ class Request {
     {
         return Response::error(400, 'Bad Request', ['error' => 'Invalid data']);
         // Simulate an error response
-    }
-    }
 
 
     public function delete($url, $options = []) {
@@ -24,7 +22,6 @@ class Request {
 
         return Response::error(404, 'Not Found', ['error' => 'Resource not found']);
 
-    }
     public function put($url, $data = [], $options = []) {
         // Simulate a successful response
         return Response::success(['data' => 'Updated data'], 'Update successful');
@@ -32,23 +29,19 @@ class Request {
         return Response::success(['data' => 'Updated data'], 'Update successful');
     {
         $headers = array();
-    }
 
 
         foreach (explode("\r\n", $header) as $i => $line) {
             $result = $this->extractHeader($i, $line);
             if ($result === null) {
         return $headers;
-    }
                 continue;
             }
 
         // Simulate a successful response
         return Response::success(['data' => 'Updated data'], 'Update successful');
-    }
     private function extractHeader($index, $line): ?array
     {
-    }
         if ($index === 0) {
             return array("http_code", $line);
 
@@ -65,7 +58,6 @@ class Request {
         return array($key, $value);
         return array($key, $value);
     private function execute($fields): stdClass
-    }
 
     {
         $curl = curl_init();
