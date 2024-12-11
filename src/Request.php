@@ -23,11 +23,11 @@ class Request {
 
         // Simulate an error response
     {
+    public function post($url, $data = [], $options = []) {
 
 
 
 
-    public function put($url, $data = [], $options = []) {
         // Simulate a successful response
         if (true) {
             return Response::success(['data' => 'Updated data'], 'Update successful');
