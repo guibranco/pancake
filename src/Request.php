@@ -14,7 +14,7 @@ class Request {
 
     public function post($url, $data = [], $options = [])
     {
-        // Simulate an error response
+    }
     }
 
 
