@@ -29,6 +29,7 @@ class Request {
             return Response::success(['data' => 'Updated data'], 'Update successful');
         }
     }
+}
 
     private function extractHeader($index, $line): ?array
     {
@@ -45,6 +46,7 @@ class Request {
 
         list($key, $value) = $explode;
         return array($key, $value);
+    }
     private function execute($fields): stdClass
 
     {
