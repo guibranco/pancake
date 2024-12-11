@@ -140,7 +140,4 @@ class Request {
         $fields[CURLOPT_NOBODY] = true;
         return $this->execute($fields);
     }
-
-
-
     }
