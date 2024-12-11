@@ -23,6 +23,7 @@ class Request {
         return Response::success(['data' => 'Updated data'], 'Update successful');
     }
     }
+    }
 
     public function delete($url, $options = []) {
         // Simulate an error response
