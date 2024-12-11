@@ -17,9 +17,6 @@ class Request {
         // Simulate an error response
         return Response::error(400, 'Bad Request', ['error' => 'Invalid data']);
     }
-        return Response::success(['data' => 'Updated data'], 'Update successful');
-    }
-    }
 
         foreach (explode("\r\n", $header) as $i => $line) {
     public function delete($url, $options = []) {
