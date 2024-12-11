@@ -18,7 +18,6 @@ class Request {
         return Response::error(400, 'Bad Request', ['error' => 'Invalid data']);
 
 
-            if ($result === null) {
                 continue;
             }
     public function delete($url, $options = []) {
@@ -28,11 +27,8 @@ class Request {
     }
 
     public function put($url, $data = [], $options = []) {
-            list($key, $value) = $result;
             $headers[$key] = $value;
 
-        return $headers;
-            }
 
     private function extractHeader($index, $line): ?array
     {
