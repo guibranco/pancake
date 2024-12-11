@@ -13,8 +13,10 @@ class Request {
     }
 
     public function post($url, $data = [], $options = []) {
+
         return Response::error(400, 'Bad Request', ['error' => 'Invalid data']);
     }
+
 
 
     public function delete($url, $options = []) {
@@ -26,7 +28,6 @@ class Request {
 
             $result->error = $error;
             return $result;
-    }
 
     $headerSize = curl_getinfo($curl, CURLINFO_HEADER_SIZE);
     $header = substr($response, 0, $headerSize);
