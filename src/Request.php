@@ -20,7 +20,6 @@ class Request {
 
     private function getFields($url, $headers): array {
         $fields = array(
-        $fields = array(
         );
         return $this->getFields($url, $headers);
 
