@@ -21,16 +21,6 @@ class Request {
         return Response::success(null, 'Resource deleted');
     }
 
-    }
-    public function delete($url, $options = []) {
-        return Response::success(null, 'Resource deleted');
-    }
-
-        curl_setopt_array($curl, $fields);
-        $response = curl_exec($curl);
-        $result = new stdClass();
-        $result->url = $fields[CURLOPT_URL];
-
         if ($response === false) {
             $error = curl_error($curl);
             curl_close($curl);
