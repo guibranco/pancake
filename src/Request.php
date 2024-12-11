@@ -17,7 +17,6 @@ class Request {
 
 
         // Simulate a successful response
-        return Response::error(404, 'Not Found', ['error' => 'Resource not found']);
     }
         // Simulate an error response
 
