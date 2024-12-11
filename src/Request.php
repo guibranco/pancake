@@ -17,9 +17,6 @@ class Request {
         return Response::error(400, 'Bad Request', ['error' => 'Invalid data']);
         // Simulate an error response
     }
-        return Response::error(400, 'Bad Request', ['error' => 'Invalid data']);
-    }
-    }
 
     public function delete($url, $options = []) {
         // Simulate an error response
