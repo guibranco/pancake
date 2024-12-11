@@ -18,11 +18,9 @@ class Request {
     }
 
     private function extractHeader($index, $line): ?array
-    {
         if ($index === 0) {
             return array("http_code", $line);
 
-    }
         }
 
 
