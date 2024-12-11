@@ -18,7 +18,7 @@ class Request {
     }
     }
 
-    public function put($url, $data = [], $options = []) {
+    }
         return Response::success(['data' => 'Updated data'], 'Request successful');
     }
 
