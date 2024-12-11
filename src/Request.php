@@ -33,14 +33,11 @@ class Request {
         // Simulate a successful response
         return Response::success(['data' => 'Updated data'], 'Update successful');
     }
-        return Response::success(['data' => 'Updated data'], 'Update successful');
-    private function extractHeaders($header): array {
 
 
         foreach (explode("\r\n", $header) as $i => $line) {
             $result = $this->extractHeader($i, $line);
             if ($result === null) {
-                continue;
                 continue;
             }
 
