@@ -24,6 +24,7 @@ class Request {
 
         }
 
+
         $explode = explode(": ", $line);
 
         if (count($explode) != 2) {
