@@ -17,12 +17,6 @@ class Request {
         return Response::error(400, 'Bad Request', ['error' => 'Invalid data']);
 
     }
-    }
-    {
-
-
-    {
-        $curl = curl_init();
         curl_setopt_array($curl, $fields);
         $response = curl_exec($curl);
         $result = new stdClass();
