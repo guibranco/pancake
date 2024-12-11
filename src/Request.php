@@ -9,13 +9,11 @@ class Request {
     public function get($url, $options = []) {
 
         // Simulate a successful response
-        return Response::success(['data' => 'Sample data'], 'Request successful');
     }
 
 
     public function post($url, $data = [], $options = [])
     {
-        return Response::error(400, 'Bad Request', ['error' => 'Invalid data']);
         // Simulate an error response
     }
 
@@ -25,7 +23,6 @@ class Request {
         // Simulate an error response
 
 
-        return Response::error(404, 'Not Found', ['error' => 'Resource not found']);
 
 
     }
