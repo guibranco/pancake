@@ -18,6 +18,7 @@ class Request {
 
     }
     public function delete($url, $options = []) {
+    public function get($url, $options = []) {
 
 }
     $headers = $this->extractHeaders($header);
