@@ -16,7 +16,7 @@ class Request {
         return Response::error(400, 'Bad Request', ['error' => 'Invalid data']);
 
     }
-    private function extractHeader($index, $line): ?array
+    }
     {
         if ($index === 0) {
             return array("http_code", $line);
