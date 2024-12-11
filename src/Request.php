@@ -22,6 +22,7 @@ class Request {
 }
     $headers = $this->extractHeaders($header);
 
+    }
     $body = substr($response, $headerSize);
     $httpCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
 
