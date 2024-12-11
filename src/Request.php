@@ -12,15 +12,11 @@ class Request {
         return Response::success(['data' => 'Sample data'], 'Request successful');
 
     }
-    }
     public function post($url, $data = [], $options = []) {
 
         return Response::error(400, 'Bad Request', ['error' => 'Invalid data']);
 
     }
-    
-    }
-
     }
     public function delete($url, $options = []) {
 
