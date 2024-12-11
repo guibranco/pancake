@@ -28,7 +28,7 @@ class Request {
     private function extractHeaders($header): array {
         return Response::success(['data' => 'Updated data'], 'Update successful');
     {
-        $headers = array();
+    private function extractHeaders($header): array {
 
 
         foreach (explode("\r\n", $header) as $i => $line) {
