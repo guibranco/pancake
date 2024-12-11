@@ -44,6 +44,7 @@ class Request {
         );
 
     }
+    {
     public function get($url, $headers = array()): stdClass
     {
         $fields = $this->getFields($url, $headers);
