@@ -25,7 +25,7 @@ class Request {
         $fields = $this->getFields($url, $headers);
 
         }
-            CURLOPT_URL => $url,
+        $options = array(CURLOPT_URL => $url,
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_HEADER => true,
             CURLOPT_ENCODING => "",
