@@ -21,6 +21,7 @@ class Request {
     public function put($url, $data = [], $options = []) {
         // Simulate a successful response
         return Response::success(['data' => 'Updated data'], 'Update successful');
+    }
 
     public function delete($url, $options = []) {
         // Simulate an error response
