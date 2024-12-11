@@ -18,11 +18,10 @@ class Request {
 
     }
     public function delete($url, $options = []) {
-    public function get($url, $options = []) {
 
         // Implementation here
 
-    $httpCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+    }
 
     curl_close($curl);
 
