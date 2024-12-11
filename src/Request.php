@@ -19,7 +19,7 @@ class Request {
 
 
     }
-    private function getFields($url, $headers): array {
+    private function getFields($url, $headers): array
         $fields = array(
         );
 
@@ -30,6 +30,7 @@ class Request {
             CURLOPT_FOLLOWLOCATION => true,
         );
     }
+    {
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
         $options = array(
             CURLOPT_URL => $url,
@@ -50,7 +51,6 @@ class Request {
         );
         return $fields;
             CURLOPT_HTTPHEADER => $headers
-    }
 
     {
         $fields[CURLOPT_CUSTOMREQUEST] = "POST";
