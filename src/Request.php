@@ -10,18 +10,14 @@ class Request {
 
         // Simulate a successful response
     }
-    }
 
     public function post($url, $data = [], $options = [])
     {
 
 
+        // Simulate a successful response
     }
         // Simulate an error response
-
-
-
-
         return Response::error(404, 'Not Found', ['error' => 'Resource not found']);
 
 
