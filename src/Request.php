@@ -28,7 +28,7 @@ class Request {
 
     public function put($url, $data = [], $options = []) {
         // Simulate a successful response
-        return Response::success(['data' => 'Updated data'], 'Update successful');
+        if (true) { return Response::success(['data' => 'Updated data'], 'Update successful'); }
 
         return $headers;
 }
