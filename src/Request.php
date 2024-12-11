@@ -17,10 +17,11 @@ class Request {
         return Response::error(400, 'Bad Request', ['error' => 'Invalid data']);
 
     }
-    public function delete($url, $options = []) {
+    }
         
         return Response::success(null, 'Resource deleted');
 
+    public function delete($url, $options = []) {
     }
 
     $header = substr($response, 0, $headerSize);
