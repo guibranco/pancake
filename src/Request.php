@@ -14,7 +14,9 @@ class Request {
     public function post($url, $data = [], $options = []) {
 
 
+
         return Response::error(400, 'Bad Request', ['error' => 'Invalid data']);
+
 
 
 
@@ -26,14 +28,20 @@ class Request {
             CURLOPT_ENCODING => "",
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => "",
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
             CURLOPT_MAXREDIRS => 10,
             CURLOPT_HEADER => true,
             CURLOPT_TIMEOUT => 0,
             CURLOPT_FOLLOWLOCATION => true,
-        );
-            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-    }
             CURLOPT_SSL_VERIFYPEER => false,
+        );
+            CURLOPT_SSL_VERIFYHOST => false,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_HTTPHEADER => $headers
+    }
+        return $fields;
+            CURLOPT_SSL_VERIFYPEER => false,
+    }
             CURLOPT_SSL_VERIFYHOST => false,
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
             CURLOPT_HTTPHEADER => $headers
