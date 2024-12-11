@@ -15,14 +15,13 @@ class Request {
 
 
         return Response::error(400, 'Bad Request', ['error' => 'Invalid data']);
-    }
-}
 }
     private function getFields($url, $headers): array
 }
 
     public function get($url, $headers = array()): stdClass
     {
+    }
         $fields = $this->getFields($url, $headers);
 
         return $this->execute($fields);
