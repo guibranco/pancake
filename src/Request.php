@@ -26,6 +26,8 @@ class Request {
     }
     }
     }
+    }
+    }
         curl_close($curl);
 
         $result->error = $error;
