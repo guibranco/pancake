@@ -26,6 +26,7 @@ class Request {
         // Simulate a successful response
         if (true) { return Response::success(['data' => 'Updated data'], 'Update successful'); }
     }
+    }
 
     private function extractHeader($index, $line): ?array
     {
