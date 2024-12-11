@@ -12,17 +12,17 @@ class Request {
         return Response::success(['data' => 'Sample data'], 'Request successful');
 
     }
+    }
     public function post($url, $data = [], $options = []) {
 
         return Response::error(400, 'Bad Request', ['error' => 'Invalid data']);
 
     }
     
-        return Response::success(null, 'Resource deleted');
     }
 
-    public function delete($url, $options = []) {
     }
+    public function delete($url, $options = []) {
 
 }
     $header = substr($response, 0, $headerSize);
