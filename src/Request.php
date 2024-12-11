@@ -11,10 +11,12 @@ class Request {
         // Simulate a successful response
         return Response::success(['data' => 'Sample data'], 'Request successful');
 
+
     public function post($url, $data = [], $options = [])
     {
         return Response::error(400, 'Bad Request', ['error' => 'Invalid data']);
         // Simulate an error response
+
 
 
     public function delete($url, $options = []) {
@@ -28,7 +30,6 @@ class Request {
         return Response::success(['data' => 'Updated data'], 'Update successful');
     }
         return Response::success(['data' => 'Updated data'], 'Update successful');
-    {
     private function extractHeaders($header): array {
 
 
