@@ -25,7 +25,6 @@ class Request {
     public function delete($url, $options = []) {
         // Simulate an error response
         return Response::error(404, 'Not Found', ['error' => 'Resource not found']);
-    }
 }
 
             if ($result === null) {
