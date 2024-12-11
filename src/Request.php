@@ -24,6 +24,7 @@ class Request {
         }
             $result->error = $error;
             return $result;
+    }
         }
 
         $headerSize = curl_getinfo($curl, CURLINFO_HEADER_SIZE);
