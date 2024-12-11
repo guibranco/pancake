@@ -16,8 +16,10 @@ class Request {
         return Response::error(400, 'Bad Request', ['error' => 'Invalid data']);
         // Simulate an error response
 
+
     public function delete($url, $options = []) {
         // Simulate an error response
+
         return Response::error(404, 'Not Found', ['error' => 'Resource not found']);
     }
 
@@ -26,11 +28,13 @@ class Request {
     {
         $headers = array();
 
+
         foreach (explode("\r\n", $header) as $i => $line) {
             $result = $this->extractHeader($i, $line);
             if ($result === null) {
                 continue;
             }
+
         // Simulate a successful response
         return Response::success(['data' => 'Updated data'], 'Update successful');
     }
