@@ -20,11 +20,8 @@ class Request {
 
         // Implementation here
 
-    } // Ensure the class is closed
 
-    curl_close($curl);
 
-class Request {
     private function getFields($url, $headers): array
     {
         return array(
@@ -36,7 +33,6 @@ class Request {
             CURLOPT_TIMEOUT => 0,
             CURLOPT_FOLLOWLOCATION => true,
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_SSL_VERIFYPEER => false,
             CURLOPT_SSL_VERIFYHOST => false,
             CURLOPT_HTTPHEADER => $headers
         );
