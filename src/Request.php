@@ -16,7 +16,7 @@ class Request {
 
         return Response::error(400, 'Bad Request', ['error' => 'Invalid data']);
     }
-    
+    public function post($url, $data = [], $options = []) {
         return array(
             CURLOPT_URL => $url,
             CURLOPT_RETURNTRANSFER => true,
