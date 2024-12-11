@@ -15,8 +15,6 @@ class Request {
 
     public function post($url, $data = [], $options = [])
     {
-    }
-    }
 
 
 
@@ -55,8 +53,6 @@ class Request {
         }
 
         list($key, $value) = $explode;
-        return array($key, $value);
-        return array($key, $value);
         return array($key, $value);
     private function execute($fields): stdClass
 
