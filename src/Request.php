@@ -11,10 +11,7 @@ class Request {
         // Simulate a successful response
         return Response::success(['data' => 'Sample data'], 'Request successful');
     }
-
         return Response::error(400, 'Bad Request', ['error' => 'Invalid data']);
-    }
-    }
 
     private function extractHeader($index, $line): ?array
     {
@@ -22,6 +19,7 @@ class Request {
             return array("http_code", $line);
 
         }
+
 
         $explode = explode(": ", $line);
 
@@ -33,6 +31,7 @@ class Request {
         return array($key, $value);
     }
     private function execute($fields): stdClass
+}
 
     {
         $curl = curl_init();
