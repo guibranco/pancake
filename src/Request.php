@@ -18,6 +18,10 @@ class Request {
         return Response::error(400, 'Bad Request', ['error' => 'Invalid data']);
     }
 
+    public function put($url, $data = [], $options = []) {
+        // Simulate a successful response
+        return Response::success(['data' => 'Updated data'], 'Update successful');
+
     public function delete($url, $options = []) {
         // Simulate an error response
         return Response::error(404, 'Not Found', ['error' => 'Resource not found']);
