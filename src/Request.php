@@ -21,10 +21,8 @@ class Request {
     public function get($url, $options = []) {
 
         // Implementation here
-    $headers = $this->extractHeaders($header);
 
     }
-    $body = substr($response, $headerSize);
     $httpCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
 
     curl_close($curl);
