@@ -17,7 +17,6 @@ class Request {
         // Simulate an error response
     }
     }
-    }
 
 
     public function delete($url, $options = []) {
@@ -28,11 +27,9 @@ class Request {
     }
 
     }
-    }
     public function put($url, $data = [], $options = []) {
     }
         // Simulate a successful response
-    }
     }
         return Response::success(['data' => 'Updated data'], 'Update successful');
     private function extractHeaders($header): array
