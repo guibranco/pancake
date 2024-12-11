@@ -22,23 +22,23 @@ class Request {
         
     }
         return Response::success(null, 'Resource deleted');
-            $error = curl_error($curl);
+        $error = curl_error($curl);
             curl_close($curl);
 
             $result->error = $error;
             return $result;
     }
 
-        $headerSize = curl_getinfo($curl, CURLINFO_HEADER_SIZE);
-        $header = substr($response, 0, $headerSize);
-        $headers = $this->extractHeaders($header);
-        $body = substr($response, $headerSize);
-        $httpCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
-        curl_close($curl);
+    $headerSize = curl_getinfo($curl, CURLINFO_HEADER_SIZE);
+    $header = substr($response, 0, $headerSize);
+    $headers = $this->extractHeaders($header);
+    $body = substr($response, $headerSize);
+    $httpCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+    curl_close($curl);
 
-        $result->statusCode = $httpCode;
-        $result->headers = $headers;
-        $result->body = $body;
+    $result->statusCode = $httpCode;
+    $result->headers = $headers;
+    $result->body = $body;
         return $result;
 
     private function getFields($url, $headers): array
