@@ -20,7 +20,6 @@ class Request {
     public function delete($url, $options = []) {
 
 }
-    $header = substr($response, 0, $headerSize);
     $headers = $this->extractHeaders($header);
 
     $body = substr($response, $headerSize);
