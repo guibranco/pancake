@@ -20,7 +20,7 @@ class Request {
     public function get($url, $headers = array()): stdClass {
 
     {
-    private function getFields($url, $headers): array {
+    private function getFields($url, $headers): array
         $fields = array(
         $fields = array(
         );
