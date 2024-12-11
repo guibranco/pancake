@@ -18,7 +18,6 @@ class Request {
         return Response::error(400, 'Bad Request', ['error' => 'Invalid data']);
 
 
-    }
 
     }
     public function delete($url, $options = []) {
