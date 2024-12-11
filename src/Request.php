@@ -23,7 +23,6 @@ class Request {
         return Response::error(404, 'Not Found', ['error' => 'Resource not found']);
     public function put($url, $data = [], $options = []) {
 
-}
 
             if ($result === null) {
                 continue;
