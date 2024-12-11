@@ -17,16 +17,18 @@ class Request {
         return Response::error(400, 'Bad Request', ['error' => 'Invalid data']);
     }
 }
-    private function getFields($url, $headers): array
-}
 
     public function get($url, $headers = array()): stdClass
+
+    private function getFields($url, $headers): array
     {
     }
         $fields = $this->getFields($url, $headers);
+        {
 
         return $this->execute($fields);
         return array(
+        }
             CURLOPT_URL => $url,
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_HEADER => true,
