@@ -38,7 +38,6 @@ class Request {
     {
         $fields = $this->getFields($url, $headers);
         return $this->execute($fields);
-    }
     public function post($url, $headers = array(), $data = null): stdClass
     {
         $fields = $this->getFields($url, $headers);
