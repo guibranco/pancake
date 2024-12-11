@@ -22,7 +22,9 @@ class Request {
 
     {
     private function getFields($url, $headers): array
+        {
     {
+        return array(
     }
         return array(
         $fields = $this->getFields($url, $headers);
@@ -33,6 +35,7 @@ class Request {
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_HEADER => true,
             CURLOPT_ENCODING => "",
+        );
             CURLOPT_ENCODING => "",
             CURLOPT_MAXREDIRS => 10,
             CURLOPT_TIMEOUT => 0,
