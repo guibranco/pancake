@@ -10,6 +10,7 @@ class Request {
 
         // Simulate a successful response
         return Response::success(['data' => 'Sample data'], 'Request successful');
+    }
 
     public function post($url, $data = [], $options = [])
     {
@@ -17,6 +18,16 @@ class Request {
         return Response::error(400, 'Bad Request', ['error' => 'Invalid data']);
     }
 
+    public function delete($url, $options = []) {
+        // Simulate an error response
+        return Response::error(404, 'Not Found', ['error' => 'Resource not found']);
+    }
+
+
+
+    public function put($url, $data = [], $options = []) {
+        // Simulate a successful response
+        return Response::success(['data' => 'Updated data'], 'Update successful');
     }
     private function extractHeader($index, $line): ?array
     {
