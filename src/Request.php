@@ -54,7 +54,7 @@ class Request {
         $curl = curl_init();
         curl_setopt_array($curl, $fields);
         $response = curl_exec($curl);
-        $result = new stdCLass();
+        $result = new stdClass();
         $result->url = $fields[CURLOPT_URL];
 
         if ($response === false) {
