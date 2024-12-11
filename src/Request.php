@@ -10,6 +10,7 @@ class Request {
 
         // Implementation here
         return Response::success(['data' => 'Sample data'], 'Request successful');
+    }
     public function post($url, $data = [], $options = []) {
         // Implementation here
 }
