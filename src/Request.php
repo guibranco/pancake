@@ -7,17 +7,17 @@ use GuiBranco\Pancake\Response;
 
 class Request
 {
+    public function get($url, $options = [])
+    {
         // Simulate a successful response
         return Response::success(['data' => 'Sample data'], 'Request successful');
     }
-{
-    private function extractHeaders($header): array
-    public function post($url, $data = [], $options = []) {
-    public function get($url, $options = []) {
+
+    public function post($url, $data = [], $options = [])
+    {
         // Simulate an error response
         return Response::error(400, 'Bad Request', ['error' => 'Invalid data']);
     }
-    {
         $headers = array();
     public function put($url, $data = [], $options = []) {
         // Simulate a successful response
