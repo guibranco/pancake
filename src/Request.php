@@ -15,13 +15,13 @@ class Request {
     {
         // Simulate an error response
         return Response::error(400, 'Bad Request', ['error' => 'Invalid data']);
-            $headers[$key] = $value;
 
 
     private function extractHeader($index, $line): ?array
     {
         if ($index === 0) {
             return array("http_code", $line);
+
         }
 
         $explode = explode(": ", $line);
@@ -32,7 +32,6 @@ class Request {
 
         list($key, $value) = $explode;
         return array($key, $value);
-
     private function execute($fields): stdClass
     {
         $curl = curl_init();
