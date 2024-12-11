@@ -17,7 +17,6 @@ class Request {
         return Response::error(400, 'Bad Request', ['error' => 'Invalid data']);
 
     }
-    }
         
         return Response::success(null, 'Resource deleted');
 
