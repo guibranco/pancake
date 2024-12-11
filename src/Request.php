@@ -3,76 +3,46 @@
 namespace GuiBranco\Pancake;
 
 use stdClass;
+use GuiBranco\Pancake\Response;
 
-class Request
-{
-    private function extractHeaders($header): array
-    {
-        $headers = array();
+class Request {
+    public function delete($url, $options = []) {
 
-        foreach (explode("\r\n", $header) as $i => $line) {
-            $result = $this->extractHeader($i, $line);
-
-            if ($result === null) {
-                continue;
-            }
-
-            list($key, $value) = $result;
-            $headers[$key] = $value;
-        }
-
-        return $headers;
+        // Implementation here
+        return Response::success(['data' => 'Sample data'], 'Request successful');
     }
+    public function post($url, $data = [], $options = []) {
+        // Implementation here
+}
 
-    private function extractHeader($index, $line): ?array
-    {
-        if ($index === 0) {
-            return array("http_code", $line);
-        }
 
-        $explode = explode(": ", $line);
 
-        if (count($explode) != 2) {
-            return null;
-        }
+        return Response::error(400, 'Bad Request', ['error' => 'Invalid data']);
 
-        list($key, $value) = $explode;
-        return array($key, $value);
+}
+    private function getFields($url, $headers): array {
+        $fields = array(
+            CURLOPT_URL => $url,
+
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_HEADER => true,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_SSL_VERIFYPEER => false,
+        );
+            CURLOPT_SSL_VERIFYHOST => false,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_HTTPHEADER => $headers
     }
-
-    private function execute($fields): stdClass
-    {
-        $curl = curl_init();
-        curl_setopt_array($curl, $fields);
-        $response = curl_exec($curl);
-        $result = new stdCLass();
-        $result->url = $fields[CURLOPT_URL];
-
-        if ($response === false) {
-            $error = curl_error($curl);
-            curl_close($curl);
-
-            $result->statusCode = -1;
-            $result->error = $error;
-            return $result;
-        }
-
-        $headerSize = curl_getinfo($curl, CURLINFO_HEADER_SIZE);
-        $header = substr($response, 0, $headerSize);
-        $headers = $this->extractHeaders($header);
-        $body = substr($response, $headerSize);
-        $httpCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
-        curl_close($curl);
-
-        $result->statusCode = $httpCode;
-        $result->headers = $headers;
-        $result->body = $body;
-        return $result;
+        return $fields;
+            CURLOPT_SSL_VERIFYPEER => false,
     }
-
-    private function getFields($url, $headers): array
-    {
-        return array(
+            CURLOPT_SSL_VERIFYHOST => false,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_HTTPHEADER => $headers
+        $options = array(
             CURLOPT_URL => $url,
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_HEADER => true,
@@ -80,26 +50,23 @@ class Request
             CURLOPT_MAXREDIRS => 10,
             CURLOPT_TIMEOUT => 0,
             CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_SSL_VERIFYPEER => false,
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
             CURLOPT_SSL_VERIFYPEER => false,
             CURLOPT_SSL_VERIFYHOST => false,
+            CURLOPT_SSL_VERIFYHOST => false,
             CURLOPT_HTTPHEADER => $headers
+
         );
-    }
+        );
+        return $fields;
+            CURLOPT_HTTPHEADER => $headers
 
-    public function get($url, $headers = array()): stdClass
     {
-        $fields = $this->getFields($url, $headers);
-        return $this->execute($fields);
-    }
-
-    public function post($url, $headers = array(), $data = null): stdClass
-    {
-        $fields = $this->getFields($url, $headers);
         $fields[CURLOPT_CUSTOMREQUEST] = "POST";
         if ($data !== null) {
             $fields[CURLOPT_POSTFIELDS] = $data;
-        }
+
         return $this->execute($fields);
     }
 
@@ -112,7 +79,6 @@ class Request
         }
         return $this->execute($fields);
     }
-
     public function delete($url, $headers = array(), $data = null): stdClass
     {
         $fields = $this->getFields($url, $headers);
@@ -146,5 +112,3 @@ class Request
         $fields[CURLOPT_CUSTOMREQUEST] = "HEAD";
         $fields[CURLOPT_NOBODY] = true;
         return $this->execute($fields);
-    }
-}
