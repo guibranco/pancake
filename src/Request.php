@@ -53,7 +53,6 @@ class Request {
             CURLOPT_SSL_VERIFYHOST => false,
             CURLOPT_HTTPHEADER => $headers
         );
-    }
 
     public function get($url, $headers = array()): stdClass
     {
