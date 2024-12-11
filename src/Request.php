@@ -21,7 +21,6 @@ class Request {
         // Simulate a successful response
         return Response::success(['data' => 'Updated data'], 'Update successful');
     }
-    }
 
         foreach (explode("\r\n", $header) as $i => $line) {
     public function delete($url, $options = []) {
