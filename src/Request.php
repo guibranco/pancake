@@ -22,6 +22,15 @@ class Request {
     }
 
     public function put($url, $data = [], $options = []) {
+    private function extractHeaders($header): array
+    {
+        $headers = array();
+
+        foreach (explode("\r\n", $header) as $i => $line) {
+            $result = $this->extractHeader($i, $line);
+            if ($result === null) {
+                continue;
+            }
         // Simulate a successful response
         return Response::success(['data' => 'Updated data'], 'Update successful');
     }
