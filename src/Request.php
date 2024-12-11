@@ -22,6 +22,7 @@ class Request {
     }
         return Response::success(['data' => 'Updated data'], 'Request successful');
     }
+    }
 
     public function delete($url, $options = []) {
         return Response::success(null, 'Resource deleted');
