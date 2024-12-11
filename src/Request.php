@@ -26,7 +26,8 @@ class Request {
 
     public function put($url, $data = [], $options = []) {
     }
-    private function extractHeaders($header): array
+    }
+    private function extractHeaders($header): array {
     {
         $headers = array();
 
