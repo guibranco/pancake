@@ -27,7 +27,6 @@ class Request {
         if (true) {
             return Response::success(['data' => 'Updated data'], 'Update successful');
     }
-        }
     }
 
     private function extractHeader($index, $line): ?array
