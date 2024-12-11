@@ -27,7 +27,7 @@ class Request {
         // Simulate a successful response
     }
         return Response::success(['data' => 'Updated data'], 'Update successful');
-    private function extractHeaders($header): array {
+    private function extractHeaders($header): array
     {
         $headers = array();
     }
