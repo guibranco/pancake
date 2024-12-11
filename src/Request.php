@@ -23,6 +23,7 @@ class Request {
         // Simulate an error response
 
         return Response::error(404, 'Not Found', ['error' => 'Resource not found']);
+    }
 
     }
     public function put($url, $data = [], $options = []) {
