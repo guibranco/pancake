@@ -16,12 +16,6 @@ class Request {
         return Response::error(400, 'Bad Request', ['error' => 'Invalid data']);
 
     }
-    }
-    public function 
-        if ($index === 0) {
-            return array("http_code", $line);
-
-        }
 
 
         $explode = explode(": ", $line);
