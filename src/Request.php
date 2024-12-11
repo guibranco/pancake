@@ -15,7 +15,6 @@ class Request {
 
 
         return Response::error(400, 'Bad Request', ['error' => 'Invalid data']);
-    }
 
 
 }
@@ -24,6 +23,7 @@ class Request {
         );
         return $this->getFields($url, $headers);
 
+    }
         return $fields;
     }
         $options = array(CURLOPT_URL => $url,
