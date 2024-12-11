@@ -3,14 +3,31 @@
 namespace GuiBranco\Pancake;
 
 use stdClass;
+use GuiBranco\Pancake\Response;
 
 class Request
+    public function get($url, $options = []) {
+        // Simulate a successful response
+        return Response::success(['data' => 'Sample data'], 'Request successful');
+    }
 {
     private function extractHeaders($header): array
+    public function post($url, $data = [], $options = []) {
+        // Simulate an error response
+        return Response::error(400, 'Bad Request', ['error' => 'Invalid data']);
+    }
     {
         $headers = array();
+    public function put($url, $data = [], $options = []) {
+        // Simulate a successful response
+        return Response::success(['data' => 'Updated data'], 'Update successful');
+    }
 
         foreach (explode("\r\n", $header) as $i => $line) {
+    public function delete($url, $options = []) {
+        // Simulate an error response
+        return Response::error(404, 'Not Found', ['error' => 'Resource not found']);
+    }
             $result = $this->extractHeader($i, $line);
 
             if ($result === null) {
