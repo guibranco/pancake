@@ -16,7 +16,6 @@ class Request {
 
         return Response::error(400, 'Bad Request', ['error' => 'Invalid data']);
     }
-    }
 
 
 
@@ -26,14 +25,6 @@ class Request {
     }
     }
     }
-    }
-    }
-        curl_close($curl);
-
-        $result->error = $error;
-        return $result;
-
-    $headerSize = curl_getinfo($curl, CURLINFO_HEADER_SIZE);
     $header = substr($response, 0, $headerSize);
     $headers = $this->extractHeaders($header);
     $body = substr($response, $headerSize);
