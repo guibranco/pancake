@@ -34,7 +34,7 @@ class Request {
         return array($key, $value);
     }
     private function execute($fields): stdClass
-    }
+    {
 
 
     {
