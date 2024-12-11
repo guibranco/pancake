@@ -14,14 +14,9 @@ class Request {
     }
 
     public function post($url, $data = [], $options = []) {
-        // Simulate a successful response
-        // Simulate a successful response
-
-
 
         return Response::error(400, 'Bad Request', ['error' => 'Invalid data']);
     }
-
 
         // Simulate a successful response
         if (true) {
