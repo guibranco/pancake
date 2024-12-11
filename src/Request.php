@@ -17,11 +17,13 @@ class Request {
         return Response::error(400, 'Bad Request', ['error' => 'Invalid data']);
     }
 }
+}
 
     public function get($url, $headers = array()): stdClass
     {
         $fields = $this->getFields($url, $headers);
         return $this->execute($fields);
+
 
     public function post($url, $headers = array(), $data = null): stdClass
     {
@@ -30,6 +32,7 @@ class Request {
         if ($data !== null) {
             $fields[CURLOPT_POSTFIELDS] = $data;
         }
+
         return $this->execute($fields);
 
     public function put($url, $headers = array(), $data = null): stdClass
