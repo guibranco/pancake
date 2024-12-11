@@ -15,14 +15,16 @@ class Request {
     
     public function post($url, $data = [], $options = []) {
     }
+    {
         return Response::error(400, 'Bad Request', ['error' => 'Invalid data']);
 
     }
 
     public function delete($url, $options = []) {
         }
+    {
         return Response::success(null, 'Resource deleted');
-        if ($response === false) {
+    }
             $error = curl_error($curl);
             curl_close($curl);
 
