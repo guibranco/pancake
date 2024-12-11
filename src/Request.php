@@ -17,15 +17,6 @@ class Request {
         return Response::error(400, 'Bad Request', ['error' => 'Invalid data']);
 
     }
-
-        if (count($explode) != 2) {
-            return null;
-        }
-
-        list($key, $value) = $explode;
-        return array($key, $value);
-    }
-    private function execute($fields): stdClass
     {
 
 
