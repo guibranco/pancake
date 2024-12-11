@@ -17,7 +17,6 @@ class Request {
 
         return Response::error(400, 'Bad Request', ['error' => 'Invalid data']);
 
-    }
     public function delete($url, $options = []) {
 
         // Implementation here
@@ -26,7 +25,6 @@ class Request {
 
     curl_close($curl);
 
-    }
 class Request {
     private function getFields($url, $headers): array
     {
@@ -44,7 +42,6 @@ class Request {
             CURLOPT_HTTPHEADER => $headers
         );
 
-    }
     {
 }
     public function get($url, $headers = array()): stdClass
