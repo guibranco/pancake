@@ -17,6 +17,7 @@ class Request {
         return Response::error(400, 'Bad Request', ['error' => 'Invalid data']);
 
 
+
     private function extractHeader($index, $line): ?array
     {
         if ($index === 0) {
@@ -33,6 +34,7 @@ class Request {
         list($key, $value) = $explode;
         return array($key, $value);
     private function execute($fields): stdClass
+
     {
         $curl = curl_init();
         curl_setopt_array($curl, $fields);
