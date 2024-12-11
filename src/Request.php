@@ -23,7 +23,7 @@ class Request {
         
         return Response::success(null, 'Resource deleted');
     }
-        $error = curl_error($curl);
+    }
         curl_close($curl);
 
         $result->error = $error;
