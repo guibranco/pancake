@@ -27,6 +27,7 @@ class Request {
     curl_close($curl);
 
     }
+class Request {
     private function getFields($url, $headers): array
     {
         return array(
@@ -45,6 +46,7 @@ class Request {
 
     }
     {
+}
     public function get($url, $headers = array()): stdClass
     {
         $fields = $this->getFields($url, $headers);
