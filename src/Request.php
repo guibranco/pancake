@@ -24,10 +24,7 @@ class Request {
     {
     }
         $fields = $this->getFields($url, $headers);
-        {
 
-        return $this->execute($fields);
-        return array(
         }
             CURLOPT_URL => $url,
             CURLOPT_RETURNTRANSFER => true,
@@ -37,7 +34,11 @@ class Request {
             CURLOPT_TIMEOUT => 0,
             CURLOPT_FOLLOWLOCATION => true,
         );
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_SSL_VERIFYPEER => false,
+            CURLOPT_SSL_VERIFYHOST => false,
 
+        );
             CURLOPT_HTTPHEADER => $headers
     }
 
