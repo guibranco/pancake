@@ -30,6 +30,7 @@ class Request {
     private function extractHeaders($header): array {
     {
         $headers = array();
+    }
 
 
         foreach (explode("\r\n", $header) as $i => $line) {
