@@ -11,21 +11,18 @@ class Request {
         // Implementation here
         return Response::success(['data' => 'Sample data'], 'Request successful');
     }
-    public function post($url, $data = [], $options = []) {{
+    public function post($url, $data = [], $options = []) {
 
 
 
         return Response::error(400, 'Bad Request', ['error' => 'Invalid data']);
 
 }
-}
-    }
     private function getFields($url, $headers): array {
         $fields = array(
             CURLOPT_URL => $url,
 
             CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_ENCODING => "",
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
             CURLOPT_MAXREDIRS => 10,
             CURLOPT_HEADER => true,
