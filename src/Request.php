@@ -17,18 +17,11 @@ class Request {
         return Response::error(400, 'Bad Request', ['error' => 'Invalid data']);
 
 
-}
+
     private function getFields($url, $headers): array {
         $fields = array(
         );
-        return $this->getFields($url, $headers);
 
-    }
-        return $fields;
-    }
-        $options = array(CURLOPT_URL => $url,
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_HEADER => true,
             CURLOPT_ENCODING => "",
             CURLOPT_ENCODING => "",
             CURLOPT_MAXREDIRS => 10,
@@ -37,10 +30,24 @@ class Request {
         );
     }
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        $options = array(
+            CURLOPT_URL => $url,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_HEADER => true,
+            CURLOPT_ENCODING => "",
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_SSL_VERIFYPEER => false,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
             CURLOPT_SSL_VERIFYPEER => false,
             CURLOPT_SSL_VERIFYHOST => false,
+            CURLOPT_SSL_VERIFYHOST => false,
+            CURLOPT_HTTPHEADER => $headers
 
         );
+        );
+        return $fields;
             CURLOPT_HTTPHEADER => $headers
     }
 
