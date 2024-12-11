@@ -11,8 +11,9 @@ class Request {
         // Simulate a successful response
         return Response::success(['data' => 'Sample data'], 'Request successful');
 
-    private function extractHeader($index, $line): ?array
+    }
     {
+    private function extractHeader($index, $line): ?array
         if ($index === 0) {
             return array("http_code", $line);
 
