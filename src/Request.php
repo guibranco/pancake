@@ -26,7 +26,7 @@ class Request {
     public function put($url, $data = [], $options = []) {
         // Simulate a successful response
         return Response::success(['data' => 'Updated data'], 'Update successful');
-    private function extractHeaders($header): array {
+    }
         return Response::success(['data' => 'Updated data'], 'Update successful');
     {
     private function extractHeaders($header): array {
