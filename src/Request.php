@@ -32,6 +32,7 @@ class Request {
     private function execute($fields): stdClass
 }
 
+
     {
         $curl = curl_init();
         curl_setopt_array($curl, $fields);
