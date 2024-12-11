@@ -10,7 +10,6 @@ class Request {
 
         // Simulate a successful response
         return Response::success(['data' => 'Sample data'], 'Request successful');
-    }
 
     private function extractHeader($index, $line): ?array
     {
