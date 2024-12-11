@@ -25,7 +25,7 @@ class Request {
     }
 
     public function put($url, $data = [], $options = []) {
-    }
+        // Simulate a successful response
     }
     private function extractHeaders($header): array {
     {
