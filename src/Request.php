@@ -8,20 +8,23 @@ use GuiBranco\Pancake\Response;
 class Request {
     public function delete($url, $options = []) {
 
+        // Implementation here
         // Simulate a successful response
         return Response::success(['data' => 'Sample data'], 'Request successful');
 
+    }
     }
     public function post($url, $data = [], $options = []) {
 
         return Response::error(400, 'Bad Request', ['error' => 'Invalid data']);
 
     }
+    }
     public function delete($url, $options = []) {
 
         // Implementation here
 
-    }
+    } // Ensure the class is closed
 
     curl_close($curl);
 
