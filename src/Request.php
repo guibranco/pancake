@@ -16,12 +16,14 @@ class Request {
 
         return Response::error(400, 'Bad Request', ['error' => 'Invalid data']);
 
+    }
 
 
 
 
     public function delete($url, $options = []) {
         
+    }
         return Response::success(null, 'Resource deleted');
     }
 
@@ -32,6 +34,7 @@ class Request {
 
 }
     curl_close($curl);
+    }
 
     $result->statusCode = $httpCode;
     $result->headers = $headers;
