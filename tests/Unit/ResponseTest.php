@@ -20,11 +20,11 @@ class ResponseTest extends TestCase
 
     public function testSuccessResponse()
     {
-        $response = new Response(true, "Response body", "Success", 200, "http://example.com", ["Content-Type" => "application/json"]);
+        $response = Response::success("Response body", "http://example.com", ["Content-Type" => "application/json"], 200);
 
         $this->assertTrue($response->isSuccess());
         $this->assertEquals("Response body", $response->getBody());
-        $this->assertEquals("Success", $response->getMessage());
+        $this->assertEquals("", $response->getMessage());
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals("http://example.com", $response->getUrl());
         $this->assertEquals(["Content-Type" => "application/json"], $response->getHeaders());
@@ -32,7 +32,7 @@ class ResponseTest extends TestCase
 
     public function testEnsureSuccessStatus()
     {
-        $response = new Response(true, "Response body", "Success", 200, "http://example.com", null);
+        $response = Response::success("Response body", "http://example.com", null, 200);
 
         $this->expectNotToPerformAssertions();
         $response->ensureSuccessStatus();
@@ -48,7 +48,7 @@ class ResponseTest extends TestCase
 
     public function testValidateStatusCode()
     {
-        $response = new Response(true, "Response body", "Success", 200, "http://example.com", null);
+        $response = Response::success("Response body", "http://example.com", null, 200);
 
         $this->expectNotToPerformAssertions();
         $response->validateStatusCode();
@@ -64,13 +64,13 @@ class ResponseTest extends TestCase
 
     public function testToArray()
     {
-        $response = new Response(true, "Response body", "Success", 200, "http://example.com", ["Content-Type" => "application/json"]);
+        $response = Response::success("Response body", "http://example.com", ["Content-Type" => "application/json"], 200);
 
         $expectedArray = [
             'success' => true,
             'statusCode' => 200,
             'body' => "Response body",
-            'message' => "Success",
+            'message' => "",
             'url' => "http://example.com",
             'headers' => ["Content-Type" => "application/json"],
         ];
@@ -80,13 +80,13 @@ class ResponseTest extends TestCase
 
     public function testToJson()
     {
-        $response = new Response(true, "Response body", "Success", 200, "http://example.com", ["Content-Type" => "application/json"]);
+        $response = Response::success("Response body", "http://example.com", ["Content-Type" => "application/json"], 200);
 
         $expectedJson = json_encode([
             'success' => true,
             'statusCode' => 200,
             'body' => "Response body",
-            'message' => "Success",
+            'message' => "",
             'url' => "http://example.com",
             'headers' => ["Content-Type" => "application/json"],
         ]);

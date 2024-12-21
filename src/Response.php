@@ -29,8 +29,22 @@ class Response
      * @param string $body The body content of the response.
      * @param string $url The URL associated with the response.
      * @param array $headers An array of headers to include in the response.
-     * @param int $statusCode The HTTP status code for the response. Default is 200.
+     * @param int $statusCode The HTTP status code for the response (default is 200).
      * @return self Returns an instance of the response.
+     */
+
+    public static function success(string $body, string $url, array $headers, int $statusCode = 200): self
+    {
+        return new self(true, $body, '', $statusCode, $url, $headers);
+    }
+
+    /**
+     * Generates an error response.
+     *
+     * @param string $message The error message to be displayed.
+     * @param string $url The URL to redirect to.
+     * @param int $statusCode The HTTP status code for the error response. Default is 400.
+     * @return self Returns an instance of the response with the error details.
      */
     public static function error(string $message, string $url, int $statusCode = 400): self
     {
