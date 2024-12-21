@@ -8,9 +8,11 @@ class Request
 {
     private array $multiRequests = [];
 
-    private array $responses = [];
-
     private bool $verifySSL = true;
+
+    private const MAX_CONCURRENT_REQUESTS = 10;
+
+    private const BATCH_TIMEOUT = 30;
 
     /**
      * Extract headers from the response.
@@ -79,6 +81,31 @@ class Request
     }
 
     /**
+     * Handles the response from a cURL request.
+     *
+     * @param mixed $response The response from the cURL request.
+     * @param resource $curl The cURL handle.
+     * @param string $url The URL that was requested.
+     * @return Response The processed response.
+     */
+    private function handleResponse($response, $curl, $url): Response
+    {
+        if ($response === false) {
+            $error = curl_error($curl);
+            return Response::error($error, $url, -1);
+        }
+
+        $headerSize = curl_getinfo($curl, CURLINFO_HEADER_SIZE);
+        $header = substr($response, 0, $headerSize);
+        $headers = $this->extractHeaders($header);
+        $body = substr($response, $headerSize);
+        $httpCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+
+        return Response::success($body, $url, $headers, $httpCode);
+
+    }
+
+    /**
      * Executes a request with the given fields and returns a Response object.
      *
      * @param array $fields The fields to be included in the request.
@@ -88,22 +115,24 @@ class Request
     {
         $curl = curl_init();
         curl_setopt_array($curl, $fields);
-        $response = curl_exec($curl);
+        $responseContent = curl_exec($curl);
 
-        if ($response === false) {
-            $error = curl_error($curl);
-            curl_close($curl);
-            return Response::error($error, $fields[CURLOPT_URL], -1);
-        }
-
-        $headerSize = curl_getinfo($curl, CURLINFO_HEADER_SIZE);
-        $header = substr($response, 0, $headerSize);
-        $headers = $this->extractHeaders($header);
-        $body = substr($response, $headerSize);
-        $httpCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+        $response = $this->handleResponse($responseContent, $curl, $fields[CURLOPT_URL]);
         curl_close($curl);
 
-        return Response::success($body, $fields[CURLOPT_URL], $headers, $httpCode);
+        return $response;
+    }
+
+    /**
+     * Set the SSL verification status.
+     *
+     * @param bool $verify Whether to enable or disable SSL verification.
+     *
+     * @return void
+     */
+    public function setSSLVerification(bool $verify): void
+    {
+        $this->verifySSL = $verify;
     }
 
     /**
@@ -115,6 +144,10 @@ class Request
      */
     public function addRequest(string $key, string $url, array $headers = []): void
     {
+        $requestCount = count($this->multiRequests);
+        if ($requestCount >= self::MAX_CONCURRENT_REQUESTS) {
+            throw new \Exception("Maximum number of concurrent requests reached.");
+        }
         $fields = $this->getFields($url, $headers);
         $this->multiRequests[$key] = $fields;
     }
@@ -128,10 +161,12 @@ class Request
     {
         $multiCurl = curl_multi_init();
         $curlHandles = [];
+        $responses = [];
 
         foreach ($this->multiRequests as $key => $fields) {
             $curl = curl_init();
             curl_setopt_array($curl, $fields);
+            curl_setopt($curl, CURLOPT_TIMEOUT, self::BATCH_TIMEOUT);
             curl_multi_add_handle($multiCurl, $curl);
             $curlHandles[$key] = $curl;
         }
@@ -149,28 +184,14 @@ class Request
 
         foreach ($curlHandles as $key => $curl) {
             $responseContent = curl_multi_getcontent($curl);
-            $httpCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
-            $headerSize = curl_getinfo($curl, CURLINFO_HEADER_SIZE);
-
-            $url = $this->multiRequests[$key][CURLOPT_URL];
-            if ($responseContent === false) {
-                $error = curl_error($curl);
-                $this->responses[$key] = Response::error($error, $url, -1);
-                continue;
-            }
-
-            $header = substr($responseContent, 0, $headerSize);
-            $body = substr($responseContent, $headerSize);
-            $headers = $this->extractHeaders($header);
-            $this->responses[$key] = Response::success($body, $url, $headers, $httpCode);
-
+            $responses[$key] = $this->handleResponse($responseContent, $curl, $this->multiRequests[$key][CURLOPT_URL]);
             curl_multi_remove_handle($multiCurl, $curl);
             curl_close($curl);
         }
 
         curl_multi_close($multiCurl);
 
-        return $this->responses;
+        return $responses;
     }
 
     /**
