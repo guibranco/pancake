@@ -32,7 +32,7 @@ class ResponseTest extends TestCase
 
     public function testEnsureSuccessStatus()
     {
-        $response = Response::success("Response body", "http://example.com", null, 200);
+        $response = Response::success("Response body", "http://example.com", [], 200);
 
         $this->expectNotToPerformAssertions();
         $response->ensureSuccessStatus();
@@ -48,7 +48,7 @@ class ResponseTest extends TestCase
 
     public function testValidateStatusCode()
     {
-        $response = Response::success("Response body", "http://example.com", null, 200);
+        $response = Response::success("Response body", "http://example.com", [], 200);
 
         $this->expectNotToPerformAssertions();
         $response->validateStatusCode();
