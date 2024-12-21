@@ -1,4 +1,5 @@
 <?php
+
 namespace GuiBranco\Pancake;
 
 use Exception;
