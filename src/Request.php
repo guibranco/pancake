@@ -143,16 +143,17 @@ class Request
             $httpCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
             $headerSize = curl_getinfo($curl, CURLINFO_HEADER_SIZE);
 
+            $url = $this->multiRequests[$key][CURLOPT_URL];
             if ($responseContent === false) {
                 $error = curl_error($curl);
-                $this->responses[$key] = Response::error($error, $this->multiRequests[$key][CURLOPT_URL], -1);
-            } else {
-                $header = substr($responseContent, 0, $headerSize);
-                $body = substr($responseContent, $headerSize);
-                $headers = $this->extractHeaders($header);
-                $url = $this->multiRequests[$key][CURLOPT_URL];
-                $this->responses[$key] = Response::success($body, $url, $headers, $httpCode);
+                $this->responses[$key] = Response::error($error, $url, -1);
+                continue;
             }
+            
+            $header = substr($responseContent, 0, $headerSize);
+            $body = substr($responseContent, $headerSize);
+            $headers = $this->extractHeaders($header);
+            $this->responses[$key] = Response::success($body, $url, $headers, $httpCode);
 
             curl_multi_remove_handle($multiCurl, $curl);
             curl_close($curl);
