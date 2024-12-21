@@ -13,7 +13,7 @@ final class RequestTest extends TestCase
     {
         $request = new Request();
         $response = $request->get('https://httpbin.org/get');
-        $this->assertEquals(200, $response->getgetStatusCode()());
+        $this->assertEquals(200, $response->getStatusCode()()());
     }
 
     public function testCanPost(): void
