@@ -37,7 +37,7 @@ class OneSignal
     {
         $result = $this->request->post($this->endpoint . self::NOTIFICATIONS_ENDPOINT, $headers, $content);
 
-        if ($result->statusCode == 200) {
+        if ($result->getStatusCode() === 200) {
             return true;
         }
 
