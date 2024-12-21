@@ -238,6 +238,7 @@ if ($response->statusCode >= 200 && $response->statusCode < 300) {
 
 Batch support allows for the execution of multiple HTTP requests in a single call. This is especially useful for optimizing network usage when several requests need to be sent to the same or different endpoints.
 
+The requests are executed concurrently using PHP's multi-cURL interface (`curl_multi_init`), which means they are processed in parallel rather than sequentially. This can significantly reduce the total execution time when making multiple requests. However, be mindful that concurrent execution may increase memory usage and server load.
 ```php
 $batchRequests = [
     [
