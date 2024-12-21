@@ -174,11 +174,11 @@ class Request
         do {
             $status = curl_multi_exec($multiCurl, $active);
             if ($status > 0) {
-                usleep(100); // Sleep for 100 microseconds to prevent CPU spike
+                usleep(100);
             }
-            $select = curl_multi_select($multiCurl, 1.0); // Add 1 second timeout
+            $select = curl_multi_select($multiCurl, 1.0);
             if ($select === -1) {
-                usleep(100); // Sleep on select error
+                usleep(100);
             }
         } while ($active && $status == CURLM_OK);
 
