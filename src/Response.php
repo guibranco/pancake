@@ -5,26 +5,30 @@ namespace GuiBranco\Pancake;
 class Response
 {
     private bool $success;
-    private $data;
+    private ?string $body;
     private string $message;
     private int $statusCode;
+    private string $url;
+    private ?array $headers;
 
-    private function __construct(bool $success, $data, string $message, int $statusCode)
+    private function __construct(bool $success, ?string $body, string $message, int $statusCode, string $url, ?array $headers)
     {
         $this->success = $success;
-        $this->data = $data;
+        $this->body = $body;
         $this->message = $message;
         $this->statusCode = $statusCode;
+        $this->url = $url;
+        $this->headers = $headers;
     }
 
-    public static function success($data, string $message = '', int $statusCode = 200): self
+    public static function success(string $body, string $url, array $headers, int $statusCode = 200): self
     {
-        return new self(true, $data, $message, $statusCode);
+        return new self(true, $body, '', $statusCode, $url, $headers);
     }
 
-    public static function error(string $message, int $statusCode = 400, $data = null): self
+    public static function error(string $message, string $url, int $statusCode = 400): self
     {
-        return new self(false, $data, $message, $statusCode);
+        return new self(false, null, $message, $statusCode, $url, null);
     }
 
     public function isSuccess(): bool
@@ -32,9 +36,9 @@ class Response
         return $this->success;
     }
 
-    public function getData()
+    public function getBody(): ?string
     {
-        return $this->data;
+        return $this->body;
     }
 
     public function getMessage(): string
@@ -47,13 +51,46 @@ class Response
         return $this->statusCode;
     }
 
+    public function getUrl(): string
+    {
+        return $this->url;
+    }
+
+    public function getHeaders(): ?array
+    {
+        return $this->headers;
+    }
+
+    public function ensureSuccessStatus(): void
+    {
+        if (!$this->success) {
+            throw new \Exception("Response indicates failure: " . $this->message);
+        }
+
+        $this->validateStatusCode(false);
+    }
+    
+    public function validateStatusCode(bool $includeRedirects = false): void
+    {
+        if ($includeRedirects) {
+            if ($this->statusCode < 200 || $this->statusCode >= 400) {
+                throw new \Exception("Invalid status code: " . $this->statusCode);
+            }
+        } else {
+            if ($this->statusCode < 200 || $this->statusCode >= 300) {
+                throw new \Exception("Invalid status code: " . $this->statusCode);
+            }
+        }
+    }
     public function toArray(): array
     {
         return [
             'success' => $this->success,
-            'data' => $this->data,
-            'message' => $this->message,
             'statusCode' => $this->statusCode,
+            'body' => $this->body,
+            'message' => $this->message,
+                'url' => $this->url,
+            'headers' => $this->headers,
         ];
     }
 
