@@ -144,13 +144,20 @@ class Request
      * @param string $url The request URL.
      * @param array $headers Optional headers for the request.
      */
-    public function addRequest(string $key, string $url, array $headers = []): void
+    public function addRequest(string $key, string $url, array $headers = [], string $method = 'GET', $payload = null): void
     {
         $requestCount = count($this->multiRequests);
         if ($requestCount >= self::MAX_CONCURRENT_REQUESTS) {
             throw new RequestException("Maximum number of concurrent requests reached.");
         }
         $fields = $this->getFields($url, $headers);
+        if ($method !== 'GET') {
+            $fields[CURLOPT_CUSTOMREQUEST] = $method;
+        }
+        if ($payload !== null) {
+            $fields[CURLOPT_POSTFIELDS] = $payload;
+        }
+
         $this->multiRequests[$key] = $fields;
     }
 

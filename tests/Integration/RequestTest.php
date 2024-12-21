@@ -141,7 +141,7 @@ final class RequestTest extends TestCase
     {
         $request = new Request();
         $request->addRequest('test1', 'https://httpbin.org/get');
-        $request->addRequest('test2', 'https://httpbin.org/post');
+        $request->addRequest('test2', 'https://httpbin.org/post', [], 'POST', ['name' => 'GuiBranco']);
         $responses = $request->executeBatch();
         $this->assertArrayHasKey('test1', $responses);
         $this->assertArrayHasKey('test2', $responses);
@@ -161,7 +161,7 @@ final class RequestTest extends TestCase
     public function testCanAddRequestWithPayload(): void
     {
         $request = new Request();
-        $request->addRequest('test', 'https://httpbin.org/post', [], ['name' => 'GuiBranco']);
+        $request->addRequest('test', 'https://httpbin.org/post', [], 'POST', ['name' => 'GuiBranco']);
         $responses = $request->executeBatch();
         $this->assertArrayHasKey('test', $responses);
         $this->assertEquals(200, $responses['test']->getStatusCode());
