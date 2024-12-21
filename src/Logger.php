@@ -37,6 +37,6 @@ class Logger implements ILogger
 
         $result = $this->request->post($this->baseUrl . "log-message", $this->headers, $body);
 
-        return $result->statusCode == 200;
+        return $result->getStatusCode() === 200;
     }
 }

@@ -2,7 +2,7 @@
 
 namespace GuiBranco\Pancake;
 
-use stdClass;
+use GuiBranco\Pancake\Response;
 
 class HealthChecks
 {
@@ -76,39 +76,39 @@ class HealthChecks
         $this->headersSet = true;
     }
 
-    public function heartbeat(): stdClass
+    public function heartbeat(): Response
     {
         $this->checkHeaders();
         return $this->request->get($this->endUrl, $this->headers);
     }
 
-    public function start(): stdClass
+    public function start(): Response
     {
         $this->checkHeaders();
         return $this->request->get($this->startUrl, $this->headers);
     }
 
-    public function fail(): stdClass
+    public function fail(): Response
     {
         $this->checkHeaders();
         $this->failed = true;
         return $this->request->get($this->failUrl, $this->headers);
     }
 
-    public function log($message): stdClass
+    public function log($message): Response
     {
         $this->checkHeaders();
         return $this->request->post($this->logUrl, $this->headers, $message);
     }
 
-    public function error($errorMessage): stdClass
+    public function error($errorMessage): Response
     {
         $this->checkHeaders();
         $this->failed = true;
         return $this->request->post($this->failUrl, $this->headers, $errorMessage);
     }
 
-    public function end(): stdClass
+    public function end(): Response
     {
         $this->checkHeaders();
         if ($this->failed) {
