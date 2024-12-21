@@ -78,10 +78,13 @@ class Response
             if ($this->statusCode < 200 || $this->statusCode >= 400) {
                 throw new RequestException("Invalid status code", $this->statusCode);
             }
-        } else {
-            if ($this->statusCode < 200 || $this->statusCode >= 300) {
-                throw new RequestException("Invalid status code", $this->statusCode);
-            }
+
+            return;
+        }
+
+        if ($this->statusCode < 200 || $this->statusCode >= 300) {
+            throw new RequestException("Invalid status code", $this->statusCode);
+
         }
     }
     public function toArray(): array
