@@ -149,7 +149,7 @@ class Request
                 $this->responses[$key] = Response::error($error, $url, -1);
                 continue;
             }
-            
+
             $header = substr($responseContent, 0, $headerSize);
             $body = substr($responseContent, $headerSize);
             $headers = $this->extractHeaders($header);
