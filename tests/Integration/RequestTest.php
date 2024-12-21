@@ -13,7 +13,7 @@ final class RequestTest extends TestCase
     {
         $request = new Request();
         $response = $request->get('https://httpbin.org/get');
-        $this->assertEquals(200, $response->getStatusCode()()());
+        $this->assertEquals(200, $response->getStatusCode());
     }
 
     public function testCanPost(): void
@@ -165,5 +165,13 @@ final class RequestTest extends TestCase
         $responses = $request->executeBatch();
         $this->assertArrayHasKey('test', $responses);
         $this->assertEquals(200, $responses['test']->getStatusCode());
+    }
+
+    public function testCanSetSSLVerification(): void
+    {
+        $request = new Request();
+        $request->setSSLVerification(false);
+        $response = $request->get('https://httpbin.org/get');
+        $this->assertEquals(200, $response->getStatusCode());
     }
 }

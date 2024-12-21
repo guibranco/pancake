@@ -7,7 +7,10 @@ use GuiBranco\Pancake\Response;
 class Request
 {
     private array $multiRequests = [];
+    
     private array $responses = [];
+
+    private bool $verifySSL = true;
 
     /**
      * Extract headers from the response.
@@ -69,8 +72,8 @@ class Request
             CURLOPT_TIMEOUT => 0,
             CURLOPT_FOLLOWLOCATION => true,
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_SSL_VERIFYPEER => false,
-            CURLOPT_SSL_VERIFYHOST => false,
+            CURLOPT_SSL_VERIFYPEER => $this->verifySSL,
+            CURLOPT_SSL_VERIFYHOST => $this->verifySSL ? 2 : 0,
             CURLOPT_HTTPHEADER => $headers,
         ];
     }
