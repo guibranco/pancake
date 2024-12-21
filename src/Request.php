@@ -138,7 +138,13 @@ class Request
 
         do {
             $status = curl_multi_exec($multiCurl, $active);
-            curl_multi_select($multiCurl);
+            if ($status > 0) {
+                usleep(100); // Sleep for 100 microseconds to prevent CPU spike
+            }
+            $select = curl_multi_select($multiCurl, 1.0); // Add 1 second timeout
+            if ($select === -1) {
+                usleep(100); // Sleep on select error
+            }
         } while ($active && $status == CURLM_OK);
 
         foreach ($curlHandles as $key => $curl) {
