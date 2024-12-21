@@ -7,7 +7,7 @@ use GuiBranco\Pancake\Response;
 class Request
 {
     private array $multiRequests = [];
-    
+
     private array $responses = [];
 
     private bool $verifySSL = true;
