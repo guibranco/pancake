@@ -78,6 +78,10 @@ class Request
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
             CURLOPT_SSL_VERIFYPEER => $this->verifySSL,
             CURLOPT_SSL_VERIFYHOST => $this->verifySSL ? 2 : 0,
+            CURLOPT_PROTOCOLS => CURLPROTO_HTTPS | CURLPROTO_HTTP,
+            CURLOPT_REDIR_PROTOCOLS => CURLPROTO_HTTPS | CURLPROTO_HTTP,
+            CURLOPT_CONNECTTIMEOUT => 30,
+            CURLOPT_DNS_CACHE_TIMEOUT => 30,
             CURLOPT_HTTPHEADER => $headers,
         ];
     }
