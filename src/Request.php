@@ -145,7 +145,7 @@ class Request
 
             if ($responseContent === false) {
                 $error = curl_error($curl);
-                $this->responses[$key] = Response::error("Curl error: $error", $httpCode);
+                $this->responses[$key] = Response::error($error, $this->multiRequests[$key][CURLOPT_URL], -1);
             } else {
                 $header = substr($responseContent, 0, $headerSize);
                 $body = substr($responseContent, $headerSize);
