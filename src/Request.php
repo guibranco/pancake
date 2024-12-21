@@ -100,7 +100,7 @@ class Request
         $httpCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
         curl_close($curl);
 
-        return Response::success($body, $fields[CURLOPT_URL],  $headers, $httpCode);
+        return Response::success($body, $fields[CURLOPT_URL], $headers, $httpCode);
     }
 
     /**

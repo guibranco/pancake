@@ -69,7 +69,7 @@ class Response
 
         $this->validateStatusCode(false);
     }
-    
+
     public function validateStatusCode(bool $includeRedirects = false): void
     {
         if ($includeRedirects) {
