@@ -13,17 +13,24 @@ class Response
     private string $url;
     private ?array $headers;
 
+    private function __construct(bool $success, ?string $body, string $message, int $statusCode, string $url, ?array $headers)
+    {
+        $this->success = $success;
+        $this->body = $body;
+        $this->message = $message;
+        $this->statusCode = $statusCode;
+        $this->url = $url;
+        $this->headers = $headers;
+    }
+
     /**
-     * Response constructor.
+     * Creates a successful response.
      *
-     * @param bool $success Indicates whether the response was successful.
-     * @param string|null $body The body of the response, or null if there is no body.
-     * @param string $message A message associated with the response.
-     * @param int $statusCode The HTTP status code of the response.
+     * @param string $body The body content of the response.
      * @param string $url The URL associated with the response.
-     * @param array|null $headers An array of headers associated with the response, or null if there are no headers.
-     *
-     * @return self Returns an instance of the response class.
+     * @param array $headers An array of headers to include in the response.
+     * @param int $statusCode The HTTP status code for the response. Default is 200.
+     * @return self Returns an instance of the response.
      */
     public static function error(string $message, string $url, int $statusCode = 400): self
     {
