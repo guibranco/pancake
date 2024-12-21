@@ -49,7 +49,6 @@ class DatabaseTest extends TestCase
         }
 
     }
-
     public static function tearDownAfterClass(): void
     {
         self::$database->prepare("DROP TABLE IF EXISTS users");
