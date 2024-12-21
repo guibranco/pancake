@@ -3,6 +3,8 @@
 namespace GuiBranco\Pancake;
 
 use GuiBranco\Pancake\Response;
+use GuiBranco\Pancake\RequestException;
+use CurlHandle;
 
 class Request
 {
@@ -83,12 +85,12 @@ class Request
     /**
      * Handles the response from a cURL request.
      *
-     * @param mixed $response The response from the cURL request.
-     * @param resource $curl The cURL handle.
+     * @param bool|string $response The response from the cURL request.
+     * @param CurlHandle $curl The cURL handle.
      * @param string $url The URL that was requested.
      * @return Response The processed response.
      */
-    private function handleResponse($response, $curl, $url): Response
+    private function handleResponse(bool|string $response, CurlHandle $curl, string $url): Response
     {
         if ($response === false) {
             $error = curl_error($curl);
@@ -146,7 +148,7 @@ class Request
     {
         $requestCount = count($this->multiRequests);
         if ($requestCount >= self::MAX_CONCURRENT_REQUESTS) {
-            throw new \Exception("Maximum number of concurrent requests reached.");
+            throw new RequestException("Maximum number of concurrent requests reached.");
         }
         $fields = $this->getFields($url, $headers);
         $this->multiRequests[$key] = $fields;
@@ -162,6 +164,7 @@ class Request
         $multiCurl = curl_multi_init();
         $curlHandles = [];
         $responses = [];
+        $active = null;
 
         foreach ($this->multiRequests as $key => $fields) {
             $curl = curl_init();

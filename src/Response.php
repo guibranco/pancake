@@ -2,6 +2,8 @@
 
 namespace GuiBranco\Pancake;
 
+use GuiBranco\Pancake\RequestException;
+
 class Response
 {
     private bool $success;
@@ -64,7 +66,7 @@ class Response
     public function ensureSuccessStatus(): void
     {
         if (!$this->success) {
-            throw new \Exception("Response indicates failure: " . $this->message);
+            throw new RequestException("Response indicates failure: " . $this->message, $this->statusCode);
         }
 
         $this->validateStatusCode(false);
@@ -74,11 +76,11 @@ class Response
     {
         if ($includeRedirects) {
             if ($this->statusCode < 200 || $this->statusCode >= 400) {
-                throw new \Exception("Invalid status code: " . $this->statusCode);
+                throw new RequestException("Invalid status code", $this->statusCode);
             }
         } else {
             if ($this->statusCode < 200 || $this->statusCode >= 300) {
-                throw new \Exception("Invalid status code: " . $this->statusCode);
+                throw new RequestException("Invalid status code", $this->statusCode);
             }
         }
     }
@@ -89,7 +91,7 @@ class Response
             'statusCode' => $this->statusCode,
             'body' => $this->body,
             'message' => $this->message,
-                'url' => $this->url,
+            'url' => $this->url,
             'headers' => $this->headers,
         ];
     }
