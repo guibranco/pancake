@@ -236,20 +236,21 @@ if ($response->statusCode >= 200 && $response->statusCode < 300) {
 
 ### Executing batch requests
 
-Batch support allows for the execution of multiple HTTP requests in a single call. This is especially useful for optimizing network usage when several requests need to be sent to the same or different endpoints.
+The `executeBatch` method allows for the execution of multiple HTTP requests in parallel using `curl_multi_init`. This method processes requests concurrently, reducing the total execution time for large batches.
 
-The requests are executed concurrently using PHP's multi-cURL interface (`curl_multi_init`), which means they are processed in parallel rather than sequentially. This can significantly reduce the total execution time when making multiple requests. However, be mindful that concurrent execution may increase memory usage and server load.
+#### Example usage
+
 ```php
 $batchRequests = [
     [
         'method' => 'GET',
-        'url' => 'https://example.com/endpoint1',
+        'url' => 'https://example.com/api1',
         'headers' => ["Accept: application/json"]
     ],
     [
         'method' => 'POST',
-        'url' => 'https://example.com/endpoint2',
-        'headers' => ["Accept: application/json"],
+        'url' => 'https://example.com/api2',
+        'headers' => ["Content-Type: application/json"],
         'payload' => json_encode(['key' => 'value'])
     ]
 ];
@@ -257,86 +258,29 @@ $batchRequests = [
 $request = new Request();
 $responses = $request->executeBatch($batchRequests);
 
-foreach ($responses as $response) {
-    if ($response->statusCode >= 200 && $response->statusCode < 300) {
-        echo $response->body;
+foreach ($responses as $key => $response) {
+    if ($response->getStatusCode() >= 200 && $response->getStatusCode() < 300) {
+        echo "Response $key: " . $response->getBody();
     } else {
-        echo "Error with status code: " . $response->statusCode;
+        echo "Error in request $key: " . $response->getMessage();
     }
 }
 ```
 
 ### Parameters for batch requests
 
-Each batch request must include the following parameters:
+Each batch request requires the following structure:
 
-- **`method`** *(required)*: The HTTP method (GET, POST, PUT, PATCH, DELETE, OPTIONS, or HEAD).
-- **`url`** *(required)*: The URL for the request.
-- **`headers`** *(optional)*: An array of HTTP headers for the request.
-- **`payload`** *(optional)*: The request body for methods that support payloads (e.g., POST, PUT, PATCH, DELETE).
+- **`method`** *(required)*: The HTTP method to use (e.g., GET, POST, PUT, PATCH, DELETE).
+- **`url`** *(required)*: The full URL for the request.
+- **`headers`** *(optional)*: An array of HTTP headers.
+- **`payload`** *(optional)*: The request body, applicable for POST, PUT, PATCH, and DELETE methods.
 
-### Example usage
+### Notes
 
-Here are additional examples of batch requests for specific scenarios:
-
-#### Sending mixed HTTP methods
-
-```php
-$batchRequests = [
-    [
-        'method' => 'HEAD',
-        'url' => 'https://example.com/healthcheck',
-        'headers' => ["Accept: application/json"]
-    ],
-    [
-        'method' => 'DELETE',
-        'url' => 'https://example.com/delete-endpoint',
-        'headers' => ["Accept: application/json"],
-        'payload' => json_encode(['id' => 123])
-    ]
-];
-
-$request = new Request();
-$responses = $request->executeBatch($batchRequests);
-
-foreach ($responses as $response) {
-    echo $response->statusCode . "\n";
-}
-```
-
-#### Error handling in batch requests
-
-If one or more requests fail, you can handle errors individually:
-
-```php
-$request = new Request();
-$responses = $request->executeBatch($batchRequests);
-
-foreach ($responses as $index => $response) {
-    if ($response->statusCode >= 200 && $response->statusCode < 300) {
-        echo "Request $index succeeded: " . $response->body;
-    } else {
-        echo "Request $index failed with status: " . $response->statusCode . "\n";
-        echo "Error details: " . $response->body;
-    }
-}
-```
-
-#### Limiting batch size
-
-For large numbers of requests, consider splitting the batches to avoid overwhelming the server:
-
-```php
-$allRequests = [...]; // Array of all requests to execute
-$batchSize = 10;
-$batches = array_chunk($allRequests, $batchSize);
-
-$request = new Request();
-foreach ($batches as $batch) {
-    $responses = $request->executeBatch($batch);
-    // Handle responses for this batch
-}
-```
+1. **Concurrency Limit**: The `executeBatch` method processes up to 10 requests concurrently (as defined by `MAX_CONCURRENT_REQUESTS` in the `Request.php` file).
+2. **Error Handling**: If a request fails, its corresponding `Response` object will contain error details (e.g., `statusCode: -1` and an error message in `getMessage()`).
+3. **Response Object**: Each response is wrapped in the `Response` class, providing structured access to the `statusCode`, `body`, and `headers`.
 
 ## Troubleshooting
 
