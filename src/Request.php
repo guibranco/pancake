@@ -7,6 +7,9 @@ use GuiBranco\Pancake\RequestException;
 use CurlHandle;
 
 class Request
+    private const BINARY_MIME_TYPES = [
+        'application/pdf', 'image/jpeg', 'image/png', 'image/gif', 'application/octet-stream'
+    ];
 {
     private array $multiRequests = [];
 
@@ -108,8 +111,22 @@ class Request
         $httpCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
 
         return Response::success($body, $url, $headers, $httpCode);
+        $contentType = $headers['Content-Type'] ?? '';
+        $isBinary = $this->isBinaryContent($contentType);
+
+        if ($isBinary) {
+            return Response::success($body, $url, $headers, $httpCode, true);
 
     }
+    }
+
+    /**
+     * Determine if the content type is binary.
+     *
+     * @param string $contentType
+     * @return bool
+     */
+    private function isBinaryContent(string $contentType): bool
 
     /**
      * Executes a request with the given fields and returns a Response object.
