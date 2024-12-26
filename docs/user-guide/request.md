@@ -25,6 +25,7 @@
   - [Batch requests](#batch-requests)
     - [Executing batch requests](#executing-batch-requests)
   - [Troubleshooting](#troubleshooting)
+   - [Handling Binary Responses](#handling-binary-responses)
 
 ## About
 
@@ -48,6 +49,7 @@ Minimum requirements:
 - lib curl >= 7.29.0  
   
 For more information, see the [PHP cURL documentation](https://www.php.net/manual/en/book.curl.php).  
+
 
 ## Available HTTP verbs
 
