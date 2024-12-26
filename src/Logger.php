@@ -26,7 +26,7 @@ class Logger implements ILogger
     public function log($message, $details): bool
     {
         $trace = debug_backtrace();
-        $caller = $trace[1];
+        $caller = $trace[1] ?? [];
 
         $caller["message"] = $message;
         $caller["details"] = $details;
