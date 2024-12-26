@@ -9,7 +9,7 @@ class RequestTest extends TestCase
     public function testBinaryResponseHandling()
     {
         $request = new Request();
-        
+
         // Mock a binary response
         $url = 'https://example.com/file.jpg';
         $headers = ['Content-Type' => 'image/jpeg'];
@@ -25,7 +25,7 @@ class RequestTest extends TestCase
     public function testNonBinaryResponseHandling()
     {
         $request = new Request();
-        
+
         // Mock a text response
         $url = 'https://example.com/data.json';
         $headers = ['Content-Type' => 'application/json'];
@@ -38,5 +38,3 @@ class RequestTest extends TestCase
         $this->assertEquals($body, $response->getBody());
     }
 }
-
-?>
