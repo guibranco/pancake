@@ -216,8 +216,23 @@ class Request
      * @return Response The response object containing the result of the GET request.
      */
     public function get($url, $headers = array()): Response
+    public function download(string $url, string $savePath, array $headers = []): bool
     {
         $fields = $this->getFields($url, $headers);
+        $fields[CURLOPT_RETURNTRANSFER] = true;
+        $curl = curl_init();
+        curl_setopt_array($curl, $fields);
+        $fileContent = curl_exec($curl);
+        if ($fileContent === false) {
+    {
+        $fields = $this->getFields($url, $headers);
+            curl_close($curl);
+            return false;
+        }
+        file_put_contents($savePath, $fileContent);
+        curl_close($curl);
+        return true;
+    }
         return $this->execute($fields);
     }
 
