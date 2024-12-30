@@ -1,5 +1,35 @@
 <?php
 
+namespace Tests\Integration;
+
+use GuiBranco\Pancake\Request;
+use PHPUnit\Framework\TestCase;
+
+class RequestTest extends TestCase
+{
+    public function testDownload()
+    {
+        $request = new Request();
+        $url = 'https://example.com/sample.jpg';
+        $savePath = '/tmp/sample.jpg';
+        
+        // Mock the download process
+        $result = $request->download($url, $savePath);
+        
+        // Assert the download was successful
+        $this->assertTrue($result);
+        
+        // Assert the file exists
+        $this->assertFileExists($savePath);
+        
+        // Clean up
+        if (file_exists($savePath)) {
+            unlink($savePath);
+        }
+    }
+}
+<?php
+
 declare(strict_types=1);
 
 namespace GuiBranco\Pancake\Tests\Integration;
