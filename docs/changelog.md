@@ -1,5 +1,8 @@
 # Changelog
 
+## Version 1.0 [2024-12-21]
+ - [#287](https://github.com/guibranco/pancake/issues/287) - Add support for `curl_multi_init` in `Request` class by [@guibranco](https://github.com/guibranco).
+
 ## Version 0.14 [2024-10-26]
 
 - [#83](https://github.com/guibranco/pancake/issues/83) - Add Database class by [@guibranco](https://github.com/guibranco).

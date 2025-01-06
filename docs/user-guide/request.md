@@ -22,11 +22,13 @@
       - [Delete with payload](#delete-with-payload)
     - [Options](#options)
     - [Head](#head)
+  - [Batch requests](#batch-requests)
+    - [Executing batch requests](#executing-batch-requests)
   - [Troubleshooting](#troubleshooting)
 
 ## About
 
-This class is responsible for doing [cURL](https://www.php.net/manual/en/book.curl.php) requests with custom headers.
+This class is responsible for executing HTTP requests using [cURL](https://www.php.net/manual/en/book.curl.php) with support for custom headers. Responses are encapsulated in the `Response` class, providing properties like `statusCode`, `headers`, and `body` for better usability.
 
 ## Requirements
 
@@ -54,7 +56,6 @@ For more information, see the [PHP cURL documentation](https://www.php.net/manua
 Performs HTTP GET requests with custom headers.
 
 ```php
-
 $headers = array("User-Agent: test/1.0", "Accept: application/json");
 
 $request = new Request();
@@ -63,7 +64,6 @@ $response = $request->get("https://example.com/", $headers);
 if ($response->statusCode >= 200 && $response->statusCode < 300) {
     echo $response->body;
 }
-
 ```
 
 ### Post
@@ -73,7 +73,6 @@ if ($response->statusCode >= 200 && $response->statusCode < 300) {
 Performs HTTP POST requests with custom headers.
 
 ```php
-
 $headers = array("User-Agent: test/1.0", "Accept: application/json");
 
 $request = new Request();
@@ -82,7 +81,6 @@ $response = $request->post("https://example.com/", $headers);
 if ($response->statusCode >= 200 && $response->statusCode < 300) {
     echo $response->body;
 }
-
 ```
 
 #### Post with payload
@@ -90,7 +88,6 @@ if ($response->statusCode >= 200 && $response->statusCode < 300) {
 Performs HTTP POST requests with custom headers and a payload.
 
 ```php
-
 $headers = array("User-Agent: test/1.0", "Accept: application/json");
 $payload = array("some" => "thing");
 
@@ -100,7 +97,6 @@ $response = $request->post("https://example.com/", $headers, json_encode($payloa
 if ($response->statusCode >= 200 && $response->statusCode < 300) {
     echo $response->body;
 }
-
 ```
 
 ### Put
@@ -110,7 +106,6 @@ if ($response->statusCode >= 200 && $response->statusCode < 300) {
 Performs HTTP PUT requests with custom headers.
 
 ```php
-
 $headers = array("User-Agent: test/1.0", "Accept: application/json");
 
 $request = new Request();
@@ -119,7 +114,6 @@ $response = $request->put("https://example.com/", $headers);
 if ($response->statusCode >= 200 && $response->statusCode < 300) {
     echo $response->body;
 }
-
 ```
 
 #### Put with payload
@@ -127,7 +121,6 @@ if ($response->statusCode >= 200 && $response->statusCode < 300) {
 Performs HTTP PUT requests with custom headers and a payload.
 
 ```php
-
 $headers = array("User-Agent: test/1.0", "Accept: application/json");
 $payload = array("some" => "thing");
 
@@ -137,7 +130,6 @@ $response = $request->put("https://example.com/", $headers, json_encode($payload
 if ($response->statusCode >= 200 && $response->statusCode < 300) {
     echo $response->body;
 }
-
 ```
 
 ### Patch
@@ -147,7 +139,6 @@ if ($response->statusCode >= 200 && $response->statusCode < 300) {
 Performs HTTP PATCH requests with custom headers.
 
 ```php
-
 $headers = array("User-Agent: test/1.0", "Accept: application/json");
 
 $request = new Request();
@@ -156,7 +147,6 @@ $response = $request->patch("https://example.com/", $headers);
 if ($response->statusCode >= 200 && $response->statusCode < 300) {
     echo $response->body;
 }
-
 ```
 
 #### Patch with payload
@@ -164,7 +154,6 @@ if ($response->statusCode >= 200 && $response->statusCode < 300) {
 Performs HTTP PATCH requests with custom headers and a payload.
 
 ```php
-
 $headers = array("User-Agent: test/1.0", "Accept: application/json");
 $payload = array("some" => "thing");
 
@@ -174,7 +163,6 @@ $response = $request->patch("https://example.com/", $headers, json_encode($paylo
 if ($response->statusCode >= 200 && $response->statusCode < 300) {
     echo $response->body;
 }
-
 ```
 
 ### Delete
@@ -184,7 +172,6 @@ if ($response->statusCode >= 200 && $response->statusCode < 300) {
 Performs HTTP DELETE requests with custom headers.
 
 ```php
-
 $headers = array("User-Agent: test/1.0", "Accept: application/json");
 
 $request = new Request();
@@ -193,7 +180,6 @@ $response = $request->delete("https://example.com/", $headers);
 if ($response->statusCode >= 200 && $response->statusCode < 300) {
     echo $response->statusCode;
 }
-
 ```
 
 #### Delete with payload
@@ -201,7 +187,6 @@ if ($response->statusCode >= 200 && $response->statusCode < 300) {
 Performs HTTP DELETE requests with custom headers and a payload.
 
 ```php
-
 $headers = array("User-Agent: test/1.0", "Accept: application/json");
 $payload = array("some" => "thing");
 
@@ -211,7 +196,6 @@ $response = $request->delete("https://example.com/", $headers, json_encode($payl
 if ($response->statusCode >= 200 && $response->statusCode < 300) {
     echo $response->statusCode;
 }
-
 ```
 
 ### Options
@@ -219,7 +203,6 @@ if ($response->statusCode >= 200 && $response->statusCode < 300) {
 Performs HTTP OPTIONS requests with custom headers.
 
 ```php
-
 $headers = array("User-Agent: test/1.0", "Accept: application/json");
 
 $request = new Request();
@@ -230,7 +213,6 @@ if ($response->statusCode >= 200 && $response->statusCode < 300) {
       echo $header;
     }
 }
-
 ```
 
 ### Head
@@ -238,7 +220,6 @@ if ($response->statusCode >= 200 && $response->statusCode < 300) {
 Performs HTTP HEAD requests with custom headers.
 
 ```php
-
 $headers = array("User-Agent: test/1.0", "Accept: application/json");
 
 $request = new Request();
@@ -249,8 +230,57 @@ if ($response->statusCode >= 200 && $response->statusCode < 300) {
       echo $header;
     }
 }
-
 ```
+
+## Batch requests
+
+### Executing batch requests
+
+The `executeBatch` method allows for the execution of multiple HTTP requests in parallel using `curl_multi_init`. This method processes requests concurrently, reducing the total execution time for large batches.
+
+#### Example usage
+
+```php
+$batchRequests = [
+    [
+        'method' => 'GET',
+        'url' => 'https://example.com/api1',
+        'headers' => ["Accept: application/json"]
+    ],
+    [
+        'method' => 'POST',
+        'url' => 'https://example.com/api2',
+        'headers' => ["Content-Type: application/json"],
+        'payload' => json_encode(['key' => 'value'])
+    ]
+];
+
+$request = new Request();
+$responses = $request->executeBatch($batchRequests);
+
+foreach ($responses as $key => $response) {
+    if ($response->getStatusCode() >= 200 && $response->getStatusCode() < 300) {
+        echo "Response $key: " . $response->getBody();
+    } else {
+        echo "Error in request $key: " . $response->getMessage();
+    }
+}
+```
+
+### Parameters for batch requests
+
+Each batch request requires the following structure:
+
+- **`method`** *(required)*: The HTTP method to use (e.g., GET, POST, PUT, PATCH, DELETE).
+- **`url`** *(required)*: The full URL for the request.
+- **`headers`** *(optional)*: An array of HTTP headers.
+- **`payload`** *(optional)*: The request body, applicable for POST, PUT, PATCH, and DELETE methods.
+
+### Notes
+
+1. **Concurrency Limit**: The `executeBatch` method processes up to 10 requests concurrently (as defined by `MAX_CONCURRENT_REQUESTS` in the `Request.php` file).
+2. **Error Handling**: If a request fails, its corresponding `Response` object will contain error details (e.g., `statusCode: -1` and an error message in `getMessage()`).
+3. **Response Object**: Each response is wrapped in the `Response` class, providing structured access to the `statusCode`, `body`, and `headers`.
 
 ## Troubleshooting
 
