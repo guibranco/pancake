@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace GuiBranco\Pancake\Tests\Unit;
 
 use GuiBranco\Pancake\HealthChecks;
+use GuiBranco\Pancake\Response;
 use PHPUnit\Framework\TestCase;
 
 final class HealthChecksTest extends TestCase
@@ -33,42 +34,42 @@ final class HealthChecksTest extends TestCase
     {
         $healthCheck = new HealthChecks('token');
         $response = $healthCheck->heartbeat();
-        $this->assertInstanceOf(\stdClass::class, $response);
+        $this->assertInstanceOf(Response::class, $response);
     }
 
     public function testCanStart(): void
     {
         $healthCheck = new HealthChecks('token');
         $response = $healthCheck->start();
-        $this->assertInstanceOf(\stdClass::class, $response);
+        $this->assertInstanceOf(Response::class, $response);
     }
 
     public function testCanFail(): void
     {
         $healthCheck = new HealthChecks('token');
         $response = $healthCheck->fail();
-        $this->assertInstanceOf(\stdClass::class, $response);
+        $this->assertInstanceOf(Response::class, $response);
     }
 
     public function testCanLog(): void
     {
         $healthCheck = new HealthChecks('token');
         $response = $healthCheck->log('test');
-        $this->assertInstanceOf(\stdClass::class, $response);
+        $this->assertInstanceOf(Response::class, $response);
     }
 
     public function testCanEnd(): void
     {
         $healthCheck = new HealthChecks('token');
         $response = $healthCheck->end();
-        $this->assertInstanceOf(\stdClass::class, $response);
+        $this->assertInstanceOf(Response::class, $response);
     }
 
     public function testCanError(): void
     {
         $healthCheck = new HealthChecks('token');
         $response = $healthCheck->error('error message');
-        $this->assertInstanceOf(\stdClass::class, $response);
+        $this->assertInstanceOf(Response::class, $response);
     }
 
     public function testCanResetState(): void
@@ -83,10 +84,10 @@ final class HealthChecksTest extends TestCase
         $healthCheck = new HealthChecks('token');
         $healthCheck->setHeaders(['key' => 'value']);
         $response = $healthCheck->start();
-        $this->assertInstanceOf(\stdClass::class, $response);
+        $this->assertInstanceOf(Response::class, $response);
         $response = $healthCheck->fail();
-        $this->assertInstanceOf(\stdClass::class, $response);
+        $this->assertInstanceOf(Response::class, $response);
         $response = $healthCheck->end();
-        $this->assertInstanceOf(\stdClass::class, $response);
+        $this->assertInstanceOf(Response::class, $response);
     }
 }

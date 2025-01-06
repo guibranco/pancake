@@ -30,7 +30,7 @@ jobs:
               run: docker compose up -d && sleep 10
 
             - name: PHPUnit Tests
-              uses: php-actions/phpunit@v3
+              uses: php-actions/phpunit@v4
               with:
                   version: 11
                   php_version: 8.3
@@ -48,7 +48,7 @@ jobs:
                   sed -i 's@'$GITHUB_WORKSPACE'@/github/workspace/@g' coverage.xml
 
             - name: Upload coverage reports to Codecov
-              uses: codecov/codecov-action@v4.6.0
+              uses: codecov/codecov-action@v5.1.2
               with:
                   token: ${{ secrets.CODECOV_TOKEN }}
                   slug: guibranco/Pancake
