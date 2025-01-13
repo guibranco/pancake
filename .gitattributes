@@ -13,3 +13,4 @@
 /mkdocs.yml export-ignore
 /requirements.txt export-ignore
 /sonar-project.properties export-ignore
+/docker-compose.yml export-ignore
