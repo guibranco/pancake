@@ -71,6 +71,52 @@ class Response
         return $this->body;
     }
 
+     /**
+     * Get the HTTP request body as a decoded JSON object.
+     *
+     * @return object|null Returns an object if the body is valid JSON, or null otherwise.
+     * @throws JsonException If JSON decoding fails.
+     */
+    public function getBodyAsJson(): ?object
+    {
+        if ($this->body === null) {
+            return null;
+        }
+
+        try {
+            $decoded = json_decode($this->body, false, 512, JSON_THROW_ON_ERROR);
+            if (!is_object($decoded)) {
+                throw new InvalidArgumentException('Body is not a valid JSON object.');
+            }
+            return $decoded;
+        } catch (JsonException $e) {
+            throw new JsonException('Invalid JSON string: ' . $e->getMessage());
+        }
+    }
+
+    /**
+     * Get the HTTP request body as a decoded JSON array.
+     *
+     * @return array|null Returns an array if the body is valid JSON, or null otherwise.
+     * @throws JsonException If JSON decoding fails.
+     */
+    public function getBodyAsArray(): ?array
+    {
+        if ($this->body === null) {
+            return null;
+        }
+
+        try {
+            $decoded = json_decode($this->body, true, 512, JSON_THROW_ON_ERROR);
+            if (!is_array($decoded)) {
+                throw new InvalidArgumentException('Body is not a valid JSON array.');
+            }
+            return $decoded;
+        } catch (JsonException $e) {
+            throw new JsonException('Invalid JSON string: ' . $e->getMessage());
+        }
+    }
+
     /**
      * Retrieves the message.
      *
