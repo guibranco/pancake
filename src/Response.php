@@ -90,7 +90,7 @@ class Response
             }
             return $decoded;
         } catch (JsonException $e) {
-            throw new JsonException('Invalid JSON string: ' . $e->getMessage());
+            throw new JsonException('Invalid JSON string: ' . $e->getMessage(), 0, $e);
         }
     }
 
@@ -113,7 +113,7 @@ class Response
             }
             return $decoded;
         } catch (JsonException $e) {
-            throw new JsonException('Invalid JSON string: ' . $e->getMessage());
+            throw new JsonException('Invalid JSON string: ' . $e->getMessage(), 0, $e);
         }
     }
 
