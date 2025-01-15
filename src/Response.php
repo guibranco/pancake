@@ -71,12 +71,12 @@ class Response
         return $this->body;
     }
 
-     /**
-     * Get the HTTP request body as a decoded JSON object.
-     *
-     * @return object|null Returns an object if the body is valid JSON, or null otherwise.
-     * @throws JsonException If JSON decoding fails.
-     */
+    /**
+    * Get the HTTP request body as a decoded JSON object.
+    *
+    * @return object|null Returns an object if the body is valid JSON, or null otherwise.
+    * @throws JsonException If JSON decoding fails.
+    */
     public function getBodyAsJson(): ?object
     {
         if ($this->body === null) {
