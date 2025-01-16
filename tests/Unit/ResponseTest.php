@@ -3,7 +3,6 @@
 use PHPUnit\Framework\TestCase;
 use GuiBranco\Pancake\Response;
 use GuiBranco\Pancake\RequestException;
-use JsonException;
 
 class ResponseTest extends TestCase
 {
