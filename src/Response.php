@@ -3,6 +3,8 @@
 namespace GuiBranco\Pancake;
 
 use GuiBranco\Pancake\RequestException;
+use InvalidArgumentException;
+use JsonException;
 
 class Response
 {
