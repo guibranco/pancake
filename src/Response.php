@@ -3,6 +3,7 @@
 namespace GuiBranco\Pancake;
 
 use GuiBranco\Pancake\RequestException;
+use JsonException;
 
 class Response
 {
@@ -69,6 +70,46 @@ class Response
     public function getBody(): ?string
     {
         return $this->body;
+    }
+
+    /**
+     * Get the HTTP request body as a decoded JSON object.
+     *
+     * @return object|null Returns an object if the body is valid JSON, or null otherwise.
+     * @throws JsonException If JSON decoding fails.
+     */
+    public function getBodyAsJson(): ?object
+    {
+        if ($this->body === null) {
+            return null;
+        }
+
+        try {
+            $decoded = json_decode($this->body, false, 512, JSON_THROW_ON_ERROR);
+            return $decoded;
+        } catch (JsonException $e) {
+            throw new JsonException('Invalid JSON string: ' . $e->getMessage(), 0, $e);
+        }
+    }
+
+    /**
+     * Get the HTTP request body as a decoded JSON array.
+     *
+     * @return array|null Returns an array if the body is valid JSON, or null otherwise.
+     * @throws JsonException If JSON decoding fails.
+     */
+    public function getBodyAsArray(): ?array
+    {
+        if ($this->body === null) {
+            return null;
+        }
+
+        try {
+            $decoded = json_decode($this->body, true, 512, JSON_THROW_ON_ERROR);
+            return $decoded;
+        } catch (JsonException $e) {
+            throw new JsonException('Invalid JSON string: ' . $e->getMessage(), 0, $e);
+        }
     }
 
     /**

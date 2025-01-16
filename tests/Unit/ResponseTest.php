@@ -93,4 +93,55 @@ class ResponseTest extends TestCase
 
         $this->assertJsonStringEqualsJsonString($expectedJson, $response->toJson());
     }
+
+    public function testGetBodyAsJson()
+    {
+        $response = Response::success(json_encode(['key' => 'value']), "http://example.com", ["Content-Type" => "application/json"], 200);
+
+        $this->assertEquals((object) ['key' => 'value'], $response->getBodyAsJson());
+    }
+
+    public function testGetBodyAsJsonReturnsNull()
+    {
+        $response = Response::error("Error occurred", "http://example.com", 400);
+
+        $this->assertEquals(null, $response->getBodyAsJson());
+    }
+
+    public function testGetBodyAsJsonThrowsException()
+    {
+        $response = Response::success("Invalid JSON", "http://example.com", ["Content-Type" => "application/json"], 200);
+
+        $this->expectException(JsonException::class);
+        $response->getBodyAsJson();
+    }
+
+    public function testGetBodyAsJsonWithEmptyObject()
+    {
+        $response = Response::success('{}', "http://example.com", ["Content-Type" => "application/json"], 200);
+
+        $this->assertEquals(new \stdClass(), $response->getBodyAsJson());
+    }
+
+    public function testGetBodyAsArray()
+    {
+        $response = Response::success(json_encode(['key' => 'value']), "http://example.com", ["Content-Type" => "application/json"], 200);
+
+        $this->assertEquals(['key' => 'value'], $response->getBodyAsArray());
+    }
+
+    public function testGetBodyAsArrayReturnsNull()
+    {
+        $response = Response::error("Error occurred", "http://example.com", 400);
+
+        $this->assertEquals(null, $response->getBodyAsArray());
+    }
+
+    public function testGetBodyAsArrayThrowsException()
+    {
+        $response = Response::success("Invalid JSON", "http://example.com", ["Content-Type" => "application/json"], 200);
+
+        $this->expectException(JsonException::class);
+        $response->getBodyAsArray();
+    }
 }
