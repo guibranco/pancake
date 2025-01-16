@@ -87,7 +87,7 @@ class Response
 
         try {
             $decoded = json_decode($this->body, false, 512, JSON_THROW_ON_ERROR);
-            if (!is_object($decoded)) {
+            if (is_object($decoded) === false) {
                 throw new InvalidArgumentException('Body is not a valid JSON object.');
             }
             return $decoded;
@@ -110,7 +110,7 @@ class Response
 
         try {
             $decoded = json_decode($this->body, true, 512, JSON_THROW_ON_ERROR);
-            if (!is_array($decoded) && $decoded !== null) {
+            if (is_array($decoded) === false && $decoded !== null) {
                 throw new InvalidArgumentException('Body is not a valid JSON array or object. Got ' . gettype($decoded) . ' instead.');
             }
             return $decoded;
