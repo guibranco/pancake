@@ -1,5 +1,7 @@
 <?php
 
+namespace GuiBranco\Pancake;
+
 class Queue
 {
     private $connectionStrings;
