@@ -3,6 +3,7 @@
 use PHPUnit\Framework\TestCase;
 use GuiBranco\Pancake\Response;
 use GuiBranco\Pancake\RequestException;
+use JsonException;
 
 class ResponseTest extends TestCase
 {
@@ -92,5 +93,35 @@ class ResponseTest extends TestCase
         ]);
 
         $this->assertJsonStringEqualsJsonString($expectedJson, $response->toJson());
+    }
+
+    public function testGetBodyAsJson()
+    {
+        $response = Response::success(json_encode(['key' => 'value']), "http://example.com", ["Content-Type" => "application/json"], 200);
+
+        $this->assertEquals((object)['key' => 'value'], $response->getBodyAsJson());
+    }
+
+    public function testGetBodyAsJsonThrowsException()
+    {
+        $response = Response::success("Invalid JSON", "http://example.com", ["Content-Type" => "application/json"], 200);
+
+        $this->expectException(JsonException::class);
+        $response->getBodyAsJson();
+    }
+
+    public function testGetBodyAsArray()
+    {
+        $response = Response::success(json_encode(['key' => 'value']), "http://example.com", ["Content-Type" => "application/json"], 200);
+
+        $this->assertEquals(['key' => 'value'], $response->getBodyAsArray());
+    }
+
+    public function testGetBodyAsArrayThrowsException()
+    {
+        $response = Response::success("Invalid JSON", "http://example.com", ["Content-Type" => "application/json"], 200);
+
+        $this->expectException(JsonException::class);
+        $response->getBodyAsArray();
     }
 }

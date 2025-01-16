@@ -74,11 +74,11 @@ class Response
     }
 
     /**
-    * Get the HTTP request body as a decoded JSON object.
-    *
-    * @return object|null Returns an object if the body is valid JSON, or null otherwise.
-    * @throws JsonException If JSON decoding fails.
-    */
+     * Get the HTTP request body as a decoded JSON object.
+     *
+     * @return object|null Returns an object if the body is valid JSON, or null otherwise.
+     * @throws JsonException If JSON decoding fails.
+     */
     public function getBodyAsJson(): ?object
     {
         if ($this->body === null) {
@@ -110,8 +110,8 @@ class Response
 
         try {
             $decoded = json_decode($this->body, true, 512, JSON_THROW_ON_ERROR);
-            if (!is_array($decoded)) {
-                throw new InvalidArgumentException('Body is not a valid JSON array.');
+            if (!is_array($decoded) && $decoded !== null) {
+                throw new InvalidArgumentException('Body is not a valid JSON array or object. Got ' . gettype($decoded) . ' instead.');
             }
             return $decoded;
         } catch (JsonException $e) {
