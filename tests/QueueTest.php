@@ -1,5 +1,6 @@
 <?php
 
+use GuiBranco\Pancake;
 use PHPUnit\Framework\TestCase;
 
 class QueueTest extends TestCase
