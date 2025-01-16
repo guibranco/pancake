@@ -101,6 +101,13 @@ class ResponseTest extends TestCase
         $this->assertEquals((object)['key' => 'value'], $response->getBodyAsJson());
     }
 
+    public function testGetBodyAsJsonReturnsNull()
+    {
+        $response = Response::error("Error occurred", "http://example.com", 400);
+
+        $this->assertEquals(null, $response->getBodyAsJson());
+    }
+
     public function testGetBodyAsJsonThrowsException()
     {
         $response = Response::success("Invalid JSON", "http://example.com", ["Content-Type" => "application/json"], 200);
@@ -114,6 +121,13 @@ class ResponseTest extends TestCase
         $response = Response::success(json_encode(['key' => 'value']), "http://example.com", ["Content-Type" => "application/json"], 200);
 
         $this->assertEquals(['key' => 'value'], $response->getBodyAsArray());
+    }
+
+    public function testGetBodyAsArrayReturnsNull()
+    {
+        $response = Response::error("Error occurred", "http://example.com", 400);
+
+        $this->assertEquals(null, $response->getBodyAsArray());
     }
 
     public function testGetBodyAsArrayThrowsException()
