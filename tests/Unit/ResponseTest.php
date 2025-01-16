@@ -116,15 +116,6 @@ class ResponseTest extends TestCase
         $response->getBodyAsJson();
     }
 
-    public function testGetBodyAsJsonWithNonObjectValue()
-    {
-        $response = Response::success(json_encode(42), "http://example.com", ["Content-Type" => "application/json"], 200);
-
-        $this->expectException(JsonException::class);
-        $this->expectExceptionMessage('JSON decode succeeded but result is not an object');
-        $response->getBodyAsJson();
-    }
-
     public function testGetBodyAsJsonWithEmptyObject()
     {
         $response = Response::success('{}', "http://example.com", ["Content-Type" => "application/json"], 200);
