@@ -13,6 +13,9 @@ class Response
     private int $statusCode;
     private string $url;
     private ?array $headers;
+    private const HTTP_OK = 200;
+    private const HTTP_REDIRECT = 300;
+    private const HTTP_BAD_REQUEST = 400;
 
     private function __construct(bool $success, ?string $body, string $message, int $statusCode, string $url, ?array $headers)
     {
@@ -69,18 +72,11 @@ class Response
     *
     * @return bool True if the response is successful, false otherwise.
     */
-    public function isSuccessStatusCode($includeRedirects = false): bool
+    public function isSuccessStatusCode(bool $includeRedirects = false): bool
     {
-        if (!$this->isSuccess()) {
-            return false;
-        }
-
-        $higherCodeToValidate = $includeRedirects ? 400 : 300;
-        if ($this->statusCode < 200 || $this->statusCode >= $higherCodeToValidate) {
-            return false;
-        }
-
-        return true;
+        return $this->isSuccess() 
+            && $this->statusCode >= self::HTTP_OK
+            && $this->statusCode < ($includeRedirects ? self::HTTP_BAD_REQUEST : self::HTTP_REDIRECT);
     }
 
     /**
