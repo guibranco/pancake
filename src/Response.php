@@ -74,7 +74,7 @@ class Response
     */
     public function isSuccessStatusCode(bool $includeRedirects = false): bool
     {
-        return $this->isSuccess() 
+        return $this->isSuccess()
             && $this->statusCode >= self::HTTP_OK
             && $this->statusCode < ($includeRedirects ? self::HTTP_BAD_REQUEST : self::HTTP_REDIRECT);
     }
