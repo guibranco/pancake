@@ -72,15 +72,15 @@ class Response
     *
     * @return bool True if the response is successful, false otherwise.
     */
-    public function isSuccessStatusCode(bool $includeRedirects=false): bool
+    public function isSuccessStatusCode(bool $includeRedirects = false): bool
     {
-        if ($includeRedirects === TRUE) {
+        if ($includeRedirects === true) {
             $maxCode = self::HTTP_BAD_REQUEST;
         } else {
             $maxCode = self::HTTP_REDIRECT;
         }
-        
-        return $this->isSuccess() === TRUE
+
+        return $this->isSuccess() === true
             && $this->statusCode >= self::HTTP_OK
             && $this->statusCode < $maxCode;
     }
