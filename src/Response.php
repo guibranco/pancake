@@ -62,6 +62,27 @@ class Response
         return $this->success;
     }
 
+     /**
+     * Determines if the response indicates a successful outcome with a valid HTTP Status Code
+     *
+     * @param bool $includeRedirects Whether to include redirect status codes in the validation.
+     *
+     * @return void
+     */
+    public function isSuccessStatusCode($includeRedirects = false): bool
+    {
+        if (!$this->isSuccess) {
+            return false;
+        }
+
+        $higherCodeToValidate = $includeRedirects ? 400 : 300;
+        if ($this->statusCode < 200 || $this->statusCode >= $higherCodeToValidate) {
+            return false;
+        }
+
+        return true;
+    }
+
     /**
      * Retrieves the body of the response.
      *
@@ -178,17 +199,8 @@ class Response
      */
     public function validateStatusCode(bool $includeRedirects = false): void
     {
-        if ($includeRedirects) {
-            if ($this->statusCode < 200 || $this->statusCode >= 400) {
-                throw new RequestException("Invalid status code", $this->statusCode);
-            }
-
-            return;
-        }
-
-        if ($this->statusCode < 200 || $this->statusCode >= 300) {
+        if (!$this->isSuccessStatusCode($includeRedirects)) {
             throw new RequestException("Invalid status code", $this->statusCode);
-
         }
     }
     /**
