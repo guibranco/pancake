@@ -13,6 +13,9 @@ class Response
     private int $statusCode;
     private string $url;
     private ?array $headers;
+    private const HTTP_OK = 200;
+    private const HTTP_REDIRECT = 300;
+    private const HTTP_BAD_REQUEST = 400;
 
     private function __construct(bool $success, ?string $body, string $message, int $statusCode, string $url, ?array $headers)
     {
@@ -63,9 +66,29 @@ class Response
     }
 
     /**
+    * Determines if the response indicates a successful outcome with a valid HTTP Status Code
+    *
+    * @param bool $includeRedirects Whether to include redirect status codes in the validation.
+    *
+    * @return bool True if the response is successful, false otherwise.
+    */
+    public function isSuccessStatusCode(bool $includeRedirects = false): bool
+    {
+        if ($includeRedirects === true) {
+            $maxCode = self::HTTP_BAD_REQUEST;
+        } else {
+            $maxCode = self::HTTP_REDIRECT;
+        }
+
+        return $this->isSuccess() === true
+            && $this->statusCode >= self::HTTP_OK
+            && $this->statusCode < $maxCode;
+    }
+
+    /**
      * Retrieves the body of the response.
      *
-     * @return string|null The body of the response, or null if not set.
+     * @return string|null The response body, or null if not set.
      */
     public function getBody(): ?string
     {
@@ -75,7 +98,7 @@ class Response
     /**
      * Get the HTTP request body as a decoded JSON object.
      *
-     * @return object|null Returns an object if the body is valid JSON, or null otherwise.
+     * @return object|null Returns an object if the body is valid JSON or null otherwise.
      * @throws JsonException If JSON decoding fails.
      */
     public function getBodyAsJson(): ?object
@@ -95,7 +118,7 @@ class Response
     /**
      * Get the HTTP request body as a decoded JSON array.
      *
-     * @return array|null Returns an array if the body is valid JSON, or null otherwise.
+     * @return array|null Returns an array if the body is valid JSON or null otherwise.
      * @throws JsonException If JSON decoding fails.
      */
     public function getBodyAsArray(): ?array
@@ -145,7 +168,7 @@ class Response
     /**
      * Get the headers of the response.
      *
-     * @return array|null An array of headers if available, or null if no headers are set.
+     * @return array|null An array of headers if available or null if no headers are set.
      */
     public function getHeaders(): ?array
     {
@@ -178,17 +201,8 @@ class Response
      */
     public function validateStatusCode(bool $includeRedirects = false): void
     {
-        if ($includeRedirects) {
-            if ($this->statusCode < 200 || $this->statusCode >= 400) {
-                throw new RequestException("Invalid status code", $this->statusCode);
-            }
-
-            return;
-        }
-
-        if ($this->statusCode < 200 || $this->statusCode >= 300) {
+        if ($this->isSuccessStatusCode($includeRedirects) === false) {
             throw new RequestException("Invalid status code", $this->statusCode);
-
         }
     }
     /**
