@@ -62,13 +62,13 @@ class Response
         return $this->success;
     }
 
-     /**
-     * Determines if the response indicates a successful outcome with a valid HTTP Status Code
-     *
-     * @param bool $includeRedirects Whether to include redirect status codes in the validation.
-     *
-     * @return void
-     */
+    /**
+    * Determines if the response indicates a successful outcome with a valid HTTP Status Code
+    *
+    * @param bool $includeRedirects Whether to include redirect status codes in the validation.
+    *
+    * @return void
+    */
     public function isSuccessStatusCode($includeRedirects = false): bool
     {
         if (!$this->isSuccess) {
