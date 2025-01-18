@@ -71,7 +71,7 @@ class Response
     */
     public function isSuccessStatusCode($includeRedirects = false): bool
     {
-        if (!$this->isSuccess) {
+        if (!$this->isSuccess()) {
             return false;
         }
 
