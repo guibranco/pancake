@@ -74,7 +74,7 @@ class Response
     */
     public function isSuccessStatusCode(bool $includeRedirects = false): bool
     {
-        return $this->isSuccess()
+        return $this->isSuccess() === true
             && $this->statusCode >= self::HTTP_OK
             && $this->statusCode < ($includeRedirects ? self::HTTP_BAD_REQUEST : self::HTTP_REDIRECT);
     }
@@ -195,7 +195,7 @@ class Response
      */
     public function validateStatusCode(bool $includeRedirects = false): void
     {
-        if (!$this->isSuccessStatusCode($includeRedirects)) {
+        if ($this->isSuccessStatusCode($includeRedirects) === false) {
             throw new RequestException("Invalid status code", $this->statusCode);
         }
     }
