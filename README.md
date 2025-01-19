@@ -1,4 +1,4 @@
-# pancake
+# Pancake
 
 🧰 🛠️ Pancake project - a toolkit for PHP projects.
 
