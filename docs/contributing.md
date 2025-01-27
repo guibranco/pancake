@@ -86,3 +86,5 @@ Refer to [CONTRIBUTING.md](https://github.com/guibranco/Pancake/blob/main/CONTRI
 	<tbody>
 </table>
 <!-- readme: bots,snyk-bot -end -->
+
+---
