@@ -1,0 +1,582 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+        <title>Request - pancake</title>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        
+        <link rel="canonical" href="http://guilhermebranco.com.br/user-guide/request/">
+        
+
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+            <link rel="stylesheet" href="../../assets/css/darcula-highlight.min.css">
+
+        <link rel="stylesheet" href="../../assets/css/bootstrap.min.css">
+        <link rel="stylesheet" href="../../assets/css/dracula-ui.min.css">
+        <link rel="stylesheet" href="../../assets/css/mkdocs.min.css">
+            <link href="../../extra.css" rel="stylesheet">
+
+        
+            <link  rel="icon" type="image/x-icon" href="../../images/favicon.png">
+        
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+                <script>hljs.initHighlightingOnLoad();</script>
+
+</head>
+
+<body class="drac-bg-black-secondary drac-text-grey-ternary drac-text drac-scrollbar-purple">
+
+    <main class="d-flex">
+
+        <!-- block sidebar -->
+            <nav id="sidebar" class="sidebar drac-bg-black">
+    <div class="custom-menu">
+        <button type="button" id="sidebarCollapse" class="btn btn-primary">
+            <i class="fa fa-bars"></i>
+            <span class="sr-only">Menu</span>
+        </button>
+    </div>
+
+    <div class="p-4">
+        
+            <img class="logo" src="../../logo.png" height="150px">
+        
+
+        <div class="drac-text-center">
+            
+                <span class="drac-text drac-line-height drac-text-white">pancake</span>
+            
+        </div>
+
+        <div class="drac-box flex-column">
+            <ul class="dot-ul">
+                <li><div class="dot-li drac-bg-cyan"></div></li>
+                <li><div class="dot-li drac-bg-green"></div></li>
+                <li><div class="dot-li drac-bg-orange"></div></li>
+                <li><div class="dot-li drac-bg-pink"></div></li>
+                <li><div class="dot-li drac-bg-purple"></div></li>
+                <li><div class="dot-li drac-bg-red"></div></li>
+                <li><div class="dot-li drac-bg-yellow"></div></li>
+            </ul>
+        </div>
+
+        <hr class="drac-divider" />
+
+        <!-- block menu -->
+        <ul class="mb-5 drac-list drac-list-none">
+            
+            <li class="drac-box">
+                <a href="../.."
+                    class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+                    Pancake Project
+                </a>
+            </li>
+            <li class="drac-box">
+                <a href="../../changelog/"
+                    class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+                    Changelog
+                </a>
+            </li>
+            <li class="drac-box">
+                <a href="../../contributing/"
+                    class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+                    Contributing
+                </a>
+            </li>
+            <li class="drac-box">
+                <a href="../../installation/"
+                    class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+                    Installation
+                </a>
+            </li>
+            <li class="drac-box">
+                <a href="../../license/"
+                    class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+                    License
+                </a>
+            </li>
+            <li class="drac-box">
+                <a href="../.."
+                    class=" active 
+                    drac-anchor btn-toggle d-inline-flex align-items-center border-0 drac-text-purple--hover collapsed"
+                    data-bs-toggle="collapse" data-bs-target="#user-guide-collapse" aria-expanded="false">
+                    User guide
+                </a>
+                <div class="collapse" id="user-guide-collapse">
+                    <ul class="mb-5 drac-list drac-list-none">
+                            
+    <li class="drac-box-ternary">
+        <a href="../basic-usage/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Basic usage
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../color/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Color
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../database/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Database
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../guid-v4/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            GUID (v4)
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../health-checks/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Health Checks
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../ip-utils/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Ip Utils
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../logger/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Logger
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../memory-cache/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Memory Cache
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../one-signal/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            One Signal
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="./"
+            class=" active 
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Request
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../session-manager/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Session Manager
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../shieldsio/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            ShieldsIo
+        </a>
+    </li>
+                    </ul>
+                </div>
+            </li>
+        </ul>
+        <!-- endblock -->
+    </div>
+</nav>
+        <!-- endblock -->
+
+        <nav class="divider drac-bg-purple-cyan"></nav>
+
+        <div class="content">
+            <!-- block header -->
+                <header>
+    <nav class="navbar navbar-expand-xl drac-bg-purple">
+        <div class="container-fluid">
+            
+            <button class="navbar-toggler w-100 text-center" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsMenu"
+                aria-controls="navbarsMenu" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse flex-column ml-auto" id="navbarsMenu">
+                <ul class="navbar-nav text-md-center">
+
+                    <!-- block preview -->
+                    <li class="nav-item">
+                            
+        <div class="container">
+            <div class="row row-preview">
+                <div class="col">
+                    <a href="../one-signal/"
+                        class="btn-preview drac-btn drac-btn-outline drac-text-white drac-text-cyan-green--hover">
+                        <i class="fa fa-arrow-left"></i> Previous
+                    </a>
+                </div>
+                <div class="col">
+                    <a href="../session-manager/"
+                        class="btn-preview drac-btn drac-btn-outline drac-text-white drac-text-cyan-green--hover" style="padding-left: 3%;">
+                        Next <i class="fa fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+                    </li>
+                    <!--  endblock -->
+
+                    <!-- block search -->
+                    <li class="nav-item"><div role="search" class="search-box">
+	<form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+		<input type="text" name="q" class="drac-input drac-input-search drac-input-white drac-text-white drac-bg-black-secondary"
+		placeholder="Search docs" title="Type search term here" />
+	</form>
+</div>
+                    </li>
+                    <!--  endblock -->
+
+                    <!-- block source -->
+                    <li class="nav-item">
+                        
+                            
+                                <div class="md-source source-detail">
+    <div class="md-source-repo-icon">
+        <i class="fa fa-github-alt drac-text-white" aria-hidden="true"></i>
+    </div>
+
+    <div class="md-source-repo-url">
+        <a href="https://github.com/guibranco/pancake"
+            class="md-source drac-anchor drac-text drac-text-white drac-text-cyan-green--hover">
+            guibranco/pancake
+        </a>
+
+        <ul class="md-source-repo-text">
+            <li>
+                <i class="fa fa-tag drac-text-black" aria-hidden="true"></i>
+                <img alt="GitHub tag (latest by date)"
+                    src="https://img.shields.io/github/v/tag/guibranco/pancake?color=white&label=%20&style=flat-square">
+            </li>
+
+            <li>
+                <i class="fa fa-star drac-text-black" aria-hidden="true"></i>
+                <img alt="GitHub Repo stars"
+                    src="https://img.shields.io/github/stars/guibranco/pancake?color=white&label=%20&style=flat-square">
+            </li>
+
+            <li>
+                <i class="fa fa-code-fork drac-text-black" aria-hidden="true"></i>
+                <img alt="GitHub forks"
+                    src="https://img.shields.io/github/forks/guibranco/pancake?color=white&label=%20&style=flat-square">
+            </li>
+        </ul>
+    </div>
+
+</div>
+                            
+                        
+                    </li>
+                    <!--  endblock -->
+
+                </ul>
+            </div>
+
+        </div>
+    </nav>
+</header>
+            <!-- endblock -->
+
+            <!-- block content -->
+                <section class="p-md-5 section-content">
+    <article>
+        <p><h1 id="request">Request</h1>
+<h2 id="table-of-content">Table of content</h2>
+<ul>
+<li><a href="#request">Request</a></li>
+<li><a href="#table-of-content">Table of content</a></li>
+<li><a href="#about">About</a></li>
+<li><a href="#requirements">Requirements</a></li>
+<li><a href="#available-http-verbs">Available HTTP verbs</a><ul>
+<li><a href="#get">Get</a></li>
+<li><a href="#post">Post</a></li>
+<li><a href="#post-without-payload">Post without payload</a></li>
+<li><a href="#post-with-payload">Post with payload</a></li>
+<li><a href="#put">Put</a></li>
+<li><a href="#put-without-payload">Put without payload</a></li>
+<li><a href="#put-with-payload">Put with payload</a></li>
+<li><a href="#patch">Patch</a></li>
+<li><a href="#patch-without-payload">Patch without payload</a></li>
+<li><a href="#patch-with-payload">Patch with payload</a></li>
+<li><a href="#delete">Delete</a></li>
+<li><a href="#delete-without-payload">Delete without payload</a></li>
+<li><a href="#delete-with-payload">Delete with payload</a></li>
+<li><a href="#options">Options</a></li>
+<li><a href="#head">Head</a></li>
+</ul>
+</li>
+<li><a href="#batch-requests">Batch requests</a><ul>
+<li><a href="#executing-batch-requests">Executing batch requests</a></li>
+</ul>
+</li>
+<li><a href="#troubleshooting">Troubleshooting</a></li>
+</ul>
+<h2 id="about">About</h2>
+<p>This class is responsible for executing HTTP requests using <a href="https://www.php.net/manual/en/book.curl.php">cURL</a> with support for custom headers. Responses are encapsulated in the <code>Response</code> class, providing properties like <code>statusCode</code>, <code>headers</code>, and <code>body</code> for better usability.</p>
+<h2 id="requirements">Requirements</h2>
+<p>This requires <code>lib curl</code> to be active with your PHP settings. You can install it via:  </p>
+<pre><code class="language-bash"># For Debian/Ubuntu  
+sudo apt-get install php-curl  
+
+# For CentOS/RHEL  
+sudo yum install php-curl  
+</code></pre>
+<p>Minimum requirements:  </p>
+<ul>
+<li>PHP &gt;= 7.4  </li>
+<li>lib curl &gt;= 7.29.0  </li>
+</ul>
+<p>For more information, see the <a href="https://www.php.net/manual/en/book.curl.php">PHP cURL documentation</a>.  </p>
+<h2 id="available-http-verbs">Available HTTP verbs</h2>
+<h3 id="get">Get</h3>
+<p>Performs HTTP GET requests with custom headers.</p>
+<pre><code class="language-php">$headers = array(&quot;User-Agent: test/1.0&quot;, &quot;Accept: application/json&quot;);
+
+$request = new Request();
+$response = $request-&gt;get(&quot;https://example.com/&quot;, $headers);
+
+if ($response-&gt;statusCode &gt;= 200 &amp;&amp; $response-&gt;statusCode &lt; 300) {
+    echo $response-&gt;body;
+}
+</code></pre>
+<h3 id="post">Post</h3>
+<h4 id="post-without-payload">Post without payload</h4>
+<p>Performs HTTP POST requests with custom headers.</p>
+<pre><code class="language-php">$headers = array(&quot;User-Agent: test/1.0&quot;, &quot;Accept: application/json&quot;);
+
+$request = new Request();
+$response = $request-&gt;post(&quot;https://example.com/&quot;, $headers);
+
+if ($response-&gt;statusCode &gt;= 200 &amp;&amp; $response-&gt;statusCode &lt; 300) {
+    echo $response-&gt;body;
+}
+</code></pre>
+<h4 id="post-with-payload">Post with payload</h4>
+<p>Performs HTTP POST requests with custom headers and a payload.</p>
+<pre><code class="language-php">$headers = array(&quot;User-Agent: test/1.0&quot;, &quot;Accept: application/json&quot;);
+$payload = array(&quot;some&quot; =&gt; &quot;thing&quot;);
+
+$request = new Request();
+$response = $request-&gt;post(&quot;https://example.com/&quot;, $headers, json_encode($payload));
+
+if ($response-&gt;statusCode &gt;= 200 &amp;&amp; $response-&gt;statusCode &lt; 300) {
+    echo $response-&gt;body;
+}
+</code></pre>
+<h3 id="put">Put</h3>
+<h4 id="put-without-payload">Put without payload</h4>
+<p>Performs HTTP PUT requests with custom headers.</p>
+<pre><code class="language-php">$headers = array(&quot;User-Agent: test/1.0&quot;, &quot;Accept: application/json&quot;);
+
+$request = new Request();
+$response = $request-&gt;put(&quot;https://example.com/&quot;, $headers);
+
+if ($response-&gt;statusCode &gt;= 200 &amp;&amp; $response-&gt;statusCode &lt; 300) {
+    echo $response-&gt;body;
+}
+</code></pre>
+<h4 id="put-with-payload">Put with payload</h4>
+<p>Performs HTTP PUT requests with custom headers and a payload.</p>
+<pre><code class="language-php">$headers = array(&quot;User-Agent: test/1.0&quot;, &quot;Accept: application/json&quot;);
+$payload = array(&quot;some&quot; =&gt; &quot;thing&quot;);
+
+$request = new Request();
+$response = $request-&gt;put(&quot;https://example.com/&quot;, $headers, json_encode($payload));
+
+if ($response-&gt;statusCode &gt;= 200 &amp;&amp; $response-&gt;statusCode &lt; 300) {
+    echo $response-&gt;body;
+}
+</code></pre>
+<h3 id="patch">Patch</h3>
+<h4 id="patch-without-payload">Patch without payload</h4>
+<p>Performs HTTP PATCH requests with custom headers.</p>
+<pre><code class="language-php">$headers = array(&quot;User-Agent: test/1.0&quot;, &quot;Accept: application/json&quot;);
+
+$request = new Request();
+$response = $request-&gt;patch(&quot;https://example.com/&quot;, $headers);
+
+if ($response-&gt;statusCode &gt;= 200 &amp;&amp; $response-&gt;statusCode &lt; 300) {
+    echo $response-&gt;body;
+}
+</code></pre>
+<h4 id="patch-with-payload">Patch with payload</h4>
+<p>Performs HTTP PATCH requests with custom headers and a payload.</p>
+<pre><code class="language-php">$headers = array(&quot;User-Agent: test/1.0&quot;, &quot;Accept: application/json&quot;);
+$payload = array(&quot;some&quot; =&gt; &quot;thing&quot;);
+
+$request = new Request();
+$response = $request-&gt;patch(&quot;https://example.com/&quot;, $headers, json_encode($payload));
+
+if ($response-&gt;statusCode &gt;= 200 &amp;&amp; $response-&gt;statusCode &lt; 300) {
+    echo $response-&gt;body;
+}
+</code></pre>
+<h3 id="delete">Delete</h3>
+<h4 id="delete-without-payload">Delete without payload</h4>
+<p>Performs HTTP DELETE requests with custom headers.</p>
+<pre><code class="language-php">$headers = array(&quot;User-Agent: test/1.0&quot;, &quot;Accept: application/json&quot;);
+
+$request = new Request();
+$response = $request-&gt;delete(&quot;https://example.com/&quot;, $headers);
+
+if ($response-&gt;statusCode &gt;= 200 &amp;&amp; $response-&gt;statusCode &lt; 300) {
+    echo $response-&gt;statusCode;
+}
+</code></pre>
+<h4 id="delete-with-payload">Delete with payload</h4>
+<p>Performs HTTP DELETE requests with custom headers and a payload.</p>
+<pre><code class="language-php">$headers = array(&quot;User-Agent: test/1.0&quot;, &quot;Accept: application/json&quot;);
+$payload = array(&quot;some&quot; =&gt; &quot;thing&quot;);
+
+$request = new Request();
+$response = $request-&gt;delete(&quot;https://example.com/&quot;, $headers, json_encode($payload));
+
+if ($response-&gt;statusCode &gt;= 200 &amp;&amp; $response-&gt;statusCode &lt; 300) {
+    echo $response-&gt;statusCode;
+}
+</code></pre>
+<h3 id="options">Options</h3>
+<p>Performs HTTP OPTIONS requests with custom headers.</p>
+<pre><code class="language-php">$headers = array(&quot;User-Agent: test/1.0&quot;, &quot;Accept: application/json&quot;);
+
+$request = new Request();
+$response = $request-&gt;options(&quot;https://example.com/&quot;, $headers);
+
+if ($response-&gt;statusCode &gt;= 200 &amp;&amp; $response-&gt;statusCode &lt; 300) {
+    foreach ($response-&gt;headers as $header) {
+      echo $header;
+    }
+}
+</code></pre>
+<h3 id="head">Head</h3>
+<p>Performs HTTP HEAD requests with custom headers.</p>
+<pre><code class="language-php">$headers = array(&quot;User-Agent: test/1.0&quot;, &quot;Accept: application/json&quot;);
+
+$request = new Request();
+$response = $request-&gt;head(&quot;https://example.com/&quot;, $headers);
+
+if ($response-&gt;statusCode &gt;= 200 &amp;&amp; $response-&gt;statusCode &lt; 300) {
+    foreach ($response-&gt;headers as $header) {
+      echo $header;
+    }
+}
+</code></pre>
+<h2 id="batch-requests">Batch requests</h2>
+<h3 id="executing-batch-requests">Executing batch requests</h3>
+<p>The <code>executeBatch</code> method allows for the execution of multiple HTTP requests in parallel using <code>curl_multi_init</code>. This method processes requests concurrently, reducing the total execution time for large batches.</p>
+<h4 id="example-usage">Example usage</h4>
+<pre><code class="language-php">$batchRequests = [
+    [
+        'method' =&gt; 'GET',
+        'url' =&gt; 'https://example.com/api1',
+        'headers' =&gt; [&quot;Accept: application/json&quot;]
+    ],
+    [
+        'method' =&gt; 'POST',
+        'url' =&gt; 'https://example.com/api2',
+        'headers' =&gt; [&quot;Content-Type: application/json&quot;],
+        'payload' =&gt; json_encode(['key' =&gt; 'value'])
+    ]
+];
+
+$request = new Request();
+$responses = $request-&gt;executeBatch($batchRequests);
+
+foreach ($responses as $key =&gt; $response) {
+    if ($response-&gt;getStatusCode() &gt;= 200 &amp;&amp; $response-&gt;getStatusCode() &lt; 300) {
+        echo &quot;Response $key: &quot; . $response-&gt;getBody();
+    } else {
+        echo &quot;Error in request $key: &quot; . $response-&gt;getMessage();
+    }
+}
+</code></pre>
+<h3 id="parameters-for-batch-requests">Parameters for batch requests</h3>
+<p>Each batch request requires the following structure:</p>
+<ul>
+<li><strong><code>method</code></strong> <em>(required)</em>: The HTTP method to use (e.g., GET, POST, PUT, PATCH, DELETE).</li>
+<li><strong><code>url</code></strong> <em>(required)</em>: The full URL for the request.</li>
+<li><strong><code>headers</code></strong> <em>(optional)</em>: An array of HTTP headers.</li>
+<li><strong><code>payload</code></strong> <em>(optional)</em>: The request body, applicable for POST, PUT, PATCH, and DELETE methods.</li>
+</ul>
+<h3 id="notes">Notes</h3>
+<ol>
+<li><strong>Concurrency Limit</strong>: The <code>executeBatch</code> method processes up to 10 requests concurrently (as defined by <code>MAX_CONCURRENT_REQUESTS</code> in the <code>Request.php</code> file).</li>
+<li><strong>Error Handling</strong>: If a request fails, its corresponding <code>Response</code> object will contain error details (e.g., <code>statusCode: -1</code> and an error message in <code>getMessage()</code>).</li>
+<li><strong>Response Object</strong>: Each response is wrapped in the <code>Response</code> class, providing structured access to the <code>statusCode</code>, <code>body</code>, and <code>headers</code>.</li>
+</ol>
+<h2 id="troubleshooting">Troubleshooting</h2>
+<p>If the request could not be completed for some reason, the result status code will be <code>-1</code>, and an error property will be set with the content of the <code>curl_error</code> response.</p>
+<pre><code class="language-php">
+$request = new Request();
+$response = $request-&gt;get(&quot;https://invalid-domain&quot;);
+
+if ($response-&gt;statusCode === -1) {
+  echo $response-&gt;error; // This is only populated when the status code equals to -1.
+}
+
+</code></pre></p>
+    </article>
+</section>
+            <!-- endblock -->
+
+            <!-- block footer -->
+                <footer>
+    <div class="d-flex flex-sm-row justify-content-between py-2 border-top drac-text-black drac-bg-cyan-green">
+        <a href="https://github.com/dracula/mkdocs" target="_blank" style="padding-left: 1%;"
+            class="footer-text drac-anchor drac-text-black drac-text-purple--hover">
+            Made with Dracula Theme for MkDocs
+        </a>
+    </div>
+</footer>
+            <!-- endblock -->
+        </div>
+
+    </main>
+
+        <script>var base_url = '../..';</script>
+        <script src="../../assets/js/jquery-3.3.1.slim.min.js"></script>
+        <script src="../../assets/js/bootstrap.bundle.min.js"></script>
+        <script src="../../assets/js/mkdocs.js"></script>
+			<script src="../../search/main.js" defer></script>
+
+</body>
+
+</html>
