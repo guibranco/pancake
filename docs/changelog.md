@@ -1,5 +1,11 @@
 # Changelog
 
+## Version 1.2 [2025-01-18]
+ - [#308](https://github.com/guibranco/pancake/pull/308) - Add `isSuccessStatusCode` and enhance `validateStatusCode` in `Response` class by [@guibranco](https://github.com/guibranco).
+
+## Version 1.1 [2025-01-16]
+ - [#307](https://github.com/guibranco/pancake/pull/307) - Add methods `getBodyAsJson` and `getBodyAsArray` in `Response` class by [@guibranco](https://github.com/guibranco).
+
 ## Version 1.0 [2024-12-21]
  - [#287](https://github.com/guibranco/pancake/issues/287) - Add support for `curl_multi_init` in `Request` class by [@guibranco](https://github.com/guibranco).
 
