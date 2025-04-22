@@ -11,12 +11,12 @@ Documentation: [Read the Docs](https://guibranco.github.io/pancake/)
 
 ---
 
-## Table of content
+## Table of contents
 
 - [CI/CD](#cicd): Current project status in the build pipeline (AppVeyor).
 - [Code Quality](#code-quality): Metrics from some tools about code quality.
 - [Installation](#installation): How to install/download this tool.
-- [User guide](#user-guide): How to set up, configure and use this tool.
+- [User guide](#user-guide): How to set up, configure, and use this tool.
 - [Change log](#changelog): Changelog containing the changes done in this project.
 - [Support](#support): How to get support.
 - [Testing](#testing): How to test this library.
