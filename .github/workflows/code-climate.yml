@@ -29,6 +29,9 @@ jobs:
             - name: Docker compose up
               run: docker compose up -d && sleep 10
 
+            - name: Check if WireMock is available
+              run: php tests/check-wiremock.php
+
             - name: PHPUnit Tests
               uses: php-actions/phpunit@v4
               with:

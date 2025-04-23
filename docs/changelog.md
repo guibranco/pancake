@@ -1,5 +1,8 @@
 # Changelog
 
+## Version 1.3 [2025-04-23]
+ - [#351](https://github.com/guibranco/pancake/pull/351) - Replace real HTTP requests in integration tests with WireMock by [@guibranco](https://github.com/guibranco) and [gitauto-ai](https://github.com/apps/gitauto-ai).
+
 ## Version 1.2 [2025-01-18]
  - [#308](https://github.com/guibranco/pancake/pull/308) - Add `isSuccessStatusCode` and enhance `validateStatusCode` in `Response` class by [@guibranco](https://github.com/guibranco).
 
@@ -59,10 +62,10 @@
 
 ## Version 0.2 [2024-03-20]
 
-- [#86](https://github.com/guibranco/pancake/issues/86) - Add Request class by [@guibranco](https;//github.com/guibranco).
+- [#86](https://github.com/guibranco/pancake/issues/86) - Add Request class by [@guibranco](https://github.com/guibranco).
 
 ## Version 0.1 [2024-03-18]
 
-- Create the project's basic structure and pipeline by [@guibranco](https;//github.com/guibranco).
+- Create the project's basic structure and pipeline by [@guibranco](https://github.com/guibranco).
 
 ----

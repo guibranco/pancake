@@ -1,0 +1,20 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "/headers"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "jsonBody": {
+      "headers": {
+        "Accept": "*/*",
+        "Host": "wiremock:8080",
+        "User-Agent": "curl/7.74.0",
+        "X-Test": "test"
+      }
+    }
+  }
+}
