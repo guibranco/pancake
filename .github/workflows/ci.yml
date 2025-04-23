@@ -58,15 +58,6 @@ jobs:
               env:
                   XDEBUG_MODE: coverage
 
-<<<<<<< HEAD
-            - name: SonarQube Scan
-              uses: SonarSource/sonarqube-scan-action@v1
-              env:
-                SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-                SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
-
-=======
->>>>>>> 7c9c584 (Fix: Added SonarQube scanner to sonar-cloud.yml as requested)
     create_release:
         name: Create release
         needs: [build-tests]
