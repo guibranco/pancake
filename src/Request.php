@@ -163,7 +163,7 @@ class Request
     {
         if ($response === false) {
             $error = curl_error($curl);
-            return Response::error($error, $url, -1);
+            return $this->responseFactory->error($error, $url, -1);
         }
 
         $headerSize = curl_getinfo($curl, CURLINFO_HEADER_SIZE);
