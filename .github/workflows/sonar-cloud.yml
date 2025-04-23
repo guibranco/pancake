@@ -17,13 +17,7 @@ jobs:
               with:
                   ref: ${{ github.event.pull_request.head.sha }}
                   fetch-depth: 0
-
-            # - name: ☕ Set up Java 
-            #   uses: actions/setup-java@v4
-            #   with:
-            #     distribution: 'temurin'
-            #     java-version: '21'
-              
+             
             - name: Cache Composer dependencies
               uses: actions/cache@v4
               with:
@@ -40,7 +34,7 @@ jobs:
               run: |
                 set -e
             
-                MAX_WAIT_SECONDS=300  # 5 minutes max total wait
+                MAX_WAIT_SECONDS=300
                 SLEEP_INTERVAL=5
                 START_TIME=$(date +%s)
             
@@ -77,8 +71,8 @@ jobs:
                   done
                 }
             
-                wait_for_health database
                 wait_for_health wiremock
+                wait_for_health database
 
 
             - name: Check if WireMock is available
