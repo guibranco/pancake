@@ -30,6 +30,7 @@ class Request
     public function __construct(?string $baseUrl = null, ?ResponseFactory $responseFactory = null)
     {
         $this->baseUrl = $baseUrl;
+        $this->responseFactory = $responseFactory ?? new ResponseFactory();
     }
 
     /**
