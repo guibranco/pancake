@@ -19,6 +19,23 @@ services:
         volumes:
             - my-db:/var/lib/mysql
         networks:
+
+    wiremock:
+        container_name: wiremock
+        image: wiremock/wiremock:3.4.2
+        restart: always
+        ports:
+            - "8080:8080"
+        command: ["--verbose"]
+        healthcheck:
+            test: ["CMD", "curl", "-f", "http://localhost:8080/__admin/mappings"]
+            interval: 10s
+            timeout: 5s
+            retries: 3
+            start_period: 10s
+        volumes:
+            - ./tests/wiremock:/home/wiremock
+        networks:
             - default
 
     wiremock:
