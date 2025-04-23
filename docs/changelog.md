@@ -1,5 +1,8 @@
 # Changelog
 
+## Version 1.3 [2025-04-23]
+ - [#85](https://github.com/guibranco/pancake/pull/85) - Add `CircuitBreaker` class by [@guibranco](https://github.com/guibranco).
+
 ## Version 1.2 [2025-01-18]
  - [#308](https://github.com/guibranco/pancake/pull/308) - Add `isSuccessStatusCode` and enhance `validateStatusCode` in `Response` class by [@guibranco](https://github.com/guibranco).
 
