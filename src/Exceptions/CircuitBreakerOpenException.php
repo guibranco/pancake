@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Exceptions;
+namespace GuiBranco\Pancake\Exceptions;
 
 use Exception;
 
