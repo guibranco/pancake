@@ -18,11 +18,11 @@ jobs:
                   ref: ${{ github.event.pull_request.head.sha }}
                   fetch-depth: 0
 
-            - name: ☕ Set up Java 
-              uses: actions/setup-java@v4
-              with:
-                distribution: 'temurin'
-                java-version: '21'
+            # - name: ☕ Set up Java 
+            #   uses: actions/setup-java@v4
+            #   with:
+            #     distribution: 'temurin'
+            #     java-version: '21'
               
             - name: Cache Composer dependencies
               uses: actions/cache@v4
@@ -34,7 +34,7 @@ jobs:
               uses: php-actions/composer@v6
 
             - name: Docker compose up
-              run: docker compose up -d && sleep 10
+              run: docker compose up -d
 
             - name: Check if WireMock is available
               run: php tests/check-wiremock.php
@@ -60,7 +60,7 @@ jobs:
                   sed -i 's@'$GITHUB_WORKSPACE'@/github/workspace/@g' execution.xml
 
             - name: SonarQube Scan
-              uses: SonarSource/sonarqube-scan-action@v1
+              uses: SonarSource/sonarqube-scan-action@v5.1.0
               env:
                 SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
                 SONAR_HOST_URL: ${{ vars.SONAR_HOST_URL }}
