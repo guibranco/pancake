@@ -6,6 +6,7 @@
   - [Table of content](#table-of-content)
   - [About](#about)
   - [Requirements](#requirements)
+  - [Base URL Configuration](#base-url-configuration)
   - [Available HTTP verbs](#available-http-verbs)
     - [Get](#get)
     - [Post](#post)
@@ -48,6 +49,48 @@ Minimum requirements:
 - lib curl >= 7.29.0  
   
 For more information, see the [PHP cURL documentation](https://www.php.net/manual/en/book.curl.php).  
+
+## Base URL Configuration
+
+The `Request` class now supports setting a base URL for all requests. This is useful when making multiple requests to the same API endpoint.
+
+### Setting a base URL in the constructor
+
+```php
+// Create a request with a base URL
+$request = new Request('https://api.example.com');
+
+// Now you can make requests using relative paths
+$response = $request->get('/users'); // This will request https://api.example.com/users
+```
+
+### Setting a base URL after instantiation
+
+```php
+$request = new Request();
+$request->setBaseUrl('https://api.example.com');
+
+// Now you can make requests using relative paths
+$response = $request->get('/users'); // This will request https://api.example.com/users
+```
+
+### Getting the current base URL
+
+```php
+$request = new Request('https://api.example.com');
+$baseUrl = $request->getBaseUrl(); // Returns 'https://api.example.com'
+```
+
+### Using absolute URLs with a base URL set
+
+If you provide an absolute URL (starting with http:// or https://), the base URL will be ignored:
+
+```php
+$request = new Request('https://api.example.com');
+
+// This will still request https://another-api.com/data
+$response = $request->get('https://another-api.com/data');
+```
 
 ## Available HTTP verbs
 
