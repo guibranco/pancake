@@ -2,7 +2,7 @@
 
 namespace App;
 
-use App\Exceptions\CircuitBreakerOpenException;
+use GuiBranco\Pancake\Exceptions\CircuitBreakerOpenException;
 
 /**
  * Class CircuitBreaker
