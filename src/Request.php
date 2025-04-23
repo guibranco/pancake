@@ -5,6 +5,7 @@ namespace GuiBranco\Pancake;
 use GuiBranco\Pancake\Response;
 use GuiBranco\Pancake\RequestException;
 use CurlHandle;
+use GuiBranco\Pancake\ResponseFactory;
 
 class Request
 {
