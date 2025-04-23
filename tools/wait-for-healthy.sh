@@ -1,5 +1,6 @@
 #!/bin/bash
 set -e
+set -o pipefail
 
 # Usage:
 #   wait-for-healthy.sh [MAX_WAIT_SECONDS] [SLEEP_INTERVAL]
