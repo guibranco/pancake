@@ -1,8 +1,9 @@
 <?php
 
 use PHPUnit\Framework\TestCase;
-use App\CircuitBreaker;
-use App\Exceptions\CircuitBreakerOpenException;
+use GuiBranco\Pancake\CircuitBreaker;
+use GuiBranco\Pancake\CircuitBreakerOpenException;
+use GuiBranco\Pancake\MemoryCache;
 
 class CircuitBreakerTest extends TestCase
 {
