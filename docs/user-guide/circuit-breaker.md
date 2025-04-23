@@ -14,12 +14,13 @@ It monitors failures and halts execution of operations once a threshold is reach
 
 #### `__construct($cache, int $failureThreshold = 5, int $resetTimeout = 60)`
 
-Initializes the CircuitBreaker with the given configuration and loads its state from the provided cache.
+When constructing the `CircuitBreaker`, you can fine-tune its behavior with these parameters:
 
-- **Parameters**:
-  - `$cache` *(object)*: A cache object implementing `get()` and `set()` methods for state persistence.
-  - `$failureThreshold` *(int)*: Optional. Maximum number of allowed failures before opening the circuit. Defaults to `5`.
-  - `$resetTimeout` *(int)*: Optional. Timeout in seconds before transitioning the circuit from `'open'` to `'half-open'`. Defaults to `60`.
+| Parameter           | Type    | Default | Description |
+|---------------------|---------|---------|-------------|
+| `$cache`            | object  | —       | Cache instance for storing state |
+| `$failureThreshold` | int     | `5`     | Number of consecutive failures before opening the circuit |
+| `$resetTimeout`     | int     | `60`    | Time in seconds the circuit remains open before allowing another attempt |
 
 ---
 
@@ -46,6 +47,21 @@ Executes a protected operation within the circuit breaker context.
 
 ---
 
+## 🔁 State Transitions
+
+The circuit can be in one of the following states:
+
+- **`closed`**: Normal operation. Failures are counted.
+- **`open`**: All operations are blocked. Timeout starts.
+- **`half-open`**: One operation is allowed to test recovery.
+
+Transition logic:
+
+- If the operation succeeds in **half-open**, the circuit resets to **closed**.
+- If the operation fails in **half-open**, it goes back to **open**.
+
+---
+
 ## Exceptions
 
 ### `CircuitBreakerOpenException`
@@ -58,35 +74,57 @@ Thrown when an operation is attempted while the circuit is still open and the re
 
 ---
 
-## Example Usage
+## 🚀 Basic Usage
 
 ```php
 use App\CircuitBreaker;
 use App\Exceptions\CircuitBreakerOpenException;
 
-$cache = new MemoryCache(); // Replace with your preferred caching implementation
-$circuitBreaker = new CircuitBreaker($cache);
+$cache = new MemoryCache(); // Replace with your actual cache implementation
+$circuitBreaker = new CircuitBreaker($cache, 3, 120); // Allow 3 failures, 120s reset timeout
 
 try {
-    $result = $circuitBreaker->execute(function() {
-        // Simulate risky operation (e.g. remote API call)
-        return file_get_contents('https://api.example.com/data');
+    $result = $circuitBreaker->execute(function () {
+        // Your risky operation (e.g. external API call)
+        return 'operation result';
     });
 
-    echo "Operation successful: " . $result;
+    echo "Success: " . $result;
 } catch (CircuitBreakerOpenException $e) {
-    echo "Circuit is open: " . $e->getMessage();
+    echo "⛔ Circuit is open: " . $e->getMessage();
 } catch (\Exception $e) {
-    echo "Operation failed: " . $e->getMessage();
+    echo "❌ Operation failed: " . $e->getMessage();
 }
 ```
 
 ---
 
-## Notes
+## 🧪 Testing and Debugging
+
+For testing purposes, you can simulate failures or directly manipulate the cache to test state transitions:
+
+```php
+// Simulate state manually (e.g., for test cases)
+$cache->set('circuit_state', [
+    'state' => 'open',
+    'failureCount' => 3,
+    'lastFailureTime' => time() - 10, // Make timeout testable
+]);
+```
+
+---
+
+## 📎 Tips
 
 - Ensure the provided `$cache` object persists data consistently (e.g., Redis, APCu, or file-based cache).
 - Consider resetting state manually in your tests to avoid long waits.
 - Extend the `CircuitBreaker` to add event hooks or logging if needed.
+
+---
+
+## 📚 See Also
+
+- [Martin Fowler on Circuit Breaker](https://martinfowler.com/bliki/CircuitBreaker.html)
+- [PSR-16: Simple Cache Interface](https://www.php-fig.org/psr/psr-16/) (for real caching integrations)
 
 ---
