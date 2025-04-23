@@ -24,9 +24,10 @@ class Request
     /**
      * Constructor.
      *
-     * @param string|null $baseUrl Optional base URL for all requests.
+     * @param string|null $baseUrl Optional base URL for all requests
+     * @param ResponseFactory|null $responseFactory Optional response factory, defaults to new ResponseFactory
      */
-    public function __construct(?string $baseUrl = null)
+    public function __construct(?string $baseUrl = null, ?ResponseFactory $responseFactory = null)
     {
         $this->baseUrl = $baseUrl;
     }
