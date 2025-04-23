@@ -21,10 +21,10 @@ fi
 
 wait_for_health() {
   local container="$1"
-
   echo "⏳ Waiting for '$container' to become healthy..."
 
   while true; do
+    local STATUS
     STATUS=$(docker inspect --format='{{.State.Health.Status}}' "$container" 2>/dev/null || echo "not-found")
 
     if [ "$STATUS" = "healthy" ]; then
@@ -39,6 +39,7 @@ wait_for_health() {
       echo "⌛ $container status: $STATUS. Waiting..."
     fi
 
+    local CURRENT_TIME ELAPSED
     CURRENT_TIME=$(date +%s)
     ELAPSED=$((CURRENT_TIME - START_TIME))
 
