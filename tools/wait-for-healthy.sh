@@ -1,14 +1,21 @@
 #!/bin/bash
 set -e
-set -o pipefail
+set -o pipefail  # Ensures that pipeline failures are caught
 
 # Usage:
 #   wait-for-healthy.sh [MAX_WAIT_SECONDS] [SLEEP_INTERVAL]
 # Example:
 #   wait-for-healthy.sh 180 3
 
-MAX_WAIT_SECONDS="${1:-300}"   # Default to 300 seconds (5 minutes)
-SLEEP_INTERVAL="${2:-2}"       # Default to 2 seconds
+DEFAULT_MAX_WAIT_SECONDS=300    # Default timeout: 5 minutes
+DEFAULT_SLEEP_INTERVAL=5        # Default sleep interval: 5 seconds
+
+MAX_WAIT_SECONDS="${1:-$DEFAULT_MAX_WAIT_SECONDS}"
+SLEEP_INTERVAL="${2:-$DEFAULT_SLEEP_INTERVAL}"
+
+echo "🕰️ Waiting timeout: $MAX_WAIT_SECONDS seconds"
+echo "⏳ Sleep interval: $SLEEP_INTERVAL seconds"
+
 START_TIME=$(date +%s)
 
 echo "🔍 Finding services with healthchecks..."
