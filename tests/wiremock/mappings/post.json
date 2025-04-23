@@ -1,0 +1,27 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "/post"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "jsonBody": {
+      "args": {},
+      "data": "",
+      "files": {},
+      "form": {},
+      "headers": {
+        "Accept": "*/*",
+        "Content-Length": "0",
+        "Host": "wiremock:8080",
+        "User-Agent": "curl/7.74.0"
+      },
+      "json": null,
+      "origin": "127.0.0.1",
+      "url": "http://wiremock:8080/post"
+    }
+  }
+}
