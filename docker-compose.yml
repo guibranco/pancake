@@ -19,6 +19,7 @@ services:
         volumes:
             - my-db:/var/lib/mysql
         networks:
+            - default
 
     wiremock:
         container_name: wiremock
