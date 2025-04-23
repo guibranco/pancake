@@ -75,7 +75,7 @@ final class RequestTest extends TestCase
     public function testCanOptions(): void
     {
         $response = $this->request->options('/get');
-        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertEquals(204, $response->getStatusCode());
     }
 
     public function testCanHead(): void
