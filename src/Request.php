@@ -11,6 +11,8 @@ class Request
 {
     private array $multiRequests = [];
 
+    private ResponseFactory $responseFactory;
+
     private bool $verifySSL = true;
 
     private ?string $baseUrl = null;
