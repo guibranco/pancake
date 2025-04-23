@@ -172,7 +172,7 @@ class Request
         $body = substr($response, $headerSize);
         $httpCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
 
-        return Response::success($body, $url, $headers, $httpCode);
+        return $this->responseFactory->success($body, $url, $headers, $httpCode);
 
     }
 
