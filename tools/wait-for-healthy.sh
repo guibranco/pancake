@@ -46,7 +46,7 @@ echo "⏳ Sleep interval: $SLEEP_INTERVAL seconds"
 START_TIME=$(date +%s)
 
 echo "🔍 Finding services with healthchecks..."
-SERVICES=$(docker compose ps --format json | jq -r '.[] | select(.Health!="") | .Name')
+SERVICES=$(docker ps --filter "health=starting" --filter "health=unhealthy" --filter "health=healthy" --format '{{.Names}}')
 
 if [ -z "$SERVICES" ]; then
   echo "⚠️ No services with healthchecks found. Skipping wait."
