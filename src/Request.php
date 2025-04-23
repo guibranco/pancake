@@ -126,7 +126,7 @@ class Request
     private function getFields(string $url, array $headers): array
     {
         $fullUrl = $this->buildUrl($url);
-        
+
         return [
             CURLOPT_URL => $fullUrl,
             CURLOPT_RETURNTRANSFER => true,
