@@ -11,12 +11,12 @@ Documentation: [Read the Docs](https://guibranco.github.io/pancake/)
 
 ---
 
-## Table of content
+## Table of contents
 
 - [CI/CD](#cicd): Current project status in the build pipeline (AppVeyor).
 - [Code Quality](#code-quality): Metrics from some tools about code quality.
 - [Installation](#installation): How to install/download this tool.
-- [User guide](#user-guide): How to set up, configure and use this tool.
+- [User guide](#user-guide): How to set up, configure, and use this tool.
 - [Change log](#changelog): Changelog containing the changes done in this project.
 - [Support](#support): How to get support.
 - [Testing](#testing): How to test this library.
@@ -159,17 +159,17 @@ Refer to [CONTRIBUTING.md](CONTRIBUTING.md) to learn how to contribute to this p
 	<tbody>
 		<tr>
             <td align="center">
-                <a href="https://github.com/github-actions[bot]">
-                    <img src="https://avatars.githubusercontent.com/in/15368?v=4" width="100;" alt="github-actions[bot]"/>
-                    <br />
-                    <sub><b>github-actions[bot]</b></sub>
-                </a>
-            </td>
-            <td align="center">
                 <a href="https://github.com/dependabot[bot]">
                     <img src="https://avatars.githubusercontent.com/in/29110?v=4" width="100;" alt="dependabot[bot]"/>
                     <br />
                     <sub><b>dependabot[bot]</b></sub>
+                </a>
+            </td>
+            <td align="center">
+                <a href="https://github.com/github-actions[bot]">
+                    <img src="https://avatars.githubusercontent.com/in/15368?v=4" width="100;" alt="github-actions[bot]"/>
+                    <br />
+                    <sub><b>github-actions[bot]</b></sub>
                 </a>
             </td>
             <td align="center">
