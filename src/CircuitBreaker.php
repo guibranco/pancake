@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace GuiBranco\Pancake;
 
 use GuiBranco\Pancake\Exceptions\CircuitBreakerOpenException;
 
