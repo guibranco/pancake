@@ -1,4 +1,4 @@
-# CircuitBreaker API Reference
+# Circuit Breaker
 
 ## Overview
 
@@ -38,7 +38,7 @@ Executes a protected operation within the circuit breaker context.
 
 ---
 
-## CircuitBreaker States
+## Circuit Breaker States
 
 - **closed**: All operations are allowed. Failures are tracked.
 - **open**: No operations are allowed. New attempts are blocked until the timeout expires.
