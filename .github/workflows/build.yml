@@ -24,7 +24,7 @@ jobs:
               uses: php-actions/composer@v6
 
             - name: Docker compose up
-              run: docker compose up -d && sleep 10
+              run: docker compose up -d
 
             - name: Check if WireMock is available
               run: php tests/check-wiremock.php
