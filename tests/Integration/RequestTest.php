@@ -80,7 +80,7 @@ final class RequestTest extends TestCase
 
     public function testCanHead(): void
     {
-        $response = $this->request->head('/headers', ['Host: wiremock:8080']);
+        $response = $this->request->head('/head', ['Host: wiremock:8080']);
         $this->assertEquals(200, $response->getStatusCode());
     }
 
