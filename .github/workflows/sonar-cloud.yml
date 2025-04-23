@@ -11,9 +11,6 @@ jobs:
     sonarcloud:
         name: SonarCloud
         runs-on: ubuntu-latest
-        concurrency:
-          group: pr-${{ github.event.pull_request.number }}
-          cancel-in-progress: false
 
         steps:
             - uses: actions/checkout@v4
