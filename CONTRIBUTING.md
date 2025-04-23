@@ -45,7 +45,7 @@ WireMock is configured to run in a Docker container. To start it:
 docker compose up -d
 ```
 
-This will start both the MySQL database and WireMock services. WireMock will be available at http://localhost:8080.
+This will start both the MySQL database and WireMock services. WireMock will be available at [http://localhost:8080](http://localhost:8080).
 
 #### Verifying WireMock is Running
 
