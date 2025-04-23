@@ -34,10 +34,70 @@ First off, thank you for considering contributing to Pancake! Your input and con
 
 - We use [PHPUnit](https://phpunit.de/) for unit testing. Add tests for any new features or bug fixes.
 - Ensure that the library maintains at least **80% code coverage**.
-- Run tests locally using:
-  ```bash
-  ./vendor/bin/phpunit
-  ```
+- The project uses [WireMock](https://wiremock.org/) to mock HTTP requests in integration tests
+
+#### Setting up WireMock
+
+This avoids making real HTTP requests to external services during testing, which can lead to rate limiting and flaky tests.
+WireMock is configured to run in a Docker container. To start it:
+
+```bash
+docker compose up -d
+```
+
+This will start both the MySQL database and WireMock services. WireMock will be available at http://localhost:8080.
+
+#### Verifying WireMock is Running
+
+You can check if WireMock is running by executing:
+
+```bash
+php tests/check-wiremock.php
+```
+
+This script will check if WireMock is available and ready to accept requests.
+
+#### Running Tests with WireMock
+
+Once WireMock is running, you can run the tests:
+
+```bash
+vendor/bin/phpunit
+```
+
+The integration tests for the `Request` class will use WireMock instead of making real HTTP requests to external services.
+
+#### Adding New WireMock Stubs
+
+If you need to add new HTTP request patterns for testing, you can add new stub mappings in the `tests/wiremock/mappings` directory. Each mapping is a JSON file that defines a request pattern and its corresponding response.
+
+For example, to add a new endpoint that returns a specific JSON response:
+
+```json
+{
+  "request": {
+    "method": "GET",
+    "url": "/my-endpoint"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "jsonBody": {
+      "message": "Hello, World!"
+    }
+  }
+}
+```
+
+For more information on WireMock stub mappings, see the [WireMock documentation](https://wiremock.org/docs/stubbing/).
+
+### Running Code Sniffer
+
+```bash
+vendor/bin/phpcs --standard=PSR12 src/
+```
 
 ### Documentation 📖
 
