@@ -7,7 +7,7 @@ set -o pipefail  # Ensures that pipeline failures are caught
 # Purpose: This script waits for Docker containers in a
 #          Docker Compose environment to become healthy.
 #          It checks the health status of services defined
-#          in the Docker Compose file that have a healthcheck
+#          in the Docker Compose file that has a healthcheck
 #          defined, and will wait for them to reach a "healthy"
 #          state before continuing. The script is useful in CI/CD
 #          pipelines where it's necessary to wait for
@@ -15,7 +15,7 @@ set -o pipefail  # Ensures that pipeline failures are caught
 #          before running tests or other dependent tasks.
 #
 # Main Functionality:
-#   1. Checks for all Docker services with healthchecks
+#   1. Checks for all Docker services with health checks
 #   2. Waits for each service to reach the "healthy" state
 #   3. Exits if any service becomes "unhealthy" or times out
 #   4. Uses a default waiting timeout (300 seconds) and a default
@@ -55,15 +55,23 @@ fi
 
 wait_for_health() {
   local container="$1"
+
   echo "⏳ Waiting for '$container' to become healthy..."
-
+  
   while true; do
-    local STATUS
+    local ELAPSED
+    ELAPSED=$(($(date +%s) - START_TIME))
+  
+    if [ "$ELAPSED" -ge "$MAX_WAIT_SECONDS" ]; then
+      echo "⏰ Global timeout reached after $ELAPSED seconds!"
+      exit 1
+    fi
+    
     STATUS=$(docker inspect --format='{{.State.Health.Status}}' "$container" 2>/dev/null || echo "not-found")
-
+    
     if [ "$STATUS" = "healthy" ]; then
       echo "✅ $container is healthy!"
-      break
+      return 0
     elif [ "$STATUS" = "unhealthy" ]; then
       echo "❌ $container is unhealthy."
       exit 1
@@ -72,20 +80,13 @@ wait_for_health() {
     else
       echo "⌛ $container status: $STATUS. Waiting..."
     fi
-
-    local CURRENT_TIME ELAPSED
-    CURRENT_TIME=$(date +%s)
-    ELAPSED=$((CURRENT_TIME - START_TIME))
-
-    if [ "$ELAPSED" -ge "$MAX_WAIT_SECONDS" ]; then
-      echo "⏰ Timeout reached for $container after $ELAPSED seconds!"
-      exit 1
-    fi
-
+    
     sleep "$SLEEP_INTERVAL"
   done
 }
 
 for svc in $SERVICES; do
-  wait_for_health "$svc"
+  wait_for_health "$svc" &
 done
+
+wait
