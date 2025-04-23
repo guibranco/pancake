@@ -1,89 +1,90 @@
-# Contributing
+## Contributing
 
-Contributions are **welcome** and will be fully **credited**.
+Refer to [CONTRIBUTING.md](https://github.com/guibranco/Pancake/blob/main/CONTRIBUTING.md) to learn how to contribute to this project!
 
-We accept contributions via Pull Requests on [Github](https://github.com/guibranco/pancake).
+### Contributors
 
-## Pull Requests
+<!-- readme: collaborators,contributors,snyk-bot/- -start -->
+<table>
+	<tbody>
+		<tr>
+            <td align="center">
+                <a href="https://github.com/guibranco">
+                    <img src="https://avatars.githubusercontent.com/u/3362854?v=4" width="100;" alt="guibranco"/>
+                    <br />
+                    <sub><b>Guilherme Branco Stracini</b></sub>
+                </a>
+            </td>
+            <td align="center">
+                <a href="https://github.com/gvieiragoulart">
+                    <img src="https://avatars.githubusercontent.com/u/116896794?v=4" width="100;" alt="gvieiragoulart"/>
+                    <br />
+                    <sub><b>Gabriel Goulart</b></sub>
+                </a>
+            </td>
+            <td align="center">
+                <a href="https://github.com/Humayun-23">
+                    <img src="https://avatars.githubusercontent.com/u/70696397?v=4" width="100;" alt="Humayun-23"/>
+                    <br />
+                    <sub><b>Humayun</b></sub>
+                </a>
+            </td>
+		</tr>
+	<tbody>
+</table>
+<!-- readme: collaborators,contributors,snyk-bot/- -end -->
 
-- **[PSR-12 Coding Standard](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-12-extended-coding-style-guide.md)** - The easiest way to apply the conventions is to install [PHP Code Sniffer](http://pear.php.net/package/PHP_CodeSniffer).
+### Bots
 
-- **Add tests!** - Your patch won't be accepted if it doesn't have tests.
+<!-- readme: bots,snyk-bot -start -->
+<table>
+	<tbody>
+		<tr>
+            <td align="center">
+                <a href="https://github.com/github-actions[bot]">
+                    <img src="https://avatars.githubusercontent.com/in/15368?v=4" width="100;" alt="github-actions[bot]"/>
+                    <br />
+                    <sub><b>github-actions[bot]</b></sub>
+                </a>
+            </td>
+            <td align="center">
+                <a href="https://github.com/dependabot[bot]">
+                    <img src="https://avatars.githubusercontent.com/in/29110?v=4" width="100;" alt="dependabot[bot]"/>
+                    <br />
+                    <sub><b>dependabot[bot]</b></sub>
+                </a>
+            </td>
+            <td align="center">
+                <a href="https://github.com/gitauto-ai[bot]">
+                    <img src="https://avatars.githubusercontent.com/in/844909?v=4" width="100;" alt="gitauto-ai[bot]"/>
+                    <br />
+                    <sub><b>gitauto-ai[bot]</b></sub>
+                </a>
+            </td>
+            <td align="center">
+                <a href="https://github.com/deepsource-autofix[bot]">
+                    <img src="https://avatars.githubusercontent.com/in/57168?v=4" width="100;" alt="deepsource-autofix[bot]"/>
+                    <br />
+                    <sub><b>deepsource-autofix[bot]</b></sub>
+                </a>
+            </td>
+            <td align="center">
+                <a href="https://github.com/penify-dev[bot]">
+                    <img src="https://avatars.githubusercontent.com/in/399279?v=4" width="100;" alt="penify-dev[bot]"/>
+                    <br />
+                    <sub><b>penify-dev[bot]</b></sub>
+                </a>
+            </td>
+            <td align="center">
+                <a href="https://github.com/snyk-bot">
+                    <img src="https://avatars.githubusercontent.com/u/19733683?v=4" width="100;" alt="snyk-bot"/>
+                    <br />
+                    <sub><b>Snyk Bot</b></sub>
+                </a>
+            </td>
+		</tr>
+	<tbody>
+</table>
+<!-- readme: bots,snyk-bot -end -->
 
-- **Document any change in behaviour** - Make sure the `README.md` and any other relevant documentation are kept up-to-date.
-
-- **Consider our release cycle** - We try to follow [SemVer v2.0.0](http://semver.org/). Randomly breaking public APIs is not an option.
-
-- **Create feature branches** - Don't ask us to pull from your master branch.
-
-- **One pull request per feature** - If you want to do more than one thing, send multiple pull requests.
-
-- **Send coherent history** - Make sure each individual commit in your pull request is meaningful. If you had to make multiple intermediate commits while developing, please [squash them](http://www.git-scm.com/book/en/v2/Git-Tools-Rewriting-History#Changing-Multiple-Commit-Messages) before submitting.
-
-## Running Tests
-
-The project uses [WireMock](https://wiremock.org/) to mock HTTP requests in integration tests. This avoids making real HTTP requests to external services during testing, which can lead to rate limiting and flaky tests.
-
-### Setting up WireMock
-
-WireMock is configured to run in a Docker container. To start it:
-
-```bash
-docker compose up -d
-```
-
-This will start both the MySQL database and WireMock services. WireMock will be available at http://localhost:8080.
-
-### Verifying WireMock is Running
-
-You can check if WireMock is running by executing:
-
-```bash
-php tests/check-wiremock.php
-```
-
-This script will check if WireMock is available and ready to accept requests.
-
-### Running Tests with WireMock
-
-Once WireMock is running, you can run the tests:
-
-```bash
-vendor/bin/phpunit
-```
-
-The integration tests for the `Request` class will use WireMock instead of making real HTTP requests to external services.
-
-### Adding New WireMock Stubs
-
-If you need to add new HTTP request patterns for testing, you can add new stub mappings in the `tests/wiremock/mappings` directory. Each mapping is a JSON file that defines a request pattern and its corresponding response.
-
-For example, to add a new endpoint that returns a specific JSON response:
-
-```json
-{
-  "request": {
-    "method": "GET",
-    "url": "/my-endpoint"
-  },
-  "response": {
-    "status": 200,
-    "headers": {
-      "Content-Type": "application/json"
-    },
-    "jsonBody": {
-      "message": "Hello, World!"
-    }
-  }
-}
-```
-
-For more information on WireMock stub mappings, see the [WireMock documentation](https://wiremock.org/docs/stubbing/).
-
-## Running Code Sniffer
-
-```bash
-vendor/bin/phpcs --standard=PSR12 src/
-```
-
-**Happy coding**!
+---
