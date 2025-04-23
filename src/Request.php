@@ -12,9 +12,67 @@ class Request
 
     private bool $verifySSL = true;
 
+    private ?string $baseUrl = null;
+
     private const MAX_CONCURRENT_REQUESTS = 10;
 
     private const BATCH_TIMEOUT = 30;
+
+    /**
+     * Constructor.
+     *
+     * @param string|null $baseUrl Optional base URL for all requests.
+     */
+    public function __construct(?string $baseUrl = null)
+    {
+        $this->baseUrl = $baseUrl;
+    }
+
+    /**
+     * Set the base URL for all requests.
+     *
+     * @param string|null $baseUrl The base URL to use for all requests.
+     * @return void
+     */
+    public function setBaseUrl(?string $baseUrl): void
+    {
+        $this->baseUrl = $baseUrl;
+    }
+
+    /**
+     * Get the base URL.
+     *
+     * @return string|null The base URL.
+     */
+    public function getBaseUrl(): ?string
+    {
+        return $this->baseUrl;
+    }
+
+    /**
+     * Builds the full URL by combining the base URL (if set) with the provided URL.
+     *
+     * @param string $url The URL to process.
+     * @return string The full URL.
+     */
+    private function buildUrl(string $url): string
+    {
+        // If the URL already has a scheme (http:// or https://), return it as is
+        if (preg_match('/^https?:\/\//i', $url)) {
+            return $url;
+        }
+
+        // If base URL is set, combine it with the provided URL
+        if ($this->baseUrl !== null) {
+            // Ensure there's a single slash between baseUrl and url
+            $baseUrl = rtrim($this->baseUrl, '/');
+            $url = ltrim($url, '/');
+            return $baseUrl . '/' . $url;
+        }
+
+        // If no base URL is set, return the URL as is
+        return $url;
+    }
 
     /**
      * Extract headers from the response.
@@ -67,8 +125,10 @@ class Request
      */
     private function getFields(string $url, array $headers): array
     {
+        $fullUrl = $this->buildUrl($url);
+        
         return [
-            CURLOPT_URL => $url,
+            CURLOPT_URL => $fullUrl,
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_HEADER => true,
             CURLOPT_ENCODING => "",
