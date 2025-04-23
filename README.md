@@ -141,6 +141,13 @@ Refer to [CONTRIBUTING.md](CONTRIBUTING.md) to learn how to contribute to this p
                 </a>
             </td>
             <td align="center">
+                <a href="https://github.com/Hero-Aviraj">
+                    <img src="https://avatars.githubusercontent.com/u/178659748?v=4" width="100;" alt="Hero-Aviraj"/>
+                    <br />
+                    <sub><b>Haraprasad Mondal</b></sub>
+                </a>
+            </td>
+            <td align="center">
                 <a href="https://github.com/Humayun-23">
                     <img src="https://avatars.githubusercontent.com/u/70696397?v=4" width="100;" alt="Humayun-23"/>
                     <br />
