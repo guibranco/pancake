@@ -20,6 +20,8 @@ class ResponseFactoryTest extends TestCase
         $this->assertTrue($response->isSuccess());
         $this->assertEquals("Response body", $response->getBody());
         $this->assertEquals(200, $response->getStatusCode());
+        $this->assertEquals("http://example.com", $response->getUrl());
+        $this->assertEquals(["Content-Type" => "application/json"], $response->getHeaders());
     }
 
     public function testErrorResponse()
@@ -28,5 +30,8 @@ class ResponseFactoryTest extends TestCase
 
         $this->assertFalse($response->isSuccess());
         $this->assertEquals("Error occurred", $response->getMessage());
+        $this->assertEquals(400, $response->getStatusCode());
+        $this->assertEquals("http://example.com", $response->getUrl());
+        $this->assertNull($response->getHeaders());
     }
 }
