@@ -45,8 +45,8 @@ class Response
      * @param array $headers An array of headers to include in the response.
      * @param int $statusCode The HTTP status code for the response (default is 200).
      * @return self Returns an instance of the response.
-     * @deprecated Use ResponseFactory::success() instead
      */
+
     public static function success(string $body, string $url, array $headers, int $statusCode = 200): self
     {
         return new self(true, $body, '', $statusCode, $url, $headers);
@@ -59,7 +59,6 @@ class Response
      * @param string $url The URL to redirect to.
      * @param int $statusCode The HTTP status code for the error response. Default is 400.
      * @return self Returns an instance of the response with the error details.
-     * @deprecated Use ResponseFactory::error() instead
      */
     public static function error(string $message, string $url, int $statusCode = 400): self
     {
