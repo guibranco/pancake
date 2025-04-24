@@ -17,7 +17,17 @@ class Response
     private const HTTP_REDIRECT = 300;
     private const HTTP_BAD_REQUEST = 400;
 
-    private function __construct(bool $success, ?string $body, string $message, int $statusCode, string $url, ?array $headers)
+    /**
+     * Constructor for Response objects.
+     *
+     * @param bool $success Whether the response was successful.
+     * @param string|null $body The body content of the response.
+     * @param string $message The message associated with the response.
+     * @param int $statusCode The HTTP status code for the response.
+     * @param string $url The URL associated with the response.
+     * @param array|null $headers An array of headers included in the response.
+     */
+    public function __construct(bool $success, ?string $body, string $message, int $statusCode, string $url, ?array $headers)
     {
         $this->success = $success;
         $this->body = $body;
@@ -35,8 +45,8 @@ class Response
      * @param array $headers An array of headers to include in the response.
      * @param int $statusCode The HTTP status code for the response (default is 200).
      * @return self Returns an instance of the response.
+     * @deprecated Use ResponseFactory::success() instead
      */
-
     public static function success(string $body, string $url, array $headers, int $statusCode = 200): self
     {
         return new self(true, $body, '', $statusCode, $url, $headers);
@@ -49,6 +59,7 @@ class Response
      * @param string $url The URL to redirect to.
      * @param int $statusCode The HTTP status code for the error response. Default is 400.
      * @return self Returns an instance of the response with the error details.
+     * @deprecated Use ResponseFactory::error() instead
      */
     public static function error(string $message, string $url, int $statusCode = 400): self
     {
