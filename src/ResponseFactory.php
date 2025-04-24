@@ -17,7 +17,7 @@ class ResponseFactory
      */
     public function success(string $body, string $url, array $headers, int $statusCode = 200): Response
     {
-        return Response::success($body, $url, $headers, $statusCode);
+        return new Response(true, $body, '', $statusCode, $url, $headers);
     }
 
     /**
@@ -30,6 +30,6 @@ class ResponseFactory
      */
     public function error(string $message, string $url, int $statusCode = 400): Response
     {
-        return Response::error($message, $url, $statusCode);
+        return new Response(false, null, $message, $statusCode, $url, null);
     }
 }
