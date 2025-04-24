@@ -28,55 +28,13 @@ jobs:
               uses: php-actions/composer@v6
 
             - name: Docker compose up
-              run: docker compose up -d 
+              run: docker compose up -d
 
-            - name: Wait for services to be healthy
-              run: |
-                set -e
-            
-                MAX_WAIT_SECONDS=300
-                SLEEP_INTERVAL=5
-                START_TIME=$(date +%s)
-            
-                wait_for_health() {
-                  local container="$1"
-                  local retries=0
-            
-                  echo "⏳ Waiting for '$container' to become healthy..."
-            
-                  while true; do
-                    STATUS=$(docker inspect --format='{{.State.Health.Status}}' "$container" 2>/dev/null || echo "not-found")
-            
-                    if [ "$STATUS" = "healthy" ]; then
-                      echo "✅ $container is healthy!"
-                      break
-                    elif [ "$STATUS" = "unhealthy" ]; then
-                      echo "❌ $container is unhealthy."
-                      exit 1
-                    elif [ "$STATUS" = "not-found" ]; then
-                      echo "⚠️ $container not found. Retrying..."
-                    else
-                      echo "⌛ $container status: $STATUS. Waiting..."
-                    fi
-            
-                    CURRENT_TIME=$(date +%s)
-                    ELAPSED=$((CURRENT_TIME - START_TIME))
-            
-                    if [ "$ELAPSED" -ge "$MAX_WAIT_SECONDS" ]; then
-                      echo "⏰ Timeout reached for $container after $ELAPSED seconds!"
-                      exit 1
-                    fi
-            
-                    sleep "$SLEEP_INTERVAL"
-                  done
-                }
-            
-                wait_for_health wiremock
-                wait_for_health database
+            - name: Make script executable
+              run: chmod +x tools/wait-for-healthy.sh
 
-
-            - name: Check if WireMock is available
-              run: php tests/check-wiremock.php
+            - name: Wait for healthy containers
+              run: tools/wait-for-healthy.sh
 
             - name: PHPUnit Tests
               uses: php-actions/phpunit@v4
