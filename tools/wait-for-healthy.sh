@@ -37,11 +37,11 @@ set -o pipefail  # Ensures that pipeline failures are caught
 DEFAULT_MAX_WAIT_SECONDS=300    # Default timeout: 5 minutes
 DEFAULT_SLEEP_INTERVAL=5        # Default sleep interval: 5 seconds
 
-if ! [[ "$1" =~ ^[0-9]+$ ]] && [ -n "$1" ]; then
+if ! [[ "$1" =~ ^[1-9][0-9]*$ ]] && [ -n "$1" ]; then
     echo "Error: MAX_WAIT_SECONDS must be a positive integer"
     exit 1
 fi
-if ! [[ "$2" =~ ^[0-9]+$ ]] && [ -n "$2" ]; then
+if ! [[ "$2" =~ ^[1-9][0-9]*$ ]] && [ -n "$2" ]; then
     echo "Error: SLEEP_INTERVAL must be a positive integer"
     exit 1
 fi
