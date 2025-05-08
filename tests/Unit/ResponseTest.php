@@ -30,6 +30,18 @@ class ResponseTest extends TestCase
         $this->assertEquals(["Content-Type" => "application/json"], $response->getHeaders());
     }
 
+    public function testConstructor()
+    {
+        $response = new Response(true, "Response body", "", 200, "http://example.com", ["Content-Type" => "application/json"]);
+
+        $this->assertTrue($response->isSuccess());
+        $this->assertEquals("Response body", $response->getBody());
+        $this->assertEquals("", $response->getMessage());
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertEquals("http://example.com", $response->getUrl());
+        $this->assertEquals(["Content-Type" => "application/json"], $response->getHeaders());
+    }
+
     public function testEnsureSuccessStatus()
     {
         $response = Response::success("Response body", "http://example.com", [], 200);
