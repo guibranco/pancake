@@ -27,7 +27,13 @@ jobs:
               uses: php-actions/composer@v6
 
             - name: Docker compose up
-              run: docker compose up -d && sleep 10
+              run: docker compose up -d
+
+            - name: Make script executable
+              run: chmod +x tools/wait-for-healthy.sh
+
+            - name: Wait for healthy containers
+              run: tools/wait-for-healthy.sh
 
             - name: PHPUnit Tests
               uses: php-actions/phpunit@v4
@@ -48,7 +54,7 @@ jobs:
                   sed -i 's@'$GITHUB_WORKSPACE'@/github/workspace/@g' coverage.xml
 
             - name: Upload coverage reports to Codecov
-              uses: codecov/codecov-action@v5.1.2
+              uses: codecov/codecov-action@v5.4.2
               with:
                   token: ${{ secrets.CODECOV_TOKEN }}
                   slug: guibranco/Pancake

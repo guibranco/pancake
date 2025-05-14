@@ -17,7 +17,7 @@ jobs:
               with:
                   ref: ${{ github.event.pull_request.head.sha }}
                   fetch-depth: 0
-
+             
             - name: Cache Composer dependencies
               uses: actions/cache@v4
               with:
@@ -28,7 +28,13 @@ jobs:
               uses: php-actions/composer@v6
 
             - name: Docker compose up
-              run: docker compose up -d && sleep 10
+              run: docker compose up -d
+
+            - name: Make script executable
+              run: chmod +x tools/wait-for-healthy.sh
+
+            - name: Wait for healthy containers
+              run: tools/wait-for-healthy.sh
 
             - name: PHPUnit Tests
               uses: php-actions/phpunit@v4
@@ -50,8 +56,8 @@ jobs:
                   sed -i 's@'$GITHUB_WORKSPACE'@/github/workspace/@g' coverage.xml
                   sed -i 's@'$GITHUB_WORKSPACE'@/github/workspace/@g' execution.xml
 
-            - name: SonarCloud Scan
-              uses: SonarSource/sonarcloud-github-action@master
+            - name: SonarQube Scan
+              uses: SonarSource/sonarqube-scan-action@v5.2.0
               env:
-                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-                  SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+                SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+                SONAR_HOST_URL: ${{ vars.SONAR_HOST_URL }}
