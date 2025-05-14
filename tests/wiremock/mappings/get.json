@@ -1,0 +1,22 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "/get"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "jsonBody": {
+      "args": {},
+      "headers": {
+        "Accept": "*/*",
+        "Host": "wiremock:8080",
+        "User-Agent": "curl/7.74.0"
+      },
+      "origin": "127.0.0.1",
+      "url": "http://wiremock:8080/get"
+    }
+  }
+}
