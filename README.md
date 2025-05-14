@@ -11,12 +11,12 @@ Documentation: [Read the Docs](https://guibranco.github.io/pancake/)
 
 ---
 
-## Table of content
+## Table of contents
 
 - [CI/CD](#cicd): Current project status in the build pipeline (AppVeyor).
 - [Code Quality](#code-quality): Metrics from some tools about code quality.
 - [Installation](#installation): How to install/download this tool.
-- [User guide](#user-guide): How to set up, configure and use this tool.
+- [User guide](#user-guide): How to set up, configure, and use this tool.
 - [Change log](#changelog): Changelog containing the changes done in this project.
 - [Support](#support): How to get support.
 - [Testing](#testing): How to test this library.
@@ -138,6 +138,13 @@ Refer to [CONTRIBUTING.md](CONTRIBUTING.md) to learn how to contribute to this p
                     <img src="https://avatars.githubusercontent.com/u/116896794?v=4" width="100;" alt="gvieiragoulart"/>
                     <br />
                     <sub><b>Gabriel Goulart</b></sub>
+                </a>
+            </td>
+            <td align="center">
+                <a href="https://github.com/Hero-Aviraj">
+                    <img src="https://avatars.githubusercontent.com/u/178659748?v=4" width="100;" alt="Hero-Aviraj"/>
+                    <br />
+                    <sub><b>Haraprasad Mondal</b></sub>
                 </a>
             </td>
             <td align="center">
