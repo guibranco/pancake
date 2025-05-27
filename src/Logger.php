@@ -38,9 +38,9 @@ class Logger implements ILogger
         $result = $this->request->post($this->baseUrl . "log-message", $this->headers, $body);
 
         $statusCode = $result->getStatusCode();
-        
+
         if($statusCode !== 200) {
-             error_log("[" . date("Y-m-d H:i:s.u e") . "] " . $statusCode . ": " . $result->toJson());
+            error_log("[" . date("Y-m-d H:i:s.u e") . "] " . $statusCode . ": " . $result->toJson());
         }
 
         return $statusCode === 200;
