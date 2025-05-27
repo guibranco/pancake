@@ -5,10 +5,13 @@ namespace GuiBranco\Pancake;
 use GuiBranco\Pancake\Response;
 use GuiBranco\Pancake\RequestException;
 use CurlHandle;
+use GuiBranco\Pancake\ResponseFactory;
 
 class Request
 {
     private array $multiRequests = [];
+
+    private ResponseFactory $responseFactory;
 
     private bool $verifySSL = true;
 
@@ -21,11 +24,13 @@ class Request
     /**
      * Constructor.
      *
-     * @param string|null $baseUrl Optional base URL for all requests.
+     * @param string|null $baseUrl Optional base URL for all requests
+     * @param ResponseFactory|null $responseFactory Optional response factory, defaults to new ResponseFactory
      */
-    public function __construct(?string $baseUrl = null)
+    public function __construct(?string $baseUrl = null, ?ResponseFactory $responseFactory = null)
     {
         $this->baseUrl = $baseUrl;
+        $this->responseFactory = $responseFactory ?? new ResponseFactory();
     }
 
     /**
@@ -158,7 +163,7 @@ class Request
     {
         if ($response === false) {
             $error = curl_error($curl);
-            return Response::error($error, $url, -1);
+            return $this->responseFactory->error($error, $url, -1);
         }
 
         $headerSize = curl_getinfo($curl, CURLINFO_HEADER_SIZE);
@@ -167,7 +172,7 @@ class Request
         $body = substr($response, $headerSize);
         $httpCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
 
-        return Response::success($body, $url, $headers, $httpCode);
+        return $this->responseFactory->success($body, $url, $headers, $httpCode);
 
     }
 
