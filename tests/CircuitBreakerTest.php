@@ -13,6 +13,7 @@ class CircuitBreakerTest extends TestCase
     protected function setUp(): void
     {
         $this->cacheMock = $this->createMock(MemoryCache::class);
+        $this->cacheMock->method('get')->willReturn([]);
         $this->circuitBreaker = new CircuitBreaker($this->cacheMock);
     }
 
