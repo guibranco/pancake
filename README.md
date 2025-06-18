@@ -211,3 +211,155 @@ Refer to [CONTRIBUTING.md](CONTRIBUTING.md) to learn how to contribute to this p
 	<tbody>
 </table>
 <!-- readme: bots,snyk-bot -end -->
+
+use PhpAmqpLib\Connection\AMQPStreamConnection;
+use PhpAmqpLib\Message\AMQPMessage;
+use PhpAmqpLib\Wire\AMQPTable;
+
+class Queue implements IQueue
+{
+    private $servers;
+
+    public function __construct(array $servers)
+    {
+        if (empty($servers)) {
+            throw new QueueException("No RabbitMQ servers provided");
+        }
+
+        $this->servers = array_map(function ($connectionString) {
+            $url = parse_url($connectionString);
+            return [
+                "host" => $url["host"],
+                "port" => $url["port"] ?? 5672,
+                "user" => $url["user"],
+                "password" => $url["pass"],
+                "vhost" => ($url['path'] == '/' || !isset($url['path'])) ? '/' : substr($url['path'], 1)
+            ];
+        }, $servers);
+    }
+
+    private function getConnectionRandom(): AMQPStreamConnection
+    {
+        $server = $this->servers[array_rand($this->servers)];
+        return new AMQPStreamConnection(
+            $server['host'],
+            $server['port'],
+            $server['user'],
+            $server['password'],
+            $server['vhost']
+        );
+    }
+
+    private function getConnections(): array
+    {
+        return array_map(function ($server) {
+            return new AMQPStreamConnection(
+                $server['host'],
+                $server['port'],
+                $server['user'],
+                $server['password'],
+                $server['vhost']
+            );
+        }, $this->servers);
+    }
+
+    private function declareQueueWithoutDLX($channel, $queueName)
+    {
+        $channel->queue_declare($queueName, false, true, false, false);
+    }
+
+    private function declareQueueWithDLX($channel, $queueName)
+    {
+        $channel->queue_declare(
+            $queueName,
+            false,
+            true,
+            false,
+            false,
+            false,
+            new AMQPTable([
+                'x-dead-letter-exchange' => '',
+                'x-dead-letter-routing-key' => $queueName . '-retry'
+            ])
+        );
+
+        $channel->queue_declare(
+            $queueName . '-retry',
+            false,
+            true,
+            false,
+            false,
+            false,
+            new AMQPTable([
+                'x-dead-letter-exchange' => '',
+                'x-dead-letter-routing-key' => $queueName,
+                'x-message-ttl' => 1000 * 60 * 60 // 1 hour
+            ])
+        );
+    }
+
+    public function publish(string $queueName, string $message, bool $useDLX = true): void
+    {
+        $connection = $this->getConnectionRandom();
+        $channel = $connection->channel();
+
+        if ($useDLX) {
+            $this->declareQueueWithDLX($channel, $queueName);
+        } else {
+            $this->declareQueueWithoutDLX($channel, $queueName);
+        }
+
+        $msg = new AMQPMessage($message, [
+            'content_type' => 'application/json',
+            'delivery_mode' => AMQPMessage::DELIVERY_MODE_PERSISTENT
+        ]);
+
+        $channel->basic_publish($msg, '', $queueName);
+
+        $channel->close();
+        $connection->close();
+    }
+
+    public function consume(
+        int $timeout,
+        string $queueName,
+        callable $callback,
+        bool $resetTimeoutOnReceive = false,
+        bool $useDLX = true,
+        int $qosPrefetch = 10
+    ): void {
+        $connections = $this->getConnections();
+        $startTime = time();
+
+        foreach ($connections as $connection) {
+            $channel = $connection->channel();
+
+            if ($useDLX) {
+                $this->declareQueueWithDLX($channel, $queueName);
+            } else {
+                $this->declareQueueWithoutDLX($channel, $queueName);
+            }
+
+            $channel->basic_qos(null, $qosPrefetch, null);
+
+            $wrappedCallback = function ($msg) use (&$startTime, $callback, $timeout, $resetTimeoutOnReceive) {
+                if ($resetTimeoutOnReceive) {
+                    $startTime = time();
+                }
+                $callback($timeout, $startTime, $msg);
+            };
+
+            $channel->basic_consume($queueName, '', false, false, false, false, $wrappedCallback);
+
+            while ($channel->is_consuming()) {
+                $channel->wait(null, true);
+                if (time() > $startTime + $timeout) {
+                    break;
+                }
+            }
+
+            $channel->close();
+            $connection->close();
+        }
+    }
+}
