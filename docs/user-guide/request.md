@@ -31,6 +31,8 @@
 
 This class is responsible for executing HTTP requests using [cURL](https://www.php.net/manual/en/book.curl.php) with support for custom headers. Responses are encapsulated in the `Response` class, providing properties like `statusCode`, `headers`, and `body` for better usability.
 
+The `Request` class uses dependency injection for the `ResponseFactory` to create `Response` objects, making it more testable and adhering to SOLID principles.
+
 ## Requirements
 
 This requires `lib curl` to be active with your PHP settings. You can install it via:  
@@ -58,7 +60,10 @@ The `Request` class now supports setting a base URL for all requests. This is us
 
 ```php
 // Create a request with a base URL
-$request = new Request('https://api.example.com');
+$request = new Request('https://api.example.com'); 
+
+// Or with a custom ResponseFactory
+$request = new Request('https://api.example.com', new CustomResponseFactory());
 
 // Now you can make requests using relative paths
 $response = $request->get('/users'); // This will request https://api.example.com/users
@@ -279,7 +284,7 @@ if ($response->statusCode >= 200 && $response->statusCode < 300) {
 
 ### Executing batch requests
 
-The `executeBatch` method allows for the execution of multiple HTTP requests in parallel using `curl_multi_init`. This method processes requests concurrently, reducing the total execution time for large batches.
+The `Request` class supports batch requests through the `addRequest` and `executeBatch` methods. This allows for the execution of multiple HTTP requests in parallel using `curl_multi_init`, reducing the total execution time for large batches.
 
 #### Example usage
 
@@ -287,27 +292,24 @@ The `executeBatch` method allows for the execution of multiple HTTP requests in 
 $batchRequests = [
     [
         'method' => 'GET',
-        'url' => 'https://example.com/api1',
+        'key' => 'request1',
+        'url' => 'https://example.com/api/users',
         'headers' => ["Accept: application/json"]
     ],
     [
         'method' => 'POST',
-        'url' => 'https://example.com/api2',
+        'key' => 'request2',
+        'url' => 'https://example.com/api/posts',
         'headers' => ["Content-Type: application/json"],
         'payload' => json_encode(['key' => 'value'])
     ]
 ];
 
 $request = new Request();
-$responses = $request->executeBatch($batchRequests);
+$request->addRequest('request1', 'https://example.com/api/users', ["Accept: application/json"]);
+$request->addRequest('request2', 'https://example.com/api/posts', ["Content-Type: application/json"], 'POST', json_encode(['key' => 'value']));
 
-foreach ($responses as $key => $response) {
-    if ($response->getStatusCode() >= 200 && $response->getStatusCode() < 300) {
-        echo "Response $key: " . $response->getBody();
-    } else {
-        echo "Error in request $key: " . $response->getMessage();
-    }
-}
+$responses = $request->executeBatch();
 ```
 
 ### Parameters for batch requests

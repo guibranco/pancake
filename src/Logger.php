@@ -39,7 +39,7 @@ class Logger implements ILogger
 
         $statusCode = $result->getStatusCode();
 
-        if($statusCode !== 200) {
+        if ($statusCode !== 202) {
             error_log("[" . date("Y-m-d H:i:s.u e") . "] " . $statusCode . ": " . $result->toJson());
         }
 
