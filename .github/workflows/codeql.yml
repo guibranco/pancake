@@ -61,9 +61,13 @@ jobs:
             jq --argjson idx $i \
                '{version: .version, "$schema": ."$schema", runs: [ .runs[$idx] ]}' \
                results.sarif > run_${i}.sarif
+      
+            b64_sarif=$(base64 -w 0 < run_${i}.sarif)
+      
             gh api repos/${{ github.repository }}/code-scanning/sarifs \
-              -F sarif=@run_${i}.sarif \
-              -F category=Codacy-${i}
+              -f commit_sha=${{ github.sha }} \
+              -f ref=${{ github.ref }} \
+              -f sarif="$b64_sarif"
           done
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
