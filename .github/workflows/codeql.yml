@@ -62,7 +62,11 @@ jobs:
                '{version: .version, "$schema": ."$schema", runs: [ .runs[$idx] ]}' \
                results.sarif > run_${i}.sarif
       
-            b64_sarif=$(base64 -w 0 < run_${i}.sarif)
+            # gzip and base64 encode
+            gzip -c run_${i}.sarif | base64 -w 0 > run_${i}.sarif.b64
+      
+            # Read encoded content into variable
+            b64_sarif=$(cat run_${i}.sarif.b64)
       
             gh api repos/${{ github.repository }}/code-scanning/sarifs \
               -f commit_sha=${{ github.sha }} \
@@ -71,3 +75,4 @@ jobs:
           done
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
