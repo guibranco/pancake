@@ -40,7 +40,9 @@ class Logger implements ILogger
         $statusCode = $result->getStatusCode();
 
         if ($statusCode !== 202) {
-            error_log("[" . date("Y-m-d H:i:s.u e") . "] " . $statusCode . ": " . $result->toJson());
+            error_log("[" . date("Y-m-d H:i:s.u e") . "] Pancake::Logger: " . $statusCode . ": " . $result->toJson());
+            error_log("[" . date("Y-m-d H:i:s.u e") . "] Pancake::Logger: " . $message);
+            error_log("[" . date("Y-m-d H:i:s.u e") . "] Pancake::Logger: " . json_encode($trace[1]));
         }
 
         return $statusCode === 200;
