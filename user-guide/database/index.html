@@ -1,0 +1,488 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+        <title>Database - pancake</title>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        
+        <link rel="canonical" href="http://guilhermebranco.com.br/user-guide/database/">
+        
+
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+            <link rel="stylesheet" href="../../assets/css/darcula-highlight.min.css">
+
+        <link rel="stylesheet" href="../../assets/css/bootstrap.min.css">
+        <link rel="stylesheet" href="../../assets/css/dracula-ui.min.css">
+        <link rel="stylesheet" href="../../assets/css/mkdocs.min.css">
+            <link href="../../extra.css" rel="stylesheet">
+
+        
+            <link  rel="icon" type="image/x-icon" href="../../images/favicon.png">
+        
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+                <script>hljs.initHighlightingOnLoad();</script>
+
+</head>
+
+<body class="drac-bg-black-secondary drac-text-grey-ternary drac-text drac-scrollbar-purple">
+
+    <main class="d-flex">
+
+        <!-- block sidebar -->
+            <nav id="sidebar" class="sidebar drac-bg-black">
+    <div class="custom-menu">
+        <button type="button" id="sidebarCollapse" class="btn btn-primary">
+            <i class="fa fa-bars"></i>
+            <span class="sr-only">Menu</span>
+        </button>
+    </div>
+
+    <div class="p-4">
+        
+            <img class="logo" src="../../logo.png" height="150px">
+        
+
+        <div class="drac-text-center">
+            
+                <span class="drac-text drac-line-height drac-text-white">pancake</span>
+            
+        </div>
+
+        <div class="drac-box flex-column">
+            <ul class="dot-ul">
+                <li><div class="dot-li drac-bg-cyan"></div></li>
+                <li><div class="dot-li drac-bg-green"></div></li>
+                <li><div class="dot-li drac-bg-orange"></div></li>
+                <li><div class="dot-li drac-bg-pink"></div></li>
+                <li><div class="dot-li drac-bg-purple"></div></li>
+                <li><div class="dot-li drac-bg-red"></div></li>
+                <li><div class="dot-li drac-bg-yellow"></div></li>
+            </ul>
+        </div>
+
+        <hr class="drac-divider" />
+
+        <!-- block menu -->
+        <ul class="mb-5 drac-list drac-list-none">
+            
+            <li class="drac-box">
+                <a href="../.."
+                    class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+                    Pancake Project
+                </a>
+            </li>
+            <li class="drac-box">
+                <a href="../../changelog/"
+                    class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+                    Changelog
+                </a>
+            </li>
+            <li class="drac-box">
+                <a href="../../contributing/"
+                    class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+                    Contributing
+                </a>
+            </li>
+            <li class="drac-box">
+                <a href="../../installation/"
+                    class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+                    Installation
+                </a>
+            </li>
+            <li class="drac-box">
+                <a href="../../license/"
+                    class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+                    License
+                </a>
+            </li>
+            <li class="drac-box">
+                <a href="../.."
+                    class=" active 
+                    drac-anchor btn-toggle d-inline-flex align-items-center border-0 drac-text-purple--hover collapsed"
+                    data-bs-toggle="collapse" data-bs-target="#user-guide-collapse" aria-expanded="false">
+                    User guide
+                </a>
+                <div class="collapse" id="user-guide-collapse">
+                    <ul class="mb-5 drac-list drac-list-none">
+                            
+    <li class="drac-box-ternary">
+        <a href="../basic-usage/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Basic usage
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../color/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Color
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="./"
+            class=" active 
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Database
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../guid-v4/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            GUID (v4)
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../health-checks/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Health Checks
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../ip-utils/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Ip Utils
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../logger/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Logger
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../memory-cache/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Memory Cache
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../one-signal/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            One Signal
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../request/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Request
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../session-manager/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Session Manager
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../shieldsio/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            ShieldsIo
+        </a>
+    </li>
+                    </ul>
+                </div>
+            </li>
+        </ul>
+        <!-- endblock -->
+    </div>
+</nav>
+        <!-- endblock -->
+
+        <nav class="divider drac-bg-purple-cyan"></nav>
+
+        <div class="content">
+            <!-- block header -->
+                <header>
+    <nav class="navbar navbar-expand-xl drac-bg-purple">
+        <div class="container-fluid">
+            
+            <button class="navbar-toggler w-100 text-center" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsMenu"
+                aria-controls="navbarsMenu" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse flex-column ml-auto" id="navbarsMenu">
+                <ul class="navbar-nav text-md-center">
+
+                    <!-- block preview -->
+                    <li class="nav-item">
+                            
+        <div class="container">
+            <div class="row row-preview">
+                <div class="col">
+                    <a href="../color/"
+                        class="btn-preview drac-btn drac-btn-outline drac-text-white drac-text-cyan-green--hover">
+                        <i class="fa fa-arrow-left"></i> Previous
+                    </a>
+                </div>
+                <div class="col">
+                    <a href="../guid-v4/"
+                        class="btn-preview drac-btn drac-btn-outline drac-text-white drac-text-cyan-green--hover" style="padding-left: 3%;">
+                        Next <i class="fa fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+                    </li>
+                    <!--  endblock -->
+
+                    <!-- block search -->
+                    <li class="nav-item"><div role="search" class="search-box">
+	<form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+		<input type="text" name="q" class="drac-input drac-input-search drac-input-white drac-text-white drac-bg-black-secondary"
+		placeholder="Search docs" title="Type search term here" />
+	</form>
+</div>
+                    </li>
+                    <!--  endblock -->
+
+                    <!-- block source -->
+                    <li class="nav-item">
+                        
+                            
+                                <div class="md-source source-detail">
+    <div class="md-source-repo-icon">
+        <i class="fa fa-github-alt drac-text-white" aria-hidden="true"></i>
+    </div>
+
+    <div class="md-source-repo-url">
+        <a href="https://github.com/guibranco/pancake"
+            class="md-source drac-anchor drac-text drac-text-white drac-text-cyan-green--hover">
+            guibranco/pancake
+        </a>
+
+        <ul class="md-source-repo-text">
+            <li>
+                <i class="fa fa-tag drac-text-black" aria-hidden="true"></i>
+                <img alt="GitHub tag (latest by date)"
+                    src="https://img.shields.io/github/v/tag/guibranco/pancake?color=white&label=%20&style=flat-square">
+            </li>
+
+            <li>
+                <i class="fa fa-star drac-text-black" aria-hidden="true"></i>
+                <img alt="GitHub Repo stars"
+                    src="https://img.shields.io/github/stars/guibranco/pancake?color=white&label=%20&style=flat-square">
+            </li>
+
+            <li>
+                <i class="fa fa-code-fork drac-text-black" aria-hidden="true"></i>
+                <img alt="GitHub forks"
+                    src="https://img.shields.io/github/forks/guibranco/pancake?color=white&label=%20&style=flat-square">
+            </li>
+        </ul>
+    </div>
+
+</div>
+                            
+                        
+                    </li>
+                    <!--  endblock -->
+
+                </ul>
+            </div>
+
+        </div>
+    </nav>
+</header>
+            <!-- endblock -->
+
+            <!-- block content -->
+                <section class="p-md-5 section-content">
+    <article>
+        <p><h1 id="database">Database</h1>
+<h2 id="table-of-content">Table of content</h2>
+<ul>
+<li><a href="#database">Database</a></li>
+<li><a href="#table-of-content">Table of content</a></li>
+<li><a href="#about">About</a></li>
+<li><a href="#requirements">Requirements</a></li>
+<li><a href="#example-usage">Example usage</a></li>
+<li><a href="#available-methods">Available methods</a><ul>
+<li><a href="#constructor">Constructor</a></li>
+<li><a href="#prepare">Prepare</a></li>
+<li><a href="#bind">Bind</a></li>
+<li><a href="#execute">Execute</a></li>
+<li><a href="#fetch">Fetch</a></li>
+<li><a href="#fetchall">FetchAll</a></li>
+<li><a href="#rowcount">RowCount</a></li>
+<li><a href="#lastinsertid">LastInsertId</a></li>
+<li><a href="#begintransaction">BeginTransaction</a></li>
+<li><a href="#commit">Commit</a></li>
+<li><a href="#rollback">RollBack</a></li>
+<li><a href="#close">Close</a></li>
+<li><a href="#geterror">GetError</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="about">About</h2>
+<p>This class is responsible for database operations using PDO to connect to a MySQL/MariaDB server.</p>
+<h2 id="requirements">Requirements</h2>
+<p>This requires <code>pdo</code> and <code>pdo_mysql</code> to be active with your PHP settings.</p>
+<h2 id="example-usage">Example usage</h2>
+<p>A simple example usage can be as following:</p>
+<pre><code class="language-php">&lt;?php
+
+use GuiBranco\Pancake\Database;
+use GuiBranco\Pancake\DatabaseException;
+
+try {
+    // Initialize the Database
+    $db = new Database('localhost', 'mydb', 'username', 'password');
+
+    // Example Insert
+    $db-&gt;prepare(&quot;INSERT INTO users (name, email) VALUES (:name, :email)&quot;);
+    $db-&gt;bind(':name', 'John Doe');
+    $db-&gt;bind(':email', 'john@example.com');
+    $db-&gt;execute();
+    echo &quot;Last Insert ID: &quot; . $db-&gt;lastInsertId();
+
+    // Example Select
+    $db-&gt;prepare(&quot;SELECT * FROM users WHERE id = :id&quot;);
+    $db-&gt;bind(':id', 1);
+    $user = $db-&gt;fetch();
+    print_r($user);
+
+    // Example Fetch All
+    $db-&gt;prepare(&quot;SELECT * FROM users&quot;);
+    $users = $db-&gt;fetchAll();
+    print_r($users);
+
+} catch (DatabaseException $e) {
+    echo 'Error: ' . $e-&gt;getMessage();
+}
+</code></pre>
+<h2 id="available-methods">Available methods</h2>
+<h3 id="constructor">Constructor</h3>
+<p>The constructor establishes a connection to the database using the provided credentials and initializes the PDO object.</p>
+<p>Parameters:</p>
+<ul>
+<li><code>$host</code> (string): Database host, e.g., <code>localhost</code>.</li>
+<li><code>$dbname</code> (string): The name of the database.</li>
+<li><code>$username</code> (string): Username for the database.</li>
+<li><code>$password</code> (string): Password for the database.</li>
+<li><code>$charset</code> (string, optional): Character set to use, defaults to <code>utf8mb4</code>.</li>
+</ul>
+<pre><code class="language-php">$db = new Database('localhost', 'my-db', 'username', 'password');
+</code></pre>
+<h3 id="prepare">Prepare</h3>
+<p>Prepares a SQL query for execution. This method is necessary before binding values and executing the query.</p>
+<pre><code class="language-php">$db-&gt;prepare('SELECT * FROM users WHERE id = :id');
+</code></pre>
+<hr />
+<h3 id="bind">Bind</h3>
+<p>Binds a value to a parameter in the prepared SQL statement. If the type is not provided, it is determined based on the value's type.</p>
+<p>Parameters:</p>
+<ul>
+<li><code>$param</code> (string): The parameter to bind (e.g., <code>:id</code>).</li>
+<li><code>$value</code> (mixed): The value to bind to the parameter.</li>
+<li><code>$type</code> (optional): The data type of the parameter (e.g., <code>PDO::PARAM_INT</code>).</li>
+</ul>
+<pre><code class="language-php">$db-&gt;bind(':id', 1, PDO::PARAM_INT);
+</code></pre>
+<hr />
+<h3 id="execute">Execute</h3>
+<p>Executes the prepared SQL statement. It returns <code>true</code> on success or <code>false</code> on failure.</p>
+<pre><code class="language-php">$db-&gt;execute();
+</code></pre>
+<hr />
+<h3 id="fetch">Fetch</h3>
+<p>Executes the prepared statement and fetches a single row from the result set.</p>
+<pre><code class="language-php">$result = $db-&gt;fetch();
+</code></pre>
+<hr />
+<h3 id="fetchall">FetchAll</h3>
+<p>Executes the prepared statement and fetches all rows from the result set.</p>
+<pre><code class="language-php">$results = $db-&gt;fetchAll();
+</code></pre>
+<hr />
+<h3 id="rowcount">RowCount</h3>
+<p>Returns the number of rows affected by the last SQL statement.</p>
+<pre><code class="language-php">$count = $db-&gt;rowCount();
+</code></pre>
+<hr />
+<h3 id="lastinsertid">LastInsertId</h3>
+<p>Returns the ID of the last inserted row.</p>
+<pre><code class="language-php">$lastId = $db-&gt;lastInsertId();
+</code></pre>
+<hr />
+<h3 id="begintransaction">BeginTransaction</h3>
+<p>Starts a new database transaction.</p>
+<pre><code class="language-php">$db-&gt;beginTransaction();
+</code></pre>
+<hr />
+<h3 id="commit">Commit</h3>
+<p>Commits the current database transaction.</p>
+<pre><code class="language-php">$db-&gt;commit();
+</code></pre>
+<hr />
+<h3 id="rollback">RollBack</h3>
+<p>Rolls back the current database transaction.</p>
+<pre><code class="language-php">$db-&gt;rollBack();
+</code></pre>
+<hr />
+<h3 id="close">Close</h3>
+<p>Closes the database connection and cleans up resources.</p>
+<pre><code class="language-php">$db-&gt;close();
+</code></pre>
+<hr />
+<h3 id="geterror">GetError</h3>
+<p>Returns the last error message encountered by the database, or <code>null</code> if no errors have occurred.</p>
+<pre><code class="language-php">$error = $db-&gt;getError();
+</code></pre>
+<hr /></p>
+    </article>
+</section>
+            <!-- endblock -->
+
+            <!-- block footer -->
+                <footer>
+    <div class="d-flex flex-sm-row justify-content-between py-2 border-top drac-text-black drac-bg-cyan-green">
+        <a href="https://github.com/dracula/mkdocs" target="_blank" style="padding-left: 1%;"
+            class="footer-text drac-anchor drac-text-black drac-text-purple--hover">
+            Made with Dracula Theme for MkDocs
+        </a>
+    </div>
+</footer>
+            <!-- endblock -->
+        </div>
+
+    </main>
+
+        <script>var base_url = '../..';</script>
+        <script src="../../assets/js/jquery-3.3.1.slim.min.js"></script>
+        <script src="../../assets/js/bootstrap.bundle.min.js"></script>
+        <script src="../../assets/js/mkdocs.js"></script>
+			<script src="../../search/main.js" defer></script>
+
+</body>
+
+</html>
