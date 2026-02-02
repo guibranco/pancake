@@ -1,5 +1,8 @@
 # Changelog
 
+## Version 1.4 [2025-04-23]
+ - [#85](https://github.com/guibranco/pancake/pull/85) - Add `CircuitBreaker` class by [@guibranco](https://github.com/guibranco).
+
 ## Version 1.3 [2025-04-23]
  - [#351](https://github.com/guibranco/pancake/pull/351) - Replace real HTTP requests in integration tests with WireMock by [@guibranco](https://github.com/guibranco) and [gitauto-ai](https://github.com/apps/gitauto-ai).
 
