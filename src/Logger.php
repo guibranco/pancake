@@ -27,7 +27,7 @@ class Logger implements ILogger
     {
         $trace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 2);
         $caller = $trace[1] ?? [];
-    
+
         $safeCaller = [
             "file" => $caller["file"] ?? null,
             "line" => $caller["line"] ?? null,
@@ -36,16 +36,16 @@ class Logger implements ILogger
             "message" => $message,
             "details" => $details
         ];
-    
+
         $body = json_encode($safeCaller);
-    
+
         if ($body === false) {
             $body = json_encode([
                 "message" => $message,
                 "details" => json_last_error_msg()
             ]);
         }
-    
+
         $result = $this->request->post($this->baseUrl . "log-message", $this->headers, $body);
 
         $statusCode = $result->getStatusCode();
