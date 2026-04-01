@@ -73,12 +73,24 @@ final class LogStreamEntry
             'message'  => $this->message,
         ];
 
-        if ($this->appKey    !== null) { $data['app_key']    = $this->appKey;    }
-        if ($this->traceId   !== null) { $data['trace_id']   = $this->traceId;   }
-        if ($this->batchId   !== null) { $data['batch_id']   = $this->batchId;   }
-        if ($this->context   !== null) { $data['context']    = $this->context;   }
-        if ($this->timestamp !== null) { $data['timestamp']  = $this->timestamp; }
-        if ($this->userAgent !== null) { $data['user_agent'] = $this->userAgent; }
+        if ($this->appKey    !== null) {
+            $data['app_key']    = $this->appKey;
+        }
+        if ($this->traceId   !== null) {
+            $data['trace_id']   = $this->traceId;
+        }
+        if ($this->batchId   !== null) {
+            $data['batch_id']   = $this->batchId;
+        }
+        if ($this->context   !== null) {
+            $data['context']    = $this->context;
+        }
+        if ($this->timestamp !== null) {
+            $data['timestamp']  = $this->timestamp;
+        }
+        if ($this->userAgent !== null) {
+            $data['user_agent'] = $this->userAgent;
+        }
 
         return $data;
     }

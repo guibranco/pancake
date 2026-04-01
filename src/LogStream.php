@@ -240,7 +240,7 @@ final class LogStream
         $batchId ??= $this->uuid4();
 
         $stamped = array_map(
-            fn(LogStreamEntry $e) => $e->batchId === null ? $e->withBatchId($batchId) : $e,
+            fn (LogStreamEntry $e) => $e->batchId === null ? $e->withBatchId($batchId) : $e,
             $entries,
         );
 
@@ -248,7 +248,7 @@ final class LogStream
             'app_key'  => $this->defaultAppKey,
             'app_id'   => $this->defaultAppId,
             'batch_id' => $batchId,
-            'logs'     => array_map(fn(LogStreamEntry $e) => $e->toArray(), $stamped),
+            'logs'     => array_map(fn (LogStreamEntry $e) => $e->toArray(), $stamped),
         ];
 
         $response = $this->request->post(
