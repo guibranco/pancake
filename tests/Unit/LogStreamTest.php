@@ -8,6 +8,7 @@ use GuiBranco\Pancake\LogStream;
 use GuiBranco\Pancake\LogStreamEntry;
 use GuiBranco\Pancake\LogStreamResponse;
 use GuiBranco\Pancake\Request;
+use GuiBranco\Pancake\Response;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
