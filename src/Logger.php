@@ -56,6 +56,6 @@ class Logger implements ILogger
             error_log("[" . date("Y-m-d H:i:s.u e") . "] Pancake::Logger: " . json_encode($trace[1]));
         }
 
-        return $statusCode === 200;
+        return $statusCode === 202;
     }
 }
