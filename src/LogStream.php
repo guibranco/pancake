@@ -277,11 +277,11 @@ final class LogStream
             'Accept: application/json',
         ]);
 
-        if ($response->statusCode !== 200) {
+        if ($response->getStatusCode() !== 200) {
             return null;
         }
 
-        return json_decode($response->body, true) ?: null;
+        return json_decode($response->getBody(), true) ?: null;
     }
 
     // ──────────────────────────────────────────────────────────────────────────
