@@ -1,0 +1,19 @@
+{
+  "id": "logstream-health-ok",
+  "name": "LogStream health check",
+  "request": {
+    "method": "GET",
+    "urlPath": "/api/health"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "jsonBody": {
+      "status": "ok",
+      "time": "2025-01-15T12:00:00+00:00",
+      "ws_connections": 2
+    }
+  }
+}
