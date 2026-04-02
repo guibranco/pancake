@@ -1,5 +1,4 @@
 {
-  "id": "logstream-ingest-bearer-ok",
   "name": "LogStream ingest single entry — bearer auth",
   "request": {
     "method": "POST",
