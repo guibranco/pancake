@@ -1,5 +1,4 @@
 {
-  "id": "logstream-ingest-unauthorized",
   "name": "LogStream ingest — no credentials → 401",
   "request": {
     "method": "POST",
