@@ -20,16 +20,15 @@ final class LogStreamTest extends TestCase
     // Helpers
     // ──────────────────────────────────────────────────────────────────────────
 
-    /** Build a pancake-style response stub object. */
-    private function stubResponse(int $statusCode, string $body): object
+    /** Build a pancake Response stub for use in mocks. */
+    private function stubResponse(int $statusCode, string $body): Response
     {
-        $stub = new \stdClass();
-        $stub->statusCode = $statusCode;
-        $stub->body       = $body;
-        return $stub;
+        // Use Response::success() for all status codes — it accepts any HTTP code.
+        // This satisfies PHPUnit's mock return-type enforcement.
+        return Response::success($body, 'http://mock', [], $statusCode);
     }
 
-    private function stubSuccess(int $saved = 1): object
+    private function stubSuccess(int $saved = 1): Response
     {
         $entries = [];
         for ($i = 0; $i < $saved; $i++) {
@@ -100,9 +99,9 @@ final class LogStreamTest extends TestCase
         $entry = new LogStreamEntry(appId: 'prod', level: 'error', message: 'Boom');
         $data  = $entry->toArray();
 
-        self::assertSame('prod', $data['app_id']);
-        self::assertSame('error', $data['level']);
-        self::assertSame('Boom', $data['message']);
+        self::assertSame('prod',    $data['app_id']);
+        self::assertSame('error',   $data['level']);
+        self::assertSame('Boom',    $data['message']);
         self::assertSame('general', $data['category']);
     }
 
@@ -112,11 +111,11 @@ final class LogStreamTest extends TestCase
         $entry = new LogStreamEntry(appId: 'prod', level: 'info', message: 'Hi');
         $data  = $entry->toArray();
 
-        self::assertArrayNotHasKey('app_key', $data);
-        self::assertArrayNotHasKey('trace_id', $data);
-        self::assertArrayNotHasKey('batch_id', $data);
-        self::assertArrayNotHasKey('context', $data);
-        self::assertArrayNotHasKey('timestamp', $data);
+        self::assertArrayNotHasKey('app_key',    $data);
+        self::assertArrayNotHasKey('trace_id',   $data);
+        self::assertArrayNotHasKey('batch_id',   $data);
+        self::assertArrayNotHasKey('context',    $data);
+        self::assertArrayNotHasKey('timestamp',  $data);
         self::assertArrayNotHasKey('user_agent', $data);
     }
 
@@ -137,12 +136,12 @@ final class LogStreamTest extends TestCase
         );
         $data = $entry->toArray();
 
-        self::assertSame('my-app', $data['app_key']);
-        self::assertSame('trace-uuid', $data['trace_id']);
-        self::assertSame('batch-uuid', $data['batch_id']);
-        self::assertSame(['key' => 'val'], $data['context']);
+        self::assertSame('my-app',            $data['app_key']);
+        self::assertSame('trace-uuid',        $data['trace_id']);
+        self::assertSame('batch-uuid',        $data['batch_id']);
+        self::assertSame(['key' => 'val'],    $data['context']);
         self::assertSame('2025-01-01T00:00:00Z', $data['timestamp']);
-        self::assertSame('MyService/1.0', $data['user_agent']);
+        self::assertSame('MyService/1.0',     $data['user_agent']);
     }
 
     #[Test]
@@ -155,7 +154,7 @@ final class LogStreamTest extends TestCase
 
     public static function validLevels(): array
     {
-        return array_map(fn ($l) => [$l], LogStreamEntry::LEVELS);
+        return array_map(fn($l) => [$l], LogStreamEntry::LEVELS);
     }
 
     #[Test]
@@ -209,7 +208,10 @@ final class LogStreamTest extends TestCase
     #[Test]
     public function response_captures_transport_error(): void
     {
-        $rawStub = Response::error("Could not resolve host", "http://example.com", -1);
+        // Response::error() sets statusCode = -1 and message = the error string,
+        // which maps to what LogStreamResponse::fromResponse() reads via getMessage().
+        $rawStub = Response::error('Could not resolve host', 'http://mock', -1);
+
         $r = LogStreamResponse::fromResponse($rawStub);
 
         self::assertSame(-1, $r->statusCode);
@@ -254,9 +256,9 @@ final class LogStreamTest extends TestCase
 
         $entry = $client->makeEntry('Hello');
 
-        self::assertSame('test', $entry->appId);
+        self::assertSame('test',    $entry->appId);
         self::assertSame('test-app', $entry->appKey);
-        self::assertSame('info', $entry->level);
+        self::assertSame('info',    $entry->level);
         self::assertSame('startup', $entry->category);
     }
 
@@ -266,8 +268,8 @@ final class LogStreamTest extends TestCase
         $client = $this->makeBearerClient();
         $entry  = $client->makeEntry('Hello', 'error', 'payments', ['k' => 'v']);
 
-        self::assertSame('error', $entry->level);
-        self::assertSame('payments', $entry->category);
+        self::assertSame('error',      $entry->level);
+        self::assertSame('payments',   $entry->category);
         self::assertSame(['k' => 'v'], $entry->context);
     }
 
@@ -323,7 +325,7 @@ final class LogStreamTest extends TestCase
 
         $this->makeBearerClient($mock)->info('Hello');
 
-        $authHeader = array_values(array_filter($capturedHeaders, fn ($h) => str_starts_with($h, 'Authorization:')));
+        $authHeader = array_values(array_filter($capturedHeaders, fn($h) => str_starts_with($h, 'Authorization:')));
         self::assertCount(1, $authHeader);
         self::assertSame('Authorization: Bearer my-secret', $authHeader[0]);
     }
@@ -341,7 +343,7 @@ final class LogStreamTest extends TestCase
 
         $this->makeBearerClient($mock)->info('Hello');
 
-        $apiKeyHeaders = array_filter($capturedHeaders, fn ($h) => str_starts_with($h, 'X-Api-Key:'));
+        $apiKeyHeaders = array_filter($capturedHeaders, fn($h) => str_starts_with($h, 'X-Api-Key:'));
         self::assertCount(0, $apiKeyHeaders);
     }
 
@@ -362,12 +364,12 @@ final class LogStreamTest extends TestCase
 
         $this->makeApiKeyClient($mock)->info('Hello');
 
-        $keyHeader   = array_values(array_filter($capturedHeaders, fn ($h) => str_starts_with($h, 'X-Api-Key:')));
-        $tokenHeader = array_values(array_filter($capturedHeaders, fn ($h) => str_starts_with($h, 'X-Api-Token:')));
+        $keyHeader   = array_values(array_filter($capturedHeaders, fn($h) => str_starts_with($h, 'X-Api-Key:')));
+        $tokenHeader = array_values(array_filter($capturedHeaders, fn($h) => str_starts_with($h, 'X-Api-Token:')));
 
         self::assertCount(1, $keyHeader);
         self::assertCount(1, $tokenHeader);
-        self::assertSame('X-Api-Key: test-app', $keyHeader[0]);
+        self::assertSame('X-Api-Key: test-app',  $keyHeader[0]);
         self::assertSame('X-Api-Token: my-token', $tokenHeader[0]);
     }
 
@@ -384,7 +386,7 @@ final class LogStreamTest extends TestCase
 
         $this->makeApiKeyClient($mock)->info('Hello');
 
-        $authHeaders = array_filter($capturedHeaders, fn ($h) => str_starts_with($h, 'Authorization:'));
+        $authHeaders = array_filter($capturedHeaders, fn($h) => str_starts_with($h, 'Authorization:'));
         self::assertCount(0, $authHeaders);
     }
 
@@ -484,7 +486,7 @@ final class LogStreamTest extends TestCase
 
         self::assertIsArray($result);
         self::assertSame('ok', $result['status']);
-        self::assertSame(3, $result['ws_connections']);
+        self::assertSame(3,    $result['ws_connections']);
     }
 
     #[Test]
@@ -516,7 +518,7 @@ final class LogStreamTest extends TestCase
         $this->makeBearerClient($mock)->info('Hello');
 
         self::assertSame('test-app', $capturedPayload['app_key']);
-        self::assertSame('test', $capturedPayload['app_id']);
+        self::assertSame('test',     $capturedPayload['app_id']);
     }
 
     #[Test]
@@ -536,9 +538,9 @@ final class LogStreamTest extends TestCase
             'payments',
         );
 
-        self::assertSame(42, $capturedPayload['context']['invoice_id']);
+        self::assertSame(42,             $capturedPayload['context']['invoice_id']);
         self::assertSame('card_declined', $capturedPayload['context']['code']);
-        self::assertSame('payments', $capturedPayload['category']);
+        self::assertSame('payments',      $capturedPayload['category']);
     }
 
     #[Test]
