@@ -198,9 +198,9 @@ final class LogStreamTest extends TestCase
             'message' => 'No auth',
         ]));
 
-        self::assertSame(401, $response->statusCode);
+        self::assertSame(401, $response->getStatusCode());
 
-        $body = json_decode($response->body, true);
+        $body = json_decode($response->getBody(), true);
         self::assertSame('Unauthorized', $body['error']);
     }
 
