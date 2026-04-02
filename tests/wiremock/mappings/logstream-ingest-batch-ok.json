@@ -1,5 +1,4 @@
 {
-  "id": "logstream-ingest-batch-ok",
   "name": "LogStream batch ingest",
   "request": {
     "method": "POST",
