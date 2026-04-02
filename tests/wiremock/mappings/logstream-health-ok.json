@@ -1,5 +1,4 @@
 {
-  "id": "logstream-health-ok",
   "name": "LogStream health check",
   "request": {
     "method": "GET",
