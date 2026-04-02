@@ -1,0 +1,23 @@
+{
+  "id": "logstream-ingest-wrong-token",
+  "name": "LogStream ingest — wrong bearer token → 401",
+  "request": {
+    "method": "POST",
+    "urlPath": "/api/logs",
+    "headers": {
+      "Authorization": {
+        "equalTo": "Bearer wrong-secret"
+      }
+    }
+  },
+  "response": {
+    "status": 401,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "jsonBody": {
+      "error": "Unauthorized",
+      "reason": "Invalid API secret"
+    }
+  }
+}
