@@ -208,10 +208,12 @@ final class LogStreamTest extends TestCase
     #[Test]
     public function response_captures_transport_error(): void
     {
-        $rawStub = new \stdClass();
-        $rawStub->statusCode = -1;
-        $rawStub->body       = '';
-        $rawStub->error      = 'Could not resolve host';
+        $rawStub = new Response(
+            statusCode: -1,
+            body: '',
+            headers: [],
+            error: 'Could not resolve host'
+        );
 
         $r = LogStreamResponse::fromResponse($rawStub);
 
