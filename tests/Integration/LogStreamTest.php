@@ -15,8 +15,8 @@ use PHPUnit\Framework\TestCase;
  * Integration tests for LogStream against a WireMock server.
  *
  * Prerequisites:
- *   1. WireMock must be running on http://localhost:8089
- *      docker run --rm -d -p 8089:8080 \
+ *   1. WireMock must be running on http://localhost:8080
+ *      docker run --rm -d -p 8080:8080 \
  *          -v $PWD/tests/wiremock/mappings:/home/wiremock/mappings \
  *          wiremock/wiremock:latest
  *
@@ -28,7 +28,7 @@ use PHPUnit\Framework\TestCase;
 #[Group('integration')]
 final class LogStreamTest extends TestCase
 {
-    private const BASE_URL = 'http://localhost:8089';
+    private const BASE_URL = 'http://localhost:8080';
 
     private function bearerClient(): LogStream
     {
@@ -64,7 +64,7 @@ final class LogStreamTest extends TestCase
 
         self::assertIsArray($result);
         self::assertSame('ok', $result['status']);
-        self::assertArrayHasKey('time', $result);
+        self::assertArrayHasKey('time',           $result);
         self::assertArrayHasKey('ws_connections', $result);
     }
 
@@ -79,8 +79,8 @@ final class LogStreamTest extends TestCase
 
         self::assertTrue($response->success);
         self::assertSame(201, $response->statusCode);
-        self::assertSame(1, $response->saved);
-        self::assertCount(1, $response->entries);
+        self::assertSame(1,   $response->saved);
+        self::assertCount(1,  $response->entries);
         self::assertNull($response->errors);
     }
 
@@ -134,7 +134,7 @@ final class LogStreamTest extends TestCase
 
         self::assertTrue($response->success);
         self::assertSame(201, $response->statusCode);
-        self::assertSame(1, $response->saved);
+        self::assertSame(1,   $response->saved);
     }
 
     // ──────────────────────────────────────────────────────────────────────────
@@ -146,17 +146,17 @@ final class LogStreamTest extends TestCase
     {
         $client  = $this->bearerClient();
         $entries = [
-            $client->makeEntry('Entry 1', 'info', 'ci'),
+            $client->makeEntry('Entry 1', 'info',    'ci'),
             $client->makeEntry('Entry 2', 'warning', 'ci'),
-            $client->makeEntry('Entry 3', 'error', 'ci'),
+            $client->makeEntry('Entry 3', 'error',   'ci'),
         ];
 
         $response = $client->batch($entries, 'batch-001');
 
         self::assertTrue($response->success);
         self::assertSame(201, $response->statusCode);
-        self::assertSame(3, $response->saved);
-        self::assertCount(3, $response->entries);
+        self::assertSame(3,   $response->saved);
+        self::assertCount(3,  $response->entries);
     }
 
     #[Test]
