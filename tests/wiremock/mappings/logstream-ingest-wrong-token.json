@@ -1,5 +1,4 @@
 {
-  "id": "logstream-ingest-wrong-token",
   "name": "LogStream ingest — wrong bearer token → 401",
   "request": {
     "method": "POST",
