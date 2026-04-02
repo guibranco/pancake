@@ -1,0 +1,26 @@
+{
+  "id": "logstream-ingest-unauthorized",
+  "name": "LogStream ingest — no credentials → 401",
+  "request": {
+    "method": "POST",
+    "urlPath": "/api/logs",
+    "headers": {
+      "Authorization": {
+        "absent": true
+      },
+      "X-Api-Key": {
+        "absent": true
+      }
+    }
+  },
+  "response": {
+    "status": 401,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "jsonBody": {
+      "error": "Unauthorized",
+      "reason": "Missing Authorization header or token query parameter"
+    }
+  }
+}
