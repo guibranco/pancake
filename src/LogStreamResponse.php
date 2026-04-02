@@ -56,8 +56,10 @@ final class LogStreamResponse
     /** Build from a pancake Response object. */
     public static function fromResponse(Response $response): self
     {
-        $transportError = ($response->getStatusCode() === -1 && $response->getMessage() !== null)
-            ? $response->getMessage()
+        // getMessage() returns string (never null); treat empty string as no error.
+        $message        = $response->getMessage();
+        $transportError = ($response->getStatusCode() === -1 && $message !== '')
+            ? $message
             : null;
 
         return new self(
