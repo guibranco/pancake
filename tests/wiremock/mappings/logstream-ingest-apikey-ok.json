@@ -1,5 +1,4 @@
 {
-  "id": "logstream-ingest-apikey-ok",
   "name": "LogStream ingest single entry — API-key auth",
   "request": {
     "method": "POST",
