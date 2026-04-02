@@ -1,0 +1,46 @@
+{
+  "name": "LogStream ingest single entry — API-key auth",
+  "request": {
+    "method": "POST",
+    "urlPath": "/api/logs",
+    "headers": {
+      "X-Api-Key": {
+        "equalTo": "test-app"
+      },
+      "X-Api-Token": {
+        "equalTo": "test-token"
+      },
+      "Content-Type": {
+        "contains": "application/json"
+      }
+    }
+  },
+  "response": {
+    "status": 201,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "jsonBody": {
+      "saved": 1,
+      "entries": [
+        {
+          "id": "01HZ3XKPQ7V8WBNM0S4DECKJRB",
+          "trace_id": "7ca8b920-aeae-22e2-91c5-11d15ge541d9",
+          "batch_id": null,
+          "app_key": "test-app",
+          "app_id": "integration-test",
+          "user_agent": "LogStream-PHP-Client/1.0",
+          "level": "error",
+          "category": "payments",
+          "message": "Charge failed",
+          "context": {
+            "invoice_id": 42
+          },
+          "timestamp": "2025-01-15T12:00:00.000Z",
+          "created_at": "2025-01-15T12:00:00.001Z"
+        }
+      ],
+      "errors": null
+    }
+  }
+}
