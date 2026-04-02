@@ -209,13 +209,7 @@ final class LogStreamTest extends TestCase
     #[Test]
     public function response_captures_transport_error(): void
     {
-        $rawStub = new Response(
-            statusCode: -1,
-            body: '',
-            headers: [],
-            error: 'Could not resolve host'
-        );
-
+        $rawStub = Response::error("Could not resolve host", "http://example.com", -1);
         $r = LogStreamResponse::fromResponse($rawStub);
 
         self::assertSame(-1, $r->statusCode);
