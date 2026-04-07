@@ -28,7 +28,7 @@ class CircuitBreakerTest extends TestCase
      */
     private function makeCache(array $initial = []): object
     {
-        return new class($initial) implements MemoryCacheInterface {
+        return new class ($initial) implements MemoryCacheInterface {
             private array $data;
 
             public function __construct(array $data)
@@ -53,7 +53,7 @@ class CircuitBreakerTest extends TestCase
      */
     private function successOperation(mixed $returnValue = 'ok'): callable
     {
-        return fn() => $returnValue;
+        return fn () => $returnValue;
     }
 
     /**

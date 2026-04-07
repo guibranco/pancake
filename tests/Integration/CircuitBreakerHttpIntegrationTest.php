@@ -116,7 +116,7 @@ class CircuitBreakerHttpIntegrationTest extends TestCase
      */
     private function makeCache(array $initial = []): object
     {
-        return new class($initial) implements MemoryCacheInterface {
+        return new class ($initial) implements MemoryCacheInterface {
             private array $data;
 
             public function __construct(array $data)
@@ -174,7 +174,7 @@ class CircuitBreakerHttpIntegrationTest extends TestCase
         $url = $this->wireMockUrl() . '/api/healthy';
 
         for ($i = 0; $i < 5; $i++) {
-            $result = $cb->execute(fn() => $this->httpGet($url));
+            $result = $cb->execute(fn () => $this->httpGet($url));
             $this->assertSame('OK', $result);
         }
 
@@ -198,7 +198,7 @@ class CircuitBreakerHttpIntegrationTest extends TestCase
 
         for ($i = 0; $i < 3; $i++) {
             try {
-                $cb->execute(fn() => $this->httpGet($url));
+                $cb->execute(fn () => $this->httpGet($url));
             } catch (\RuntimeException) {
                 // Expected — each failure increments the counter.
             }
@@ -226,7 +226,7 @@ class CircuitBreakerHttpIntegrationTest extends TestCase
 
         for ($i = 0; $i < 2; $i++) {
             try {
-                $cb->execute(fn() => $this->httpGet($url));
+                $cb->execute(fn () => $this->httpGet($url));
             } catch (\RuntimeException) {
             }
         }
@@ -241,7 +241,7 @@ class CircuitBreakerHttpIntegrationTest extends TestCase
         ]);
 
         $this->expectException(CircuitBreakerOpenException::class);
-        $cb->execute(fn() => $this->httpGet($url));
+        $cb->execute(fn () => $this->httpGet($url));
     }
 
     /**
@@ -265,7 +265,7 @@ class CircuitBreakerHttpIntegrationTest extends TestCase
         $cb = new CircuitBreaker($cache, 3, 60);
         $url = $this->wireMockUrl() . '/api/recover';
 
-        $result = $cb->execute(fn() => $this->httpGet($url));
+        $result = $cb->execute(fn () => $this->httpGet($url));
 
         $this->assertSame('Recovered', $result);
         $this->assertSame(CircuitBreaker::STATE_CLOSED, $cb->getState());
@@ -292,7 +292,7 @@ class CircuitBreakerHttpIntegrationTest extends TestCase
         $url = $this->wireMockUrl() . '/api/probe-fail';
 
         try {
-            $cb->execute(fn() => $this->httpGet($url));
+            $cb->execute(fn () => $this->httpGet($url));
         } catch (\RuntimeException) {
             // Probe failed as expected.
         }
@@ -321,7 +321,7 @@ class CircuitBreakerHttpIntegrationTest extends TestCase
         $url = $this->wireMockUrl() . '/api/reset-test';
 
         $cb->forceReset();
-        $result = $cb->execute(fn() => $this->httpGet($url));
+        $result = $cb->execute(fn () => $this->httpGet($url));
 
         $this->assertSame('Fine', $result);
         $this->assertSame(CircuitBreaker::STATE_CLOSED, $cb->getState());
@@ -343,7 +343,7 @@ class CircuitBreakerHttpIntegrationTest extends TestCase
 
         for ($i = 0; $i < 4; $i++) {
             try {
-                $cb->execute(fn() => $this->httpGet($url));
+                $cb->execute(fn () => $this->httpGet($url));
             } catch (\RuntimeException) {
             }
         }
@@ -374,14 +374,14 @@ class CircuitBreakerHttpIntegrationTest extends TestCase
         // Two failures
         for ($i = 0; $i < 2; $i++) {
             try {
-                $cb->execute(fn() => $this->httpGet($failUrl));
+                $cb->execute(fn () => $this->httpGet($failUrl));
             } catch (\RuntimeException) {
             }
         }
         $this->assertSame(2, $cb->getFailureCount());
 
         // One success — failure counter must reset
-        $cb->execute(fn() => $this->httpGet($okUrl));
+        $cb->execute(fn () => $this->httpGet($okUrl));
         $this->assertSame(0, $cb->getFailureCount());
         $this->assertSame(CircuitBreaker::STATE_CLOSED, $cb->getState());
     }
