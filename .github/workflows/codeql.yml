@@ -1,16 +1,3 @@
-# This workflow uses actions that are not certified by GitHub.
-# They are provided by a third-party and are governed by
-# separate terms of service, privacy policy, and support
-# documentation.
-
-# This workflow checks out code, performs a Codacy security scan
-# and integrates the results with the
-# GitHub Advanced Security code scanning feature.  For more information on
-# the Codacy security scan action usage and parameters, see
-# https://github.com/codacy/codacy-analysis-cli-action.
-# For more information on Codacy Analysis CLI in general, see
-# https://github.com/codacy/codacy-analysis-cli.
-
 name: Codacy Security Scan
 
 on:
@@ -27,17 +14,15 @@ permissions:
 jobs:
   codacy-security-scan:
     permissions:
-      contents: read              # for actions/checkout to fetch code
-      security-events: write      # for github/codeql-action/upload-sarif to upload SARIF results
-      actions: read               # only required for a private repository
+      contents: read
+      security-events: write
+      actions: read
     name: Codacy Security Scan
     runs-on: ubuntu-latest
     steps:
-      # 1️⃣ Checkout the repository
       - name: Checkout code
         uses: actions/checkout@v6
 
-      # 2️⃣ Run Codacy Analysis CLI, produce results.sarif
       - name: Run Codacy Analysis CLI
         uses: codacy/codacy-analysis-cli-action@562ee3e92b8e92df8b67e0a5ff8aa8e261919c08
         with:
@@ -48,31 +33,7 @@ jobs:
           gh-code-scanning-compat: true
           max-allowed-issues: 2147483647
 
-      # 3️⃣ Extract only the first SARIF run to avoid duplicates
-      - name: Extract first SARIF run
-        run: |
-          jq '{version: .version, "$schema": ."$schema", runs: [ .runs[0] ]}' results.sarif > filtered.sarif
-
-      # 4️⃣ Upload just that single-run SARIF
-      - name: Split and upload each SARIF run
-        run: |
-          count=$(jq '.runs | length' results.sarif)
-          for i in $(seq 0 $((count-1))); do
-            jq --argjson idx $i \
-               '{version: .version, "$schema": ."$schema", runs: [ .runs[$idx] ]}' \
-               results.sarif > run_${i}.sarif
-      
-            # gzip and base64 encode
-            gzip -c run_${i}.sarif | base64 -w 0 > run_${i}.sarif.b64
-      
-            # Read encoded content into variable
-            b64_sarif=$(cat run_${i}.sarif.b64)
-      
-            gh api repos/${{ github.repository }}/code-scanning/sarifs \
-              -f commit_sha=${{ github.sha }} \
-              -f ref=${{ github.ref }} \
-              -f sarif="$b64_sarif"
-          done
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
+      - name: Upload SARIF results
+        uses: github/codeql-action/upload-sarif@v4
+        with:
+          sarif_file: results.sarif
