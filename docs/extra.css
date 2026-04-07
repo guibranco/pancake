@@ -9,3 +9,303 @@ table tr td {
 .wy-nav-content {
     max-width: 90%;
 }
+
+/* ============================================================
+   Dracula palette references
+   bg:       #282a36
+   surface:  #44475a
+   fg:       #f8f8f2
+   comment:  #6272a4
+   cyan:     #8be9fd
+   green:    #50fa7b
+   orange:   #ffb86c
+   pink:     #ff79c6
+   purple:   #bd93f9
+   red:      #ff5555
+   yellow:   #f1fa8c
+   ============================================================ */
+
+/* ── Timeline shell ─────────────────────────────────────── */
+
+.cl-timeline {
+  position: relative;
+  padding: 0.5rem 0 2rem 0;
+  margin-top: 2rem;
+}
+
+.cl-timeline::before {
+  content: "";
+  position: absolute;
+  left: 11px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    #6272a4 4%,
+    #6272a4 96%,
+    transparent
+  );
+}
+
+/* ── Entry row ──────────────────────────────────────────── */
+
+.cl-entry {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: 1.25rem;
+  margin-bottom: 1.25rem;
+}
+
+/* ── Timeline markers ───────────────────────────────────── */
+
+.cl-marker {
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  margin-top: 0.75rem;
+  position: relative;
+  z-index: 1;
+  border: 2px solid #282a36;
+}
+
+.cl-marker--minor {
+  background: #44475a;
+  border-color: #6272a4;
+}
+
+.cl-marker--major {
+  background: #bd93f9;
+  border-color: #282a36;
+  box-shadow: 0 0 0 3px rgba(189, 147, 249, 0.25);
+  width: 28px;
+  height: 28px;
+  margin-top: 0.65rem;
+}
+
+.cl-marker--origin {
+  background: #50fa7b;
+  border-color: #282a36;
+  box-shadow: 0 0 0 3px rgba(80, 250, 123, 0.2);
+}
+
+/* ── Card ───────────────────────────────────────────────── */
+
+.cl-card {
+  flex: 1;
+  background: #2d2f3f;
+  border: 1px solid #44475a;
+  border-radius: 8px;
+  padding: 0.85rem 1.1rem 0.75rem;
+  transition: border-color 0.2s ease;
+}
+
+.cl-card:hover {
+  border-color: #6272a4;
+}
+
+.cl-entry--major .cl-card {
+  border-color: #6272a4;
+  background: #2a2640;
+}
+
+.cl-entry--origin .cl-card {
+  border-color: #3d5c45;
+  background: #252e2a;
+}
+
+/* ── Card header ────────────────────────────────────────── */
+
+.cl-card-header {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 0.6rem;
+}
+
+/* ── Version pill ───────────────────────────────────────── */
+
+.cl-version {
+  font-family: "JetBrains Mono", "Fira Code", "Cascadia Code", monospace;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: #bd93f9;
+  background: rgba(189, 147, 249, 0.12);
+  border: 1px solid rgba(189, 147, 249, 0.3);
+  border-radius: 4px;
+  padding: 0.15em 0.55em;
+}
+
+.cl-version--major {
+  color: #f8f8f2;
+  background: rgba(189, 147, 249, 0.25);
+  border-color: #bd93f9;
+  font-size: 0.85rem;
+}
+
+/* ── Date ───────────────────────────────────────────────── */
+
+.cl-date {
+  font-size: 0.75rem;
+  color: #6272a4;
+  letter-spacing: 0.03em;
+  font-variant-numeric: tabular-nums;
+  margin-left: auto;
+}
+
+/* ── Category badges ────────────────────────────────────── */
+
+.cl-badge {
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border-radius: 3px;
+  padding: 0.2em 0.6em;
+  border: 1px solid transparent;
+}
+
+.cl-badge--feature {
+  color: #8be9fd;
+  background: rgba(139, 233, 253, 0.1);
+  border-color: rgba(139, 233, 253, 0.25);
+}
+
+.cl-badge--enhancement {
+  color: #ffb86c;
+  background: rgba(255, 184, 108, 0.1);
+  border-color: rgba(255, 184, 108, 0.25);
+}
+
+.cl-badge--infra {
+  color: #6272a4;
+  background: rgba(98, 114, 164, 0.1);
+  border-color: rgba(98, 114, 164, 0.3);
+}
+
+.cl-badge--test {
+  color: #50fa7b;
+  background: rgba(80, 250, 123, 0.08);
+  border-color: rgba(80, 250, 123, 0.25);
+}
+
+.cl-badge--major {
+  color: #f1fa8c;
+  background: rgba(241, 250, 140, 0.1);
+  border-color: rgba(241, 250, 140, 0.3);
+}
+
+/* ── Change items ───────────────────────────────────────── */
+
+.cl-items {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.cl-items li {
+  font-size: 0.88rem;
+  color: #c4c6d4;
+  line-height: 1.6;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.35rem;
+  padding: 0.2rem 0;
+  border-bottom: 1px solid rgba(68, 71, 90, 0.4);
+}
+
+.cl-items li:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.cl-items code {
+  font-size: 0.8rem;
+  background: rgba(68, 71, 90, 0.6);
+  color: #ff79c6;
+  border-radius: 3px;
+  padding: 0.1em 0.4em;
+}
+
+/* ── PR / Issue reference chips ─────────────────────────── */
+
+.cl-ref {
+  font-family: "JetBrains Mono", "Fira Code", monospace;
+  font-size: 0.72rem;
+  font-weight: 600;
+  border-radius: 3px;
+  padding: 0.15em 0.45em;
+  text-decoration: none;
+  flex-shrink: 0;
+  border: 1px solid transparent;
+  transition: opacity 0.15s ease;
+}
+
+.cl-ref:hover {
+  opacity: 0.8;
+  text-decoration: none;
+}
+
+.cl-ref--pr {
+  color: #bd93f9;
+  background: rgba(189, 147, 249, 0.12);
+  border-color: rgba(189, 147, 249, 0.3);
+}
+
+.cl-ref--issue {
+  color: #50fa7b;
+  background: rgba(80, 250, 123, 0.08);
+  border-color: rgba(80, 250, 123, 0.25);
+}
+
+/* ── Authors ────────────────────────────────────────────── */
+
+.cl-authors {
+  margin-left: auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+  align-items: center;
+}
+
+.cl-author {
+  font-size: 0.72rem;
+  color: #6272a4;
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+.cl-author:hover {
+  color: #8be9fd;
+  text-decoration: none;
+}
+
+/* ── Responsive ─────────────────────────────────────────── */
+
+@media (max-width: 640px) {
+  .cl-date {
+    margin-left: 0;
+    order: 99;
+    width: 100%;
+  }
+
+  .cl-authors {
+    margin-left: 0;
+    margin-top: 0.25rem;
+  }
+
+  .cl-items li {
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .cl-timeline::before {
+    left: 9px;
+  }
+}
