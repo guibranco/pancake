@@ -1,5 +1,8 @@
 # Changelog
 
+## Version 1.6 [2026-04-07]
+ - [#85](https://github.com/guibranco/pancake/pull/85) - Add `CircuitBreaker` class by [@guibranco](https://github.com/guibranco).
+
 ## Version 1.5 [2026-04-07]
  - [#518](https://github.com/guibranco/pancake/issues/518) - Use PHP version 8.4 by [@guibranco](https://github.com/guibranco).
    
