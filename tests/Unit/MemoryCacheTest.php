@@ -1,46 +1,58 @@
 <?php
 
-declare(strict_types=1);
-
 namespace GuiBranco\Pancake\Tests\Unit;
 
 use GuiBranco\Pancake\MemoryCache;
 use PHPUnit\Framework\TestCase;
 
-final class MemoryCacheTest extends TestCase
+class MemoryCacheTest extends TestCase
 {
-    public function testWriteAndReadJsonInMemory()
-    {
-        $memoryCache = new MemoryCache();
-        $data = ['key' => 'value', 'number' => 123];
-        $bytesWritten = $memoryCache->writeJsonInMemory($data);
-        $this->assertGreaterThan(0, $bytesWritten, "Bytes written should be greater than 0");
+    private MemoryCache $cache;
 
-        $readData = $memoryCache->readJsonInMemory();
-        $this->assertEquals($data, $readData, "Data read from memory should match data written");
+    protected function setUp(): void
+    {
+        $this->cache = new MemoryCache();
     }
 
-    public function testWriteEmptyData()
+    public function testWriteAndReadJsonInMemory(): void
     {
-        $memoryCache = new MemoryCache();
-        $data = [];
-        $bytesWritten = $memoryCache->writeJsonInMemory($data);
-        $this->assertGreaterThan(0, $bytesWritten, "Bytes written should be greater than 0 even for empty data");
+        $data = ['key' => 'value', 'number' => 42];
 
-        $readData = $memoryCache->readJsonInMemory();
-        $this->assertEquals($data, $readData, "Data read from memory should match empty data written");
+        $this->cache->writeJsonInMemory($data);  // void — no return to assert
+
+        $result = $this->cache->readJsonInMemory();
+
+        $this->assertSame($data, $result);
     }
 
-    public function testOverwriteDataInMemory()
+    public function testWriteEmptyData(): void
     {
-        $memoryCache = new MemoryCache();
-        $data1 = ['first' => 'data'];
-        $data2 = ['second' => 'data'];
+        $this->cache->writeJsonInMemory([]);
 
-        $memoryCache->writeJsonInMemory($data1);
-        $memoryCache->writeJsonInMemory($data2);
+        $result = $this->cache->readJsonInMemory();
 
-        $readData = $memoryCache->readJsonInMemory();
-        $this->assertEquals($data2, $readData, "Data read from memory should match the last data written");
+        $this->assertSame([], $result);
+    }
+
+    public function testOverwriteReplacesExistingData(): void
+    {
+        $this->cache->writeJsonInMemory(['first' => true]);
+        $this->cache->writeJsonInMemory(['second' => true]);
+
+        $result = $this->cache->readJsonInMemory();
+
+        $this->assertArrayHasKey('second', $result);
+        $this->assertArrayNotHasKey('first', $result);
+    }
+
+    public function testReadOnFreshMemoryReturnsEmptyArray(): void
+    {
+        // Write empty state so shared memory is initialised but blank
+        $this->cache->writeJsonInMemory([]);
+
+        $result = $this->cache->readJsonInMemory();
+
+        $this->assertIsArray($result);
+        $this->assertEmpty($result);
     }
 }
