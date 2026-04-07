@@ -1,0 +1,17 @@
+{
+  "name": "Loggger log message",
+  "request": {
+    "method": "POST",
+    "urlPath": "/log-message"
+  },
+  "response": {
+    "status": 202,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "jsonBody": {
+      "status": "ok",
+      "time": "2025-01-15T12:00:00+00:00"
+    }
+  }
+}

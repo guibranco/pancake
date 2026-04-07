@@ -1,7 +1,10 @@
 # Changelog
 
-## Version 1.4 [2025-04-23]
+## Version 1.6 [2026-04-07]
  - [#85](https://github.com/guibranco/pancake/pull/85) - Add `CircuitBreaker` class by [@guibranco](https://github.com/guibranco).
+
+## Version 1.4 [2026-04-02]
+ - [#513](https://github.com/guibranco/pancake/issues/513) - Add `LogStream` class by [@guibranco](https://github.com/guibranco).
 
 ## Version 1.3 [2025-04-23]
  - [#351](https://github.com/guibranco/pancake/pull/351) - Replace real HTTP requests in integration tests with WireMock by [@guibranco](https://github.com/guibranco) and [gitauto-ai](https://github.com/apps/gitauto-ai).
