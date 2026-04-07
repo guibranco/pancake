@@ -48,3 +48,9 @@ jobs:
                   args: --coverage-filter src tests
               env:
                   XDEBUG_MODE: coverage
+
+            - uses: qltysh/qlty-action/coverage@v2
+              with:
+                token: ${{ secrets.QLTY_COVERAGE_TOKEN }}
+                files: coverage.xml
+                format: cobertura

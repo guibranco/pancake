@@ -22,6 +22,7 @@ nav:
   - License: license.md
   - User guide:
     - Basic usage:     user-guide/basic-usage.md
+    - Circuit Breaker: user-guid/circuit-breaker.md
     - Color:           user-guide/color.md
     - Database:        user-guide/database.md
     - GUID (v4):       user-guide/guid-v4.md
