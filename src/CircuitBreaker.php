@@ -33,6 +33,7 @@ use GuiBranco\Pancake\Exceptions\CircuitBreakerOpenException;
  * use GuiBranco\Pancake\MemoryCache;
  * use GuiBranco\Pancake\Exceptions\CircuitBreakerOpenException;
  *
+ * // MemoryCache implements MemoryCacheInterface out of the box.
  * $cb = new CircuitBreaker(new MemoryCache(), failureThreshold: 3, resetTimeout: 120);
  *
  * try {
@@ -75,18 +76,18 @@ class CircuitBreaker
     /** @var int Seconds the circuit remains open before transitioning to half-open. */
     private int $resetTimeout;
 
-    /** @var MemoryCache Cache used to persist and restore state across instances. */
-    private MemoryCache $cache;
+    /** @var MemoryCacheInterface Cache used to persist and restore state across instances. */
+    private MemoryCacheInterface $cache;
 
     /**
      * Creates a new CircuitBreaker, restoring any previously persisted state.
      *
-     * @param MemoryCache $cache            Cache instance for state persistence.
-     * @param int         $failureThreshold Consecutive failures before opening. Default: 5.
-     * @param int         $resetTimeout     Seconds the open circuit waits before probing. Default: 60.
+     * @param MemoryCacheInterface $cache            Cache instance for state persistence.
+     * @param int                  $failureThreshold Consecutive failures before opening. Default: 5.
+     * @param int                  $resetTimeout     Seconds the open circuit waits before probing. Default: 60.
      */
     public function __construct(
-        MemoryCache $cache,
+        MemoryCacheInterface $cache,
         int $failureThreshold = 5,
         int $resetTimeout = 60
     ) {
