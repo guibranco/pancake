@@ -2,7 +2,7 @@
 
 namespace GuiBranco\Pancake;
 
-class MemoryCache
+class MemoryCache implements MemoryCacheInterface
 {
     private $memorySize = 16 * 1024;
 
