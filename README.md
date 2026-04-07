@@ -17,7 +17,7 @@ Documentation: [Read the Docs](https://guibranco.github.io/pancake/)
 - [Code Quality](#code-quality): Metrics from some tools about code quality.
 - [Installation](#installation): How to install/download this tool.
 - [User guide](#user-guide): How to set up, configure, and use this tool.
-- [Change log](#changelog): Changelog containing the changes done in this project.
+- [Changelog](#changelog): Changelog containing the changes done in this project.
 - [Support](#support): How to get support.
 - [Testing](#testing): How to test this library.
 - [Contributing](#contributing): How to contribute.
