@@ -1,5 +1,8 @@
 # Changelog
 
+## Version 1.5 [2026-04-07]
+ - [#518](https://github.com/guibranco/pancake/issues/518) - Use PHP version 8.4 by [@guibranco](https://github.com/guibranco).
+   
 ## Version 1.4 [2026-04-02]
  - [#513](https://github.com/guibranco/pancake/issues/513) - Add `LogStream` class by [@guibranco](https://github.com/guibranco).
 
