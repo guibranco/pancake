@@ -25,15 +25,26 @@ class Logger implements ILogger
 
     public function log($message, $details): bool
     {
-        $trace = debug_backtrace();
+        $trace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 2);
         $caller = $trace[1] ?? [];
 
-        $caller["message"] = $message;
-        $caller["details"] = $details;
-        $caller["object"] = isset($caller["object"]) ? print_r($caller["object"], true) : "";
-        $caller["args"] = isset($caller["args"]) ? print_r($caller["args"], true) : "";
+        $safeCaller = [
+            "file" => $caller["file"] ?? null,
+            "line" => $caller["line"] ?? null,
+            "function" => $caller["function"] ?? null,
+            "class" => $caller["class"] ?? null,
+            "message" => $message,
+            "details" => $details
+        ];
 
-        $body = json_encode($caller);
+        $body = json_encode($safeCaller);
+
+        if ($body === false) {
+            $body = json_encode([
+                "message" => $message,
+                "details" => json_last_error_msg()
+            ]);
+        }
 
         $result = $this->request->post($this->baseUrl . "log-message", $this->headers, $body);
 
@@ -45,6 +56,6 @@ class Logger implements ILogger
             error_log("[" . date("Y-m-d H:i:s.u e") . "] Pancake::Logger: " . json_encode($trace[1]));
         }
 
-        return $statusCode === 200;
+        return $statusCode === 202;
     }
 }

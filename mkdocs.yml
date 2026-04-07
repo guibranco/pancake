@@ -13,3 +13,24 @@ theme:
   favicon: images/favicon.png
   icon:
     repo: fontawesome/brands/github
+
+nav:
+  - Pancake Project: index.md
+  - Changelog: changelog.md
+  - Contributing: contributing.md
+  - Installation: installation.md
+  - License: license.md
+  - User guide:
+    - Basic usage:     user-guide/basic-usage.md
+    - Color:           user-guide/color.md
+    - Database:        user-guide/database.md
+    - GUID (v4):       user-guide/guid-v4.md
+    - Health Checks:   user-guide/health-checks.md
+    - Ip Utils:        user-guide/ip-utils.md
+    - Logger:          user-guide/logger.md
+    - LogStream:       user-guide/logstream.md   # ← NEW
+    - Memory Cache:    user-guide/memory-cache.md
+    - One Signal:      user-guide/one-signal.md
+    - Request:         user-guide/request.md
+    - Session Manager: user-guide/session-manager.md
+    - ShieldsIo:       user-guide/shieldsio.md

@@ -40,7 +40,7 @@ jobs:
               uses: php-actions/phpunit@v4
               with:
                   version: 11
-                  php_version: 8.3
+                  php_version: 8.4
                   php_extensions: xdebug shmop curl pdo pdo_mysql
                   coverage_clover: coverage.xml
                   bootstrap: vendor/autoload.php
@@ -57,7 +57,7 @@ jobs:
                   sed -i 's@'$GITHUB_WORKSPACE'@/github/workspace/@g' execution.xml
 
             - name: SonarQube Scan
-              uses: SonarSource/sonarqube-scan-action@v7.0.0
+              uses: SonarSource/sonarqube-scan-action@v7.1.0
               env:
                 SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
                 SONAR_HOST_URL: ${{ vars.SONAR_HOST_URL }}
