@@ -57,3 +57,4 @@ jobs:
                 token: ${{ secrets.QLTY_COVERAGE_TOKEN }}
                 files: coverage.xml
                 format: cobertura
+                add-prefix: src/ 
