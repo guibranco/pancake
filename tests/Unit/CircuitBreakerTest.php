@@ -4,6 +4,7 @@ namespace GuiBranco\Pancake\Tests\Unit;
 
 use GuiBranco\Pancake\CircuitBreaker;
 use GuiBranco\Pancake\Exceptions\CircuitBreakerOpenException;
+use GuiBranco\Pancake\MemoryCacheInterface;
 use PHPUnit\Framework\TestCase;
 use PHPUnit\Framework\MockObject\MockObject;
 
@@ -27,7 +28,7 @@ class CircuitBreakerTest extends TestCase
      */
     private function makeCache(array $initial = []): object
     {
-        return new class ($initial) {
+        return new class($initial) implements MemoryCacheInterface {
             private array $data;
 
             public function __construct(array $data)
@@ -52,7 +53,7 @@ class CircuitBreakerTest extends TestCase
      */
     private function successOperation(mixed $returnValue = 'ok'): callable
     {
-        return fn () => $returnValue;
+        return fn() => $returnValue;
     }
 
     /**
