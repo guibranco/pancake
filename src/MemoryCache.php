@@ -4,45 +4,45 @@ namespace GuiBranco\Pancake;
 
 class MemoryCache implements MemoryCacheInterface
 {
-    private $memorySize = 16 * 1024;
+    private int $memorySize = 16 * 1024;
 
-    public function openMemory()
+    public function openMemory(): \Shmop
     {
         $key = ftok(__FILE__, 't');
         return shmop_open($key, "c", 0600, $this->memorySize);
     }
 
-    public function writeJsonInMemory($data)
+    public function writeJsonInMemory(array $data): void
     {
         $memory = $this->openMemory();
         $serialized = json_encode($data);
         $raw = $this->strToNts($serialized);
-        return shmop_write($memory, $raw, 0);
+        shmop_write($memory, $raw, 0);
     }
 
-    public function readJsonInMemory()
+    public function readJsonInMemory(): array
     {
         $memory = $this->openMemory();
         $result = shmop_read($memory, 0, 0);
         $raw = rtrim($this->strFromMem($result));
-        if (strlen($raw) > 0 && $raw != null) {
-            return json_decode($raw, true);
+
+        if (strlen($raw) > 0) {
+            return json_decode($raw, true) ?? [];
         }
-        return null;
+
+        return [];
     }
 
-    private function strFromMem(&$value)
+    private function strFromMem(string &$value): string
     {
         $index = strpos($value, "\0");
-
         if ($index === false) {
             return $value;
         }
-
         return substr($value, 0, $index);
     }
 
-    private function strToNts($value)
+    private function strToNts(string $value): string
     {
         return "$value\0";
     }
