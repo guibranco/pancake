@@ -7,6 +7,7 @@ The main namespace is `GuiBranco\Pancake`.
 
 ## Features
 
+- **[Circuit Breaker](circuit-breaker.md)**: Simple implementation of the [Circuit Breaker pattern](https://martinfowler.com/bliki/CircuitBreaker.html).
 - **[Color](color.md)**: Utility for managing colors based on text.
 - **[Database](database.md)**: Interface for managing database connections and queries.
 - **[GUID v4](guid-v4.md)**: Generate unique GUIDs for your data entities.
