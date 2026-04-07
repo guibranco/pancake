@@ -34,7 +34,9 @@ In GitHub Actions:
 """
 
 import argparse
+import os
 import sys
+import tempfile
 import xml.etree.ElementTree as ET
 
 
@@ -42,10 +44,14 @@ def sanitize(input_path: str, output_path: str) -> int:
     """
     Parse, sanitize, and re-write the Cobertura file.
 
+    Writes to a temporary file in the same directory as output_path then
+    performs an atomic os.replace() so the operation is safe even when
+    input_path == output_path and the file is only user-writable.
+
     Returns the number of packages removed.
     """
     # Register a blank default namespace so ElementTree does not
-    # inject ns0: prefixes on serialization.
+    # inject ns0: prefixes on serialisation.
     ET.register_namespace("", "")
 
     try:
@@ -76,12 +82,26 @@ def sanitize(input_path: str, output_path: str) -> int:
         root.remove(packages_el)
         print("  Removed empty <packages> element.")
 
-    tree.write(
-        output_path,
-        xml_declaration=True,
-        encoding="UTF-8",
-        short_empty_elements=True,
-    )
+    # Write to a sibling temp file, then atomically replace the target.
+    # This avoids the PermissionError that occurs when ET.write() tries to
+    # open the destination path directly while it is owned by a prior step,
+    # and also avoids the binary-mode bug triggered by encoding="UTF-8"
+    # (uppercase) on Python 3.8+.
+    out_dir = os.path.dirname(os.path.abspath(output_path))
+    tmp_fd, tmp_path = tempfile.mkstemp(dir=out_dir, suffix=".xml.tmp")
+    try:
+        with os.fdopen(tmp_fd, "w", encoding="utf-8") as fh:
+            fh.write('<?xml version="1.0" encoding="utf-8"?>\n')
+            fh.write(ET.tostring(root, encoding="unicode", short_empty_elements=True))
+            fh.write("\n")
+        os.replace(tmp_path, output_path)
+    except Exception:
+        # Clean up the temp file if anything went wrong after creation
+        try:
+            os.unlink(tmp_path)
+        except OSError:
+            pass
+        raise
 
     return removed
 

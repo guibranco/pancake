@@ -65,6 +65,9 @@ jobs:
               env:
                   XDEBUG_MODE: coverage
 
+            - name: Sanitize Cobertura XML for qlty
+              run: python3 .github/scripts/sanitize_cobertura.py coverage.xml
+              
             - uses: qltysh/qlty-action/coverage@v2
               with:
                 token: ${{ secrets.QLTY_COVERAGE_TOKEN }}
