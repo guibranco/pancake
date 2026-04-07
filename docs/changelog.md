@@ -1,80 +1,424 @@
 # Changelog
 
-## Version 1.6 [2026-04-07]
- - [#85](https://github.com/guibranco/pancake/pull/85) - Add `CircuitBreaker` class by [@guibranco](https://github.com/guibranco).
+<div class="cl-timeline">
 
-## Version 1.5 [2026-04-07]
- - [#518](https://github.com/guibranco/pancake/issues/518) - Use PHP version 8.4 by [@guibranco](https://github.com/guibranco).
-   
-## Version 1.4 [2026-04-02]
- - [#513](https://github.com/guibranco/pancake/issues/513) - Add `LogStream` class by [@guibranco](https://github.com/guibranco).
+<div class="cl-entry">
+  <div class="cl-marker cl-marker--minor"></div>
+  <div class="cl-card">
+    <div class="cl-card-header">
+      <span class="cl-version">v1.6</span>
+      <span class="cl-date">2026-04-07</span>
+      <span class="cl-badge cl-badge--feature">new class</span>
+    </div>
+    <ul class="cl-items">
+      <li>
+        <a class="cl-ref cl-ref--pr" href="https://github.com/guibranco/pancake/pull/85">#85</a>
+        Add <code>CircuitBreaker</code> class
+        <span class="cl-authors">
+          <a class="cl-author" href="https://github.com/guibranco">@guibranco</a>
+        </span>
+      </li>
+    </ul>
+  </div>
+</div>
 
-## Version 1.3 [2025-04-23]
- - [#351](https://github.com/guibranco/pancake/pull/351) - Replace real HTTP requests in integration tests with WireMock by [@guibranco](https://github.com/guibranco) and [gitauto-ai](https://github.com/apps/gitauto-ai).
+<div class="cl-entry">
+  <div class="cl-marker cl-marker--minor"></div>
+  <div class="cl-card">
+    <div class="cl-card-header">
+      <span class="cl-version">v1.5</span>
+      <span class="cl-date">2026-04-07</span>
+      <span class="cl-badge cl-badge--infra">infra</span>
+    </div>
+    <ul class="cl-items">
+      <li>
+        <a class="cl-ref cl-ref--issue" href="https://github.com/guibranco/pancake/issues/518">#518</a>
+        Use PHP version 8.4
+        <span class="cl-authors">
+          <a class="cl-author" href="https://github.com/guibranco">@guibranco</a>
+        </span>
+      </li>
+    </ul>
+  </div>
+</div>
 
-## Version 1.2 [2025-01-18]
- - [#308](https://github.com/guibranco/pancake/pull/308) - Add `isSuccessStatusCode` and enhance `validateStatusCode` in `Response` class by [@guibranco](https://github.com/guibranco).
+<div class="cl-entry">
+  <div class="cl-marker cl-marker--minor"></div>
+  <div class="cl-card">
+    <div class="cl-card-header">
+      <span class="cl-version">v1.4</span>
+      <span class="cl-date">2026-04-02</span>
+      <span class="cl-badge cl-badge--feature">new class</span>
+    </div>
+    <ul class="cl-items">
+      <li>
+        <a class="cl-ref cl-ref--issue" href="https://github.com/guibranco/pancake/issues/513">#513</a>
+        Add <code>LogStream</code> class
+        <span class="cl-authors">
+          <a class="cl-author" href="https://github.com/guibranco">@guibranco</a>
+        </span>
+      </li>
+    </ul>
+  </div>
+</div>
 
-## Version 1.1 [2025-01-16]
- - [#307](https://github.com/guibranco/pancake/pull/307) - Add methods `getBodyAsJson` and `getBodyAsArray` in `Response` class by [@guibranco](https://github.com/guibranco).
+<div class="cl-entry">
+  <div class="cl-marker cl-marker--minor"></div>
+  <div class="cl-card">
+    <div class="cl-card-header">
+      <span class="cl-version">v1.3</span>
+      <span class="cl-date">2025-04-23</span>
+      <span class="cl-badge cl-badge--test">testing</span>
+    </div>
+    <ul class="cl-items">
+      <li>
+        <a class="cl-ref cl-ref--pr" href="https://github.com/guibranco/pancake/pull/351">#351</a>
+        Replace real HTTP requests in integration tests with WireMock
+        <span class="cl-authors">
+          <a class="cl-author" href="https://github.com/guibranco">@guibranco</a>
+          <a class="cl-author" href="https://github.com/apps/gitauto-ai">@gitauto-ai</a>
+        </span>
+      </li>
+    </ul>
+  </div>
+</div>
 
-## Version 1.0 [2024-12-21]
- - [#287](https://github.com/guibranco/pancake/issues/287) - Add support for `curl_multi_init` in `Request` class by [@guibranco](https://github.com/guibranco).
+<div class="cl-entry">
+  <div class="cl-marker cl-marker--minor"></div>
+  <div class="cl-card">
+    <div class="cl-card-header">
+      <span class="cl-version">v1.2</span>
+      <span class="cl-date">2025-01-18</span>
+      <span class="cl-badge cl-badge--enhancement">enhancement</span>
+    </div>
+    <ul class="cl-items">
+      <li>
+        <a class="cl-ref cl-ref--pr" href="https://github.com/guibranco/pancake/pull/308">#308</a>
+        Add <code>isSuccessStatusCode</code> and enhance <code>validateStatusCode</code> in <code>Response</code>
+        <span class="cl-authors">
+          <a class="cl-author" href="https://github.com/guibranco">@guibranco</a>
+        </span>
+      </li>
+    </ul>
+  </div>
+</div>
 
-## Version 0.14 [2024-10-26]
+<div class="cl-entry">
+  <div class="cl-marker cl-marker--minor"></div>
+  <div class="cl-card">
+    <div class="cl-card-header">
+      <span class="cl-version">v1.1</span>
+      <span class="cl-date">2025-01-16</span>
+      <span class="cl-badge cl-badge--enhancement">enhancement</span>
+    </div>
+    <ul class="cl-items">
+      <li>
+        <a class="cl-ref cl-ref--pr" href="https://github.com/guibranco/pancake/pull/307">#307</a>
+        Add <code>getBodyAsJson</code> and <code>getBodyAsArray</code> in <code>Response</code>
+        <span class="cl-authors">
+          <a class="cl-author" href="https://github.com/guibranco">@guibranco</a>
+        </span>
+      </li>
+    </ul>
+  </div>
+</div>
 
-- [#83](https://github.com/guibranco/pancake/issues/83) - Add Database class by [@guibranco](https://github.com/guibranco).
+<div class="cl-entry cl-entry--major">
+  <div class="cl-marker cl-marker--major"></div>
+  <div class="cl-card">
+    <div class="cl-card-header">
+      <span class="cl-version cl-version--major">v1.0</span>
+      <span class="cl-date">2024-12-21</span>
+      <span class="cl-badge cl-badge--major">stable release</span>
+    </div>
+    <ul class="cl-items">
+      <li>
+        <a class="cl-ref cl-ref--issue" href="https://github.com/guibranco/pancake/issues/287">#287</a>
+        Add support for <code>curl_multi_init</code> in <code>Request</code>
+        <span class="cl-authors">
+          <a class="cl-author" href="https://github.com/guibranco">@guibranco</a>
+        </span>
+      </li>
+    </ul>
+  </div>
+</div>
 
-## Version 0.13 [2024-10-26]
+<div class="cl-entry">
+  <div class="cl-marker cl-marker--minor"></div>
+  <div class="cl-card">
+    <div class="cl-card-header">
+      <span class="cl-version">v0.14</span>
+      <span class="cl-date">2024-10-26</span>
+      <span class="cl-badge cl-badge--feature">new class</span>
+    </div>
+    <ul class="cl-items">
+      <li>
+        <a class="cl-ref cl-ref--issue" href="https://github.com/guibranco/pancake/issues/83">#83</a>
+        Add <code>Database</code> class
+        <span class="cl-authors">
+          <a class="cl-author" href="https://github.com/guibranco">@guibranco</a>
+        </span>
+      </li>
+    </ul>
+  </div>
+</div>
 
-- [#166](https://github.com/guibranco/pancake/issues/166) - Add IpUtils class by [@GitAuto](https://github.com/apps/gitauto-ai) / [@guibranco](https://github.com/guibranco).
+<div class="cl-entry">
+  <div class="cl-marker cl-marker--minor"></div>
+  <div class="cl-card">
+    <div class="cl-card-header">
+      <span class="cl-version">v0.13</span>
+      <span class="cl-date">2024-10-26</span>
+      <span class="cl-badge cl-badge--feature">new class</span>
+    </div>
+    <ul class="cl-items">
+      <li>
+        <a class="cl-ref cl-ref--issue" href="https://github.com/guibranco/pancake/issues/166">#166</a>
+        Add <code>IpUtils</code> class
+        <span class="cl-authors">
+          <a class="cl-author" href="https://github.com/apps/gitauto-ai">@gitauto-ai</a>
+          <a class="cl-author" href="https://github.com/guibranco">@guibranco</a>
+        </span>
+      </li>
+    </ul>
+  </div>
+</div>
 
-## Version 0.12 [2024-10-22]
+<div class="cl-entry">
+  <div class="cl-marker cl-marker--minor"></div>
+  <div class="cl-card">
+    <div class="cl-card-header">
+      <span class="cl-version">v0.12</span>
+      <span class="cl-date">2024-10-22</span>
+      <span class="cl-badge cl-badge--feature">new class</span>
+    </div>
+    <ul class="cl-items">
+      <li>
+        <a class="cl-ref cl-ref--pr" href="https://github.com/guibranco/pancake/issues/234">#234</a>
+        Add <code>SessionManager</code> class
+        <span class="cl-authors">
+          <a class="cl-author" href="https://github.com/Humayun-23">@Humayun-23</a>
+        </span>
+      </li>
+    </ul>
+  </div>
+</div>
 
-- [#234](https://github.com/guibranco/pancake/issues/234) - Add Session Manager class by [@Humayun-23](https://github.com/Humayun-23).
+<div class="cl-entry">
+  <div class="cl-marker cl-marker--minor"></div>
+  <div class="cl-card">
+    <div class="cl-card-header">
+      <span class="cl-version">v0.11</span>
+      <span class="cl-date">2024-10-02</span>
+      <span class="cl-badge cl-badge--enhancement">enhancement</span>
+    </div>
+    <ul class="cl-items">
+      <li>
+        Enhance <code>Request</code> with optional data parameter
+        <span class="cl-authors">
+          <a class="cl-author" href="https://github.com/guibranco">@guibranco</a>
+        </span>
+      </li>
+    </ul>
+  </div>
+</div>
 
-## Version 0.11 [2024-10-02]
+<div class="cl-entry">
+  <div class="cl-marker cl-marker--minor"></div>
+  <div class="cl-card">
+    <div class="cl-card-header">
+      <span class="cl-version">v0.10</span>
+      <span class="cl-date">2024-09-23</span>
+      <span class="cl-badge cl-badge--feature">new class</span>
+    </div>
+    <ul class="cl-items">
+      <li>
+        <a class="cl-ref cl-ref--issue" href="https://github.com/guibranco/pancake/issues/84">#84</a>
+        Add <code>MemoryCache</code> class
+        <span class="cl-authors">
+          <a class="cl-author" href="https://github.com/apps/gitauto-ai">@gitauto-ai</a>
+        </span>
+      </li>
+    </ul>
+  </div>
+</div>
 
-- Enhance the Request class with optional data parameter by [@guibranco](https://github.com/guibranco).
+<div class="cl-entry">
+  <div class="cl-marker cl-marker--minor"></div>
+  <div class="cl-card">
+    <div class="cl-card-header">
+      <span class="cl-version">v0.9</span>
+      <span class="cl-date">2024-09-19</span>
+      <span class="cl-badge cl-badge--enhancement">enhancement</span>
+    </div>
+    <ul class="cl-items">
+      <li>
+        Enhance <code>ShieldsIo</code> with cache duration feature
+        <span class="cl-authors">
+          <a class="cl-author" href="https://github.com/guibranco">@guibranco</a>
+        </span>
+      </li>
+    </ul>
+  </div>
+</div>
 
-## Version 0.10 [2024-09-23]
+<div class="cl-entry">
+  <div class="cl-marker cl-marker--minor"></div>
+  <div class="cl-card">
+    <div class="cl-card-header">
+      <span class="cl-version">v0.8</span>
+      <span class="cl-date">2024-07-22</span>
+      <span class="cl-badge cl-badge--feature">new class</span>
+    </div>
+    <ul class="cl-items">
+      <li>
+        <a class="cl-ref cl-ref--issue" href="https://github.com/guibranco/pancake/issues/167">#167</a>
+        Add <code>ShieldsIo</code> class
+        <span class="cl-authors">
+          <a class="cl-author" href="https://github.com/guibranco">@guibranco</a>
+        </span>
+      </li>
+    </ul>
+  </div>
+</div>
 
-- [#84](https://github.com/guibranco/pancake/issues/84) - Add MemoryCache class by [@GitAuto](https://github.com/apps/gitauto-ai).
+<div class="cl-entry">
+  <div class="cl-marker cl-marker--minor"></div>
+  <div class="cl-card">
+    <div class="cl-card-header">
+      <span class="cl-version">v0.7</span>
+      <span class="cl-date">2024-07-04</span>
+      <span class="cl-badge cl-badge--feature">new class</span>
+    </div>
+    <ul class="cl-items">
+      <li>
+        <a class="cl-ref cl-ref--issue" href="https://github.com/guibranco/pancake/issues/145">#145</a>
+        Add <code>Color</code> class
+        <span class="cl-authors">
+          <a class="cl-author" href="https://github.com/gvieiragoulart">@gvieiragoulart</a>
+        </span>
+      </li>
+    </ul>
+  </div>
+</div>
 
-## Version 0.9 [2024-09-19]
+<div class="cl-entry">
+  <div class="cl-marker cl-marker--minor"></div>
+  <div class="cl-card">
+    <div class="cl-card-header">
+      <span class="cl-version">v0.6</span>
+      <span class="cl-date">2024-04-21</span>
+      <span class="cl-badge cl-badge--feature">new class</span>
+    </div>
+    <ul class="cl-items">
+      <li>
+        <a class="cl-ref cl-ref--issue" href="https://github.com/guibranco/pancake/issues/118">#118</a>
+        Add <code>Logger</code> class
+        <span class="cl-authors">
+          <a class="cl-author" href="https://github.com/guibranco">@guibranco</a>
+        </span>
+      </li>
+    </ul>
+  </div>
+</div>
 
-- Enhance ShieldsIo class with cache duration feature by [@guibranco](https://github.com/guibranco).
+<div class="cl-entry">
+  <div class="cl-marker cl-marker--minor"></div>
+  <div class="cl-card">
+    <div class="cl-card-header">
+      <span class="cl-version">v0.5</span>
+      <span class="cl-date">2024-04-21</span>
+      <span class="cl-badge cl-badge--feature">new class</span>
+    </div>
+    <ul class="cl-items">
+      <li>
+        <a class="cl-ref cl-ref--issue" href="https://github.com/guibranco/pancake/issues/119">#119</a>
+        Add <code>OneSignal</code> class
+        <span class="cl-authors">
+          <a class="cl-author" href="https://github.com/guibranco">@guibranco</a>
+        </span>
+      </li>
+    </ul>
+  </div>
+</div>
 
-## Version 0.8 [2024-07-22]
+<div class="cl-entry">
+  <div class="cl-marker cl-marker--minor"></div>
+  <div class="cl-card">
+    <div class="cl-card-header">
+      <span class="cl-version">v0.4</span>
+      <span class="cl-date">2024-04-21</span>
+      <span class="cl-badge cl-badge--feature">new class</span>
+    </div>
+    <ul class="cl-items">
+      <li>
+        <a class="cl-ref cl-ref--issue" href="https://github.com/guibranco/pancake/issues/115">#115</a>
+        Add <code>GUIDv4</code> class
+        <span class="cl-authors">
+          <a class="cl-author" href="https://github.com/guibranco">@guibranco</a>
+        </span>
+      </li>
+    </ul>
+  </div>
+</div>
 
-- [#167](https://github.com/guibranco/pancake/issues/167) - Add ShieldsIo class by [@guibranco](https://github.com/guibranco).
+<div class="cl-entry">
+  <div class="cl-marker cl-marker--minor"></div>
+  <div class="cl-card">
+    <div class="cl-card-header">
+      <span class="cl-version">v0.3</span>
+      <span class="cl-date">2024-04-08</span>
+      <span class="cl-badge cl-badge--feature">new class</span>
+    </div>
+    <ul class="cl-items">
+      <li>
+        <a class="cl-ref cl-ref--issue" href="https://github.com/guibranco/pancake/issues/81">#81</a>
+        Add <code>HealthChecks</code> class
+        <span class="cl-authors">
+          <a class="cl-author" href="https://github.com/guibranco">@guibranco</a>
+        </span>
+      </li>
+    </ul>
+  </div>
+</div>
 
-## Version 0.7 [2024-07-04]
+<div class="cl-entry">
+  <div class="cl-marker cl-marker--minor"></div>
+  <div class="cl-card">
+    <div class="cl-card-header">
+      <span class="cl-version">v0.2</span>
+      <span class="cl-date">2024-03-20</span>
+      <span class="cl-badge cl-badge--feature">new class</span>
+    </div>
+    <ul class="cl-items">
+      <li>
+        <a class="cl-ref cl-ref--issue" href="https://github.com/guibranco/pancake/issues/86">#86</a>
+        Add <code>Request</code> class
+        <span class="cl-authors">
+          <a class="cl-author" href="https://github.com/guibranco">@guibranco</a>
+        </span>
+      </li>
+    </ul>
+  </div>
+</div>
 
-- [#145](https://github.com/guibranco/pancake/issues/145) - Add Color class by [@gvieiragoulart](https://github.com/gvieiragoulart).
-  
-## Version 0.6 [2024-04-21]
+<div class="cl-entry cl-entry--origin">
+  <div class="cl-marker cl-marker--origin"></div>
+  <div class="cl-card">
+    <div class="cl-card-header">
+      <span class="cl-version">v0.1</span>
+      <span class="cl-date">2024-03-18</span>
+      <span class="cl-badge cl-badge--infra">project init</span>
+    </div>
+    <ul class="cl-items">
+      <li>
+        Create the project's basic structure and pipeline
+        <span class="cl-authors">
+          <a class="cl-author" href="https://github.com/guibranco">@guibranco</a>
+        </span>
+      </li>
+    </ul>
+  </div>
+</div>
 
-- [#118](https://github.com/guibranco/pancake/issues/118) - Add Logger class by [@guibranco](https://github.com/guibranco).
-
-## Version 0.5 [2024-04-21]
-
-- [#119](https://github.com/guibranco/pancake/issues/119) - Add OneSignal class by [@guibranco](https://github.com/guibranco).
-
-## Version 0.4 [2024-04-21]
-
-- [#115](https://github.com/guibranco/pancake/issues/115) - Add GUID (v4) class by [@guibranco](https://github.com/guibranco).
-
-## Version 0.3 [2024-04-08]
-
-- [#81](https://github.com/guibranco/pancake/issues/81) - Add Health Checks class by [@guibranco](https://github.com/guibranco).
-
-## Version 0.2 [2024-03-20]
-
-- [#86](https://github.com/guibranco/pancake/issues/86) - Add Request class by [@guibranco](https://github.com/guibranco).
-
-## Version 0.1 [2024-03-18]
-
-- Create the project's basic structure and pipeline by [@guibranco](https://github.com/guibranco).
-
-----
+</div>
