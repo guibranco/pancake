@@ -65,6 +65,12 @@ jobs:
               env:
                   XDEBUG_MODE: coverage
 
+            - uses: qltysh/qlty-action/coverage@v2
+              with:
+                token: ${{ secrets.QLTY_COVERAGE_TOKEN }}
+                files: coverage.xml
+                format: cobertura
+
     create_release:
         name: Create release
         needs: [build-tests]
