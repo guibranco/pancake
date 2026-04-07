@@ -21,6 +21,9 @@ set -o pipefail  # Ensures that pipeline failures are caught
 #   4. Uses a default waiting timeout (300 seconds) and a default
 #      sleep interval between checks (5 seconds), which can be
 #      overridden by passing arguments.
+#   5. Dumps the container logs on unhealthy status or timeout
+#      so startup errors (e.g. WireMock mapping conflicts) are
+#      visible in the CI output.
 #
 # Arguments:
 #   - MAX_WAIT_SECONDS: Optional. Maximum wait time for health status
@@ -65,6 +68,22 @@ if [ -z "$SERVICES" ]; then
   exit 0
 fi
 
+# ── Helper: dump the last N lines of a container's logs to stdout ──────────────
+# Called whenever a container becomes unhealthy or the global timeout is reached,
+# so that startup errors (e.g. WireMock mapping conflicts, port clashes) are
+# visible directly in the CI log without needing a separate log-dump step.
+dump_logs() {
+  local container="$1"
+  local lines="${2:-100}"
+  echo ""
+  echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+  echo "📋 Container logs for '$container' (last $lines lines):"
+  echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+  docker logs --tail "$lines" "$container" 2>&1 || echo "(no logs available)"
+  echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+  echo ""
+}
+
 wait_for_health() {
   local container="$1"
 
@@ -76,6 +95,7 @@ wait_for_health() {
   
     if [ "$ELAPSED" -ge "$MAX_WAIT_SECONDS" ]; then
       echo "⏰ Global timeout reached after $ELAPSED seconds!"
+      dump_logs "$container"
       exit 1
     fi
     
@@ -86,6 +106,7 @@ wait_for_health() {
       return 0
     elif [ "$STATUS" = "unhealthy" ]; then
       echo "❌ $container is unhealthy."
+      dump_logs "$container"
       exit 1
     elif [ "$STATUS" = "not-found" ]; then
       echo "⚠️ $container not found. Retrying..."

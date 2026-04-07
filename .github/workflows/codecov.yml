@@ -39,7 +39,7 @@ jobs:
               uses: php-actions/phpunit@v4
               with:
                   version: 11
-                  php_version: 8.3
+                  php_version: 8.4
                   php_extensions: xdebug shmop curl pdo pdo_mysql
                   coverage_cobertura: coverage.xml
                   bootstrap: vendor/autoload.php
@@ -54,7 +54,7 @@ jobs:
                   sed -i 's@'$GITHUB_WORKSPACE'@/github/workspace/@g' coverage.xml
 
             - name: Upload coverage reports to Codecov
-              uses: codecov/codecov-action@v5.5.2
+              uses: codecov/codecov-action@v6.0.0
               with:
                   token: ${{ secrets.CODECOV_TOKEN }}
                   slug: guibranco/Pancake
