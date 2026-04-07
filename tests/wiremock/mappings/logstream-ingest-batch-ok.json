@@ -1,0 +1,74 @@
+{
+  "name": "LogStream batch ingest",
+  "request": {
+    "method": "POST",
+    "urlPath": "/api/logs",
+    "headers": {
+      "Authorization": {
+        "equalTo": "Bearer test-secret"
+      }
+    },
+    "bodyPatterns": [
+      {
+        "matchesJsonPath": "$.batch_id"
+      },
+      {
+        "matchesJsonPath": "$.logs[0]"
+      }
+    ]
+  },
+  "response": {
+    "status": 201,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "jsonBody": {
+      "saved": 3,
+      "entries": [
+        {
+          "id": "01HZ001",
+          "trace_id": "t1",
+          "batch_id": "batch-001",
+          "app_key": "test-app",
+          "app_id": "integration-test",
+          "user_agent": "LogStream-PHP-Client/1.0",
+          "level": "info",
+          "category": "ci",
+          "message": "Entry 1",
+          "context": null,
+          "timestamp": "2025-01-15T12:00:00.000Z",
+          "created_at": "2025-01-15T12:00:00.001Z"
+        },
+        {
+          "id": "01HZ002",
+          "trace_id": "t2",
+          "batch_id": "batch-001",
+          "app_key": "test-app",
+          "app_id": "integration-test",
+          "user_agent": "LogStream-PHP-Client/1.0",
+          "level": "warning",
+          "category": "ci",
+          "message": "Entry 2",
+          "context": null,
+          "timestamp": "2025-01-15T12:00:00.000Z",
+          "created_at": "2025-01-15T12:00:00.001Z"
+        },
+        {
+          "id": "01HZ003",
+          "trace_id": "t3",
+          "batch_id": "batch-001",
+          "app_key": "test-app",
+          "app_id": "integration-test",
+          "user_agent": "LogStream-PHP-Client/1.0",
+          "level": "error",
+          "category": "ci",
+          "message": "Entry 3",
+          "context": null,
+          "timestamp": "2025-01-15T12:00:00.000Z",
+          "created_at": "2025-01-15T12:00:00.001Z"
+        }
+      ],
+      "errors": null
+    }
+  }
+}
