@@ -183,10 +183,14 @@ class CircuitBreakerTest extends TestCase
     public function testSuccessfulExecuteKeepsFailureCountAtZero(): void
     {
         $cb = $this->makeCB();
-        $cb->execute($this->failOperation());
-        // One failure, threshold is 3 → still closed
-        $cb->execute($this->successOperation());
-        // Success should reset the count
+    
+        try {
+            $cb->execute($this->failOperation()); // one failure, threshold is 3 → still closed
+        } catch (\RuntimeException) {
+            // expected — we just want the counter incremented
+        }
+    
+        $cb->execute($this->successOperation()); // success must reset the counter
         $this->assertSame(0, $cb->getFailureCount());
     }
 
