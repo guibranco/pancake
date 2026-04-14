@@ -118,7 +118,9 @@ class Queue implements IQueue
     private function getServers()
     {
         return array_map(
-            function ($cs) { return $this->parseServer($cs); },
+            function ($cs) {
+                return $this->parseServer($cs);
+            },
             $this->connectionStrings
         );
     }

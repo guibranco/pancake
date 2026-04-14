@@ -35,10 +35,10 @@ class QueueTest extends TestCase
 
     public static function setUpBeforeClass(): void
     {
-        $host  = getenv('RABBITMQ_HOST')  ?: '127.0.0.1';
-        $port  = getenv('RABBITMQ_PORT')  ?: '5672';
-        $user  = getenv('RABBITMQ_USER')  ?: 'guest';
-        $pass  = getenv('RABBITMQ_PASS')  ?: 'guest';
+        $host  = getenv('RABBITMQ_HOST') ?: '127.0.0.1';
+        $port  = getenv('RABBITMQ_PORT') ?: '5672';
+        $user  = getenv('RABBITMQ_USER') ?: 'guest';
+        $pass  = getenv('RABBITMQ_PASS') ?: 'guest';
         $vhost = getenv('RABBITMQ_VHOST') ?: '/';
 
         self::$dsn = "amqp://{$user}:{$pass}@{$host}:{$port}/{$vhost}";
