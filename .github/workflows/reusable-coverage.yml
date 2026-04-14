@@ -1,0 +1,61 @@
+name: Reusable - Coverage Reports
+
+on:
+    workflow_call:
+
+jobs:
+    coverage:
+        name: Coverage Reports
+        runs-on: ubuntu-latest
+
+        steps:
+            # Source checkout is required by the SonarQube scan action
+            - name: Checkout
+              uses: actions/checkout@v4
+              with:
+                  fetch-depth: 0
+
+            - name: Download coverage artifacts
+              uses: actions/download-artifact@v4
+              with:
+                  name: coverage-reports
+
+            # --- Qlty (sanitized cobertura, no path rewrite) ---
+            - name: Upload to Qlty
+              uses: qltysh/qlty-action/coverage@v2
+              with:
+                  token: ${{ secrets.QLTY_COVERAGE_TOKEN }}
+                  files: coverage-cobertura.xml
+                  format: cobertura
+                  add-prefix: src/
+
+            # --- Codacy (path-fixed cobertura) ---
+            - name: Upload to Codacy
+              uses: codacy/codacy-coverage-reporter-action@v1
+              with:
+                  project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
+                  coverage-reports: coverage-cobertura-fixed.xml
+
+            # --- Codecov (path-fixed cobertura) ---
+            - name: Upload to Codecov
+              uses: codecov/codecov-action@v6.0.0
+              with:
+                  token: ${{ secrets.CODECOV_TOKEN }}
+                  slug: guibranco/Pancake
+                  files: coverage-cobertura-fixed.xml
+
+            # --- DeepSource (raw cobertura) ---
+            - name: Install DeepSource CLI
+              run: curl https://deepsource.io/cli | sh
+
+            - name: Upload to DeepSource
+              env:
+                  DEEPSOURCE_DSN: ${{ secrets.DEEPSOURCE_DSN }}
+              run: ./bin/deepsource report --analyzer test-coverage --key php --value-file coverage-cobertura.xml
+
+            # --- SonarCloud (path-fixed clover + JUnit) ---
+            - name: SonarQube Scan
+              uses: SonarSource/sonarqube-scan-action@v7.1.0
+              env:
+                  SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+                  SONAR_HOST_URL: ${{ vars.SONAR_HOST_URL }}
