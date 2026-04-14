@@ -47,8 +47,29 @@ jobs:
               with:
                   php_version: "8.4"
 
+            - name: Cache Docker images
+              id: docker-cache
+              uses: actions/cache@v5
+              with:
+                  path: /tmp/docker-images
+                  key: docker-${{ hashFiles('docker-compose.yml') }}
+
+            - name: Load cached Docker images
+              if: steps.docker-cache.outputs.cache-hit == 'true'
+              run: |
+                  for f in /tmp/docker-images/*.tar; do
+                    docker load -i "$f"
+                  done
+
             - name: Docker compose up
               run: docker compose up -d
+
+            - name: Save Docker images to cache
+              if: steps.docker-cache.outputs.cache-hit != 'true'
+              run: |
+                  mkdir -p /tmp/docker-images
+                  docker compose config --images | xargs -I{} sh -c \
+                    'docker save {} -o /tmp/docker-images/$(echo {} | tr "/:" "--").tar'
 
             - name: Make script executable
               run: chmod +x tools/wait-for-healthy.sh
