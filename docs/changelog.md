@@ -6,6 +6,26 @@
   <div class="cl-marker cl-marker--minor"></div>
   <div class="cl-card">
     <div class="cl-card-header">
+      <span class="cl-version">v1.8</span>
+      <span class="cl-date">2026-04-14</span>
+      <span class="cl-badge cl-badge--feature">new class</span>
+    </div>
+    <ul class="cl-items">
+      <li>
+        <a class="cl-ref cl-ref--issue" href="https://github.com/guibranco/pancake/issues/82">#82</a>
+        Add <code>Queue</code> class (AMQP wrapper with retry and exponential-backoff strategy)
+        <span class="cl-authors">
+          <a class="cl-author" href="https://github.com/guibranco">@guibranco</a>
+        </span>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="cl-entry">
+  <div class="cl-marker cl-marker--minor"></div>
+  <div class="cl-card">
+    <div class="cl-card-header">
       <span class="cl-version">v1.7</span>
       <span class="cl-date">2026-04-14</span>
       <span class="cl-badge cl-badge--feature">new class</span>
