@@ -48,12 +48,12 @@ Pancake offers a variety of features to enhance your PHP projects:
 - **[Color](color.md)**: Utility for managing colors based on text.
 - **[Database](database.md)**: Interface for managing database connections and queries.
 - **[GUID v4](guid-v4.md)**: Generate unique GUIDs for your data entities.
+- **[GitHub](github.md)**: Interact with the GitHub REST API — users, repositories, issues, pull requests, releases, and more.
 - **[Health Checks](health-checks.md)**: Monitor the health status of your applications and services.
 - **[HTTP Requests](request.md)**: Easily send and manage HTTP requests, supporting multiple methods such as GET, POST, PUT, and DELETE.
 - **[IP Utils](ip-utils.md)**: Utility functions for validating, checking ranges, and converting IP addresses in both IPv4 and IPv6 formats.
 - **[Logger](logger.md)**: Robust logging capabilities to track application events and errors.
 - **[Memory Cache](memory-cache.md)**: Implement caching strategies to improve application performance.
-- **[GitHub](github.md)**: Interact with the GitHub REST API — users, repositories, issues, pull requests, releases, and more.
 - **[One Signal](one-signal.md)**: Integrate One Signal for push notifications in your applications.
 - **[Session Manager](session-manager.md)**: Simplify PHP session handling with methods for setting, getting, and managing session data, including flash messages.
 - **[ShieldsIo](shieldsio.md)**: Create custom badges for your projects using Shields.io.

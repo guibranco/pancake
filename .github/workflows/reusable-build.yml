@@ -1,0 +1,129 @@
+name: Reusable - Build and Test
+
+on:
+    workflow_call:
+        inputs:
+            versioning:
+                description: Run GitVersion to determine semantic version
+                type: boolean
+                default: false
+        outputs:
+            semVer:
+                description: Semantic version (only populated when versioning is true)
+                value: ${{ jobs.build.outputs.semVer }}
+
+jobs:
+    build:
+        name: Build and Test
+        runs-on: ubuntu-latest
+        outputs:
+            semVer: ${{ steps.gitversion.outputs.semVer }}
+
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v4
+              with:
+                  fetch-depth: 0
+
+            - name: Check PHP Lint
+              uses: fxpw/PHP-Lint-php8.3@master
+
+            - name: Install GitVersion
+              if: inputs.versioning
+              uses: gittools/actions/gitversion/setup@v4
+              with:
+                  versionSpec: '6.x'
+
+            - name: Determine Version
+              id: gitversion
+              if: inputs.versioning
+              uses: gittools/actions/gitversion/execute@v4
+
+            - name: Cache Composer dependencies
+              uses: actions/cache@v5
+              with:
+                  path: /tmp/composer-cache
+                  key: ${{ runner.os }}-${{ hashFiles('**/composer.lock') }}
+
+            - name: Install dependencies
+              uses: php-actions/composer@v6
+              with:
+                  php_version: "8.4"
+
+            - name: Cache Docker images
+              id: docker-cache
+              uses: actions/cache@v5
+              with:
+                  path: /tmp/docker-images
+                  key: docker-${{ hashFiles('docker-compose.yml') }}
+
+            - name: Load cached Docker images
+              if: steps.docker-cache.outputs.cache-hit == 'true'
+              run: |
+                  for f in /tmp/docker-images/*.tar; do
+                    docker load -i "$f"
+                  done
+
+            - name: Docker compose up
+              run: docker compose up -d
+
+            - name: Save Docker images to cache
+              if: steps.docker-cache.outputs.cache-hit != 'true'
+              run: |
+                  mkdir -p /tmp/docker-images
+                  docker compose config --images | xargs -I{} sh -c \
+                    'docker save {} -o /tmp/docker-images/$(echo {} | tr "/:" "--").tar'
+
+            - name: Make script executable
+              run: chmod +x tools/wait-for-healthy.sh
+
+            - name: Wait for healthy containers
+              run: tools/wait-for-healthy.sh
+
+            # Generates all three formats in a single run:
+            #   coverage-cobertura.xml  → Qlty, Codacy, Codecov, DeepSource
+            #   coverage-clover.xml     → SonarCloud
+            #   execution.xml           → SonarCloud (JUnit)
+            - name: PHPUnit Tests
+              uses: php-actions/phpunit@v4
+              with:
+                  version: 11
+                  php_version: 8.4
+                  php_extensions: xdebug shmop curl pdo pdo_mysql
+                  coverage_cobertura: coverage-cobertura.xml
+                  coverage_clover: coverage-clover.xml
+                  log_junit: execution.xml
+                  bootstrap: vendor/autoload.php
+                  configuration: tests/phpunit.xml
+                  test_suffix: Test.php
+                  args: --coverage-filter src tests
+              env:
+                  XDEBUG_MODE: coverage
+
+            # Codacy, Codecov and SonarCloud need workspace paths rewritten.
+            # We keep the originals intact for Qlty / DeepSource.
+            - name: Create path-fixed copies
+              run: |
+                  cp coverage-cobertura.xml coverage-cobertura-fixed.xml
+                  cp coverage-clover.xml    coverage-clover-fixed.xml
+                  cp execution.xml          execution-fixed.xml
+                  sed -i 's@'"$GITHUB_WORKSPACE"'@/github/workspace/@g' \
+                    coverage-cobertura-fixed.xml \
+                    coverage-clover-fixed.xml \
+                    execution-fixed.xml
+
+            - name: Sanitize Cobertura XML for Qlty
+              run: python3 .github/scripts/sanitize_cobertura.py coverage-cobertura.xml
+
+            - name: Upload coverage artifacts
+              uses: actions/upload-artifact@v4
+              with:
+                  name: coverage-reports
+                  retention-days: 1
+                  path: |
+                      coverage-cobertura.xml
+                      coverage-cobertura-fixed.xml
+                      coverage-clover.xml
+                      coverage-clover-fixed.xml
+                      execution.xml
+                      execution-fixed.xml
