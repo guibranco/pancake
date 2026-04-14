@@ -166,7 +166,8 @@ class GitHub
         $this->appCredentials = $appCredentials;
         $this->logger = $logger;
         $this->throwOnError = $throwOnError;
-        $this->ignoredStatusCodes = $ignoredStatusCodes;
+        // Normalize ignored status codes to integers so strict in_array checks behave as expected.
+        $this->ignoredStatusCodes = array_map('intval', (array) $ignoredStatusCodes);
         $this->endpoint = $customEndpoint ?? self::BASE_URL;
         $this->request = new Request();
 
