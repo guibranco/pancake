@@ -4,7 +4,7 @@
 
 The Pancake project is a set of libraries for basic PHP projects with API and/or worker/service.
 
-## Github Releases
+## GitHub Releases
 
 [![GitHub last release](https://img.shields.io/github/release-date/guibranco/Pancake.svg?style=flat)](https://github.com/guibranco/Pancake)
 
