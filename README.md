@@ -38,7 +38,7 @@ Pancake provides a curated set of battle-tested utility classes, ready to drop i
 | [`Color`](https://guibranco.github.io/pancake/user-guide/color/) | Color conversion and manipulation utilities |
 | [`Database`](https://guibranco.github.io/pancake/user-guide/database/) | Thin PDO wrapper with query building helpers |
 | [`GUIDv4`](https://guibranco.github.io/pancake/user-guide/guid-v4/) | RFC 4122-compliant UUID v4 generator |
-| [`GitHub`](https://guibranco.github.io/pancake/user-guide/github/) | GitHub API client |
+| [`GitHub`](https://guibranco.github.io/pancake/user-guide/github/) | Interact with the GitHub REST API |
 | [`HealthChecks`](https://guibranco.github.io/pancake/user-guide/health-checks/) | Liveness and readiness probe endpoints |
 | [`IpUtils`](https://guibranco.github.io/pancake/user-guide/ip-utils/) | IP address parsing, validation, and range checking |
 | [`Logger`](https://guibranco.github.io/pancake/user-guide/logger/) | PSR-3 compatible structured logger |
