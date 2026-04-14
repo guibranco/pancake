@@ -35,4 +35,5 @@ nav:
     - One Signal:      user-guide/one-signal.md
     - Request:         user-guide/request.md
     - Session Manager: user-guide/session-manager.md
+    - Queue:           user-guide/queue.md
     - ShieldsIo:       user-guide/shieldsio.md
