@@ -49,6 +49,7 @@ jobs:
               uses: php-actions/composer@v6
               with:
                   php_version: "8.4"
+                  php_extensions: sockets
 
             - name: Cache Docker images
               id: docker-cache
