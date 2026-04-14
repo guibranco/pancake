@@ -1,9 +1,9 @@
 # Queue
 
-## Table of content
+## Table of contents
 
 - [Queue](#queue)
-  - [Table of content](#table-of-content)
+  - [Table of contents](#table-of-contents)
   - [About](#about)
   - [Requirements](#requirements)
   - [Installation](#installation)
