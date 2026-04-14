@@ -6,6 +6,26 @@
   <div class="cl-marker cl-marker--minor"></div>
   <div class="cl-card">
     <div class="cl-card-header">
+      <span class="cl-version">v1.7</span>
+      <span class="cl-date">2026-04-14</span>
+      <span class="cl-badge cl-badge--feature">new class</span>
+    </div>
+    <ul class="cl-items">
+      <li>
+        <a class="cl-ref cl-ref--pr" href="https://github.com/guibranco/pancake/pull/279">#279</a>
+        Add <code>GitHub</code> class
+        <span class="cl-authors">
+          <a class="cl-author" href="https://github.com/guibranco">@guibranco</a>
+        </span>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="cl-entry">
+  <div class="cl-marker cl-marker--minor"></div>
+  <div class="cl-card">
+    <div class="cl-card-header">
       <span class="cl-version">v1.6</span>
       <span class="cl-date">2026-04-07</span>
       <span class="cl-badge cl-badge--feature">new class</span>
