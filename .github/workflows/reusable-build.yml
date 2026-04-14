@@ -25,6 +25,9 @@ jobs:
               with:
                   fetch-depth: 0
 
+            - name: Check PHP Lint
+              uses: fxpw/PHP-Lint-php8.3@master
+
             - name: Install GitVersion
               if: inputs.versioning
               uses: gittools/actions/gitversion/setup@v4
