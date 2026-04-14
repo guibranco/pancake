@@ -85,8 +85,8 @@ Pancake provides a curated set of battle-tested utility classes, ready to drop i
 [![Bugs](https://sonarcloud.io/api/project_badges/measure?project=guibranco_pancake&metric=bugs)](https://sonarcloud.io/dashboard?id=guibranco_pancake)
 [![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=guibranco_pancake&metric=vulnerabilities)](https://sonarcloud.io/dashboard?id=guibranco_pancake)
 
-[![Maintainability](https://api.codeclimate.com/v1/badges/ae6591111f27479fba12/maintainability)](https://codeclimate.com/github/guibranco/pancake/maintainability)
-[![Test Coverage](https://api.codeclimate.com/v1/badges/ae6591111f27479fba12/test_coverage)](https://codeclimate.com/github/guibranco/pancake/test_coverage)
+[![Maintainability](https://qlty.sh/gh/guibranco/projects/Pancake/maintainability.svg)](https://qlty.sh/gh/guibranco/projects/Pancake)
+[![Code Coverage](https://qlty.sh/gh/guibranco/projects/Pancake/coverage.svg)](https://qlty.sh/gh/guibranco/projects/Pancake)
 [![DeepSource](https://app.deepsource.com/gh/guibranco/pancake.svg/?label=active+issues&show_trend=true&token=r3XGa8MQHGZERdIhKB5EZXfL)](https://app.deepsource.com/gh/guibranco/pancake/?ref=repository-badge)
 
 ---
