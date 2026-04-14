@@ -53,6 +53,7 @@ Pancake offers a variety of features to enhance your PHP projects:
 - **[IP Utils](ip-utils.md)**: Utility functions for validating, checking ranges, and converting IP addresses in both IPv4 and IPv6 formats.
 - **[Logger](logger.md)**: Robust logging capabilities to track application events and errors.
 - **[Memory Cache](memory-cache.md)**: Implement caching strategies to improve application performance.
+- **[GitHub](github.md)**: Interact with the GitHub REST API — users, repositories, issues, pull requests, releases, and more.
 - **[One Signal](one-signal.md)**: Integrate One Signal for push notifications in your applications.
 - **[Session Manager](session-manager.md)**: Simplify PHP session handling with methods for setting, getting, and managing session data, including flash messages.
 - **[ShieldsIo](shieldsio.md)**: Create custom badges for your projects using Shields.io.
