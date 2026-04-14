@@ -26,10 +26,11 @@ nav:
     - Color:           user-guide/color.md
     - Database:        user-guide/database.md
     - GUID (v4):       user-guide/guid-v4.md
+    - GitHub:          user-guide/github.md
     - Health Checks:   user-guide/health-checks.md
     - Ip Utils:        user-guide/ip-utils.md
     - Logger:          user-guide/logger.md
-    - LogStream:       user-guide/logstream.md   # ← NEW
+    - LogStream:       user-guide/logstream.md
     - Memory Cache:    user-guide/memory-cache.md
     - One Signal:      user-guide/one-signal.md
     - Request:         user-guide/request.md
