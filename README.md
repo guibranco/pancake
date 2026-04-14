@@ -97,7 +97,6 @@ composer require guibranco/pancake
 Download the latest archive from the [Releases](https://github.com/GuiBranco/pancake/releases) page and include the autoloader manually.
 
 [![GitHub release date](https://img.shields.io/github/release-date/guibranco/pancake.svg)](https://github.com/guibranco/pancake/releases)
-[![GitHub downloads](https://img.shields.io/github/downloads/guibranco/pancake/total.svg)](https://github.com/guibranco/pancake/releases)
 
 ---
 
