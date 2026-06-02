@@ -29,5 +29,6 @@
         "CURLOPT",
         "httponly",
         "Packagist"
-    ]
+    ],
+    "snyk.advanced.autoSelectOrganization": true
 }

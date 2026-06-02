@@ -189,7 +189,7 @@ class Request
         $responseContent = curl_exec($curl);
 
         $response = $this->handleResponse($responseContent, $curl, $fields[CURLOPT_URL]);
-        curl_close($curl);
+        unset($curl);
 
         return $response;
     }
@@ -265,7 +265,7 @@ class Request
             $responseContent = curl_multi_getcontent($curl);
             $responses[$key] = $this->handleResponse($responseContent, $curl, $this->multiRequests[$key][CURLOPT_URL]);
             curl_multi_remove_handle($multiCurl, $curl);
-            curl_close($curl);
+            unset($curl);
         }
 
         curl_multi_close($multiCurl);
