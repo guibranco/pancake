@@ -12,6 +12,16 @@
 
 📖 **Documentation:** [guibranco.github.io/pancake](https://guibranco.github.io/pancake/)
 
+## Features
+
+- Simplified service management with auto-registration.
+- Automatic resolution of complex dependency graphs.
+- Configurable options to enable or disable auto-registration.
+
+For more details, refer to the [DIContainer Documentation](docs/DIContainer.md).
+
+
+
 ---
 
 ## Table of contents
