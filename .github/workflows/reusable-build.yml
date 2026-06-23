@@ -21,7 +21,7 @@ jobs:
 
         steps:
             - name: Checkout
-              uses: actions/checkout@v4
+              uses: actions/checkout@v7
               with:
                   fetch-depth: 0
 
@@ -116,7 +116,7 @@ jobs:
               run: python3 .github/scripts/sanitize_cobertura.py coverage-cobertura.xml
 
             - name: Upload coverage artifacts
-              uses: actions/upload-artifact@v4
+              uses: actions/upload-artifact@v7
               with:
                   name: coverage-reports
                   retention-days: 1
