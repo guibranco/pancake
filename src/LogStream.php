@@ -105,7 +105,7 @@ final class LogStream
         string   $apiKey    = '',
         string   $apiToken  = '',
         ?Request $request   = null,
-        string   $userAgent = 'LogStream-PHP-Client/1.0',
+        string   $userAgent = Constants::USER_AGENT_VENDOR,
     ) {
         if (!in_array($authMode, [self::AUTH_BEARER, self::AUTH_API_KEY], true)) {
             throw new \InvalidArgumentException(

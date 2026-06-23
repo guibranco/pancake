@@ -4,57 +4,18 @@ on:
     pull_request:
     workflow_dispatch:
 
+concurrency:
+    group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+    cancel-in-progress: true
+     
 jobs:
     build:
-        name: Build
-        runs-on: ubuntu-latest
+        name: Build and Test
+        uses: ./.github/workflows/reusable-build.yml
+        secrets: inherit
 
-        steps:
-            - name: Checkout
-              uses: actions/checkout@v6
-              with:
-                  fetch-depth: 0
-
-            - name: Cache Composer dependencies
-              uses: actions/cache@v5
-              with:
-                  path: /tmp/composer-cache
-                  key: ${{ runner.os }}-${{ hashFiles('**/composer.lock') }}
-
-            - name: Install dependencies
-              uses: php-actions/composer@v6
-              with:
-                  php_version: "8.4"
-
-            - name: Docker compose up
-              run: docker compose up -d
-
-            - name: Make script executable
-              run: chmod +x tools/wait-for-healthy.sh
-            
-            - name: Wait for healthy containers
-              run: tools/wait-for-healthy.sh
-
-            - name: PHPUnit Tests
-              uses: php-actions/phpunit@v4
-              with:
-                  version: 11
-                  php_version: 8.4
-                  php_extensions: xdebug shmop curl pdo pdo_mysql
-                  coverage_cobertura: coverage.xml
-                  bootstrap: vendor/autoload.php
-                  configuration: tests/phpunit.xml
-                  test_suffix: Test.php
-                  args: --coverage-filter src tests
-              env:
-                  XDEBUG_MODE: coverage
-
-            - name: Sanitize Cobertura XML for qlty
-              run: python3 .github/scripts/sanitize_cobertura.py coverage.xml
-        
-            - uses: qltysh/qlty-action/coverage@v2
-              with:
-                token: ${{ secrets.QLTY_COVERAGE_TOKEN }}
-                files: coverage.xml
-                format: cobertura
-                add-prefix: src/ 
+    coverage:
+        name: Coverage Reports
+        needs: build
+        uses: ./.github/workflows/reusable-coverage.yml
+        secrets: inherit
