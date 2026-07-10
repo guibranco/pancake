@@ -49,6 +49,7 @@ jobs:
               uses: php-actions/composer@v6
               with:
                   php_version: "8.4"
+                  php_extensions: sockets
 
             - name: Cache Docker images
               id: docker-cache
@@ -89,7 +90,7 @@ jobs:
               with:
                   version: 11
                   php_version: 8.4
-                  php_extensions: xdebug shmop curl pdo pdo_mysql
+                  php_extensions: xdebug shmop curl pdo pdo_mysql sockets
                   coverage_cobertura: coverage-cobertura.xml
                   coverage_clover: coverage-clover.xml
                   log_junit: execution.xml
