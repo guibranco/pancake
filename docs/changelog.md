@@ -6,6 +6,66 @@
   <div class="cl-marker cl-marker--minor"></div>
   <div class="cl-card">
     <div class="cl-card-header">
+      <span class="cl-version">v1.9.0</span>
+      <span class="cl-date">2026-07-10</span>
+      <span class="cl-badge cl-badge--enhancement">enhancement</span>
+    </div>
+    <ul class="cl-items">
+      <li>
+        <a class="cl-ref cl-ref--pr" href="https://github.com/guibranco/pancake/pull/253">#253</a>
+        Add configurable auto-registration to <code>DIContainer</code> (enabled by default; toggle via constructor or <code>setAutoRegisterEnabled()</code>)
+        <span class="cl-authors">
+          <a class="cl-author" href="https://github.com/apps/gitauto-ai">@gitauto-ai</a>
+        </span>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="cl-entry">
+  <div class="cl-marker cl-marker--minor"></div>
+  <div class="cl-card">
+    <div class="cl-card-header">
+      <span class="cl-version">v1.8.1</span>
+      <span class="cl-date">2026-07-10</span>
+      <span class="cl-badge cl-badge--feature">new feature</span>
+    </div>
+    <ul class="cl-items">
+      <li>
+        <a class="cl-ref cl-ref--pr" href="https://github.com/guibranco/pancake/pull/252">#252</a>
+        Add MVC capability: <code>BaseController</code>, <code>ApiController</code>, <code>Router</code>, and a pluggable template engine
+        <span class="cl-authors">
+          <a class="cl-author" href="https://github.com/apps/gitauto-ai">@gitauto-ai</a>
+        </span>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="cl-entry">
+  <div class="cl-marker cl-marker--minor"></div>
+  <div class="cl-card">
+    <div class="cl-card-header">
+      <span class="cl-version">v1.8.0</span>
+      <span class="cl-date">2026-07-10</span>
+      <span class="cl-badge cl-badge--feature">new class</span>
+    </div>
+    <ul class="cl-items">
+      <li>
+        <a class="cl-ref cl-ref--pr" href="https://github.com/guibranco/pancake/pull/251">#251</a>
+        Add <code>DIContainer</code> class, a PSR-11 compliant dependency injection container
+        <span class="cl-authors">
+          <a class="cl-author" href="https://github.com/apps/gitauto-ai">@gitauto-ai</a>
+        </span>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="cl-entry">
+  <div class="cl-marker cl-marker--minor"></div>
+  <div class="cl-card">
+    <div class="cl-card-header">
       <span class="cl-version">v1.7</span>
       <span class="cl-date">2026-04-14</span>
       <span class="cl-badge cl-badge--feature">new class</span>

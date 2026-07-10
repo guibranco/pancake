@@ -45,18 +45,22 @@ Whether working on small projects or large-scale applications, Pancake can help 
 
 Pancake offers a variety of features to enhance your PHP projects:
 
-- **[Color](color.md)**: Utility for managing colors based on text.
-- **[Database](database.md)**: Interface for managing database connections and queries.
-- **[GUID v4](guid-v4.md)**: Generate unique GUIDs for your data entities.
-- **[GitHub](github.md)**: Interact with the GitHub REST API — users, repositories, issues, pull requests, releases, and more.
-- **[Health Checks](health-checks.md)**: Monitor the health status of your applications and services.
-- **[HTTP Requests](request.md)**: Easily send and manage HTTP requests, supporting multiple methods such as GET, POST, PUT, and DELETE.
-- **[IP Utils](ip-utils.md)**: Utility functions for validating, checking ranges, and converting IP addresses in both IPv4 and IPv6 formats.
-- **[Logger](logger.md)**: Robust logging capabilities to track application events and errors.
-- **[Memory Cache](memory-cache.md)**: Implement caching strategies to improve application performance.
-- **[One Signal](one-signal.md)**: Integrate One Signal for push notifications in your applications.
-- **[Session Manager](session-manager.md)**: Simplify PHP session handling with methods for setting, getting, and managing session data, including flash messages.
-- **[ShieldsIo](shieldsio.md)**: Create custom badges for your projects using Shields.io.
+- **[Circuit Breaker](user-guide/circuit-breaker.md)**: Prevent cascading failures when calling unreliable external dependencies.
+- **[Color](user-guide/color.md)**: Utility for managing colors based on text.
+- **[Database](user-guide/database.md)**: Interface for managing database connections and queries.
+- **[Dependency Injection Container](user-guide/di-container.md)**: PSR-11 compliant container with explicit registration and auto-registration.
+- **[GUID v4](user-guide/guid-v4.md)**: Generate unique GUIDs for your data entities.
+- **[GitHub](user-guide/github.md)**: Interact with the GitHub REST API — users, repositories, issues, pull requests, releases, and more.
+- **[Health Checks](user-guide/health-checks.md)**: Monitor the health status of your applications and services.
+- **[HTTP Requests](user-guide/request.md)**: Easily send and manage HTTP requests, supporting multiple methods such as GET, POST, PUT, and DELETE.
+- **[IP Utils](user-guide/ip-utils.md)**: Utility functions for validating, checking ranges, and converting IP addresses in both IPv4 and IPv6 formats.
+- **[Logger](user-guide/logger.md)**: Robust logging capabilities to track application events and errors.
+- **[LogStream](user-guide/logstream.md)**: Ship log entries to a LogStream server over file, MariaDB, or bearer-token transports.
+- **[Memory Cache](user-guide/memory-cache.md)**: Implement caching strategies to improve application performance.
+- **[MVC](user-guide/mvc-usage.md)**: Controllers, JSON API controllers, and a router resolved through the DI container.
+- **[One Signal](user-guide/one-signal.md)**: Integrate One Signal for push notifications in your applications.
+- **[Session Manager](user-guide/session-manager.md)**: Simplify PHP session handling with methods for setting, getting, and managing session data, including flash messages.
+- **[ShieldsIo](user-guide/shieldsio.md)**: Create custom badges for your projects using Shields.io.
 
 For more detailed documentation on each feature, check out the links above.
 
