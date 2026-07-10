@@ -55,11 +55,14 @@ def to_duration_ms(time_attr: str) -> str:
         return "0"
 
 
-def summarize(text: str, fallback: str) -> str:
+def summarize(text: str, type_attr: str) -> str:
+    # PHPUnit's `type` attribute holds the exception class name (e.g. "RuntimeException"),
+    # which makes a better short summary than the first line of `text` — PHPUnit repeats the
+    # full test identifier there before the actual message.
+    if type_attr:
+        return type_attr
     text = (text or "").strip()
-    if text:
-        return text.splitlines()[0][:500]
-    return fallback or "failed"
+    return text.splitlines()[0][:500] if text else "failed"
 
 
 def convert(input_path: str, output_path: str, base: str) -> int:
