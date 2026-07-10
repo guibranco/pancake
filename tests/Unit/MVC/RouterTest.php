@@ -28,7 +28,7 @@ final class RouterTest extends TestCase
     public function testMatchesRegardlessOfMethodCaseAndTrailingSlash(): void
     {
         $controller = new RouterTestController();
-        $container = $this->createMock(ContainerInterface::class);
+        $container = $this->createStub(ContainerInterface::class);
         $container->method('get')->willReturn($controller);
 
         $router = new Router();
@@ -40,7 +40,7 @@ final class RouterTest extends TestCase
     public function testIgnoresQueryStringWhenMatchingTheRoute(): void
     {
         $controller = new RouterTestController();
-        $container = $this->createMock(ContainerInterface::class);
+        $container = $this->createStub(ContainerInterface::class);
         $container->method('get')->willReturn($controller);
 
         $router = new Router();

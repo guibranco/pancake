@@ -12,7 +12,7 @@ final class ApiControllerTest extends TestCase
 {
     public function testRenderIgnoresViewAndEchoesJsonOfData(): void
     {
-        $controller = new RecordingApiController($this->createMock(TemplateEngineInterface::class));
+        $controller = new RecordingApiController($this->createStub(TemplateEngineInterface::class));
 
         $this->expectOutputString('{"key":"value"}');
         $controller->render('ignored-view', ['key' => 'value']);
@@ -22,7 +22,7 @@ final class ApiControllerTest extends TestCase
 
     public function testRenderWithEmptyDataProducesEmptyJsonObject(): void
     {
-        $controller = new RecordingApiController($this->createMock(TemplateEngineInterface::class));
+        $controller = new RecordingApiController($this->createStub(TemplateEngineInterface::class));
 
         $this->expectOutputString('[]');
         $controller->render('ignored-view');

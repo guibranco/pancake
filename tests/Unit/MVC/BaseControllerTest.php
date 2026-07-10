@@ -26,7 +26,7 @@ final class BaseControllerTest extends TestCase
 
     public function testRedirectSendsLocationHeaderAndTerminates(): void
     {
-        $templateEngine = $this->createMock(TemplateEngineInterface::class);
+        $templateEngine = $this->createStub(TemplateEngineInterface::class);
         $controller = new RecordingBaseController($templateEngine);
 
         $controller->redirect('http://example.com');
