@@ -1,32 +1,35 @@
 <?php
 
-use PHPUnit\Framework\TestCase;
-use Pancake\DIContainer;
+declare(strict_types=1);
 
-class DIContainerIntegrationTest extends TestCase
+namespace GuiBranco\Pancake\Tests\Integration;
+
+use GuiBranco\Pancake\DIContainer;
+use PHPUnit\Framework\TestCase;
+use stdClass;
+
+final class DIContainerIntegrationTest extends TestCase
 {
-    public function testIntegrationWithPancakeFramework()
+    public function testServiceResolvesDependenciesThroughTheContainer(): void
     {
         $container = new DIContainer();
 
-        // Simulate a service with dependencies
         $container->registerSingleton('config', function () {
             return ['setting' => 'value'];
         });
 
         $container->registerSingleton('service', function ($c) {
-            $config = $c->get('config');
             $service = new stdClass();
-            $service->config = $config;
+            $service->config = $c->get('config');
             return $service;
         });
 
         $service = $container->get('service');
 
-        $this->assertEquals('value', $service->config['setting']);
+        $this->assertSame('value', $service->config['setting']);
     }
 
-    public function testComplexDependencyChain()
+    public function testComplexDependencyChainSharesSingletonInstances(): void
     {
         $container = new DIContainer();
 
@@ -35,21 +38,51 @@ class DIContainerIntegrationTest extends TestCase
         });
 
         $container->registerSingleton('dependency2', function ($c) {
-            $dep1 = $c->get('dependency1');
             $dep2 = new stdClass();
-            $dep2->dep1 = $dep1;
+            $dep2->dep1 = $c->get('dependency1');
             return $dep2;
         });
 
         $container->registerSingleton('mainService', function ($c) {
-            $dep2 = $c->get('dependency2');
             $mainService = new stdClass();
-            $mainService->dep2 = $dep2;
+            $mainService->dep2 = $c->get('dependency2');
             return $mainService;
         });
 
         $mainService = $container->get('mainService');
 
         $this->assertSame($mainService->dep2->dep1, $container->get('dependency1'));
+    }
+
+    public function testAutowiredServiceCanDependOnAnExplicitlyRegisteredService(): void
+    {
+        $container = new DIContainer();
+        $container->registerSingleton(RepositoryFixture::class, function () {
+            return new RepositoryFixture('connected');
+        });
+
+        $controller = $container->get(ControllerFixture::class);
+
+        $this->assertSame('connected', $controller->repository->status);
+    }
+}
+
+class RepositoryFixture
+{
+    public string $status;
+
+    public function __construct(string $status)
+    {
+        $this->status = $status;
+    }
+}
+
+class ControllerFixture
+{
+    public RepositoryFixture $repository;
+
+    public function __construct(RepositoryFixture $repository)
+    {
+        $this->repository = $repository;
     }
 }

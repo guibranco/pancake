@@ -22,5 +22,8 @@
     "minimum-stability": "stable",
     "require-dev": {
         "phpunit/phpunit": "13.2.2"
+    },
+    "require": {
+        "psr/container": "^1.1"
     }
 }
