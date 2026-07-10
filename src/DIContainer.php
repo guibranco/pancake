@@ -22,9 +22,11 @@ use Throwable;
  * every time.
  *
  * Classes that were never registered are still resolvable through
- * autowiring: {@see get()} reflects on the class constructor and recursively
- * resolves each typed, non-builtin parameter through the container, falling
- * back to the parameter's default value when one is available.
+ * auto-registration (enabled by default — see {@see $autoRegisterEnabled} /
+ * {@see setAutoRegisterEnabled()}): {@see get()} reflects on the class
+ * constructor and recursively resolves each typed, non-builtin parameter
+ * through the container, falling back to the parameter's default value when
+ * one is available.
  *
  * ### Example
  *
@@ -32,9 +34,13 @@ use Throwable;
  * $container = new DIContainer();
  * $container->registerSingleton(Config::class, fn () => new Config(['env' => 'prod']));
  *
- * // Service has no explicit registration but is autowired because its
+ * // Service has no explicit registration but is auto-registered because its
  * // constructor accepts a Config instance the container already knows about.
  * $service = $container->get(Service::class);
+ *
+ * // Auto-registration can be turned off, e.g. to force every dependency to be
+ * // wired explicitly:
+ * $strictContainer = new DIContainer(autoRegisterEnabled: false);
  * ```
  *
  * @package GuiBranco\Pancake
@@ -43,6 +49,20 @@ class DIContainer implements ContainerInterface
 {
     private array $services = [];
     private array $sharedInstances = [];
+    private bool $autoRegisterEnabled;
+
+    public function __construct(bool $autoRegisterEnabled = true)
+    {
+        $this->autoRegisterEnabled = $autoRegisterEnabled;
+    }
+
+    /**
+     * Enables or disables auto-registration of classes that were never explicitly registered.
+     */
+    public function setAutoRegisterEnabled(bool $enabled): void
+    {
+        $this->autoRegisterEnabled = $enabled;
+    }
 
     /**
      * Registers a service resolver under the given name.
@@ -77,7 +97,7 @@ class DIContainer implements ContainerInterface
     }
 
     /**
-     * @throws NotFoundException if $name is not registered and cannot be autowired.
+     * @throws NotFoundException if $name is not registered and cannot (or must not) be auto-registered.
      * @throws ContainerException if resolving $name fails.
      */
     public function get(string $name)
@@ -86,8 +106,8 @@ class DIContainer implements ContainerInterface
             return $this->resolveRegistered($name);
         }
 
-        if (class_exists($name)) {
-            return $this->autowire($name);
+        if ($this->autoRegisterEnabled && class_exists($name)) {
+            return $this->autoRegister($name);
         }
 
         throw new NotFoundException("Service '{$name}' not registered.");
@@ -116,9 +136,10 @@ class DIContainer implements ContainerInterface
     }
 
     /**
-     * Instantiates $className, recursively resolving its constructor dependencies.
+     * Instantiates $className, recursively resolving its constructor dependencies
+     * through the container (auto-registering them too, if needed).
      */
-    private function autowire(string $className)
+    private function autoRegister(string $className)
     {
         try {
             $reflection = new ReflectionClass($className);
