@@ -22,7 +22,7 @@ nav:
   - License: license.md
   - User guide:
     - Basic usage:     user-guide/basic-usage.md
-    - Circuit Breaker: user-guid/circuit-breaker.md
+    - Circuit Breaker: user-guide/circuit-breaker.md
     - Color:           user-guide/color.md
     - Database:        user-guide/database.md
     - Dependency Injection Container: user-guide/di-container.md
