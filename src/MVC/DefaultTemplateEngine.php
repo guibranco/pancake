@@ -2,7 +2,7 @@
 
 namespace GuiBranco\Pancake\MVC;
 
-use RuntimeException;
+use GuiBranco\Pancake\Exceptions\ViewNotFoundException;
 
 /**
  * Class DefaultTemplateEngine
@@ -35,12 +35,15 @@ class DefaultTemplateEngine implements TemplateEngineInterface
         $file = $this->resolveViewFile($view);
 
         if (!is_file($file)) {
-            throw new RuntimeException("View '{$view}' not found at '{$file}'.");
+            throw new ViewNotFoundException("View '{$view}' not found at '{$file}'.");
         }
 
+        // include_once would silently no-op (empty output) the next time the same view is
+        // rendered with different $data, since views re-run per call rather than one-time
+        // defining reusable functions/classes.
         $render = function () use ($file, $data) {
             extract($data, EXTR_SKIP);
-            include $file;
+            include $file; // NOSONAR
         };
 
         ob_start();

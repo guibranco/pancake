@@ -47,7 +47,7 @@ class Router
             }
         }
 
-        return $this->notFound();
+        $this->notFound();
     }
 
     private function normalizePath(string $uri): string

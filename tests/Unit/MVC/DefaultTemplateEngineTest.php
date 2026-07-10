@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace GuiBranco\Pancake\Tests\Unit\MVC;
 
+use GuiBranco\Pancake\Exceptions\ViewNotFoundException;
 use GuiBranco\Pancake\MVC\DefaultTemplateEngine;
 use PHPUnit\Framework\TestCase;
-use RuntimeException;
 
 final class DefaultTemplateEngineTest extends TestCase
 {
@@ -40,7 +40,7 @@ final class DefaultTemplateEngineTest extends TestCase
 
     public function testThrowsWhenViewFileDoesNotExist(): void
     {
-        $this->expectException(RuntimeException::class);
+        $this->expectException(ViewNotFoundException::class);
 
         $this->engine->render('does-not-exist');
     }

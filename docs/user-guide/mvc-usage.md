@@ -27,7 +27,7 @@ interface TemplateEngineInterface
 }
 ```
 
-`DefaultTemplateEngine` is the built-in implementation: it resolves a dot-separated view name (e.g. `"users.profile"`) to a plain PHP file (`{$viewsPath}/users/profile.php`), extracts `$data` as local variables, and captures the file's output.
+`DefaultTemplateEngine` is the built-in implementation: it resolves a dot-separated view name (e.g. `"users.profile"`) to a plain PHP file (`{$viewsPath}/users/profile.php`), extracts `$data` as local variables, and captures the file's output. It throws `GuiBranco\Pancake\Exceptions\ViewNotFoundException` when the resolved file doesn't exist.
 
 ```php
 use GuiBranco\Pancake\MVC\DefaultTemplateEngine;
