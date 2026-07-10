@@ -97,35 +97,77 @@ final class DIContainerTest extends TestCase
         $this->assertSame('value', $container->get('service')->config['setting']);
     }
 
-    public function testAutowiresClassWithoutConstructor(): void
+    public function testAutoRegistersClassWithoutConstructor(): void
     {
         $instance = (new DIContainer())->get(stdClass::class);
 
         $this->assertInstanceOf(stdClass::class, $instance);
     }
 
-    public function testAutowiresClassWithScalarDefaultValue(): void
+    public function testAutoRegisterIsEnabledByDefault(): void
+    {
+        $container = new DIContainer();
+
+        $this->assertInstanceOf(FixtureDependency::class, $container->get(FixtureDependency::class));
+    }
+
+    public function testAutoRegisterCanBeDisabledViaConstructor(): void
+    {
+        $this->expectException(NotFoundException::class);
+
+        (new DIContainer(false))->get(FixtureDependency::class);
+    }
+
+    public function testAutoRegisterCanBeDisabledViaSetter(): void
+    {
+        $container = new DIContainer();
+        $container->setAutoRegisterEnabled(false);
+
+        $this->expectException(NotFoundException::class);
+
+        $container->get(FixtureDependency::class);
+    }
+
+    public function testAutoRegisterCanBeReEnabledViaSetter(): void
+    {
+        $container = new DIContainer(false);
+        $container->setAutoRegisterEnabled(true);
+
+        $this->assertInstanceOf(FixtureDependency::class, $container->get(FixtureDependency::class));
+    }
+
+    public function testExplicitlyRegisteredServicesResolveEvenWhenAutoRegisterIsDisabled(): void
+    {
+        $container = new DIContainer(false);
+        $container->registerSingleton(FixtureDependency::class, function () {
+            return new FixtureDependency();
+        });
+
+        $this->assertInstanceOf(FixtureDependency::class, $container->get(FixtureDependency::class));
+    }
+
+    public function testAutoRegisterResolvesScalarDefaultValue(): void
     {
         $instance = (new DIContainer())->get(FixtureWithDefaultValue::class);
 
         $this->assertSame('default', $instance->label);
     }
 
-    public function testAutowiresNestedClassDependencies(): void
+    public function testAutoRegisterResolvesNestedClassDependenciesRecursively(): void
     {
         $instance = (new DIContainer())->get(FixtureWithDependency::class);
 
         $this->assertInstanceOf(FixtureDependency::class, $instance->dependency);
     }
 
-    public function testAutowiringThrowsContainerExceptionForUnresolvableScalarParameter(): void
+    public function testAutoRegisterThrowsContainerExceptionForUnresolvableScalarParameter(): void
     {
         $this->expectException(ContainerException::class);
 
         (new DIContainer())->get(FixtureWithRequiredScalar::class);
     }
 
-    public function testAutowiringThrowsNotFoundExceptionForNonInstantiableClass(): void
+    public function testAutoRegisterThrowsContainerExceptionForNonInstantiableClass(): void
     {
         $this->expectException(ContainerException::class);
 
