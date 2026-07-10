@@ -82,8 +82,8 @@ jobs:
 
             # Generates all three formats in a single run:
             #   coverage-cobertura.xml  → Qlty, Codacy, Codecov, DeepSource
-            #   coverage-clover.xml     → SonarCloud
-            #   execution.xml           → SonarCloud (JUnit)
+            #   coverage-clover.xml     → SonarCloud (path-fixed copy)
+            #   execution.xml           → SonarCloud (converted to generic test execution format)
             - name: PHPUnit Tests
               uses: php-actions/phpunit@v4
               with:
@@ -115,6 +115,12 @@ jobs:
             - name: Sanitize Cobertura XML for Qlty
               run: python3 .github/scripts/sanitize_cobertura.py coverage-cobertura.xml
 
+            # SonarQube has no native PHPUnit/JUnit importer; convert execution.xml into
+            # its Generic Test Execution format so sonar.testExecutionReport.reportPaths
+            # can pick up test results.
+            - name: Convert JUnit report for SonarCloud
+              run: python3 .github/scripts/junit_to_sonar_generic.py execution.xml sonar-execution.xml
+
             - name: Upload coverage artifacts
               uses: actions/upload-artifact@v7
               with:
@@ -127,3 +133,4 @@ jobs:
                       coverage-clover-fixed.xml
                       execution.xml
                       execution-fixed.xml
+                      sonar-execution.xml

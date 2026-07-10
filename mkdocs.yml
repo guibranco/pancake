@@ -25,6 +25,7 @@ nav:
     - Circuit Breaker: user-guid/circuit-breaker.md
     - Color:           user-guide/color.md
     - Database:        user-guide/database.md
+    - Dependency Injection Container: user-guide/di-container.md
     - GUID (v4):       user-guide/guid-v4.md
     - GitHub:          user-guide/github.md
     - Health Checks:   user-guide/health-checks.md
@@ -32,6 +33,7 @@ nav:
     - Logger:          user-guide/logger.md
     - LogStream:       user-guide/logstream.md
     - Memory Cache:    user-guide/memory-cache.md
+    - MVC:             user-guide/mvc-usage.md
     - One Signal:      user-guide/one-signal.md
     - Request:         user-guide/request.md
     - Session Manager: user-guide/session-manager.md
