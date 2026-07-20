@@ -1,0 +1,480 @@
+<!doctype html>
+<html lang="en" data-bs-theme="dark">
+
+<head>
+        <title>Dependency Injection Container - pancake</title>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        
+        <link rel="canonical" href="http://guilhermebranco.com.br/user-guide/di-container/">
+        
+
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+            <link rel="stylesheet" href="../../assets/css/darcula-highlight.min.css">
+
+        <link rel="stylesheet" href="../../assets/css/bootstrap.min.css">
+        <link rel="stylesheet" href="../../assets/css/dracula-ui.min.css">
+        <link rel="stylesheet" href="../../assets/css/mkdocs.min.css">
+            <link href="../../extra.css" rel="stylesheet">
+
+        
+            <link  rel="icon" type="image/x-icon" href="../../images/favicon.png">
+        
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+                <script>hljs.initHighlightingOnLoad();</script>
+
+</head>
+
+<body class="drac-bg-black-secondary drac-text-grey-ternary drac-text drac-scrollbar-purple">
+
+    <main class="d-flex">
+
+        <!-- block sidebar -->
+            <nav id="sidebar" class="sidebar drac-bg-black">
+    <div class="custom-menu">
+        <button type="button" id="sidebarCollapse" class="btn btn-primary">
+            <i class="fa fa-bars"></i>
+            <span class="sr-only">Menu</span>
+        </button>
+    </div>
+
+    <div class="p-4">
+        
+            <img class="logo" src="../../logo.png" height="150px">
+        
+
+        <div class="drac-text-center">
+            
+                <span class="drac-text drac-line-height drac-text-white">pancake</span>
+            
+        </div>
+
+        <div class="drac-box flex-column">
+            <ul class="dot-ul">
+                <li><div class="dot-li drac-bg-cyan"></div></li>
+                <li><div class="dot-li drac-bg-green"></div></li>
+                <li><div class="dot-li drac-bg-orange"></div></li>
+                <li><div class="dot-li drac-bg-pink"></div></li>
+                <li><div class="dot-li drac-bg-purple"></div></li>
+                <li><div class="dot-li drac-bg-red"></div></li>
+                <li><div class="dot-li drac-bg-yellow"></div></li>
+            </ul>
+        </div>
+
+        <hr class="drac-divider" />
+
+        <!-- block menu -->
+        <ul class="mb-5 drac-list drac-list-none">
+            
+            <li class="drac-box">
+                <a href="../.."
+                    class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+                    Pancake Project
+                </a>
+            </li>
+            <li class="drac-box">
+                <a href="../../changelog/"
+                    class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+                    Changelog
+                </a>
+            </li>
+            <li class="drac-box">
+                <a href="../../contributing/"
+                    class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+                    Contributing
+                </a>
+            </li>
+            <li class="drac-box">
+                <a href="../../installation/"
+                    class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+                    Installation
+                </a>
+            </li>
+            <li class="drac-box">
+                <a href="../../license/"
+                    class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+                    License
+                </a>
+            </li>
+            <li class="drac-box">
+                <a href="../.."
+                    class=" active 
+                    drac-anchor btn-toggle d-inline-flex align-items-center border-0 drac-text-purple--hover collapsed"
+                    data-bs-toggle="collapse" data-bs-target="#user-guide-collapse" aria-expanded="false">
+                    User guide
+                </a>
+                <div class="collapse" id="user-guide-collapse">
+                    <ul class="mb-5 drac-list drac-list-none">
+                            
+    <li class="drac-box-ternary">
+        <a href="../basic-usage/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Basic usage
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../circuit-breaker/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Circuit Breaker
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../color/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Color
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../database/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Database
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="./"
+            class=" active 
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Dependency Injection Container
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../guid-v4/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            GUID (v4)
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../github/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            GitHub
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../health-checks/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Health Checks
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../ip-utils/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Ip Utils
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../logger/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Logger
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../logstream/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            LogStream
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../memory-cache/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Memory Cache
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../mvc-usage/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            MVC
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../one-signal/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            One Signal
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../request/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Request
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../session-manager/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Session Manager
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../shieldsio/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            ShieldsIo
+        </a>
+    </li>
+                    </ul>
+                </div>
+            </li>
+        </ul>
+        <!-- endblock -->
+    </div>
+</nav>
+        <!-- endblock -->
+
+        <nav class="divider drac-bg-purple-cyan"></nav>
+
+        <div class="content">
+            <!-- block header -->
+                <header>
+    <nav class="navbar navbar-expand-xl drac-bg-purple">
+        <div class="container-fluid">
+            
+            <button class="navbar-toggler w-100 text-center" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsMenu"
+                aria-controls="navbarsMenu" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse flex-column ml-auto" id="navbarsMenu">
+                <ul class="navbar-nav text-md-center">
+
+                    <!-- block preview -->
+                    <li class="nav-item">
+                            
+        <div class="container">
+            <div class="row row-preview">
+                <div class="col">
+                    <a href="../database/"
+                        class="btn-preview drac-btn drac-btn-outline drac-text-white drac-text-cyan-green--hover">
+                        <i class="fa fa-arrow-left"></i> Previous
+                    </a>
+                </div>
+                <div class="col">
+                    <a href="../guid-v4/"
+                        class="btn-preview drac-btn drac-btn-outline drac-text-white drac-text-cyan-green--hover" style="padding-left: 3%;">
+                        Next <i class="fa fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+                    </li>
+                    <!--  endblock -->
+
+                    <!-- block search -->
+                    <li class="nav-item"><div role="search" class="search-box">
+	<form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+		<input type="text" name="q" class="drac-input drac-input-search drac-input-white drac-text-white drac-bg-black-secondary"
+		placeholder="Search docs" title="Type search term here" />
+	</form>
+</div>
+                    </li>
+                    <!--  endblock -->
+
+                    <!-- block source -->
+                    <li class="nav-item">
+                        
+                            
+                                <div class="md-source source-detail">
+    <div class="md-source-repo-icon">
+        <i class="fa fa-github-alt drac-text-white" aria-hidden="true"></i>
+    </div>
+
+    <div class="md-source-repo-url">
+        <a href="https://github.com/guibranco/pancake"
+            class="md-source drac-anchor drac-text drac-text-white drac-text-cyan-green--hover">
+            guibranco/pancake
+        </a>
+
+        <ul class="md-source-repo-text">
+            <li>
+                <i class="fa fa-tag drac-text-black" aria-hidden="true"></i>
+                <img alt="GitHub tag (latest by date)"
+                    src="https://img.shields.io/github/v/tag/guibranco/pancake?color=white&label=%20&style=flat-square">
+            </li>
+
+            <li>
+                <i class="fa fa-star drac-text-black" aria-hidden="true"></i>
+                <img alt="GitHub Repo stars"
+                    src="https://img.shields.io/github/stars/guibranco/pancake?color=white&label=%20&style=flat-square">
+            </li>
+
+            <li>
+                <i class="fa fa-code-fork drac-text-black" aria-hidden="true"></i>
+                <img alt="GitHub forks"
+                    src="https://img.shields.io/github/forks/guibranco/pancake?color=white&label=%20&style=flat-square">
+            </li>
+        </ul>
+    </div>
+
+</div>
+                            
+                        
+                    </li>
+                    <!--  endblock -->
+
+                </ul>
+            </div>
+
+        </div>
+    </nav>
+</header>
+            <!-- endblock -->
+
+            <!-- block content -->
+                <section class="p-md-5 section-content">
+    <article>
+        <p><h1 id="dependency-injection-container">Dependency Injection Container</h1>
+<h2 id="table-of-content">Table of content</h2>
+<ul>
+<li><a href="#dependency-injection-container">Dependency Injection Container</a></li>
+<li><a href="#table-of-content">Table of content</a></li>
+<li><a href="#about">About</a></li>
+<li><a href="#registering-services-explicitly">Registering services explicitly</a></li>
+<li><a href="#resolving-services">Resolving services</a></li>
+<li><a href="#auto-registration">Auto-registration</a></li>
+<li><a href="#disabling-auto-registration">Disabling auto-registration</a></li>
+<li><a href="#exceptions">Exceptions</a></li>
+<li><a href="#testing">Testing</a></li>
+</ul>
+<h2 id="about">About</h2>
+<p><code>GuiBranco\Pancake\DIContainer</code> is a minimal <a href="https://www.php-fig.org/psr/psr-11/">PSR-11</a> compliant dependency injection container. It supports explicit service registration (singleton or transient) as well as auto-registration: resolving classes that were never registered by reflecting on their constructor and recursively wiring up their dependencies.</p>
+<h2 id="registering-services-explicitly">Registering services explicitly</h2>
+<pre><code class="language-php">use GuiBranco\Pancake\DIContainer;
+
+$container = new DIContainer();
+
+// Resolved once; the same instance is returned on every get() call.
+$container-&gt;registerSingleton(Config::class, function () {
+    return new Config(['env' =&gt; 'prod']);
+});
+
+// Resolved again on every get() call.
+$container-&gt;registerTransient('requestId', function () {
+    return uniqid('req_', true);
+});
+
+// register() defaults to transient; pass true as the third argument for a singleton.
+$container-&gt;register('logger', function ($c) {
+    return new Logger($c-&gt;get(Config::class));
+}, true);
+</code></pre>
+<h2 id="resolving-services">Resolving services</h2>
+<pre><code class="language-php">$config = $container-&gt;get(Config::class);
+$hasLogger = $container-&gt;has('logger');
+</code></pre>
+<p>Resolver callables receive the container itself as their only argument, so services can depend on other registered services.</p>
+<h2 id="auto-registration">Auto-registration</h2>
+<p>Auto-registration is <strong>enabled by default</strong>. Calling <code>get()</code> with a class name that was never registered reflects on its constructor and recursively resolves each typed, non-builtin parameter through the container — auto-registering those too, if needed. Scalar parameters fall back to their default value, or <code>null</code> if the parameter is nullable.</p>
+<pre><code class="language-php">class ServiceC
+{
+}
+
+class ServiceB
+{
+    public function __construct(private ServiceC $serviceC)
+    {
+    }
+}
+
+class ServiceA
+{
+    public function __construct(private ServiceB $serviceB)
+    {
+    }
+}
+
+$container = new DIContainer();
+
+// None of ServiceA, ServiceB, or ServiceC were registered — the whole chain is
+// auto-registered and resolved recursively.
+$serviceA = $container-&gt;get(ServiceA::class);
+</code></pre>
+<p>Mix explicit registration and auto-registration freely — an auto-registered class can depend on a service you registered explicitly:</p>
+<pre><code class="language-php">$container-&gt;registerSingleton(Config::class, function () {
+    return new Config(['env' =&gt; 'prod']);
+});
+
+// Config resolves to the singleton above; Service itself is auto-registered.
+$service = $container-&gt;get(Service::class);
+</code></pre>
+<p>Interfaces and abstract classes are never auto-registrable — register a concrete implementation for them explicitly.</p>
+<h2 id="disabling-auto-registration">Disabling auto-registration</h2>
+<p>Pass <code>false</code> to the constructor, or call <code>setAutoRegisterEnabled()</code> at any point:</p>
+<pre><code class="language-php">// Off from the start: every dependency must be registered explicitly.
+$container = new DIContainer(autoRegisterEnabled: false);
+
+// Or toggle it at runtime.
+$container = new DIContainer();
+$container-&gt;setAutoRegisterEnabled(false);
+</code></pre>
+<p>With auto-registration disabled, <code>get()</code> still resolves anything registered explicitly — it only stops falling back to reflection for unregistered class names, throwing <code>NotFoundException</code> instead.</p>
+<h2 id="exceptions">Exceptions</h2>
+<p><code>get()</code> throws:</p>
+<ul>
+<li><code>GuiBranco\Pancake\Exceptions\NotFoundException</code> (implements <code>Psr\Container\NotFoundExceptionInterface</code>) when the identifier is neither registered nor auto-registrable — either because it isn't a class, or because auto-registration is disabled.</li>
+<li><code>GuiBranco\Pancake\Exceptions\ContainerException</code> (implements <code>Psr\Container\ContainerExceptionInterface</code>) when a resolver throws, a constructor dependency can't be determined, or the class isn't instantiable.</li>
+</ul>
+<h2 id="testing">Testing</h2>
+<p>See <code>tests/Unit/DIContainerTest.php</code> and <code>tests/Integration/DIContainerIntegrationTest.php</code>.</p></p>
+    </article>
+</section>
+            <!-- endblock -->
+
+            <!-- block footer -->
+                <footer>
+    <div class="d-flex flex-sm-row justify-content-between py-2 border-top drac-text-black drac-bg-cyan-green">
+        <a href="https://github.com/dracula/mkdocs" target="_blank" style="padding-left: 1%;"
+            class="footer-text drac-anchor drac-text-black drac-text-purple--hover">
+            Made with Dracula Theme for MkDocs
+        </a>
+    </div>
+</footer>
+            <!-- endblock -->
+        </div>
+
+    </main>
+
+        <script>var base_url = '../..';</script>
+        <script src="../../assets/js/jquery-3.3.1.slim.min.js"></script>
+        <script src="../../assets/js/bootstrap.bundle.min.js"></script>
+        <script src="../../assets/js/mkdocs.js"></script>
+			<script src="../../search/main.js" defer></script>
+
+</body>
+
+</html>

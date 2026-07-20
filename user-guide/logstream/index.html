@@ -1,0 +1,868 @@
+<!doctype html>
+<html lang="en" data-bs-theme="dark">
+
+<head>
+        <title>LogStream - pancake</title>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        
+        <link rel="canonical" href="http://guilhermebranco.com.br/user-guide/logstream/">
+        
+
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+            <link rel="stylesheet" href="../../assets/css/darcula-highlight.min.css">
+
+        <link rel="stylesheet" href="../../assets/css/bootstrap.min.css">
+        <link rel="stylesheet" href="../../assets/css/dracula-ui.min.css">
+        <link rel="stylesheet" href="../../assets/css/mkdocs.min.css">
+            <link href="../../extra.css" rel="stylesheet">
+
+        
+            <link  rel="icon" type="image/x-icon" href="../../images/favicon.png">
+        
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+                <script>hljs.initHighlightingOnLoad();</script>
+
+</head>
+
+<body class="drac-bg-black-secondary drac-text-grey-ternary drac-text drac-scrollbar-purple">
+
+    <main class="d-flex">
+
+        <!-- block sidebar -->
+            <nav id="sidebar" class="sidebar drac-bg-black">
+    <div class="custom-menu">
+        <button type="button" id="sidebarCollapse" class="btn btn-primary">
+            <i class="fa fa-bars"></i>
+            <span class="sr-only">Menu</span>
+        </button>
+    </div>
+
+    <div class="p-4">
+        
+            <img class="logo" src="../../logo.png" height="150px">
+        
+
+        <div class="drac-text-center">
+            
+                <span class="drac-text drac-line-height drac-text-white">pancake</span>
+            
+        </div>
+
+        <div class="drac-box flex-column">
+            <ul class="dot-ul">
+                <li><div class="dot-li drac-bg-cyan"></div></li>
+                <li><div class="dot-li drac-bg-green"></div></li>
+                <li><div class="dot-li drac-bg-orange"></div></li>
+                <li><div class="dot-li drac-bg-pink"></div></li>
+                <li><div class="dot-li drac-bg-purple"></div></li>
+                <li><div class="dot-li drac-bg-red"></div></li>
+                <li><div class="dot-li drac-bg-yellow"></div></li>
+            </ul>
+        </div>
+
+        <hr class="drac-divider" />
+
+        <!-- block menu -->
+        <ul class="mb-5 drac-list drac-list-none">
+            
+            <li class="drac-box">
+                <a href="../.."
+                    class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+                    Pancake Project
+                </a>
+            </li>
+            <li class="drac-box">
+                <a href="../../changelog/"
+                    class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+                    Changelog
+                </a>
+            </li>
+            <li class="drac-box">
+                <a href="../../contributing/"
+                    class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+                    Contributing
+                </a>
+            </li>
+            <li class="drac-box">
+                <a href="../../installation/"
+                    class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+                    Installation
+                </a>
+            </li>
+            <li class="drac-box">
+                <a href="../../license/"
+                    class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+                    License
+                </a>
+            </li>
+            <li class="drac-box">
+                <a href="../.."
+                    class=" active 
+                    drac-anchor btn-toggle d-inline-flex align-items-center border-0 drac-text-purple--hover collapsed"
+                    data-bs-toggle="collapse" data-bs-target="#user-guide-collapse" aria-expanded="false">
+                    User guide
+                </a>
+                <div class="collapse" id="user-guide-collapse">
+                    <ul class="mb-5 drac-list drac-list-none">
+                            
+    <li class="drac-box-ternary">
+        <a href="../basic-usage/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Basic usage
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../circuit-breaker/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Circuit Breaker
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../color/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Color
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../database/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Database
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../di-container/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Dependency Injection Container
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../guid-v4/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            GUID (v4)
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../github/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            GitHub
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../health-checks/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Health Checks
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../ip-utils/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Ip Utils
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../logger/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Logger
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="./"
+            class=" active 
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            LogStream
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../memory-cache/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Memory Cache
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../mvc-usage/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            MVC
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../one-signal/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            One Signal
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../request/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Request
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../session-manager/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Session Manager
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../shieldsio/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            ShieldsIo
+        </a>
+    </li>
+                    </ul>
+                </div>
+            </li>
+        </ul>
+        <!-- endblock -->
+    </div>
+</nav>
+        <!-- endblock -->
+
+        <nav class="divider drac-bg-purple-cyan"></nav>
+
+        <div class="content">
+            <!-- block header -->
+                <header>
+    <nav class="navbar navbar-expand-xl drac-bg-purple">
+        <div class="container-fluid">
+            
+            <button class="navbar-toggler w-100 text-center" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsMenu"
+                aria-controls="navbarsMenu" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse flex-column ml-auto" id="navbarsMenu">
+                <ul class="navbar-nav text-md-center">
+
+                    <!-- block preview -->
+                    <li class="nav-item">
+                            
+        <div class="container">
+            <div class="row row-preview">
+                <div class="col">
+                    <a href="../logger/"
+                        class="btn-preview drac-btn drac-btn-outline drac-text-white drac-text-cyan-green--hover">
+                        <i class="fa fa-arrow-left"></i> Previous
+                    </a>
+                </div>
+                <div class="col">
+                    <a href="../memory-cache/"
+                        class="btn-preview drac-btn drac-btn-outline drac-text-white drac-text-cyan-green--hover" style="padding-left: 3%;">
+                        Next <i class="fa fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+                    </li>
+                    <!--  endblock -->
+
+                    <!-- block search -->
+                    <li class="nav-item"><div role="search" class="search-box">
+	<form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+		<input type="text" name="q" class="drac-input drac-input-search drac-input-white drac-text-white drac-bg-black-secondary"
+		placeholder="Search docs" title="Type search term here" />
+	</form>
+</div>
+                    </li>
+                    <!--  endblock -->
+
+                    <!-- block source -->
+                    <li class="nav-item">
+                        
+                            
+                                <div class="md-source source-detail">
+    <div class="md-source-repo-icon">
+        <i class="fa fa-github-alt drac-text-white" aria-hidden="true"></i>
+    </div>
+
+    <div class="md-source-repo-url">
+        <a href="https://github.com/guibranco/pancake"
+            class="md-source drac-anchor drac-text drac-text-white drac-text-cyan-green--hover">
+            guibranco/pancake
+        </a>
+
+        <ul class="md-source-repo-text">
+            <li>
+                <i class="fa fa-tag drac-text-black" aria-hidden="true"></i>
+                <img alt="GitHub tag (latest by date)"
+                    src="https://img.shields.io/github/v/tag/guibranco/pancake?color=white&label=%20&style=flat-square">
+            </li>
+
+            <li>
+                <i class="fa fa-star drac-text-black" aria-hidden="true"></i>
+                <img alt="GitHub Repo stars"
+                    src="https://img.shields.io/github/stars/guibranco/pancake?color=white&label=%20&style=flat-square">
+            </li>
+
+            <li>
+                <i class="fa fa-code-fork drac-text-black" aria-hidden="true"></i>
+                <img alt="GitHub forks"
+                    src="https://img.shields.io/github/forks/guibranco/pancake?color=white&label=%20&style=flat-square">
+            </li>
+        </ul>
+    </div>
+
+</div>
+                            
+                        
+                    </li>
+                    <!--  endblock -->
+
+                </ul>
+            </div>
+
+        </div>
+    </nav>
+</header>
+            <!-- endblock -->
+
+            <!-- block content -->
+                <section class="p-md-5 section-content">
+    <article>
+        <p><h1 id="logstream">LogStream</h1>
+<h2 id="table-of-content">Table of content</h2>
+<ul>
+<li><a href="#logstream">LogStream</a></li>
+<li><a href="#table-of-content">Table of content</a></li>
+<li><a href="#about">About</a></li>
+<li><a href="#requirements">Requirements</a></li>
+<li><a href="#authentication-modes">Authentication modes</a></li>
+<li><a href="#bearer-file-storage-mode">Bearer (file storage mode)</a></li>
+<li><a href="#api-key-mariadb-storage-mode">API key (MariaDB storage mode)</a></li>
+<li><a href="#constructor">Constructor</a></li>
+<li><a href="#configuration-methods">Configuration methods</a></li>
+<li><a href="#set-default-category">Set default category</a></li>
+<li><a href="#set-user-agent">Set user agent</a></li>
+<li><a href="#available-methods">Available methods</a></li>
+<li><a href="#debug">Debug</a></li>
+<li><a href="#info">Info</a></li>
+<li><a href="#notice">Notice</a></li>
+<li><a href="#warning">Warning</a></li>
+<li><a href="#error">Error</a></li>
+<li><a href="#critical">Critical</a></li>
+<li><a href="#log">Log</a></li>
+<li><a href="#batch">Batch</a></li>
+<li><a href="#make-entry">Make entry</a></li>
+<li><a href="#health">Health</a></li>
+<li><a href="#supporting-classes">Supporting classes</a></li>
+<li><a href="#logstreamentry">LogStreamEntry</a></li>
+<li><a href="#logstreamresponse">LogStreamResponse</a></li>
+<li><a href="#examples">Examples</a></li>
+<li><a href="#single-entry-in-bearer-mode">Single entry in bearer mode</a></li>
+<li><a href="#single-entry-in-api-key-mode">Single entry in API-key mode</a></li>
+<li><a href="#entry-with-context-and-category">Entry with context and category</a></li>
+<li><a href="#batch-ingestion">Batch ingestion</a></li>
+<li><a href="#health-check">Health check</a></li>
+<li><a href="#try-catch-with-error-logging">Try-catch with error logging</a></li>
+</ul>
+<h2 id="about">About</h2>
+<p>This class is a PHP client for the <a href="https://github.com/guibranco/logstream-server">logstream-server</a> — a real-time log ingestion and streaming service built with PHP 8.3 + ReactPHP + Ratchet.</p>
+<p>It uses the <a href="https://guilherme.stracini.com.br/pancake/user-guide/request/">Request</a> class to perform HTTP requests and supports both authentication modes provided by the server.</p>
+<p>Log entries are modelled by <code>LogStreamEntry</code> and server responses are wrapped in <code>LogStreamResponse</code> for typed access to status codes, saved counts, and error details.</p>
+<h2 id="requirements">Requirements</h2>
+<p>This requires <code>lib curl</code> to be active with your PHP settings.</p>
+<p>This also requires a running <a href="https://github.com/guibranco/logstream-server">logstream-server</a> instance and the appropriate credentials depending on the server's storage mode.</p>
+<p>Minimum requirements:</p>
+<ul>
+<li>PHP &gt;= 8.1</li>
+<li>lib curl &gt;= 7.29.0</li>
+</ul>
+<h2 id="authentication-modes">Authentication modes</h2>
+<p>The logstream-server uses two separate keys: a <strong>write key</strong> for ingesting logs and a <strong>read key</strong> for the UI. This client handles the write key only.</p>
+<p>The authentication scheme depends on the server's <code>STORAGE_TYPE</code> setting.</p>
+<h3 id="bearer-file-storage-mode">Bearer (file storage mode)</h3>
+<p>When the server is configured with <code>STORAGE_TYPE=file</code>, all applications share a single API secret sent as a Bearer token:</p>
+<pre><code>Authorization: Bearer &lt;API_SECRET&gt;
+</code></pre>
+<p>Use <code>LogStream::AUTH_BEARER</code> as the <code>authMode</code> and supply the <code>apiSecret</code> parameter.</p>
+<h3 id="api-key-mariadb-storage-mode">API key (MariaDB storage mode)</h3>
+<p>When the server is configured with <code>STORAGE_TYPE=mariadb</code>, each application has its own row in the <code>clients</code> table with a unique <code>app_key</code> / <code>api_token</code> pair. Both headers must be present on every request:</p>
+<pre><code>X-Api-Key:   &lt;app_key&gt;
+X-Api-Token: &lt;api_token&gt;
+</code></pre>
+<p>Use <code>LogStream::AUTH_API_KEY</code> as the <code>authMode</code> and supply the <code>apiKey</code> and <code>apiToken</code> parameters.</p>
+<blockquote>
+<p>In MariaDB mode the <code>app_key</code> is <strong>enforced from the server's <code>clients</code> table</strong> — a client cannot submit logs under a different application's identity.</p>
+</blockquote>
+<h2 id="constructor">Constructor</h2>
+<pre><code class="language-php">$client = new LogStream(
+    baseUrl:   'https://logs.example.com',  // logstream-server base URL
+    appKey:    'billing-api',               // application slug
+    appId:     'production',                // deployment environment / instance
+    authMode:  LogStream::AUTH_BEARER,      // LogStream::AUTH_BEARER or LogStream::AUTH_API_KEY
+    apiSecret: 'your-api-secret',           // bearer mode only
+    apiKey:    '',                          // API-key mode only
+    apiToken:  '',                          // API-key mode only
+);
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>baseUrl</code></td>
+<td>string</td>
+<td>✅</td>
+<td>logstream-server base URL, no trailing slash</td>
+</tr>
+<tr>
+<td><code>appKey</code></td>
+<td>string</td>
+<td>✅</td>
+<td>Application slug sent as <code>app_key</code> on every entry</td>
+</tr>
+<tr>
+<td><code>appId</code></td>
+<td>string</td>
+<td>✅</td>
+<td>Deployment environment or instance identifier</td>
+</tr>
+<tr>
+<td><code>authMode</code></td>
+<td>string</td>
+<td>✅</td>
+<td><code>LogStream::AUTH_BEARER</code> or <code>LogStream::AUTH_API_KEY</code></td>
+</tr>
+<tr>
+<td><code>apiSecret</code></td>
+<td>string</td>
+<td>bearer only</td>
+<td>Bearer token (<code>API_SECRET</code> from the server's <code>.env</code>)</td>
+</tr>
+<tr>
+<td><code>apiKey</code></td>
+<td>string</td>
+<td>API-key only</td>
+<td>Value for the <code>X-Api-Key</code> header</td>
+</tr>
+<tr>
+<td><code>apiToken</code></td>
+<td>string</td>
+<td>API-key only</td>
+<td>Value for the <code>X-Api-Token</code> header</td>
+</tr>
+<tr>
+<td><code>request</code></td>
+<td>Request|null</td>
+<td>❌</td>
+<td>Custom <code>Request</code> instance; auto-created if omitted</td>
+</tr>
+<tr>
+<td><code>userAgent</code></td>
+<td>string</td>
+<td>❌</td>
+<td>Overrides the default <code>User-Agent</code> header value</td>
+</tr>
+</tbody>
+</table>
+<h2 id="configuration-methods">Configuration methods</h2>
+<h3 id="set-default-category">Set default category</h3>
+<p>Override the default category applied to all entries sent through this client instance. Defaults to <code>"general"</code> if not set.</p>
+<pre><code class="language-php">$client = new LogStream('https://logs.example.com', 'my-app', 'production', LogStream::AUTH_BEARER, 'secret');
+$client-&gt;setDefaultCategory('payments');
+</code></pre>
+<h3 id="set-user-agent">Set user agent</h3>
+<p>Override the <code>User-Agent</code> header sent with every request.</p>
+<pre><code class="language-php">$client = new LogStream('https://logs.example.com', 'my-app', 'production', LogStream::AUTH_BEARER, 'secret');
+$client-&gt;setUserAgent('BillingService/2.1.0 (PHP 8.3)');
+</code></pre>
+<h2 id="available-methods">Available methods</h2>
+<h3 id="debug">Debug</h3>
+<p>Send a <code>debug</code>-level log entry.</p>
+<pre><code class="language-php">$client-&gt;debug('Cache warmed up');
+$client-&gt;debug('Cache warmed up', ['keys' =&gt; 42], 'cache');
+</code></pre>
+<h3 id="info">Info</h3>
+<p>Send an <code>info</code>-level log entry.</p>
+<pre><code class="language-php">$client-&gt;info('Service started');
+$client-&gt;info('User registered', ['user_id' =&gt; 99], 'auth');
+</code></pre>
+<h3 id="notice">Notice</h3>
+<p>Send a <code>notice</code>-level log entry.</p>
+<pre><code class="language-php">$client-&gt;notice('Deprecated endpoint called');
+$client-&gt;notice('Config value missing, using default', ['key' =&gt; 'timeout'], 'config');
+</code></pre>
+<h3 id="warning">Warning</h3>
+<p>Send a <code>warning</code>-level log entry.</p>
+<pre><code class="language-php">$client-&gt;warning('Retry attempt 2 of 3');
+$client-&gt;warning('High memory usage', ['usage_mb' =&gt; 512], 'system');
+</code></pre>
+<h3 id="error">Error</h3>
+<p>Send an <code>error</code>-level log entry.</p>
+<pre><code class="language-php">$client-&gt;error('Charge failed');
+$client-&gt;error('Charge failed', ['invoice_id' =&gt; 1234, 'code' =&gt; 'card_declined'], 'payments');
+</code></pre>
+<h3 id="critical">Critical</h3>
+<p>Send a <code>critical</code>-level log entry.</p>
+<pre><code class="language-php">$client-&gt;critical('Payment processor unreachable');
+$client-&gt;critical('Database connection lost', ['host' =&gt; 'db-01'], 'database');
+</code></pre>
+<p>All six level methods share the same signature:</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>$message</code></td>
+<td>string</td>
+<td>✅</td>
+<td>Human-readable event description</td>
+</tr>
+<tr>
+<td><code>$context</code></td>
+<td>array|null</td>
+<td>❌</td>
+<td>Arbitrary structured metadata</td>
+</tr>
+<tr>
+<td><code>$category</code></td>
+<td>string</td>
+<td>❌</td>
+<td>Grouping tag; falls back to the client default</td>
+</tr>
+<tr>
+<td><code>$traceId</code></td>
+<td>string|null</td>
+<td>❌</td>
+<td>Client-supplied correlation UUID</td>
+</tr>
+</tbody>
+</table>
+<p>Each method returns a <code>LogStreamResponse</code>.</p>
+<h3 id="log">Log</h3>
+<p>Send a pre-built <code>LogStreamEntry</code> directly. Useful when you need full control over every field.</p>
+<pre><code class="language-php">$entry = new LogStreamEntry(
+    appId:     'production',
+    level:     'error',
+    message:   'Charge failed',
+    category:  'payments',
+    context:   ['invoice_id' =&gt; 1234],
+    traceId:   'your-trace-uuid',
+    timestamp: '2025-01-15T14:22:00.000Z',
+);
+
+$response = $client-&gt;log($entry);
+</code></pre>
+<h3 id="batch">Batch</h3>
+<p>Send multiple log entries in a single HTTP request. All entries automatically share a <code>batch_id</code> unless they already have one set.</p>
+<pre><code class="language-php">$entries = [
+    $client-&gt;makeEntry('Charge initiated', 'info',  'payments', ['amount' =&gt; 99.00]),
+    $client-&gt;makeEntry('Card authorised',  'info',  'payments'),
+    $client-&gt;makeEntry('Charge captured',  'info',  'payments'),
+];
+
+$response = $client-&gt;batch($entries);
+
+// Optionally supply your own batch ID
+$response = $client-&gt;batch($entries, 'my-batch-uuid');
+</code></pre>
+<p>Returns a <code>LogStreamResponse</code> where <code>$response-&gt;saved</code> equals the number of entries successfully stored.</p>
+<h3 id="make-entry">Make entry</h3>
+<p>Build a <code>LogStreamEntry</code> pre-filled with the client's default <code>appKey</code>, <code>appId</code>, and category. Intended for constructing entries before passing them to <code>batch()</code>.</p>
+<pre><code class="language-php">$entry = $client-&gt;makeEntry('Charge failed', 'error', 'payments', ['code' =&gt; 'card_declined']);
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>$message</code></td>
+<td>string</td>
+<td>✅</td>
+<td>Human-readable event description</td>
+</tr>
+<tr>
+<td><code>$level</code></td>
+<td>string</td>
+<td>❌</td>
+<td>Severity level (default <code>info</code>)</td>
+</tr>
+<tr>
+<td><code>$category</code></td>
+<td>string</td>
+<td>❌</td>
+<td>Grouping tag; falls back to the client default</td>
+</tr>
+<tr>
+<td><code>$context</code></td>
+<td>array|null</td>
+<td>❌</td>
+<td>Arbitrary structured metadata</td>
+</tr>
+<tr>
+<td><code>$traceId</code></td>
+<td>string|null</td>
+<td>❌</td>
+<td>Client-supplied correlation UUID</td>
+</tr>
+</tbody>
+</table>
+<h3 id="health">Health</h3>
+<p>Ping the server's public health endpoint. Returns a parsed array on success, or <code>null</code> if the server is unreachable or returns a non-200 status.</p>
+<pre><code class="language-php">$health = $client-&gt;health();
+
+if ($health !== null) {
+    echo $health['status'];         // &quot;ok&quot;
+    echo $health['ws_connections']; // number of connected UI clients
+}
+</code></pre>
+<h2 id="supporting-classes">Supporting classes</h2>
+<h3 id="logstreamentry">LogStreamEntry</h3>
+<p>An immutable value object that models a single log entry.</p>
+<pre><code class="language-php">$entry = new LogStreamEntry(
+    appId:     'production',          // required
+    level:     'error',               // required — debug|info|notice|warning|error|critical
+    message:   'Charge failed',       // required
+    category:  'payments',            // optional, max 100 chars (default &quot;general&quot;)
+    context:   ['invoice_id' =&gt; 1234],// optional — arbitrary key/value pairs
+    appKey:    'billing-api',         // optional in MariaDB mode; required in bearer mode
+    traceId:   'your-uuid',           // optional — auto-generated by server if omitted
+    batchId:   'batch-uuid',          // optional — set automatically by ::batch()
+    timestamp: '2025-01-15T14:22:00Z',// optional — defaults to server receive time
+    userAgent: 'BillingService/2.1.0',// optional — overrides the request User-Agent
+);
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>appId</code></td>
+<td>string</td>
+<td>Deployment environment or instance</td>
+</tr>
+<tr>
+<td><code>level</code></td>
+<td>string</td>
+<td>Falls back to <code>info</code> if an unknown value is supplied</td>
+</tr>
+<tr>
+<td><code>message</code></td>
+<td>string</td>
+<td>Human-readable event description</td>
+</tr>
+<tr>
+<td><code>category</code></td>
+<td>string</td>
+<td>Truncated to 100 characters</td>
+</tr>
+<tr>
+<td><code>context</code></td>
+<td>array|null</td>
+<td>Serialised to JSON by the server</td>
+</tr>
+<tr>
+<td><code>appKey</code></td>
+<td>string|null</td>
+<td>Required in bearer mode; ignored in MariaDB mode</td>
+</tr>
+<tr>
+<td><code>traceId</code></td>
+<td>string|null</td>
+<td>UUID; auto-generated server-side if omitted</td>
+</tr>
+<tr>
+<td><code>batchId</code></td>
+<td>string|null</td>
+<td>UUID; set automatically when using <code>::batch()</code></td>
+</tr>
+<tr>
+<td><code>timestamp</code></td>
+<td>string|null</td>
+<td>ISO 8601; defaults to server receive time</td>
+</tr>
+<tr>
+<td><code>userAgent</code></td>
+<td>string|null</td>
+<td>Overrides the <code>User-Agent</code> header for this entry</td>
+</tr>
+</tbody>
+</table>
+<h3 id="logstreamresponse">LogStreamResponse</h3>
+<p>A typed wrapper around the raw server response.</p>
+<pre><code class="language-php">$response = $client-&gt;info('Hello');
+
+$response-&gt;success;        // bool   — true when HTTP 2xx
+$response-&gt;statusCode;     // int    — HTTP status code
+$response-&gt;saved;          // int    — number of entries successfully stored
+$response-&gt;entries;        // array  — the stored log entries as returned by the server
+$response-&gt;errors;         // array|null — per-entry errors for any that failed to save
+$response-&gt;transportError; // string|null — set when the cURL request itself failed (statusCode === -1)
+$response-&gt;rawBody;        // string — raw JSON response body
+</code></pre>
+<h2 id="examples">Examples</h2>
+<h3 id="single-entry-in-bearer-mode">Single entry in bearer mode</h3>
+<pre><code class="language-php">use GuiBranco\Pancake\LogStream;
+
+$client = new LogStream(
+    baseUrl:   'https://logs.example.com',
+    appKey:    'billing-api',
+    appId:     'production',
+    authMode:  LogStream::AUTH_BEARER,
+    apiSecret: 'your-api-secret',
+);
+
+$response = $client-&gt;info('Service started');
+
+if ($response-&gt;success) {
+    echo &quot;Logged with ID: &quot; . $response-&gt;entries[0]['id'];
+}
+</code></pre>
+<h3 id="single-entry-in-api-key-mode">Single entry in API-key mode</h3>
+<pre><code class="language-php">use GuiBranco\Pancake\LogStream;
+
+$client = new LogStream(
+    baseUrl:  'https://logs.example.com',
+    appKey:   'billing-api',
+    appId:    'production',
+    authMode: LogStream::AUTH_API_KEY,
+    apiKey:   'billing-api',
+    apiToken: 'your-api-token',
+);
+
+$response = $client-&gt;error(
+    'Charge failed',
+    ['invoice_id' =&gt; 1234, 'code' =&gt; 'card_declined'],
+    'payments',
+);
+</code></pre>
+<h3 id="entry-with-context-and-category">Entry with context and category</h3>
+<pre><code class="language-php">$client-&gt;setDefaultCategory('payments');
+
+$client-&gt;warning(
+    'Retry attempt 2 of 3',
+    ['invoice_id' =&gt; 1234, 'attempt' =&gt; 2, 'next_retry_in' =&gt; '30s'],
+);
+
+$client-&gt;error(
+    'All retries exhausted',
+    ['invoice_id' =&gt; 1234, 'final_code' =&gt; 'do_not_honor'],
+);
+</code></pre>
+<h3 id="batch-ingestion">Batch ingestion</h3>
+<pre><code class="language-php">$entries = [
+    $client-&gt;makeEntry('Payment flow started',   'info',    'payments', ['invoice_id' =&gt; 1234]),
+    $client-&gt;makeEntry('Card tokenised',          'debug',   'payments'),
+    $client-&gt;makeEntry('Charge authorised',       'info',    'payments', ['auth_code' =&gt; 'XY9001']),
+    $client-&gt;makeEntry('Capture successful',      'info',    'payments'),
+];
+
+$response = $client-&gt;batch($entries);
+
+echo &quot;Saved: &quot; . $response-&gt;saved . &quot; of &quot; . count($entries);
+</code></pre>
+<h3 id="health-check">Health check</h3>
+<pre><code class="language-php">$health = $client-&gt;health();
+
+if ($health === null) {
+    echo &quot;Server is unreachable&quot;;
+} else {
+    echo &quot;Status: &quot;     . $health['status'];
+    echo &quot;Time: &quot;       . $health['time'];
+    echo &quot;WS clients: &quot; . $health['ws_connections'];
+}
+</code></pre>
+<h3 id="try-catch-with-error-logging">Try-catch with error logging</h3>
+<pre><code class="language-php">$client-&gt;info('Job started', ['job_id' =&gt; $jobId], 'jobs');
+
+try {
+    // ... do work ...
+    $client-&gt;info('Job completed', ['job_id' =&gt; $jobId, 'duration_ms' =&gt; $elapsed], 'jobs');
+} catch (\Throwable $e) {
+    $client-&gt;critical('Job failed', [
+        'job_id'    =&gt; $jobId,
+        'exception' =&gt; $e-&gt;getMessage(),
+        'file'      =&gt; $e-&gt;getFile(),
+        'line'      =&gt; $e-&gt;getLine(),
+    ], 'jobs');
+}
+</code></pre></p>
+    </article>
+</section>
+            <!-- endblock -->
+
+            <!-- block footer -->
+                <footer>
+    <div class="d-flex flex-sm-row justify-content-between py-2 border-top drac-text-black drac-bg-cyan-green">
+        <a href="https://github.com/dracula/mkdocs" target="_blank" style="padding-left: 1%;"
+            class="footer-text drac-anchor drac-text-black drac-text-purple--hover">
+            Made with Dracula Theme for MkDocs
+        </a>
+    </div>
+</footer>
+            <!-- endblock -->
+        </div>
+
+    </main>
+
+        <script>var base_url = '../..';</script>
+        <script src="../../assets/js/jquery-3.3.1.slim.min.js"></script>
+        <script src="../../assets/js/bootstrap.bundle.min.js"></script>
+        <script src="../../assets/js/mkdocs.js"></script>
+			<script src="../../search/main.js" defer></script>
+
+</body>
+
+</html>
