@@ -1,0 +1,14 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "/download/image.png"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "image/png",
+      "Content-Disposition": "attachment; filename=\"image.png\""
+    },
+    "base64Body": "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg=="
+  }
+}
