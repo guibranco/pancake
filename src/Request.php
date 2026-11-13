@@ -386,4 +386,102 @@ class Request
         $fields[CURLOPT_NOBODY] = true;
         return $this->execute($fields);
     }
+
+    /**
+     * Uploads a file as multipart/form-data to the specified URL.
+     *
+     * @param string $url The URL to upload the file to.
+     * @param string $filePath The local path of the file to upload.
+     * @param array $headers Optional. An array of headers to include in the request.
+     * @param array $additionalData Optional. Additional form fields to send alongside the file.
+     * @param string $fieldName Optional. The form field name for the file. Default is "file".
+     * @param string|null $mimeType Optional. The MIME type of the file. Detected from the file when null.
+     * @param string|null $postedFileName Optional. The file name sent to the server. Defaults to the local file name.
+     * @return Response The response from the server.
+     * @throws RequestException If the file does not exist or is not readable.
+     */
+    public function upload(
+        string $url,
+        string $filePath,
+        array $headers = [],
+        array $additionalData = [],
+        string $fieldName = 'file',
+        ?string $mimeType = null,
+        ?string $postedFileName = null
+    ): Response {
+        if (!is_file($filePath) || !is_readable($filePath)) {
+            throw new RequestException("File not found or not readable: {$filePath}");
+        }
+
+        if ($mimeType === null && function_exists('mime_content_type')) {
+            $mimeType = mime_content_type($filePath) ?: null;
+        }
+
+        $file = new \CURLFile($filePath, $mimeType, $postedFileName ?? basename($filePath));
+        $data = array_merge($additionalData, [$fieldName => $file]);
+
+        return $this->post($url, $headers, $data);
+    }
+
+    /**
+     * Downloads a file from the specified URL, streaming its content directly to disk.
+     *
+     * The file is only written to $savePath when the server responds with a 2xx status code.
+     * The returned Response has an empty body on success; on a non-2xx status the body holds
+     * the server's response content.
+     *
+     * @param string $url The URL of the file to download.
+     * @param string $savePath The local path where the file should be saved.
+     * @param array $headers Optional. An array of headers to include in the request.
+     * @return Response The response from the server.
+     * @throws RequestException If the destination file cannot be opened for writing.
+     */
+    public function download(string $url, string $savePath, array $headers = []): Response
+    {
+        $tempPath = $savePath . '.part';
+        $handle = @fopen($tempPath, 'wb');
+        if ($handle === false) {
+            throw new RequestException("Unable to open file for writing: {$savePath}");
+        }
+
+        $rawHeaders = '';
+        $fields = $this->getFields($url, $headers);
+        unset($fields[CURLOPT_RETURNTRANSFER]);
+        $fields[CURLOPT_HEADER] = false;
+        $fields[CURLOPT_FILE] = $handle;
+        $fields[CURLOPT_HEADERFUNCTION] = function ($curl, string $line) use (&$rawHeaders): int {
+            // Keep only the headers of the last response when following redirects.
+            if (stripos($line, 'HTTP/') === 0) {
+                $rawHeaders = '';
+            }
+            $rawHeaders .= $line;
+            return strlen($line);
+        };
+
+        $curl = curl_init();
+        curl_setopt_array($curl, $fields);
+        $result = curl_exec($curl);
+        fclose($handle);
+
+        if ($result === false) {
+            @unlink($tempPath);
+            return $this->responseFactory->error(curl_error($curl), $fields[CURLOPT_URL], -1);
+        }
+
+        $httpCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+        $responseHeaders = $this->extractHeaders($rawHeaders);
+
+        if ($httpCode < 200 || $httpCode >= 300) {
+            $body = (string) file_get_contents($tempPath);
+            @unlink($tempPath);
+            return $this->responseFactory->success($body, $fields[CURLOPT_URL], $responseHeaders, $httpCode);
+        }
+
+        if (!rename($tempPath, $savePath)) {
+            @unlink($tempPath);
+            throw new RequestException("Unable to move downloaded file to: {$savePath}");
+        }
+
+        return $this->responseFactory->success('', $fields[CURLOPT_URL], $responseHeaders, $httpCode);
+    }
 }

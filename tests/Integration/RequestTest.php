@@ -5,11 +5,13 @@ declare(strict_types=1);
 namespace GuiBranco\Pancake\Tests\Integration;
 
 use GuiBranco\Pancake\Request;
+use GuiBranco\Pancake\RequestException;
 use PHPUnit\Framework\TestCase;
 
 final class RequestTest extends TestCase
 {
     private const WIREMOCK_URL = 'http://localhost:8080';
+    private const PNG_BASE64 = 'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==';
     private Request $request;
 
     protected function setUp(): void
@@ -174,5 +176,71 @@ final class RequestTest extends TestCase
     public function testCanGetBaseUrl(): void
     {
         $this->assertEquals(self::WIREMOCK_URL, $this->request->getBaseUrl());
+    }
+
+    public function testCanGetBinaryContent(): void
+    {
+        $response = $this->request->get('/download/image.png');
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertEquals('image/png', $response->getContentType());
+        $this->assertTrue($response->isBinary());
+        $this->assertEquals(base64_decode(self::PNG_BASE64), $response->getBody());
+    }
+
+    public function testCanDownload(): void
+    {
+        $savePath = tempnam(sys_get_temp_dir(), 'pancake');
+
+        try {
+            $response = $this->request->download('/download/image.png', $savePath);
+            $this->assertEquals(200, $response->getStatusCode());
+            $this->assertEquals('image/png', $response->getContentType());
+            $this->assertStringEqualsFile($savePath, base64_decode(self::PNG_BASE64));
+            $this->assertFileDoesNotExist($savePath . '.part');
+        } finally {
+            @unlink($savePath);
+        }
+    }
+
+    public function testDownloadDoesNotSaveFileOnErrorStatus(): void
+    {
+        $savePath = sys_get_temp_dir() . '/pancake-missing-' . uniqid() . '.png';
+
+        $response = $this->request->download('/download/missing.png', $savePath);
+        $this->assertEquals(404, $response->getStatusCode());
+        $this->assertEquals(['error' => 'not found'], $response->getBodyAsArray());
+        $this->assertFileDoesNotExist($savePath);
+        $this->assertFileDoesNotExist($savePath . '.part');
+    }
+
+    public function testCannotDownload(): void
+    {
+        $savePath = sys_get_temp_dir() . '/pancake-error-' . uniqid() . '.png';
+
+        $request = new Request();
+        $response = $request->download('https://non-existing-url', $savePath);
+        $this->assertEquals(-1, $response->getStatusCode());
+        $this->assertFileDoesNotExist($savePath);
+        $this->assertFileDoesNotExist($savePath . '.part');
+    }
+
+    public function testCanUpload(): void
+    {
+        $filePath = tempnam(sys_get_temp_dir(), 'pancake');
+        file_put_contents($filePath, base64_decode(self::PNG_BASE64));
+
+        try {
+            $response = $this->request->upload('/upload', $filePath, [], ['description' => 'test'], 'file', 'image/png', 'image.png');
+            $this->assertEquals(201, $response->getStatusCode());
+            $this->assertEquals(['uploaded' => true], $response->getBodyAsArray());
+        } finally {
+            @unlink($filePath);
+        }
+    }
+
+    public function testUploadThrowsWhenFileNotFound(): void
+    {
+        $this->expectException(RequestException::class);
+        $this->request->upload('/upload', '/non/existing/file.png');
     }
 }
