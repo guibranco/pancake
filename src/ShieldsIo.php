@@ -83,8 +83,8 @@ class ShieldsIo
      * Encode a badge path-segment component and append it to the badge array.
      *
      * The component is skipped (not appended) when it is unset or empty,
-     * with the sole exception of the integer literal {@see 0} which is
-     * considered a valid non-empty value.
+     * except for zero: the integer {@see 0} or the string {@see "0"} (as
+     * returned by number_format(0)) is a valid badge value.
      *
      * @param mixed    $component The raw value to encode and append (label,
      *                            message or colour string).
@@ -95,7 +95,7 @@ class ShieldsIo
      */
     private function addComponent($component, &$badge)
     {
-        if (isset($component) && (empty($component) === false || $component === 0)) {
+        if (isset($component) && (empty($component) === false || $component === 0 || $component === "0")) {
             $value = $this->encodeShieldsIoParameters($component);
             $badge[] = $value;
         }
