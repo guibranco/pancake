@@ -49,6 +49,8 @@ final class Grimoire
      * @param int           $cacheTtl    Seconds to keep values in memory for this instance; 0 disables caching
      * @param string        $userAgent   Sent as the User-Agent header
      * @param \Closure|null $clock       Returns the current Unix time; injectable for tests
+     * @param int           $timeout     Total timeout of each request, in seconds, when the client
+     *                                   creates its own Request (an injected Request keeps its own)
      */
     public function __construct(
         string $baseUrl,
@@ -58,6 +60,7 @@ final class Grimoire
         private readonly int $cacheTtl = 60,
         private readonly string $userAgent = Constants::USER_AGENT_VENDOR,
         ?\Closure $clock = null,
+        int $timeout = 30,
     ) {
         if (trim($baseUrl) === '') {
             throw new \InvalidArgumentException('Grimoire base URL must not be empty.');
@@ -71,8 +74,16 @@ final class Grimoire
         if ($cacheTtl < 0) {
             throw new \InvalidArgumentException('Cache TTL must be zero or positive.');
         }
+        if ($timeout < 1) {
+            throw new \InvalidArgumentException('Timeout must be at least one second.');
+        }
 
-        $this->request = $request ?? new Request(rtrim($baseUrl, '/'));
+        if ($request === null) {
+            $request = new Request(rtrim($baseUrl, '/'));
+            $request->setTimeout($timeout);
+        }
+
+        $this->request = $request;
         $this->clock   = $clock ?? static fn (): int => time();
     }
 
@@ -97,6 +108,7 @@ final class Grimoire
         if ($cached !== null && $cached['expires'] > $this->now()) {
             return $cached['value'];
         }
+        unset($this->secretCache[$name]);
 
         $response = $this->request->get(
             self::ENDPOINT_SECRETS . rawurlencode($name) . '?environment=' . rawurlencode($this->environment),
@@ -104,14 +116,18 @@ final class Grimoire
         );
 
         if ($response->getStatusCode() === 404) {
-            unset($this->secretCache[$name]);
             return null;
         }
 
         $secret = GrimoireSecret::fromArray($this->decode($response, "secret '{$name}'"));
 
         if ($this->cacheTtl > 0) {
-            $this->secretCache[$name] = ['expires' => $this->now() + $this->cacheTtl, 'value' => $secret];
+            // Never serve a secret from the cache past its own expiry.
+            $expires = $this->now() + $this->cacheTtl;
+            if ($secret->expiresOn !== null) {
+                $expires = min($expires, $secret->expiresOn->getTimestamp());
+            }
+            $this->secretCache[$name] = ['expires' => $expires, 'value' => $secret];
         }
 
         return $secret;
@@ -179,6 +195,7 @@ final class Grimoire
         $configurations = [];
         foreach ($items as $item) {
             if (is_array($item) && isset($item['key']) && is_string($item['key'])) {
+                // Note: PHP turns numeric-string keys ("123") into integers; callers cast back.
                 $configurations[$item['key']] = (string) ($item['value'] ?? '');
             }
         }
@@ -205,7 +222,7 @@ final class Grimoire
         }
 
         foreach ($configurations as $candidate => $value) {
-            if (strcasecmp($candidate, $key) === 0) {
+            if (strcasecmp((string) $candidate, $key) === 0) {
                 return $value;
             }
         }
@@ -226,6 +243,7 @@ final class Grimoire
         $prefix = rtrim($section, ':') . ':';
         $result = [];
         foreach ($this->getConfigurations() as $key => $value) {
+            $key = (string) $key;
             if (strncasecmp($key, $prefix, strlen($prefix)) === 0) {
                 $result[substr($key, strlen($prefix))] = $value;
             }
@@ -247,7 +265,7 @@ final class Grimoire
      *
      * @param string[] $secretNames          Secrets to load (the Consumer API cannot list secrets yet)
      * @param bool     $includeConfigurations Also load every configuration entry
-     * @param bool     $overwrite            Replace variables that are already set
+     * @param bool     $overwrite            Replace variables already set in getenv(), $_ENV or $_SERVER
      * @param bool     $failOnMissing        Throw when a requested secret has no active value
      * @return string[] Environment variable names that were set
      * @throws GrimoireException
@@ -262,7 +280,7 @@ final class Grimoire
 
         if ($includeConfigurations) {
             foreach ($this->getConfigurations() as $key => $value) {
-                $values[self::toEnvironmentName($key)] = $value;
+                $values[self::toEnvironmentName((string) $key)] = $value;
             }
         }
 
@@ -273,7 +291,7 @@ final class Grimoire
                 $missing[] = $name;
                 continue;
             }
-            $values[self::toEnvironmentName($name)] = $value;
+            $values[self::toEnvironmentName((string) $name)] = $value;
         }
 
         if ($missing !== [] && $failOnMissing) {
@@ -285,7 +303,8 @@ final class Grimoire
 
         $set = [];
         foreach ($values as $name => $value) {
-            if (!$overwrite && getenv($name) !== false) {
+            $name = (string) $name;
+            if (!$overwrite && $this->isEnvironmentVariableSet($name)) {
                 continue;
             }
             putenv("{$name}={$value}");
@@ -331,6 +350,14 @@ final class Grimoire
     {
         $this->secretCache        = [];
         $this->configurationCache = null;
+    }
+
+    /** True when the variable exists in the process environment, $_ENV or $_SERVER. */
+    private function isEnvironmentVariableSet(string $name): bool
+    {
+        return getenv($name) !== false
+            || array_key_exists($name, $_ENV)
+            || array_key_exists($name, $_SERVER);
     }
 
     /** @return string[] */

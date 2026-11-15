@@ -91,6 +91,22 @@ final class GrimoireTest extends TestCase
         ];
     }
 
+    #[Test]
+    public function constructorRejectsZeroTimeout(): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        new Grimoire('https://x', 'k', 'e', timeout: 0);
+    }
+
+    #[Test]
+    public function ownRequestGetsTheTimeout(): void
+    {
+        $client   = new Grimoire('https://x', 'k', 'e', timeout: 7);
+        $property = new \ReflectionProperty(Grimoire::class, 'request');
+
+        $this->assertSame(7, $property->getValue($client)->getTimeout());
+    }
+
     // ── Secrets ──────────────────────────────────────────────────────────────
 
     #[Test]
@@ -181,6 +197,30 @@ final class GrimoireTest extends TestCase
     }
 
     #[Test]
+    public function cachedSecretIsNotServedPastItsExpiry(): void
+    {
+        $now                              = (new \DateTimeImmutable('2026-01-01T00:00:00Z'))->getTimestamp();
+        $body                             = self::SECRET_BODY;
+        $body['properties']['expiresOn'] = '2026-01-01T00:00:30Z';
+
+        $request = $this->createMock(Request::class);
+        $request->expects($this->exactly(2))
+            ->method('get')
+            ->willReturnOnConsecutiveCalls(self::json(200, $body), self::json(404, []));
+
+        $client = $this->client($request, 60, function () use (&$now) {
+            return $now;
+        });
+
+        $this->assertNotNull($client->getSecret('database-password'));
+        $now += 10;
+        $this->assertNotNull($client->getSecret('database-password'));
+        // Still inside the 60s TTL, but past expiresOn: Grimoire is asked again.
+        $now += 30;
+        $this->assertNull($client->getSecret('database-password'));
+    }
+
+    #[Test]
     public function zeroTtlDisablesCaching(): void
     {
         $request = $this->createMock(Request::class);
@@ -232,6 +272,16 @@ final class GrimoireTest extends TestCase
         $this->assertSame('true', $client->getConfiguration('feature:darkmode'));
         $this->assertSame('x', $client->getConfiguration('Missing', 'x'));
         $this->assertSame(['Host' => 'osasco', 'Port' => '3306'], $client->getSection('Database'));
+    }
+
+    #[Test]
+    public function numericConfigurationKeysWork(): void
+    {
+        $body   = ['items' => [['key' => '123', 'value' => 'numeric', 'label' => 'production']]];
+        $client = $this->client($this->mockRequest(self::json(200, $body)));
+
+        $this->assertSame('numeric', $client->getConfiguration('123'));
+        $this->assertSame([], $client->getSection('Database'));
     }
 
     #[Test]
@@ -313,6 +363,21 @@ final class GrimoireTest extends TestCase
 
         $this->assertSame([$name], $client->loadIntoEnvironment([$body['name']], false, true));
         $this->assertSame('s3cr3t', getenv($name));
+    }
+
+    #[Test]
+    public function loadIntoEnvironmentKeepsValuesOnlyInSuperglobals(): void
+    {
+        $name             = 'PK_SUPERGLOBAL_' . strtoupper(bin2hex(random_bytes(4)));
+        $_SERVER[$name]   = 'from-server';
+        $this->envNames   = [$name];
+        $body             = ['items' => [['key' => $name, 'value' => 'from-grimoire', 'label' => 'production']]];
+
+        $client = $this->client($this->mockRequest(self::json(200, $body)));
+
+        $this->assertSame([], $client->loadIntoEnvironment([]));
+        $this->assertFalse(getenv($name));
+        $this->assertSame('from-server', $_SERVER[$name]);
     }
 
     #[Test]
