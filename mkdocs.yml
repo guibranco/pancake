@@ -28,6 +28,7 @@ nav:
     - Dependency Injection Container: user-guide/di-container.md
     - GUID (v4):       user-guide/guid-v4.md
     - GitHub:          user-guide/github.md
+    - Grimoire:        user-guide/grimoire.md
     - Health Checks:   user-guide/health-checks.md
     - Ip Utils:        user-guide/ip-utils.md
     - Logger:          user-guide/logger.md
