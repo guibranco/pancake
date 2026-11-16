@@ -29,26 +29,46 @@ final class LogStreamResponse
     /** Error message when the cURL request itself failed (statusCode === -1) */
     public readonly ?string $transportError;
 
-    /** Raw response body */
+    /** Raw response body (empty when nothing was sent over HTTP) */
     public readonly string $rawBody;
 
+    /**
+     * Number of entries sent as UDP datagrams (always 0 over HTTP).
+     *
+     * UDP is fire-and-forget: the server never replies, so a sent entry is not
+     * confirmed as saved and is not counted in $saved.
+     */
+    public readonly int $sent;
+
+    /**
+     * @param string[] $extraErrors Client-side errors (e.g. UDP send failures) added to $errors
+     */
     public function __construct(
         int     $statusCode,
         string  $rawBody,
         ?string $transportError = null,
+        int     $sent = 0,
+        array   $extraErrors = [],
     ) {
         $this->statusCode     = $statusCode;
         $this->rawBody        = $rawBody;
         $this->transportError = $transportError;
         $this->success        = $statusCode >= 200 && $statusCode < 300;
+        $this->sent           = $sent;
 
         $decoded = json_decode($rawBody, true) ?? [];
 
         $this->saved   = (int)  ($decoded['saved']   ?? 0);
         $this->entries = (array)($decoded['entries'] ?? []);
-        $this->errors  = isset($decoded['errors']) && is_array($decoded['errors'])
+        $errors = isset($decoded['errors']) && is_array($decoded['errors'])
             ? $decoded['errors']
             : null;
+
+        if ($extraErrors !== []) {
+            $errors = array_merge($errors ?? [], array_values($extraErrors));
+        }
+
+        $this->errors = $errors;
     }
 
     // ──────────────────────────────────────────────────────────────────────────

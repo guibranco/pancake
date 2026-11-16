@@ -9,6 +9,7 @@
 * [Authentication modes](#authentication-modes)
   + [Bearer (file storage mode)](#bearer-file-storage-mode)
   + [API key (MariaDB storage mode)](#api-key-mariadb-storage-mode)
+* [UDP transport](#udp-transport)
 * [Constructor](#constructor)
 * [Configuration methods](#configuration-methods)
   + [Set default category](#set-default-category)
@@ -83,6 +84,37 @@ Use `LogStream::AUTH_API_KEY` as the `authMode` and supply the `apiKey` and `api
 
 > In MariaDB mode the `app_key` is **enforced from the server's `clients` table** — a client cannot submit logs under a different application's identity.
 
+## UDP transport
+
+For high-volume logging the server can also take **HMAC-signed UDP datagrams** (`UDP_PORT`, default `8082/udp`), which skip the TCP handshake, TLS and HTTP parsing. Pass `transport: LogStream::TRANSPORT_UDP`; every level method, `log()` and `batch()` then send one datagram per entry:
+
+```php
+$client = new LogStream(
+    baseUrl:   'https://logs.example.com',
+    appKey:    'billing-api',
+    appId:     'production',
+    authMode:  LogStream::AUTH_API_KEY,
+    apiKey:    'billing-api',
+    apiToken:  'your-api-token',
+    transport: LogStream::TRANSPORT_UDP,
+    udpPort:   8082,                  // the server's UDP_PORT; the host defaults to the host of baseUrl
+);
+
+$client->info('Charge processed', ['invoice_id' => 1234], 'payments');
+```
+
+* **Same credentials.** Packets are signed with `apiToken` (API-key mode) or `apiSecret` (bearer mode) and identified by `apiKey` / `appKey`. The secret never travels on the wire.
+* **Fire-and-forget.** The server never replies, so the response only says whether the datagram left this host: `statusCode` 202 and `sent` > 0. Rejected packets (stale clock, unknown key, source IP not allowed…) are only visible in the server's `GET /api/health` (`udp.rejected`). Keep clocks NTP-synced: packets must arrive within ±30 s of the server's time.
+* **Large entries.** An entry whose packet exceeds `udpMaxPacketSize` (default 8192 bytes, the server's `UDP_MAX_PACKET_SIZE`) is posted over HTTP instead, so `baseUrl` is still needed. Pass `udpFallbackToHttp: false` to report it as an error instead.
+* **No extension needed.** It uses PHP's built-in stream sockets, not `ext-sockets`.
+
+`LogStream::buildUdpPacket()` builds a signed packet on its own, for example to send it from another process:
+
+```php
+$packet = LogStream::buildUdpPacket('billing-api', $token, ['app_id' => 'production', 'message' => 'Hi']);
+// {"v":1,"key":"billing-api","ts":…,"nonce":"…","sig":"…","log":{"app_id":"production","message":"Hi"}}
+```
+
 ## Constructor
 
 ```php
@@ -107,7 +139,13 @@ $client = new LogStream(
 | `apiKey` | string | API-key only | Value for the `X-Api-Key` header |
 | `apiToken` | string | API-key only | Value for the `X-Api-Token` header |
 | `request` | Request\|null | ❌ | Custom `Request` instance; auto-created if omitted |
-| `userAgent` | string | ❌ | Overrides the default `User-Agent` header value |
+| `userAgent` | string | ❌ | Overrides the default `User-Agent` header value (sent as `user_agent` over UDP) |
+| `transport` | string | ❌ | `LogStream::TRANSPORT_HTTP` (default) or `LogStream::TRANSPORT_UDP` |
+| `udpHost` | string\|null | ❌ | UDP host; defaults to the host of `baseUrl` |
+| `udpPort` | int | ❌ | UDP port, the server's `UDP_PORT` (default `8082`) |
+| `udpMaxPacketSize` | int | ❌ | Largest datagram sent, in bytes (default `8192`, 256–65507) |
+| `udpFallbackToHttp` | bool | ❌ | Post entries too large for a datagram over HTTP (default `true`) |
+| `udpSender` | callable\|null | ❌ | `fn(string $packet): ?string` replacing the socket (returns `null` or an error); for tests |
 
 ## Configuration methods
 
@@ -310,7 +348,10 @@ $response->entries;        // array  — the stored log entries as returned by t
 $response->errors;         // array|null — per-entry errors for any that failed to save
 $response->transportError; // string|null — set when the cURL request itself failed (statusCode === -1)
 $response->rawBody;        // string — raw JSON response body
+$response->sent;           // int    — entries sent as UDP datagrams (0 over HTTP)
 ```
+
+Over UDP, `statusCode` is `202` when at least one entry was sent (or posted by the HTTP fallback) and `-1` when nothing was; `saved` and `entries` only reflect the HTTP fallback, and `errors` lists the entries that could not be sent.
 
 ## Examples
 
