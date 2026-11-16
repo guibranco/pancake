@@ -856,4 +856,117 @@ final class LogStreamTest extends TestCase
         self::assertSame('Over the wire', json_decode($packet, true)['log']['message']);
         self::assertValidSignature($packet, 'my-secret');
     }
+
+    #[Test]
+    public function constructor_throws_on_invalid_udp_max_packet_size(): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('udpMaxPacketSize');
+
+        new LogStream(
+            baseUrl:          'https://logs.example.com',
+            appKey:           'a',
+            appId:            'b',
+            apiSecret:        's',
+            transport:        LogStream::TRANSPORT_UDP,
+            udpMaxPacketSize: 100,
+        );
+    }
+
+    #[Test]
+    public function constructor_throws_when_udp_bearer_mode_has_no_secret(): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('appKey and apiSecret');
+
+        new LogStream(baseUrl: 'https://logs.example.com', appKey: 'a', appId: 'b', transport: LogStream::TRANSPORT_UDP);
+    }
+
+    #[Test]
+    public function constructor_throws_when_udp_host_cannot_be_derived(): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('udpHost is required');
+
+        new LogStream(
+            baseUrl:   '/relative/path',
+            appKey:    'a',
+            appId:     'b',
+            apiSecret: 's',
+            request:   $this->createMock(Request::class),
+            transport: LogStream::TRANSPORT_UDP,
+        );
+    }
+
+    #[Test]
+    public function udp_entry_without_app_id_uses_the_client_default(): void
+    {
+        $sent = [];
+
+        $this->makeUdpClient($sent)->log(new LogStreamEntry(appId: '', level: 'info', message: 'No app id'));
+
+        self::assertSame('test', json_decode($sent[0], true)['log']['app_id']);
+        self::assertValidSignature($sent[0], 'my-token');
+    }
+
+    #[Test]
+    public function udp_failed_http_fallback_is_reported_alongside_sent_datagrams(): void
+    {
+        $request = $this->mockRequest($this->stubResponse(503, '{"error":"unavailable"}'));
+        $sent    = [];
+        $client  = $this->makeUdpClient($sent, request: $request, maxPacketSize: 512);
+
+        $response = $client->batch([
+            $client->makeEntry('small'),
+            $client->makeEntry(str_repeat('x', 1000)),
+        ]);
+
+        self::assertCount(1, $sent);
+        self::assertTrue($response->success);
+        self::assertSame(202, $response->statusCode);
+        self::assertSame(1, $response->sent);
+        self::assertSame(['HTTP fallback for 1 oversized entry failed: HTTP 503'], $response->errors);
+    }
+
+    #[Test]
+    public function udp_failed_http_fallback_with_nothing_sent_is_a_failure(): void
+    {
+        $request = $this->mockRequest($this->stubResponse(503, ''));
+        $sent    = [];
+        $client  = $this->makeUdpClient($sent, request: $request, maxPacketSize: 512, sendError: 'network down');
+
+        $response = $client->batch([
+            $client->makeEntry('small'),
+            $client->makeEntry(str_repeat('x', 1000)),
+            $client->makeEntry(str_repeat('y', 1000)),
+        ]);
+
+        self::assertFalse($response->success);
+        self::assertSame(-1, $response->statusCode);
+        self::assertSame('Entry #0: network down', $response->transportError);
+        self::assertSame(
+            ['Entry #0: network down', 'HTTP fallback for 2 oversized entries failed: HTTP 503'],
+            $response->errors,
+        );
+    }
+
+    #[Test]
+    public function udp_default_sender_reports_an_unresolvable_host(): void
+    {
+        $client = new LogStream(
+            baseUrl:   'https://logs.example.com',
+            appKey:    'test-app',
+            appId:     'test',
+            apiSecret: 'my-secret',
+            request:   $this->createMock(Request::class),
+            transport: LogStream::TRANSPORT_UDP,
+            udpHost:   '256.256.256.256',
+        );
+
+        $response = $client->info('Nowhere to go');
+
+        self::assertFalse($response->success);
+        self::assertSame(-1, $response->statusCode);
+        self::assertStringContainsString('Could not open UDP socket to 256.256.256.256:8082', (string) $response->transportError);
+    }
 }
