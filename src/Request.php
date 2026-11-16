@@ -17,6 +17,8 @@ class Request
 
     private ?string $baseUrl = null;
 
+    private int $timeout = 0;
+
     private const MAX_CONCURRENT_REQUESTS = 10;
 
     private const BATCH_TIMEOUT = 30;
@@ -138,7 +140,7 @@ class Request
             CURLOPT_HEADER => true,
             CURLOPT_ENCODING => "",
             CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => 0,
+            CURLOPT_TIMEOUT => $this->timeout,
             CURLOPT_FOLLOWLOCATION => true,
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
             CURLOPT_SSL_VERIFYPEER => $this->verifySSL,
@@ -204,6 +206,32 @@ class Request
     public function setSSLVerification(bool $verify): void
     {
         $this->verifySSL = $verify;
+    }
+
+    /**
+     * Set the maximum time, in seconds, a single request may take (CURLOPT_TIMEOUT).
+     *
+     * @param int $seconds Total transfer timeout; 0 (the default) means no limit.
+     *
+     * @return void
+     */
+    public function setTimeout(int $seconds): void
+    {
+        if ($seconds < 0) {
+            throw new \InvalidArgumentException('Timeout must be zero or positive.');
+        }
+
+        $this->timeout = $seconds;
+    }
+
+    /**
+     * Get the total transfer timeout, in seconds (0 means no limit).
+     *
+     * @return int
+     */
+    public function getTimeout(): int
+    {
+        return $this->timeout;
     }
 
     /**

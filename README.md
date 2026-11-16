@@ -49,6 +49,7 @@ Pancake provides a curated set of battle-tested utility classes, ready to drop i
 | [`Database`](https://guibranco.github.io/pancake/user-guide/database/) | Thin PDO wrapper with query building helpers |
 | [`GUIDv4`](https://guibranco.github.io/pancake/user-guide/guid-v4/) | RFC 4122-compliant UUID v4 generator |
 | [`GitHub`](https://guibranco.github.io/pancake/user-guide/github/) | Interact with the GitHub REST API |
+| [`Grimoire`](https://guibranco.github.io/pancake/user-guide/grimoire/) | Read secrets and configuration from a Grimoire vault |
 | [`HealthChecks`](https://guibranco.github.io/pancake/user-guide/health-checks/) | Liveness and readiness probe endpoints |
 | [`IpUtils`](https://guibranco.github.io/pancake/user-guide/ip-utils/) | IP address parsing, validation, and range checking |
 | [`Logger`](https://guibranco.github.io/pancake/user-guide/logger/) | PSR-3 compatible structured logger |
@@ -220,7 +221,7 @@ Contributions are welcome! Please read [CONTRIBUTING.md](CONTRIBUTING.md) before
                 </a>
             </td>
 		</tr>
-	<tbody>
+	</tbody>
 </table>
 <!-- readme: collaborators,contributors,snyk-bot/- -end -->
 
@@ -252,17 +253,17 @@ Contributions are welcome! Please read [CONTRIBUTING.md](CONTRIBUTING.md) before
                 </a>
             </td>
             <td align="center">
-                <a href="https://github.com/deepsource-autofix[bot]">
-                    <img src="https://avatars.githubusercontent.com/in/57168?v=4" width="100;" alt="deepsource-autofix[bot]"/>
-                    <br />
-                    <sub><b>deepsource-autofix[bot]</b></sub>
-                </a>
-            </td>
-            <td align="center">
                 <a href="https://github.com/depfu[bot]">
                     <img src="https://avatars.githubusercontent.com/in/715?v=4" width="100;" alt="depfu[bot]"/>
                     <br />
                     <sub><b>depfu[bot]</b></sub>
+                </a>
+            </td>
+            <td align="center">
+                <a href="https://github.com/deepsource-autofix[bot]">
+                    <img src="https://avatars.githubusercontent.com/in/57168?v=4" width="100;" alt="deepsource-autofix[bot]"/>
+                    <br />
+                    <sub><b>deepsource-autofix[bot]</b></sub>
                 </a>
             </td>
             <td align="center">
@@ -282,7 +283,7 @@ Contributions are welcome! Please read [CONTRIBUTING.md](CONTRIBUTING.md) before
                 </a>
             </td>
 		</tr>
-	<tbody>
+	</tbody>
 </table>
 <!-- readme: bots,snyk-bot -end -->
 

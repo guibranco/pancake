@@ -560,4 +560,300 @@ final class LogStreamTest extends TestCase
 
         self::assertSame('my-system', $capturedPayload['category']);
     }
+
+    // ──────────────────────────────────────────────────────────────────────────
+    // UDP transport
+    // ──────────────────────────────────────────────────────────────────────────
+
+    /**
+     * @param string[] $sent Receives every datagram
+     */
+    private function makeUdpClient(
+        array &$sent,
+        string $authMode = LogStream::AUTH_API_KEY,
+        ?Request $request = null,
+        int $maxPacketSize = LogStream::DEFAULT_UDP_MAX_PACKET_SIZE,
+        bool $fallbackToHttp = true,
+        ?string $sendError = null,
+    ): LogStream {
+        return new LogStream(
+            baseUrl:           'https://logs.example.com',
+            appKey:            'test-app',
+            appId:             'test',
+            authMode:          $authMode,
+            apiSecret:         'my-secret',
+            apiKey:            'client-key',
+            apiToken:          'my-token',
+            request:           $request ?? $this->createMock(Request::class),
+            userAgent:         'UdpTest/1.0',
+            transport:         LogStream::TRANSPORT_UDP,
+            udpMaxPacketSize:  $maxPacketSize,
+            udpFallbackToHttp: $fallbackToHttp,
+            udpSender:         function (string $packet) use (&$sent, $sendError): ?string {
+                $sent[] = $packet;
+                return $sendError;
+            },
+        );
+    }
+
+    /** Recompute the signature the way the server does. */
+    private static function assertValidSignature(string $packet, string $secret): void
+    {
+        $data = json_decode($packet, true);
+        // The raw log text is everything after "log": up to the closing brace.
+        $logJson = substr($packet, strpos($packet, '"log":') + 6, -1);
+
+        self::assertSame(
+            hash_hmac('sha256', "{$data['key']}:{$data['ts']}:{$data['nonce']}:{$logJson}", $secret),
+            $data['sig'],
+        );
+    }
+
+    #[Test]
+    public function constructor_throws_on_invalid_transport(): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+
+        new LogStream(baseUrl: 'https://logs.example.com', appKey: 'a', appId: 'b', apiSecret: 's', transport: 'tcp');
+    }
+
+    #[Test]
+    public function constructor_throws_when_udp_has_no_signing_secret(): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('apiKey and apiToken');
+
+        new LogStream(
+            baseUrl:   'https://logs.example.com',
+            appKey:    'a',
+            appId:     'b',
+            authMode:  LogStream::AUTH_API_KEY,
+            apiKey:    'a',
+            transport: LogStream::TRANSPORT_UDP,
+        );
+    }
+
+    #[Test]
+    public function constructor_throws_on_invalid_udp_port(): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+
+        new LogStream(
+            baseUrl:   'https://logs.example.com',
+            appKey:    'a',
+            appId:     'b',
+            apiSecret: 's',
+            transport: LogStream::TRANSPORT_UDP,
+            udpPort:   70000,
+        );
+    }
+
+    #[Test]
+    public function http_is_the_default_transport(): void
+    {
+        self::assertSame(LogStream::TRANSPORT_HTTP, $this->makeBearerClient()->getTransport());
+    }
+
+    #[Test]
+    public function udp_log_sends_one_signed_packet_and_no_http_request(): void
+    {
+        $request = $this->createMock(Request::class);
+        $request->expects(self::never())->method('post');
+        $sent = [];
+
+        $response = $this->makeUdpClient($sent, request: $request)
+            ->error('Charge failed', ['invoice_id' => 42, 'note' => 'café / ünïcode'], 'payments', 'trace-1');
+
+        self::assertCount(1, $sent);
+        self::assertTrue($response->success);
+        self::assertSame(202, $response->statusCode);
+        self::assertSame(1, $response->sent);
+        self::assertSame(0, $response->saved);
+        self::assertNull($response->errors);
+
+        $packet = json_decode($sent[0], true);
+        self::assertSame(1, $packet['v']);
+        self::assertSame('client-key', $packet['key']);
+        self::assertIsInt($packet['ts']);
+        self::assertEqualsWithDelta(microtime(true) * 1000, $packet['ts'], 5000);
+        self::assertMatchesRegularExpression('/^[0-9a-f]{32}$/', $packet['nonce']);
+        self::assertMatchesRegularExpression('/^[0-9a-f]{64}$/', $packet['sig']);
+
+        self::assertSame('test', $packet['log']['app_id']);
+        self::assertSame('error', $packet['log']['level']);
+        self::assertSame('payments', $packet['log']['category']);
+        self::assertSame('Charge failed', $packet['log']['message']);
+        self::assertSame('trace-1', $packet['log']['trace_id']);
+        self::assertSame(42, $packet['log']['context']['invoice_id']);
+        self::assertSame('UdpTest/1.0', $packet['log']['user_agent']);
+        self::assertArrayNotHasKey('app_key', $packet['log']);
+
+        self::assertValidSignature($sent[0], 'my-token');
+    }
+
+    #[Test]
+    public function udp_bearer_mode_signs_with_app_key_and_api_secret(): void
+    {
+        $sent = [];
+        $this->makeUdpClient($sent, LogStream::AUTH_BEARER)->info('Hello');
+
+        self::assertSame('test-app', json_decode($sent[0], true)['key']);
+        self::assertValidSignature($sent[0], 'my-secret');
+    }
+
+    #[Test]
+    public function udp_packets_use_unique_nonces(): void
+    {
+        $sent   = [];
+        $client = $this->makeUdpClient($sent);
+        $client->info('One');
+        $client->info('Two');
+
+        self::assertNotSame(json_decode($sent[0], true)['nonce'], json_decode($sent[1], true)['nonce']);
+    }
+
+    #[Test]
+    public function udp_batch_sends_one_packet_per_entry_with_the_batch_id(): void
+    {
+        $sent   = [];
+        $client = $this->makeUdpClient($sent);
+
+        $response = $client->batch([
+            $client->makeEntry('First'),
+            $client->makeEntry('Second', 'warning'),
+            $client->makeEntry('Third', 'error'),
+        ], 'batch-1');
+
+        self::assertCount(3, $sent);
+        self::assertSame(3, $response->sent);
+        foreach ($sent as $i => $raw) {
+            self::assertSame('batch-1', json_decode($raw, true)['log']['batch_id']);
+            self::assertValidSignature($raw, 'my-token');
+        }
+        self::assertSame('Second', json_decode($sent[1], true)['log']['message']);
+    }
+
+    #[Test]
+    public function udp_build_packet_is_deterministic_and_matches_the_documented_format(): void
+    {
+        $packet = LogStream::buildUdpPacket(
+            'billing-api',
+            'secret',
+            ['app_id' => 'production', 'message' => 'Charge processed'],
+            1748000000000,
+            '9f2c4e1ab37d5c60',
+        );
+
+        $log = '{"app_id":"production","message":"Charge processed"}';
+        $sig = hash_hmac('sha256', "billing-api:1748000000000:9f2c4e1ab37d5c60:{$log}", 'secret');
+
+        self::assertSame(
+            '{"v":1,"key":"billing-api","ts":1748000000000,"nonce":"9f2c4e1ab37d5c60","sig":"' . $sig . '","log":' . $log . '}',
+            $packet,
+        );
+    }
+
+    #[Test]
+    public function udp_oversized_entry_falls_back_to_http(): void
+    {
+        $capturedPayload = null;
+        $request         = $this->createMock(Request::class);
+        $request->expects(self::once())->method('post')
+            ->willReturnCallback(function ($url, $headers, $payload) use (&$capturedPayload) {
+                $capturedPayload = json_decode($payload, true);
+                return $this->stubSuccess();
+            });
+        $sent = [];
+
+        $response = $this->makeUdpClient($sent, request: $request, maxPacketSize: 512)
+            ->info(str_repeat('x', 1000));
+
+        self::assertSame([], $sent);
+        self::assertSame(201, $response->statusCode);
+        self::assertSame(1, $response->saved);
+        self::assertSame(str_repeat('x', 1000), $capturedPayload['message']);
+    }
+
+    #[Test]
+    public function udp_batch_sends_small_entries_by_udp_and_oversized_ones_by_http(): void
+    {
+        $capturedPayload = null;
+        $request         = $this->createMock(Request::class);
+        $request->expects(self::once())->method('post')
+            ->willReturnCallback(function ($url, $headers, $payload) use (&$capturedPayload) {
+                $capturedPayload = json_decode($payload, true);
+                return $this->stubSuccess();
+            });
+        $sent   = [];
+        $client = $this->makeUdpClient($sent, request: $request, maxPacketSize: 512);
+
+        $response = $client->batch([
+            $client->makeEntry('small'),
+            $client->makeEntry(str_repeat('x', 1000)),
+        ], 'batch-2');
+
+        self::assertCount(1, $sent);
+        self::assertSame(202, $response->statusCode);
+        self::assertSame(1, $response->sent);
+        self::assertSame(1, $response->saved);
+        self::assertSame('batch-2', $capturedPayload['batch_id']);
+        self::assertCount(1, $capturedPayload['logs']);
+    }
+
+    #[Test]
+    public function udp_oversized_entry_is_an_error_without_fallback(): void
+    {
+        $request = $this->createMock(Request::class);
+        $request->expects(self::never())->method('post');
+        $sent = [];
+
+        $response = $this->makeUdpClient($sent, request: $request, maxPacketSize: 512, fallbackToHttp: false)
+            ->info(str_repeat('x', 1000));
+
+        self::assertSame([], $sent);
+        self::assertFalse($response->success);
+        self::assertSame(-1, $response->statusCode);
+        self::assertStringContainsString('over the 512-byte UDP limit', (string) $response->transportError);
+        self::assertCount(1, $response->errors);
+    }
+
+    #[Test]
+    public function udp_send_failure_is_reported(): void
+    {
+        $sent = [];
+
+        $response = $this->makeUdpClient($sent, sendError: 'network down')->info('Hello');
+
+        self::assertFalse($response->success);
+        self::assertSame(-1, $response->statusCode);
+        self::assertSame(0, $response->sent);
+        self::assertSame('Entry #0: network down', $response->transportError);
+    }
+
+    #[Test]
+    public function udp_default_sender_delivers_a_datagram_to_the_host_of_the_base_url(): void
+    {
+        $server = stream_socket_server('udp://127.0.0.1:0', $errno, $errstr, STREAM_SERVER_BIND);
+        self::assertNotFalse($server, $errstr);
+        $port = (int) substr((string) strrchr(stream_socket_get_name($server, false), ':'), 1);
+
+        $client = new LogStream(
+            baseUrl:   'http://127.0.0.1',
+            appKey:    'test-app',
+            appId:     'test',
+            apiSecret: 'my-secret',
+            request:   $this->createMock(Request::class),
+            transport: LogStream::TRANSPORT_UDP,
+            udpPort:   $port,
+        );
+
+        $response = $client->info('Over the wire');
+        stream_set_timeout($server, 2);
+        $packet = stream_socket_recvfrom($server, 65535);
+        fclose($server);
+
+        self::assertTrue($response->success);
+        self::assertSame('Over the wire', json_decode($packet, true)['log']['message']);
+        self::assertValidSignature($packet, 'my-secret');
+    }
 }

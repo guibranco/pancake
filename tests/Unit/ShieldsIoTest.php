@@ -30,6 +30,20 @@ final class ShieldsIoTest extends TestCase
         $this->assertEquals('https://img.shields.io/badge/content-color?style=style&labelColor=labelColor&logo=logo&cacheSeconds=3600', $badgeUrl);
     }
 
+    public function testCanGenerateBadgeUrlWithIntegerZeroContent(): void
+    {
+        $shieldsIo = new ShieldsIo();
+        $badgeUrl = $shieldsIo->generateBadgeUrl('published', 0, 'blue', 'for-the-badge', 'black', null);
+        $this->assertEquals('https://img.shields.io/badge/published-0-blue?style=for-the-badge&labelColor=black&cacheSeconds=3600', $badgeUrl);
+    }
+
+    public function testCanGenerateBadgeUrlWithStringZeroContent(): void
+    {
+        $shieldsIo = new ShieldsIo();
+        $badgeUrl = $shieldsIo->generateBadgeUrl('published', number_format(0), 'blue', 'for-the-badge', 'black', null);
+        $this->assertEquals('https://img.shields.io/badge/published-0-blue?style=for-the-badge&labelColor=black&cacheSeconds=3600', $badgeUrl);
+    }
+
     public function testCanGenerateBadgeUrlWithoutContent(): void
     {
         $shieldsIo = new ShieldsIo();
