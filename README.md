@@ -214,6 +214,13 @@ Contributions are welcome! Please read [CONTRIBUTING.md](CONTRIBUTING.md) before
                 </a>
             </td>
             <td align="center">
+                <a href="https://github.com/balbino05">
+                    <img src="https://avatars.githubusercontent.com/u/13968694?v=4" width="100;" alt="balbino05"/>
+                    <br />
+                    <sub><b>Ivan Cássio</b></sub>
+                </a>
+            </td>
+            <td align="center">
                 <a href="https://github.com/Humayun-23">
                     <img src="https://avatars.githubusercontent.com/u/70696397?v=4" width="100;" alt="Humayun-23"/>
                     <br />
