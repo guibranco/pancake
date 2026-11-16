@@ -1,0 +1,25 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "/upload",
+    "multipartPatterns": [
+      {
+        "matchingType": "ANY",
+        "headers": {
+          "Content-Disposition": {
+            "contains": "name=\"file\""
+          }
+        }
+      }
+    ]
+  },
+  "response": {
+    "status": 201,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "jsonBody": {
+      "uploaded": true
+    }
+  }
+}

@@ -23,6 +23,10 @@
       - [Delete with payload](#delete-with-payload)
     - [Options](#options)
     - [Head](#head)
+  - [Binary content (files)](#binary-content-files)
+    - [Detecting binary responses](#detecting-binary-responses)
+    - [Downloading files](#downloading-files)
+    - [Uploading files](#uploading-files)
   - [Batch requests](#batch-requests)
     - [Executing batch requests](#executing-batch-requests)
   - [Troubleshooting](#troubleshooting)
@@ -278,6 +282,80 @@ if ($response->statusCode >= 200 && $response->statusCode < 300) {
       echo $header;
     }
 }
+```
+
+## Binary content (files)
+
+The response body is always kept as the raw bytes returned by the server, so binary content (images, PDFs, archives, etc.) is never decoded or altered.
+
+### Detecting binary responses
+
+The `Response` class provides helpers to inspect the content of a response:
+
+- `getHeader(string $name)`: returns a header value (case-insensitive lookup), or `null` if it is not present.
+- `getContentType()`: returns the media type from the `Content-Type` header, lowercased and without parameters (e.g. `image/png`).
+- `isBinary()`: returns `true` when the body is binary. It relies on the `Content-Type` header (`text/*`, JSON and XML types are considered text) and, when the header is missing, checks whether the body is valid UTF-8.
+- `saveBodyToFile(string $path)`: writes the raw body to a file and returns the number of bytes written.
+
+```php
+$request = new Request();
+$response = $request->get("https://example.com/file.jpg");
+
+if ($response->isSuccessStatusCode() && $response->isBinary()) {
+    echo $response->getContentType(); // image/jpeg
+    $response->saveBodyToFile("file.jpg");
+}
+```
+
+When calling `toJson()` on a response with a binary body, the body is base64-encoded and a `bodyEncoding` property with the value `base64` is added to the JSON output. `toArray()` and `getBody()` always return the raw body.
+
+### Downloading files
+
+The `download` method streams the response directly to disk, so large files are not loaded into memory.
+
+```php
+$request = new Request();
+$response = $request->download("https://example.com/report.pdf", "/tmp/report.pdf");
+
+if ($response->isSuccessStatusCode()) {
+    echo $response->getHeader("Content-Disposition"); // attachment; filename="report.pdf"
+}
+```
+
+- The file is only written to the destination path when the server responds with a `2xx` status code. While downloading, the content is written to a temporary `<savePath>.part` file.
+- On success, the returned `Response` has an empty body (the content is on disk).
+- On a non-`2xx` status code, nothing is saved and the response body contains the server's response (e.g. an error message).
+- If the request fails, the status code is `-1` (see [Troubleshooting](#troubleshooting)).
+- A `RequestException` is thrown if the destination file cannot be written.
+
+### Uploading files
+
+The `upload` method sends a file as `multipart/form-data` using a `POST` request.
+
+```php
+$request = new Request();
+$response = $request->upload(
+    "https://example.com/upload",
+    "/path/to/file.jpg",
+    ["Authorization: Bearer token"],  // headers (optional)
+    ["description" => "My picture"],  // additional form fields (optional)
+    "file",                           // form field name for the file (optional, default "file")
+    "image/jpeg",                     // MIME type (optional, detected from the file when omitted)
+    "picture.jpg"                     // file name sent to the server (optional, defaults to the local file name)
+);
+
+echo $response->getStatusCode();
+```
+
+A `RequestException` is thrown if the file does not exist or is not readable.
+
+You can also send a `CURLFile` directly through the `post` method:
+
+```php
+$request = new Request();
+$response = $request->post("https://example.com/upload", [], [
+    "file" => new CURLFile("/path/to/file.jpg", "image/jpeg", "file.jpg"),
+]);
 ```
 
 ## Batch requests

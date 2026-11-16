@@ -1,0 +1,15 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "/download/missing.png"
+  },
+  "response": {
+    "status": 404,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "jsonBody": {
+      "error": "not found"
+    }
+  }
+}

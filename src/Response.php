@@ -16,6 +16,14 @@ class Response
     private const HTTP_OK = 200;
     private const HTTP_REDIRECT = 300;
     private const HTTP_BAD_REQUEST = 400;
+    private const TEXT_CONTENT_TYPES = [
+        'application/json',
+        'application/xml',
+        'application/javascript',
+        'application/x-www-form-urlencoded',
+        'application/ld+json',
+        'application/graphql',
+    ];
 
     /**
      * Constructor for Response objects.
@@ -186,6 +194,92 @@ class Response
     }
 
     /**
+     * Get a single header value by name (case-insensitive).
+     *
+     * @param string $name The header name (e.g. "Content-Type").
+     * @return string|null The header value, or null if the header is not present.
+     */
+    public function getHeader(string $name): ?string
+    {
+        if ($this->headers === null) {
+            return null;
+        }
+
+        foreach ($this->headers as $key => $value) {
+            if (strcasecmp((string) $key, $name) === 0) {
+                return $value;
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * Get the media type of the response, without parameters (e.g. "image/png").
+     *
+     * @return string|null The lowercased media type, or null if no Content-Type header is present.
+     */
+    public function getContentType(): ?string
+    {
+        $contentType = $this->getHeader('Content-Type');
+        if ($contentType === null) {
+            return null;
+        }
+
+        $mediaType = strtolower(trim(explode(';', $contentType)[0]));
+
+        return $mediaType === '' ? null : $mediaType;
+    }
+
+    /**
+     * Determines whether the response body holds binary (non-text) content.
+     *
+     * The Content-Type header is used when available; otherwise the body is
+     * considered binary when it is not valid UTF-8.
+     *
+     * @return bool True if the body is binary, false otherwise.
+     */
+    public function isBinary(): bool
+    {
+        if ($this->body === null || $this->body === '') {
+            return false;
+        }
+
+        $contentType = $this->getContentType();
+        if ($contentType === null) {
+            return !mb_check_encoding($this->body, 'UTF-8');
+        }
+
+        $isText = str_starts_with($contentType, 'text/')
+            || in_array($contentType, self::TEXT_CONTENT_TYPES, true)
+            || str_ends_with($contentType, '+json')
+            || str_ends_with($contentType, '+xml');
+
+        return !$isText;
+    }
+
+    /**
+     * Writes the raw response body to a file, preserving binary content.
+     *
+     * @param string $path The destination file path.
+     * @return int The number of bytes written.
+     * @throws RequestException If the response has no body or the file cannot be written.
+     */
+    public function saveBodyToFile(string $path): int
+    {
+        if ($this->body === null) {
+            throw new RequestException("Response has no body to save");
+        }
+
+        $bytes = @file_put_contents($path, $this->body);
+        if ($bytes === false) {
+            throw new RequestException("Unable to write response body to file: {$path}");
+        }
+
+        return $bytes;
+    }
+
+    /**
      * Ensures that the response has a successful status code.
      *
      * This method will check the status code of the response and
@@ -235,10 +329,18 @@ class Response
     /**
      * Converts the response to a JSON string.
      *
+     * Binary bodies are base64-encoded and flagged with "bodyEncoding": "base64".
+     *
      * @return string The JSON representation of the response.
      */
     public function toJson(): string
     {
-        return json_encode($this->toArray());
+        $data = $this->toArray();
+        if ($this->isBinary()) {
+            $data['body'] = base64_encode($this->body);
+            $data['bodyEncoding'] = 'base64';
+        }
+
+        return json_encode($data, JSON_INVALID_UTF8_SUBSTITUTE);
     }
 }
