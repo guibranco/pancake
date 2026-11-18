@@ -364,7 +364,7 @@ final class GitHubTest extends TestCase
     }
 
     // -------------------------------------------------------------------------
-    // Default endpoint (proxies such as guibranco-github-api-proxy, GHES)
+    // Default endpoint (proxies such as github-api-proxy, GHES)
     // -------------------------------------------------------------------------
 
     public function testDefaultEndpointIsGitHubDotCom(): void
