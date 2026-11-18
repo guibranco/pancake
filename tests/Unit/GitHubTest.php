@@ -46,6 +46,13 @@ final class GitHubTest extends TestCase
         );
     }
 
+    protected function tearDown(): void
+    {
+        GitHub::setDefaultEndpoint(null);
+        putenv(GitHub::ENDPOINT_ENVIRONMENT_VARIABLE);
+        parent::tearDown();
+    }
+
     // -------------------------------------------------------------------------
     // Instantiation
     // -------------------------------------------------------------------------
@@ -354,5 +361,79 @@ final class GitHubTest extends TestCase
     {
         $client = $this->clientWithFakeEndpoint();
         $this->assertNull($client->listReleases('owner', 'repo', ['per_page' => 5]));
+    }
+
+    // -------------------------------------------------------------------------
+    // Default endpoint (proxies such as guibranco-github-api-proxy, GHES)
+    // -------------------------------------------------------------------------
+
+    public function testDefaultEndpointIsGitHubDotCom(): void
+    {
+        putenv(GitHub::ENDPOINT_ENVIRONMENT_VARIABLE);
+        $this->assertSame('https://api.github.com/', GitHub::getDefaultEndpoint());
+        $this->assertSame('https://api.github.com/', (new GitHub())->getEndpoint());
+    }
+
+    public function testEnvironmentVariableSetsTheDefaultEndpoint(): void
+    {
+        putenv(GitHub::ENDPOINT_ENVIRONMENT_VARIABLE . '=https://proxy.example.com/');
+        $this->assertSame('https://proxy.example.com/', (new GitHub('ghp_token'))->getEndpoint());
+    }
+
+    public function testInvalidEnvironmentVariableIsIgnored(): void
+    {
+        putenv(GitHub::ENDPOINT_ENVIRONMENT_VARIABLE . '=not a url');
+        $this->assertSame('https://api.github.com/', (new GitHub())->getEndpoint());
+    }
+
+    public function testSetDefaultEndpointWinsOverEnvironmentVariable(): void
+    {
+        putenv(GitHub::ENDPOINT_ENVIRONMENT_VARIABLE . '=https://from-env.example.com/');
+        GitHub::setDefaultEndpoint('https://github-proxy.example.com/');
+        $this->assertSame('https://github-proxy.example.com/', (new GitHub())->getEndpoint());
+    }
+
+    public function testCustomEndpointWinsOverDefault(): void
+    {
+        GitHub::setDefaultEndpoint('https://github-proxy.example.com/');
+        $client = new GitHub(null, null, null, false, [], 'https://ghes.example.com/api/v3/');
+        $this->assertSame('https://ghes.example.com/api/v3/', $client->getEndpoint());
+    }
+
+    public function testSetDefaultEndpointNullRestoresFallback(): void
+    {
+        GitHub::setDefaultEndpoint('https://github-proxy.example.com/');
+        GitHub::setDefaultEndpoint(null);
+        $this->assertSame('https://api.github.com/', GitHub::getDefaultEndpoint());
+    }
+
+    public function testSetDefaultEndpointRejectsNonHttpUrls(): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        GitHub::setDefaultEndpoint('ftp://example.com/');
+    }
+
+    public function testRequestsUseTheDefaultEndpoint(): void
+    {
+        $logData = new \stdClass();
+        $logData->url = null;
+
+        $logger = new class ($logData) implements ILogger {
+            private \stdClass $data;
+            public function __construct(\stdClass $data)
+            {
+                $this->data = $data;
+            }
+            public function log(string $message, object $details): bool
+            {
+                $this->data->url = $details->url ?? null;
+                return true;
+            }
+        };
+
+        GitHub::setDefaultEndpoint('https://nonexistent.example.invalid/');
+        $client = new GitHub('ghp_token', null, $logger);
+        $this->assertNull($client->getRepository('guibranco', 'pancake'));
+        $this->assertSame('https://nonexistent.example.invalid/repos/guibranco/pancake', $logData->url);
     }
 }

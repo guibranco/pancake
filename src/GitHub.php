@@ -60,6 +60,13 @@ use GuiBranco\Pancake\Response;
  * }
  * ```
  *
+ * @example Route every client through a proxy (e.g. guibranco-github-api-proxy)
+ * ```php
+ * // Once at bootstrap — or set the GITHUB_API_URL environment variable instead.
+ * GitHub::setDefaultEndpoint('https://github-proxy.example.com/');
+ * $client = new GitHub('ghp_token'); // calls https://github-proxy.example.com/...
+ * ```
+ *
  * @example Ignore 404 responses
  * ```php
  * $client = new GitHub('ghp_token', null, null, false, [404]);
@@ -85,6 +92,19 @@ class GitHub
      * Pinned API version header to ensure stable behaviour.
      */
     private const API_VERSION_HEADER = 'X-GitHub-Api-Version: 2022-11-28';
+
+    /**
+     * Environment variable read for the default base URL when no process-wide
+     * default was set. GitHub Actions and GHES tooling use the same name.
+     */
+    public const ENDPOINT_ENVIRONMENT_VARIABLE = 'GITHUB_API_URL';
+
+    /**
+     * Process-wide default base URL set with {@see setDefaultEndpoint()}.
+     *
+     * @var string|null
+     */
+    private static $defaultEndpoint = null;
 
     /**
      * HTTP client used for all requests.
@@ -150,7 +170,10 @@ class GitHub
      * @param ILogger|null             $logger             Optional logger; receives error details on failed requests.
      * @param bool                     $throwOnError       When `true`, non-2xx responses throw a {@see RequestException}.
      * @param array                    $ignoredStatusCodes HTTP/cURL status codes to swallow silently (no log, no throw).
-     * @param string|null              $customEndpoint     Override the default GitHub API base URL (useful for GHES).
+     * @param string|null              $customEndpoint     Override the base URL for this client (GHES, or a proxy such as
+     *                                                     guibranco-github-api-proxy). When `null`, the default from
+     *                                                     {@see setDefaultEndpoint()}, then the `GITHUB_API_URL` environment
+     *                                                     variable, then `https://api.github.com/` is used.
      * @param string|null              $customUserAgent    Override the default Pancake user-agent string.
      */
     public function __construct(
@@ -168,7 +191,9 @@ class GitHub
         $this->throwOnError = $throwOnError;
         // Normalize ignored status codes to integers so strict in_array checks behave as expected.
         $this->ignoredStatusCodes = array_map('intval', (array) $ignoredStatusCodes);
-        $this->endpoint = $customEndpoint ?? self::BASE_URL;
+        $this->endpoint = ($customEndpoint !== null && trim($customEndpoint) !== '')
+            ? trim($customEndpoint)
+            : self::getDefaultEndpoint();
         $this->request = new Request();
 
         $this->baseHeaders = [
@@ -177,6 +202,89 @@ class GitHub
             self::API_VERSION_HEADER,
             Constants::CONTENT_TYPE_JSON_HEADER,
         ];
+    }
+
+    // -------------------------------------------------------------------------
+    // Endpoint configuration
+    // -------------------------------------------------------------------------
+
+    /**
+     * Sets the base URL used by every client created afterwards without an
+     * explicit `$customEndpoint` — e.g. to route all GitHub calls of an
+     * application through a proxy with a single line at bootstrap.
+     *
+     * Pass `null` to clear it (the `GITHUB_API_URL` environment variable, then
+     * `https://api.github.com/`, apply again). Clients already created keep
+     * the endpoint they were built with.
+     *
+     * @param string|null $endpoint Absolute http(s) base URL, or `null` to reset.
+     * @return void
+     * @throws \InvalidArgumentException When the value is not an absolute http(s) URL.
+     */
+    public static function setDefaultEndpoint($endpoint)
+    {
+        if ($endpoint === null || trim($endpoint) === '') {
+            self::$defaultEndpoint = null;
+            return;
+        }
+
+        $endpoint = trim($endpoint);
+        if (!self::isHttpUrl($endpoint)) {
+            throw new \InvalidArgumentException(
+                sprintf('GitHub endpoint must be an absolute http(s) URL, got "%s".', $endpoint)
+            );
+        }
+
+        self::$defaultEndpoint = $endpoint;
+    }
+
+    /**
+     * Returns the base URL a client gets when no `$customEndpoint` is passed:
+     * the value of {@see setDefaultEndpoint()}, else the `GITHUB_API_URL`
+     * environment variable (when it is an absolute http(s) URL), else
+     * `https://api.github.com/`.
+     *
+     * @return string
+     */
+    public static function getDefaultEndpoint()
+    {
+        if (self::$defaultEndpoint !== null) {
+            return self::$defaultEndpoint;
+        }
+
+        $fromEnvironment = getenv(self::ENDPOINT_ENVIRONMENT_VARIABLE);
+        if (is_string($fromEnvironment) && self::isHttpUrl(trim($fromEnvironment))) {
+            return trim($fromEnvironment);
+        }
+
+        return self::BASE_URL;
+    }
+
+    /**
+     * Returns the base URL this client sends requests to.
+     *
+     * @return string
+     */
+    public function getEndpoint()
+    {
+        return $this->endpoint;
+    }
+
+    /**
+     * Whether a value is an absolute http(s) URL with a host.
+     *
+     * @param string $value Candidate URL.
+     * @return bool
+     */
+    private static function isHttpUrl($value)
+    {
+        $scheme = parse_url($value, PHP_URL_SCHEME);
+        $host = parse_url($value, PHP_URL_HOST);
+
+        return is_string($scheme)
+            && in_array(strtolower($scheme), ['http', 'https'], true)
+            && is_string($host)
+            && $host !== '';
     }
 
     // -------------------------------------------------------------------------

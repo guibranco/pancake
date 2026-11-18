@@ -11,6 +11,7 @@
     - [User token](#user-token)
     - [GitHub App installation token](#github-app-installation-token)
     - [Both credentials at once](#both-credentials-at-once)
+  - [Custom endpoint and proxies](#custom-endpoint-and-proxies)
   - [Error handling](#error-handling)
     - [Silent mode (default)](#silent-mode-default)
     - [Throw mode](#throw-mode)
@@ -93,6 +94,36 @@ is present.
 $creds  = new GitHubAppCredentials(123456, 'ghs_installationToken');
 $client = new GitHub('ghp_userToken', $creds);
 ```
+
+## Custom endpoint and proxies
+
+Every request goes to a base URL resolved when the client is created, in this order:
+
+1. the `$customEndpoint` constructor argument (sixth parameter);
+2. the process-wide default set with `GitHub::setDefaultEndpoint()`;
+3. the `GITHUB_API_URL` environment variable, when it holds an absolute http(s) URL;
+4. `https://api.github.com/`.
+
+To send all of an application's GitHub calls through a proxy such as
+[guibranco-github-api-proxy](https://github.com/guibranco/guibranco-github-api-proxy),
+set the default once at bootstrap (or set `GITHUB_API_URL` in the environment) —
+no `new GitHub(...)` call needs to change:
+
+```php
+use GuiBranco\Pancake\GitHub;
+
+GitHub::setDefaultEndpoint('https://github-proxy.example.com/');
+
+$client = new GitHub('ghp_yourPersonalAccessToken');
+$client->getRepository('guibranco', 'pancake'); // → https://github-proxy.example.com/repos/guibranco/pancake
+
+echo $client->getEndpoint();        // https://github-proxy.example.com/
+GitHub::setDefaultEndpoint(null);   // back to GITHUB_API_URL / api.github.com
+```
+
+A proxy only changes where requests go: tokens, headers, bodies, status codes
+and pagination work exactly as against `api.github.com`. For GitHub Enterprise
+Server pass its API root, e.g. `https://ghes.example.com/api/v3/`.
 
 ## Error handling
 
