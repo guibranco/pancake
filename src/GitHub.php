@@ -60,7 +60,7 @@ use GuiBranco\Pancake\Response;
  * }
  * ```
  *
- * @example Route every client through a proxy (e.g. guibranco-github-api-proxy)
+ * @example Route every client through a proxy (e.g. github-api-proxy)
  * ```php
  * // Once at bootstrap — or set the GITHUB_API_URL environment variable instead.
  * GitHub::setDefaultEndpoint('https://github-proxy.example.com/');
@@ -171,7 +171,7 @@ class GitHub
      * @param bool                     $throwOnError       When `true`, non-2xx responses throw a {@see RequestException}.
      * @param array                    $ignoredStatusCodes HTTP/cURL status codes to swallow silently (no log, no throw).
      * @param string|null              $customEndpoint     Override the base URL for this client (GHES, or a proxy such as
-     *                                                     guibranco-github-api-proxy). When `null`, the default from
+     *                                                     github-api-proxy). When `null`, the default from
      *                                                     {@see setDefaultEndpoint()}, then the `GITHUB_API_URL` environment
      *                                                     variable, then `https://api.github.com/` is used.
      * @param string|null              $customUserAgent    Override the default Pancake user-agent string.

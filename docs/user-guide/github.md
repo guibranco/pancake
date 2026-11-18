@@ -105,7 +105,7 @@ Every request goes to a base URL resolved when the client is created, in this or
 4. `https://api.github.com/`.
 
 To send all of an application's GitHub calls through a proxy such as
-[guibranco-github-api-proxy](https://github.com/guibranco/guibranco-github-api-proxy),
+[github-api-proxy](https://github.com/guibranco/github-api-proxy),
 set the default once at bootstrap (or set `GITHUB_API_URL` in the environment) —
 no `new GitHub(...)` call needs to change:
 
