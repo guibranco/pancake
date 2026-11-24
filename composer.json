@@ -26,5 +26,8 @@
     "require": {
         "psr/container": "^1.1 || ^2.0",
         "php-amqplib/php-amqplib": "^3.7"
+    },
+    "suggest": {
+        "ext-apcu": "Share the Grimoire configuration snapshot between PHP-FPM workers (sentinel refresh)"
     }
 }
