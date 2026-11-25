@@ -24,12 +24,24 @@ namespace GuiBranco\Pancake;
  * // Or load everything into getenv()/$_ENV at bootstrap:
  * $grimoire->loadIntoEnvironment(['database-password', 'smtp-password']);
  * ```
+ *
+ * With `refreshInterval`, configuration follows Grimoire's **sentinel keys** instead of a fixed
+ * TTL (guibranco/grimoire-api#95): the values are kept in a snapshot shared by all requests
+ * (APCu when available, otherwise files), and at most once per interval one worker checks
+ * `Sentinel` and `Global:Sentinel` with a conditional request. Only when one of them changed
+ * (Grimoire published changes) is the configuration fetched again.
  */
 final class Grimoire
 {
     private const ENDPOINT_SECRETS        = '/consumer/secrets/';
     private const ENDPOINT_CONFIGURATIONS = '/consumer/configurations';
     private const ENDPOINT_HEALTH         = '/health';
+
+    /** Keys watched by default in sentinel refresh mode. */
+    public const SENTINEL_KEYS = ['Sentinel', 'Global:Sentinel'];
+
+    /** Longest wait between checks while Grimoire is failing, in seconds. */
+    private const MAX_BACKOFF = 300;
 
     private readonly Request $request;
 
@@ -41,6 +53,17 @@ final class Grimoire
     /** @var array{expires: int, value: array<string, string>}|null */
     private ?array $configurationCache = null;
 
+    /** @var array<string, mixed>|null this process's copy of the shared snapshot */
+    private ?array $snapshot = null;
+
+    private ?GrimoireSnapshotStore $snapshotStore;
+
+    /** @var string[] */
+    private readonly array $sentinelKeys;
+
+    /** Shared-cache key: one snapshot per Grimoire URL, API key and environment. */
+    private readonly string $cacheKey;
+
     /**
      * @param string        $baseUrl     Grimoire API base URL (e.g. https://api.grimoire.example.com)
      * @param string        $apiKey      Application API key (sent as X-Api-Key)
@@ -51,6 +74,14 @@ final class Grimoire
      * @param \Closure|null $clock       Returns the current Unix time; injectable for tests
      * @param int           $timeout     Total timeout of each request, in seconds, when the client
      *                                   creates its own Request (an injected Request keeps its own)
+     * @param int           $refreshInterval Seconds between sentinel checks; 0 (default) keeps the
+     *                                   plain per-instance TTL cache. When set, configuration is
+     *                                   cached in $snapshotStore and refetched only after Grimoire
+     *                                   publishes changes, and $cacheTtl applies to secrets only
+     * @param GrimoireSnapshotStore|null $snapshotStore Where the configuration snapshot is shared;
+     *                                   null picks APCu when available, otherwise a file store in
+     *                                   the system temp directory
+     * @param string[]      $sentinelKeys Keys whose change triggers a reload
      */
     public function __construct(
         string $baseUrl,
@@ -61,6 +92,9 @@ final class Grimoire
         private readonly string $userAgent = Constants::USER_AGENT_VENDOR,
         ?\Closure $clock = null,
         int $timeout = 30,
+        private readonly int $refreshInterval = 0,
+        ?GrimoireSnapshotStore $snapshotStore = null,
+        array $sentinelKeys = self::SENTINEL_KEYS,
     ) {
         if (trim($baseUrl) === '') {
             throw new \InvalidArgumentException('Grimoire base URL must not be empty.');
@@ -77,14 +111,23 @@ final class Grimoire
         if ($timeout < 1) {
             throw new \InvalidArgumentException('Timeout must be at least one second.');
         }
+        if ($refreshInterval < 0) {
+            throw new \InvalidArgumentException('Refresh interval must be zero or positive.');
+        }
+        if ($refreshInterval > 0 && $sentinelKeys === []) {
+            throw new \InvalidArgumentException('Sentinel refresh needs at least one sentinel key.');
+        }
 
         if ($request === null) {
             $request = new Request(rtrim($baseUrl, '/'));
             $request->setTimeout($timeout);
         }
 
-        $this->request = $request;
-        $this->clock   = $clock ?? static fn (): int => time();
+        $this->request       = $request;
+        $this->clock         = $clock ?? static fn (): int => time();
+        $this->snapshotStore = $snapshotStore;
+        $this->sentinelKeys  = array_values($sentinelKeys);
+        $this->cacheKey      = 'pancake:grimoire:' . hash('sha256', rtrim($baseUrl, '/') . "\n{$apiKey}\n{$environment}");
     }
 
     public function getEnvironment(): string
@@ -173,10 +216,29 @@ final class Grimoire
      */
     public function getConfigurations(): array
     {
+        if ($this->refreshInterval > 0) {
+            return $this->sentinelConfigurations();
+        }
+
         if ($this->configurationCache !== null && $this->configurationCache['expires'] > $this->now()) {
             return $this->configurationCache['value'];
         }
 
+        $configurations = $this->fetchConfigurations();
+
+        if ($this->cacheTtl > 0) {
+            $this->configurationCache = ['expires' => $this->now() + $this->cacheTtl, 'value' => $configurations];
+        }
+
+        return $configurations;
+    }
+
+    /**
+     * @return array<string, string>
+     * @throws GrimoireException
+     */
+    private function fetchConfigurations(): array
+    {
         $response = $this->request->get(
             self::ENDPOINT_CONFIGURATIONS . '?environment=' . rawurlencode($this->environment),
             $this->headers(),
@@ -200,11 +262,220 @@ final class Grimoire
             }
         }
 
-        if ($this->cacheTtl > 0) {
-            $this->configurationCache = ['expires' => $this->now() + $this->cacheTtl, 'value' => $configurations];
+        return $configurations;
+    }
+
+    // ──────────────────────────────────────────────────────────────────────────
+    // Sentinel refresh (guibranco/grimoire-api#95)
+    // ──────────────────────────────────────────────────────────────────────────
+
+    /**
+     * Check the sentinel keys now, whatever the interval, and reload configuration when one of
+     * them changed. Returns true when configuration was reloaded. Does nothing (false) unless
+     * `refreshInterval` is set.
+     *
+     * @throws GrimoireException when Grimoire can't be reached and there is no snapshot yet
+     */
+    public function refresh(): bool
+    {
+        if ($this->refreshInterval <= 0) {
+            return false;
+        }
+        $snapshot = $this->currentSnapshot();
+        if ($snapshot === null) {
+            $this->saveSnapshot($this->loadSnapshot());
+
+            return true;
+        }
+        $updated = $this->refreshSnapshot($snapshot, throwOnFailure: true);
+
+        return $updated['reloadedAt'] !== $snapshot['reloadedAt'];
+    }
+
+    /** @return array<string, string> */
+    private function sentinelConfigurations(): array
+    {
+        $snapshot = $this->currentSnapshot();
+        if ($snapshot === null) {
+            $snapshot = $this->loadSnapshot();
+            $this->saveSnapshot($snapshot);
+
+            return $snapshot['configurations'];
         }
 
-        return $configurations;
+        if ($this->now() < $snapshot['nextCheckAt']) {
+            return $snapshot['configurations'];
+        }
+
+        // One worker checks; the others keep serving the snapshot they have.
+        $store = $this->store();
+        if (!$store->lock($this->cacheKey, max(5, $this->refreshInterval))) {
+            return $snapshot['configurations'];
+        }
+        try {
+            return $this->refreshSnapshot($snapshot)['configurations'];
+        } finally {
+            $store->unlock($this->cacheKey);
+        }
+    }
+
+    /** @return array<string, mixed>|null */
+    private function currentSnapshot(): ?array
+    {
+        $shared = $this->store()->get($this->cacheKey);
+        if (self::isSnapshot($shared)) {
+            // A newer snapshot from another worker may mean newly published values.
+            if ($this->snapshot !== null && $shared['reloadedAt'] !== $this->snapshot['reloadedAt']) {
+                $this->secretCache = [];
+            }
+            $this->snapshot = $shared;
+        }
+
+        return $this->snapshot;
+    }
+
+    /**
+     * Fetch everything and record the current sentinel values (recording never counts as a change).
+     *
+     * @return array<string, mixed>
+     * @throws GrimoireException
+     */
+    private function loadSnapshot(): array
+    {
+        $configurations = $this->fetchConfigurations();
+        try {
+            [, $sentinels] = $this->checkSentinels([]);
+        } catch (GrimoireException) {
+            $sentinels = []; // Read on the next check instead.
+        }
+
+        return $this->newSnapshot($configurations, $sentinels);
+    }
+
+    /**
+     * @param array<string, mixed> $snapshot
+     * @return array<string, mixed>
+     */
+    private function refreshSnapshot(array $snapshot, bool $throwOnFailure = false): array
+    {
+        try {
+            [$changed, $sentinels] = $this->checkSentinels($snapshot['sentinels']);
+            if ($changed) {
+                $updated = $this->newSnapshot($this->fetchConfigurations(), $sentinels);
+                $this->secretCache = [];
+            } else {
+                $updated = ['sentinels' => $sentinels, 'failures' => 0, 'nextCheckAt' => $this->nextCheckAt(0)] + $snapshot;
+            }
+        } catch (GrimoireException $e) {
+            // Keep the last good values and back off.
+            $failures = (int) $snapshot['failures'] + 1;
+            $updated  = ['failures' => $failures, 'nextCheckAt' => $this->nextCheckAt($failures)] + $snapshot;
+            $this->saveSnapshot($updated);
+            if ($throwOnFailure) {
+                throw $e;
+            }
+
+            return $updated;
+        }
+
+        $this->saveSnapshot($updated);
+
+        return $updated;
+    }
+
+    /**
+     * Conditional reads of the sentinel keys. A key changed when its value differs, or it
+     * appeared or disappeared, compared with a previously recorded state.
+     *
+     * @param array<string, array{exists: bool, value: ?string, etag: ?string}> $previous
+     * @return array{0: bool, 1: array<string, array{exists: bool, value: ?string, etag: ?string}>}
+     * @throws GrimoireException
+     */
+    private function checkSentinels(array $previous): array
+    {
+        $changed = false;
+        $current = [];
+        foreach ($this->sentinelKeys as $key) {
+            $before  = $previous[$key] ?? null;
+            $headers = $this->headers();
+            if ($before !== null && $before['etag'] !== null) {
+                $headers[] = "If-None-Match: {$before['etag']}";
+            }
+
+            $response = $this->request->get(
+                self::ENDPOINT_CONFIGURATIONS . '/' . rawurlencode($key) . '?environment=' . rawurlencode($this->environment),
+                $headers,
+            );
+            $status = $response->getStatusCode();
+
+            if ($status === 304 && $before !== null && $response->isSuccess()) {
+                $current[$key] = $before;
+                continue;
+            }
+            if ($status === 404 && $response->isSuccess()) {
+                $current[$key] = ['exists' => false, 'value' => null, 'etag' => null];
+                $changed       = $changed || ($before !== null && $before['exists']);
+                continue;
+            }
+
+            $item          = $this->decode($response, "sentinel '{$key}'");
+            $value         = isset($item['value']) ? (string) $item['value'] : null;
+            $current[$key] = ['exists' => true, 'value' => $value, 'etag' => $response->getHeader('ETag')];
+            $changed       = $changed || ($before !== null && (!$before['exists'] || $before['value'] !== $value));
+        }
+
+        return [$changed, $current];
+    }
+
+    /**
+     * @param array<string, string> $configurations
+     * @param array<string, array{exists: bool, value: ?string, etag: ?string}> $sentinels
+     * @return array<string, mixed>
+     */
+    private function newSnapshot(array $configurations, array $sentinels): array
+    {
+        return [
+            'configurations' => $configurations,
+            'sentinels'      => $sentinels,
+            'reloadedAt'     => $this->now() . '.' . bin2hex(random_bytes(4)),
+            'failures'       => 0,
+            'nextCheckAt'    => $this->nextCheckAt(0),
+        ];
+    }
+
+    /** Interval plus 0-20 % jitter, or exponential backoff after failures (at most 5 minutes). */
+    private function nextCheckAt(int $failures): int
+    {
+        if ($failures > 0) {
+            return $this->now() + min(self::MAX_BACKOFF, $this->refreshInterval * (2 ** min($failures, 16)));
+        }
+
+        return $this->now() + $this->refreshInterval + random_int(0, intdiv($this->refreshInterval, 5));
+    }
+
+    /** @param array<string, mixed> $snapshot */
+    private function saveSnapshot(array $snapshot): void
+    {
+        $this->snapshot = $snapshot;
+        $this->store()->set($this->cacheKey, $snapshot);
+    }
+
+    /** @phpstan-assert-if-true array<string, mixed> $snapshot */
+    private static function isSnapshot(mixed $snapshot): bool
+    {
+        return is_array($snapshot)
+            && is_array($snapshot['configurations'] ?? null)
+            && is_array($snapshot['sentinels'] ?? null)
+            && is_string($snapshot['reloadedAt'] ?? null)
+            && is_int($snapshot['nextCheckAt'] ?? null)
+            && is_int($snapshot['failures'] ?? null);
+    }
+
+    private function store(): GrimoireSnapshotStore
+    {
+        return $this->snapshotStore ??= GrimoireApcuSnapshotStore::isAvailable()
+            ? new GrimoireApcuSnapshotStore()
+            : new GrimoireFileSnapshotStore();
     }
 
     /**
@@ -350,6 +621,10 @@ final class Grimoire
     {
         $this->secretCache        = [];
         $this->configurationCache = null;
+        if ($this->snapshot !== null || $this->snapshotStore !== null) {
+            $this->snapshot = null;
+            $this->store()->delete($this->cacheKey);
+        }
     }
 
     /** True when the variable exists in the process environment, $_ENV or $_SERVER. */
