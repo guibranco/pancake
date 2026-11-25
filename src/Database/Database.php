@@ -26,6 +26,22 @@ class Database implements IDatabase
     private const NO_ACTIVE_CONNECTION = 'No active connection to the database';
 
     /**
+     * Resolves a MySQL PDO attribute, preferring Pdo\Mysql (PHP 8.4+)
+     * over the PDO::MYSQL_ATTR_* constants deprecated in PHP 8.5.
+     *
+     * @param string $new    Constant name on Pdo\Mysql.
+     * @param string $legacy Constant name on PDO.
+     *
+     * @return int The attribute value.
+     */
+    private static function mysqlAttr(string $new, string $legacy): int
+    {
+        return class_exists(\Pdo\Mysql::class)
+            ? constant(\Pdo\Mysql::class . '::' . $new)
+            : constant(PDO::class . '::' . $legacy);
+    }
+
+    /**
      * Database constructor.
      * Initializes a connection to the MySQL database with provided credentials.
      *
@@ -61,8 +77,9 @@ class Database implements IDatabase
         );
         $pdoOptions = self::PDO_OPTIONS + [
             PDO::ATTR_TIMEOUT => $options->timeout,
-            PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES {$options->charset} COLLATE {$options->collation}",
-            PDO::MYSQL_ATTR_USE_BUFFERED_QUERY => true,
+            self::mysqlAttr('ATTR_INIT_COMMAND', 'MYSQL_ATTR_INIT_COMMAND')
+                => "SET NAMES {$options->charset} COLLATE {$options->collation}",
+            self::mysqlAttr('ATTR_USE_BUFFERED_QUERY', 'MYSQL_ATTR_USE_BUFFERED_QUERY') => true,
         ];
 
         $this->autoCommit = $options->autoCommit;
