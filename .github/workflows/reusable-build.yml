@@ -30,14 +30,14 @@ jobs:
 
             - name: Install GitVersion
               if: inputs.versioning
-              uses: gittools/actions/gitversion/setup@v4
+              uses: gittools/actions/gitversion/setup@v5
               with:
                   versionSpec: '6.x'
 
             - name: Determine Version
               id: gitversion
               if: inputs.versioning
-              uses: gittools/actions/gitversion/execute@v4
+              uses: gittools/actions/gitversion/execute@v5
 
             - name: Cache Composer dependencies
               uses: actions/cache@v6
